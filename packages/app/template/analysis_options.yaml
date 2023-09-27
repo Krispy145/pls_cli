@@ -1,0 +1,11 @@
+include: package:arch_lints/arch_lints.yaml
+
+analyzer:
+  exclude:
+    - lib/core/utils/app_icons_icons.dart
+    - api/lib/src/generated/**/*
+
+dart_code_metrics:
+  rules-exclude:
+    - lib/core/utils/app_icons_icons.dart
+    - api/**/*

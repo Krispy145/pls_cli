@@ -1,0 +1,173 @@
+{
+  "name": "arch-flutter",
+  "displayName": "arch_flutter",
+  "description": "vscode extension to streamline dev",
+  "version": "0.7.0",
+  "repository": "https://gitlab.wearearch.com/all/arch_flutter_cli",
+  "private": true,
+  "engines": {
+    "vscode": "^1.66.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:arch-flutter.new-feature",
+    "onCommand:arch-flutter.add-component",
+    "onCommand:arch-flutter.add-og-page",
+    "onCommand:arch-flutter.add-page",
+    "onCommand:arch-flutter.add-model",
+    "onCommand:arch-flutter.add-bloc",
+    "onCommand:arch-flutter.add-cubit",
+    "onCommand:arch-flutter.add-file",
+    "onCommand:arch-flutter.add-event",
+    "onCommand:arch-flutter.add-input"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "submenus": [
+      {
+        "label": "Flutter New",
+        "id": "arch-flutter.submenu"
+      }
+    ],
+    "commands": [
+      {
+        "command": "arch-flutter.new-feature",
+        "title": "Flutter: Feature",
+        "shortTitle": "New Feature"
+      },
+      {
+        "command": "arch-flutter.add-input",
+        "title": "Bloc: Input",
+        "shortTitle": "Input"
+      },
+      {
+        "command": "arch-flutter.add-event",
+        "title": "Bloc: Event",
+        "shortTitle": "Event"
+      },
+      {
+        "command": "arch-flutter.add-component",
+        "title": "Flutter: Component",
+        "shortTitle": "New Component"
+      },
+      {
+        "command": "arch-flutter.add-model",
+        "shortTitle": "New Model",
+        "title": "Flutter: Model"
+      },
+      {
+        "command": "arch-flutter.add-bloc",
+        "shortTitle": "New Bloc",
+        "title": "Flutter: Bloc"
+      },
+      {
+        "command": "arch-flutter.add-file",
+        "shortTitle": "New File",
+        "title": "Flutter: File"
+      },
+      {
+        "command": "arch-flutter.add-cubit",
+        "shortTitle": "New Cubit",
+        "title": "Flutter: Cubit"
+      },
+      {
+        "command": "arch-flutter.add-page",
+        "shortTitle": "New Page",
+        "title": "Flutter: Page"
+      },
+      {
+        "command": "arch-flutter.add-og-page",
+        "shortTitle": "Old Page (Nav 1.0)",
+        "title": "Flutter: Old Page"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "group": "01_flutter",
+          "submenu": "arch-flutter.submenu",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "group": "01_flutter",
+          "command": "arch-flutter.add-event",
+          "when": "!explorerResourceIsFolder && resourceFilename =~ /bloc|cubit/"
+        },
+        {
+          "group": "01_flutter",
+          "command": "arch-flutter.add-input",
+          "when": "!explorerResourceIsFolder && resourceFilename =~ /bloc|cubit/"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "arch-flutter.add-event",
+          "when": "false"
+        }
+      ],
+      "arch-flutter.submenu": [
+        {
+          "command": "arch-flutter.new-feature",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+        },
+        {
+          "command": "arch-flutter.add-file",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "arch-flutter.add-og-page",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+        },
+        {
+          "command": "arch-flutter.add-page",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+        },
+        {
+          "command": "arch-flutter.add-component",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+        },
+        {
+          "command": "arch-flutter.add-model",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+        },
+        {
+          "command": "arch-flutter.add-cubit",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+        },
+        {
+          "command": "arch-flutter.add-bloc",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "build": "vsce package -o arch-flutter.vsix",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "vsce": "^2.11.0",
+    "@types/glob": "^7.2.0",
+    "@types/lodash": "^4.14.182",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.66.0",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "@vscode/test-electron": "^2.1.3",
+    "eslint": "^8.14.0",
+    "glob": "^8.0.1",
+    "mocha": "^9.2.2",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

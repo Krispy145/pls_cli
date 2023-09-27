@@ -1,0 +1,5 @@
+.idea/
+.dart_tool/
+**/.mason/
+test_app
+

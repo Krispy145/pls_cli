@@ -1,0 +1,56 @@
+name: render_cli
+version: 2.2.0
+
+environment:
+  sdk: ">=2.12.0 <4.0.0"
+
+executables:
+  render: main
+  rn: main
+
+scripts:
+  dev:test: flutter pub global activate -spath . --overwrite
+  get:
+    - command: flutter pub get
+    - command: flutter pub get
+      cwd: packages/app/template
+    - command: flutter pub get
+      cwd: packages/app_brick_generator
+  build:vscode: "cd extensions/vscode && vsce package patch -o releases/arch-flutter.vsix"
+  # Useful for bundling all the add bricks eg `BRICK=bloc rn run bundle`
+  bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
+  bundle:app: BRICK=app rn run bundle
+  bundle:assets: BRICK=assets rn run bundle
+  bundle:bloc: BRICK=bloc rn run bundle
+  bundle:bloc_form: BRICK=bloc_form rn run bundle
+  bundle:component: BRICK=component rn run bundle
+  bundle:cubit: BRICK=cubit rn run bundle
+  bundle:cubit_form: BRICK=cubit_form rn run bundle
+  bundle:feature: BRICK=feature rn run bundle
+  bundle:font_family: BRICK=font_family rn run bundle
+  bundle:a_page: BRICK=auto_router_page rn run bundle
+  gen:app_brick:
+    - command: flutter clean
+      cwd: packages/app/template
+    - command: dart packages/app_brick_generator/main.dart
+
+dependencies:
+  mason: ^0.1.0-dev.47
+  analyzer: ^6.2.0
+  args: ^2.3.1
+  recase: ^4.0.0
+  yaml: ^3.1.1
+  yaml_edit: ^2.0.3
+  io: ^1.0.3
+  process_run: ^0.13.1
+  path: ^1.8.2
+  collection: ^1.16.0
+  interact: ^2.1.1
+  cli_util: ^0.4.0
+  ansi_styles: ^0.3.2+1
+  cli_completion: ^0.3.0
+  meta: ^1.9.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.1
+  test: ^1.21.4

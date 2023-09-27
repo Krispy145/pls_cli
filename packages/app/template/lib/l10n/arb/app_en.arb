@@ -1,0 +1,14 @@
+{
+  "homeTitle": "Home Page",
+  "@homeTitle": {
+    "description": "Title for Home Page"
+  },
+
+  "labelEmail": "Email",
+  "labelPassword": "Password",
+
+  "actionLogin": "Login",
+  "actionForgottenPasswordLink": "Forgotten password?",
+
+  "loginTitle": "Login"
+}

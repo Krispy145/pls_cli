@@ -1,0 +1,74 @@
+import 'dart:io';
+import 'package:path/path.dart' as path;
+
+import 'package:render_cli/src/commands/base.dart';
+import 'package:render_cli/src/utils/find_project_root.dart';
+
+/// {@template podclean}
+/// Clean the pod files. Deletes pods, podfile.lock and reinstalls
+/// {@endtemplate}
+class PodCleanCommand extends RenderCommand {
+  /// {@template podclean}
+
+  PodCleanCommand() {
+    argParser.addFlag("repo-update", abbr: "u");
+  }
+
+  @override
+  String get description => "Cleans the pod files and updates pod.";
+
+  @override
+  String get name => "pod";
+
+  @override
+  Future<void> run() async {
+    final results = argResults;
+    if (results == null) {
+      logger.err("Error loading args");
+      return;
+    }
+
+    final root = findProjectRoot(Directory.current);
+
+    final podsDir = Directory(path.join(root.path, "ios", "Pods"));
+
+    if (!podsDir.existsSync()) {
+      logger.err("No pods folder found");
+      return;
+    }
+
+    final podfileLock = File(path.join(root.path, "ios", "Podfile.lock"));
+    if (!podfileLock.existsSync()) {
+      logger.err("No Podfile.lock found");
+      return;
+    }
+
+    Directory.current = podsDir.parent;
+
+    var spinner = logger.spinner(
+      rightPrompt: (complete) =>
+          complete ? "Finished deleting Pods folder" : "Deleting Pods folder.",
+    );
+    podsDir.deleteSync(recursive: true);
+    spinner.done();
+
+    spinner = logger.spinner(
+      rightPrompt: (complete) =>
+          complete ? "Deleted Podfile.lock" : "Deleting Podfile.lock.",
+    );
+    podfileLock.deleteSync();
+    spinner.done();
+    final updatePod = results['repo-update'] as bool;
+
+    spinner = logger.spinner(
+      icon: "✅",
+      rightPrompt: (complete) => complete ? " Done" : "Installing pods",
+    );
+    if (updatePod) {
+      await processRunner.runLog("pod", ["install", "--repo-update"]);
+    } else {
+      await processRunner.runLog("pod", ["install"]);
+    }
+    spinner.done();
+  }
+}

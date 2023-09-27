@@ -1,0 +1,17 @@
+bricks:
+  feature:
+    path: ./feature
+  model:
+    path: ./model
+  page:
+    path: ./page
+  component:
+    path: ./component
+  bloc:
+    path: ./bloc
+  cubit:
+    path: ./cubit
+  cubit_form:
+    path: ./cubit_form
+  bloc_form:
+    path: ./bloc_form
