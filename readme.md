@@ -1,13 +1,13 @@
-# Flutter Cli
+# Digital Oasis Cli
 
-In arch we have created a cli for quickly generating boilerplate files. This cli also has a vscode extension that goes along with it.
+A cli for quickly generating boilerplate files with a vscode extension.
 
 ### Installing the cli
 
 To install make sure flutter is installed then run:
 
 ```
-flutter pub global activate -sgit git@github.com:WeAreArch/frontend-cli.git
+flutter pub global activate -sgit {{githubPath}}
 ```
 
 ## Commands

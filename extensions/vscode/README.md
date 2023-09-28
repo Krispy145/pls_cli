@@ -1,4 +1,4 @@
-# arch-flutter README
+# digital-oasis README
 
 This extension generates various aspects of a flutter project.
 

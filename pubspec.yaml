@@ -16,7 +16,7 @@ scripts:
       cwd: packages/app/template
     - command: flutter pub get
       cwd: packages/app_brick_generator
-  build:vscode: "cd extensions/vscode && vsce package patch -o releases/arch-flutter.vsix"
+  build:vscode: "cd extensions/vscode && vsce package patch -o releases/digital-oasis.vsix"
   # Useful for bundling all the add bricks eg `BRICK=bloc rn run bundle`
   bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
   bundle:app: BRICK=app rn run bundle

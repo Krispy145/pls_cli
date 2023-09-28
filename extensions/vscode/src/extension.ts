@@ -17,24 +17,24 @@ import { addFormInput } from "./commands/add-input.command";
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
   let feature = commands.registerCommand(
-    "arch-flutter.new-feature",
+    "digital-oasis.new-feature",
     newFeature
   );
   let component = commands.registerCommand(
-    "arch-flutter.add-component",
+    "digital-oasis.add-component",
     addComponent
   );
-  let page = commands.registerCommand("arch-flutter.add-page", addPage);
-  let bloc = commands.registerCommand("arch-flutter.add-bloc", addBloc);
-  let cubit = commands.registerCommand("arch-flutter.add-cubit", addCubit);
-  let model = commands.registerCommand("arch-flutter.add-model", addModel);
-  let newFile = commands.registerCommand("arch-flutter.add-file", addFile);
+  let page = commands.registerCommand("digital-oasis.add-page", addPage);
+  let bloc = commands.registerCommand("digital-oasis.add-bloc", addBloc);
+  let cubit = commands.registerCommand("digital-oasis.add-cubit", addCubit);
+  let model = commands.registerCommand("digital-oasis.add-model", addModel);
+  let newFile = commands.registerCommand("digital-oasis.add-file", addFile);
   let formInput = commands.registerCommand(
-    "arch-flutter.add-input",
+    "digital-oasis.add-input",
     addFormInput
   );
   let blocEvent = commands.registerCommand(
-    "arch-flutter.add-event",
+    "digital-oasis.add-event",
     addBlocEvent
   );
 

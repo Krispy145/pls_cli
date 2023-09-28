@@ -1,5 +1,5 @@
 {
-  "name": "arch-flutter",
+  "name": "digital-oasis",
   "displayName": "arch_flutter",
   "description": "vscode extension to streamline dev",
   "version": "0.7.0",
@@ -10,75 +10,63 @@
   },
   "categories": [
     "Other"
-  ],
-  "activationEvents": [
-    "onCommand:arch-flutter.new-feature",
-    "onCommand:arch-flutter.add-component",
-    "onCommand:arch-flutter.add-og-page",
-    "onCommand:arch-flutter.add-page",
-    "onCommand:arch-flutter.add-model",
-    "onCommand:arch-flutter.add-bloc",
-    "onCommand:arch-flutter.add-cubit",
-    "onCommand:arch-flutter.add-file",
-    "onCommand:arch-flutter.add-event",
-    "onCommand:arch-flutter.add-input"
-  ],
+  ],  
   "main": "./out/extension.js",
   "contributes": {
     "submenus": [
       {
-        "label": "Flutter New",
-        "id": "arch-flutter.submenu"
+        "label": "Digital Oasis",
+        "id": "digital-oasis.submenu"
       }
     ],
     "commands": [
       {
-        "command": "arch-flutter.new-feature",
+        "command": "digital-oasis.new-feature",
         "title": "Flutter: Feature",
         "shortTitle": "New Feature"
       },
       {
-        "command": "arch-flutter.add-input",
+        "command": "digital-oasis.add-input",
         "title": "Bloc: Input",
         "shortTitle": "Input"
       },
       {
-        "command": "arch-flutter.add-event",
+        "command": "digital-oasis.add-event",
         "title": "Bloc: Event",
         "shortTitle": "Event"
       },
       {
-        "command": "arch-flutter.add-component",
+        "command": "digital-oasis.add-component",
         "title": "Flutter: Component",
         "shortTitle": "New Component"
       },
       {
-        "command": "arch-flutter.add-model",
+        "command": "digital-oasis.add-model",
         "shortTitle": "New Model",
         "title": "Flutter: Model"
       },
       {
-        "command": "arch-flutter.add-bloc",
+        "command": "digital-oasis.add-bloc",
         "shortTitle": "New Bloc",
         "title": "Flutter: Bloc"
       },
       {
-        "command": "arch-flutter.add-file",
+        "command": "digital-oasis.add-file",
         "shortTitle": "New File",
         "title": "Flutter: File"
       },
       {
-        "command": "arch-flutter.add-cubit",
+        "command": "digital-oasis.add-cubit",
         "shortTitle": "New Cubit",
         "title": "Flutter: Cubit"
       },
       {
-        "command": "arch-flutter.add-page",
+        "command": "digital-oasis.add-page",
         "shortTitle": "New Page",
         "title": "Flutter: Page"
       },
       {
-        "command": "arch-flutter.add-og-page",
+        "command": "digital-oasis.add-og-page",
         "shortTitle": "Old Page (Nav 1.0)",
         "title": "Flutter: Old Page"
       }
@@ -87,57 +75,57 @@
       "explorer/context": [
         {
           "group": "01_flutter",
-          "submenu": "arch-flutter.submenu",
+          "submenu": "digital-oasis.submenu",
           "when": "explorerResourceIsFolder"
         },
         {
           "group": "01_flutter",
-          "command": "arch-flutter.add-event",
+          "command": "digital-oasis.add-event",
           "when": "!explorerResourceIsFolder && resourceFilename =~ /bloc|cubit/"
         },
         {
           "group": "01_flutter",
-          "command": "arch-flutter.add-input",
+          "command": "digital-oasis.add-input",
           "when": "!explorerResourceIsFolder && resourceFilename =~ /bloc|cubit/"
         }
       ],
       "commandPalette": [
         {
-          "command": "arch-flutter.add-event",
+          "command": "digital-oasis.add-event",
           "when": "false"
         }
       ],
-      "arch-flutter.submenu": [
+      "digital-oasis.submenu": [
         {
-          "command": "arch-flutter.new-feature",
+          "command": "digital-oasis.new-feature",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
         },
         {
-          "command": "arch-flutter.add-file",
+          "command": "digital-oasis.add-file",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "arch-flutter.add-og-page",
+          "command": "digital-oasis.add-og-page",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
         },
         {
-          "command": "arch-flutter.add-page",
+          "command": "digital-oasis.add-page",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
         },
         {
-          "command": "arch-flutter.add-component",
+          "command": "digital-oasis.add-component",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
         },
         {
-          "command": "arch-flutter.add-model",
+          "command": "digital-oasis.add-model",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
         },
         {
-          "command": "arch-flutter.add-cubit",
+          "command": "digital-oasis.add-cubit",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
         },
         {
-          "command": "arch-flutter.add-bloc",
+          "command": "digital-oasis.add-bloc",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
         }
       ]
@@ -149,7 +137,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "build": "vsce package -o arch-flutter.vsix",
+    "build": "vsce package -o digital-oasis.vsix",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
