@@ -36,7 +36,7 @@ void main() async {
           await TokenService.instance.removeRefreshToken();
         },
         onLoginPressed: () => locator<AuthRepository>().loginWithEmail(
-          email: "dan@wearearch.com",
+          email: "dan@digitaloasis.com",
           password: "Testertester1!",
         ),
         child: const App(),

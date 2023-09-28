@@ -11,12 +11,12 @@ dependencies:
   http: ^1.1.0
   flutter_dev_overlay:
     git:
-      url: git@github.com:WeAreArch/mobile-flutter-packages.git
+      url: github.com/Krispy145/mobile-flutter-packages.git
       path: packages/dev_overlay
       ref: flutter_dev_overlay-v0.1.5
   client_api:
     git:
-      url: git@github.com:WeAreArch/mobile-flutter-packages.git
+      url: github.com/Krispy145/mobile-flutter-packages.git
       path: packages/client_api
       ref: client_api-v3.4.1
 

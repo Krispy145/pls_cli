@@ -10,7 +10,7 @@ import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
 /// The git config for the deploy
-const deployEmail = "andrew@wearearch.com";
+const deployEmail = "andrew@digitaloasis.com";
 
 /// The git config for the deploy
 const deployName = "andrewlonsdale";
@@ -53,9 +53,7 @@ class DeployCommand extends RenderCommand {
       return;
     }
     // Check if the user is in the root folder
-    if (!Directory.current
-        .listSync()
-        .any((e) => e is File && p.basename(e.path) == "pubspec.yaml")) {
+    if (!Directory.current.listSync().any((e) => e is File && p.basename(e.path) == "pubspec.yaml")) {
       logger.err("You are not in the root folder");
       return;
     }
@@ -152,10 +150,7 @@ class DeployCommand extends RenderCommand {
         printOutput: false,
       );
       if (tagString != null) {
-        final tags = tagString
-            .split("\n")
-            .where((element) => element.trim() != "")
-            .map((e) {
+        final tags = tagString.split("\n").where((element) => element.trim() != "").map((e) {
           final tag = e.trim();
           final splitTag = tag.split(" ");
           var message = "";
@@ -175,8 +170,7 @@ class DeployCommand extends RenderCommand {
 
         final tagStrings = tags.fold<String>(
           "",
-          (value, element) =>
-              "$value${element.version}+${element.buildNumber} ${element.message}\n",
+          (value, element) => "$value${element.version}+${element.buildNumber} ${element.message}\n",
         );
         logger.info(tagStrings);
       }
@@ -313,8 +307,7 @@ class DeployCommand extends RenderCommand {
 
     if (cloneSucceeded) {
       final removeProgress = logger.spinner(
-        rightPrompt: (done) =>
-            done ? "" : "Removing everything in branch $environment",
+        rightPrompt: (done) => done ? "" : "Removing everything in branch $environment",
       );
       await processRunner.runResult(
         "git",
@@ -344,9 +337,7 @@ class DeployCommand extends RenderCommand {
     );
     final copyProgress = logger.spinner(
       icon: "🥨",
-      rightPrompt: (done) => done
-          ? "Files copied to temp directory."
-          : "Copying files to temp directory branch: $environment",
+      rightPrompt: (done) => done ? "Files copied to temp directory." : "Copying files to temp directory branch: $environment",
     );
 
     try {
@@ -400,8 +391,7 @@ class DeployCommand extends RenderCommand {
 
     final pushProgress = logger.spinner(
       icon: "🌴",
-      rightPrompt: (done) =>
-          done ? "Pushed branch" : "Pushing branch $environment",
+      rightPrompt: (done) => done ? "Pushed branch" : "Pushing branch $environment",
     );
     final pushResult = await processRunner.run(
       "git",

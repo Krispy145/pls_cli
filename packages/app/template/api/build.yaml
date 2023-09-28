@@ -15,7 +15,7 @@ targets:
     #       input_folder: swaggers/
     #       # input_urls:
     #       # - "https://raw.githubusercontent.com/epam-cross-platform-lab/swagger-dart-code-generator/master/example/input_folder/pet_service_json.json"
-    #       # - "https://sweatygamer.archstaging.wearearch.com/api/v1/swagger"
+    #       # - "https://sweatygamer.archstaging.digitaloasis.com/api/v1/swagger"
     #       output_folder: lib/src/generated
     #       separate_models: true
     builders:

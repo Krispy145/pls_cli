@@ -1,8 +1,8 @@
 {
-  "baseUrl": "https://getaheadmindset.archstaging.wearearch.com/api/v1",
+  "baseUrl": "https://getaheadmindset.archstaging.digitaloasis.com/api/v1",
   "clientId": "2",
   "clientSecret": "ILo6oTdMFNFt6ioSX14pbl2URuNj4EOhi13impHv",
   "applicationToken": "",
-  "socialRedirectUri": "https://getaheadmindset.archstaging.wearearch.com",
+  "socialRedirectUri": "https://getaheadmindset.archstaging.digitaloasis.com",
   "resetPasswordUri": "https://getaheadmindset.page.link"
 }

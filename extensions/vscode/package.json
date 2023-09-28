@@ -1,16 +1,28 @@
 {
   "name": "digital-oasis",
-  "displayName": "arch_flutter",
+  "displayName": "Digital Oasis",
   "description": "vscode extension to streamline dev",
   "version": "0.7.0",
-  "repository": "https://gitlab.wearearch.com/all/arch_flutter_cli",
+  "repository": "https://github.com/Krispy145/digital-oasis-cli",
   "private": true,
   "engines": {
     "vscode": "^1.66.0"
   },
   "categories": [
     "Other"
-  ],  
+  ],
+  "activationEvents": [
+    "onCommand:digital-oasis.new-feature",
+    "onCommand:digital-oasis.add-component",
+    "onCommand:digital-oasis.add-og-page",
+    "onCommand:digital-oasis.add-page",
+    "onCommand:digital-oasis.add-model",
+    "onCommand:digital-oasis.add-bloc",
+    "onCommand:digital-oasis.add-cubit",
+    "onCommand:digital-oasis.add-file",
+    "onCommand:digital-oasis.add-event",
+    "onCommand:digital-oasis.add-input"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "submenus": [
@@ -22,7 +34,7 @@
     "commands": [
       {
         "command": "digital-oasis.new-feature",
-        "title": "Flutter: Feature",
+        "title": "Feature",
         "shortTitle": "New Feature"
       },
       {
@@ -37,38 +49,38 @@
       },
       {
         "command": "digital-oasis.add-component",
-        "title": "Flutter: Component",
+        "title": "Component",
         "shortTitle": "New Component"
       },
       {
         "command": "digital-oasis.add-model",
         "shortTitle": "New Model",
-        "title": "Flutter: Model"
+        "title": "Model"
       },
       {
         "command": "digital-oasis.add-bloc",
         "shortTitle": "New Bloc",
-        "title": "Flutter: Bloc"
+        "title": "Bloc"
       },
       {
         "command": "digital-oasis.add-file",
         "shortTitle": "New File",
-        "title": "Flutter: File"
+        "title": "File"
       },
       {
         "command": "digital-oasis.add-cubit",
         "shortTitle": "New Cubit",
-        "title": "Flutter: Cubit"
+        "title": "Cubit"
       },
       {
         "command": "digital-oasis.add-page",
         "shortTitle": "New Page",
-        "title": "Flutter: Page"
+        "title": "Page"
       },
       {
         "command": "digital-oasis.add-og-page",
         "shortTitle": "Old Page (Nav 1.0)",
-        "title": "Flutter: Old Page"
+        "title": "Old Page"
       }
     ],
     "menus": {

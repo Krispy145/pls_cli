@@ -32,12 +32,12 @@ dependencies:
     path: ./api
   flutter_dev_overlay:
     git:
-      url: git@github.com:WeAreArch/mobile-flutter-packages.git
+      url: github.com/Krispy145/mobile-flutter-packages.git
       path: packages/dev_overlay
       ref: flutter_dev_overlay-v0.1.5
   bloc_forms:
     git:
-      url: git@github.com:WeAreArch/mobile-flutter-packages.git
+      url: github.com/Krispy145/mobile-flutter-packages.git
       path: packages/bloc_forms
       ref: bloc_forms-v3.3.1
   get_it: ^7.6.0
@@ -55,12 +55,12 @@ dev_dependencies:
     sdk: flutter
   arch_lints:
     git:
-      url: git@github.com:WeAreArch/mobile-flutter-packages.git
+      url: github.com/Krispy145/mobile-flutter-packages.git
       path: packages/arch_lints
       ref: arch_lints-v3.0.0
   bloc_forms_generator:
     git:
-      url: git@github.com:WeAreArch/mobile-flutter-packages.git
+      url: github.com/Krispy145/mobile-flutter-packages.git
       path: packages/bloc_forms_generator
       ref: bloc_forms_generator-v2.3.5
   freezed: ^2.4.1

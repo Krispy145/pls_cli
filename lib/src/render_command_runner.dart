@@ -9,11 +9,11 @@ import 'commands/list/list.dart';
 import 'commands/run/run_command.dart';
 import 'commands/update.dart';
 
-/// {@template archCommandRunner}
+/// {@template digitalOasisCommandRunner}
 /// Command runner for the flutter cli
 /// {@endtemplate}
 class RenderCommandRunner extends CompletionCommandRunner<void> {
-  /// {@macro archCommandRunner}
+  /// {@macro digitalOasisCommandRunner}
   RenderCommandRunner() : super("rn", "Streamline working with flutter") {
     addCommand(AddCommand());
     addCommand(CreateCommand());

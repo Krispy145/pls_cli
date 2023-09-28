@@ -11,7 +11,7 @@ import '../../../bundles/_bundles.dart';
 final RegExp _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
 final RegExp _orgNameRegExp = RegExp(r'^[a-zA-Z][\w-]*(\.[a-zA-Z][\w-]*)+$');
 
-const _defaultOrgName = 'com.wearearch';
+const _defaultOrgName = 'com.digitalOasis';
 const _defaultDescription = 'A new Flutter project.';
 
 /// A method which returns a [Future<MasonGenerator>] given a [MasonBundle].
@@ -97,8 +97,7 @@ class CreateFlutterAppCommand extends RenderCommand {
     );
 
     final confirm = logger.confirm(
-      prompt:
-          "Create project with the following bundle id's \n 🍎 ios: $iosBundleId \n 🤖 android: $androidBundleId \n",
+      prompt: "Create project with the following bundle id's \n 🍎 ios: $iosBundleId \n 🤖 android: $androidBundleId \n",
     );
 
     if (!confirm) return;

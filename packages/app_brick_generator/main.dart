@@ -3,15 +3,12 @@ import 'package:path/path.dart' as path;
 import 'package:pool/pool.dart';
 
 final _sourcePath = path.join(path.current, "packages", "app");
-final _targetPath =
-    path.join(path.current, "packages", "bricks", 'app', '__brick__');
-final _staticDir =
-    path.join(path.current, 'packages', 'app_brick_generator', 'static');
+final _targetPath = path.join(path.current, "packages", "bricks", 'app', '__brick__');
+final _staticDir = path.join(path.current, 'packages', 'app_brick_generator', 'static');
 final _androidPath = path.join(_targetPath, 'template', 'android');
 final _rootPath = path.join(_targetPath, 'template');
 final _libPath = path.join(_targetPath, 'template', 'lib');
-final _androidKotlinPath =
-    path.join(_androidPath, 'app', 'src', 'main', 'kotlin');
+final _androidKotlinPath = path.join(_androidPath, 'app', 'src', 'main', 'kotlin');
 final _orgPath = path.join(_androidKotlinPath, 'com');
 
 final pool = Pool(10, timeout: Duration(seconds: 30));
@@ -22,16 +19,16 @@ extension GeneratorStringX on String {
 
     if (isAndroid && filePath.endsWith('build.gradle')) {
       return replaceAll(
-        'com.wearearch.flutter_template',
+        'com.digitalOasis.flutter_template',
         '{{application_id_android}}',
       );
     } else if (isAndroid) {
       return replaceAll(
-        'com.wearearch.flutter_template',
+        'com.digitalOasis.flutter_template',
         '{{application_id_android}}',
       );
     } else {
-      return replaceAll('com.wearearch.flutter-template', '{{application_id}}');
+      return replaceAll('com.digitalOasis.flutter-template', '{{application_id}}');
     }
   }
 }
@@ -74,11 +71,7 @@ void main() async {
   Directory(_orgPath).deleteSync(recursive: true);
 
   // Convert Values to Variables
-  await Future.forEach(
-      Directory(_targetPath)
-          .listSync(recursive: true)
-          .whereType<File>()
-          .toList(), (_) async {
+  await Future.forEach(Directory(_targetPath).listSync(recursive: true).whereType<File>().toList(), (_) async {
     var file = _ as File;
     if (path.basename(file.path) == ".DS_Store") {
       await file.delete();
@@ -129,10 +122,7 @@ void main() async {
   // }
 
   await Future.wait(
-    Directory(path.join(_targetPath, 'template'))
-        .listSync(recursive: true)
-        .whereType<File>()
-        .map((_) async {
+    Directory(path.join(_targetPath, 'template')).listSync(recursive: true).whereType<File>().map((_) async {
       var file = _;
 
       try {
@@ -250,10 +240,7 @@ class _Cmd {
     List<String> args,
   ) {
     if (pr.exitCode != 0) {
-      final values = {
-        'Standard out': pr.stdout.toString().trim(),
-        'Standard error': pr.stderr.toString().trim()
-      }..removeWhere((k, v) => v.isEmpty);
+      final values = {'Standard out': pr.stdout.toString().trim(), 'Standard error': pr.stderr.toString().trim()}..removeWhere((k, v) => v.isEmpty);
 
       String message;
       if (values.isEmpty) {
