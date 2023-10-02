@@ -6,10 +6,8 @@ final _sourcePath = path.join(path.current, "packages", "app");
 final _targetPath = path.join(path.current, "packages", "bricks", 'app', '__brick__');
 final _staticDir = path.join(path.current, 'packages', 'app_brick_generator', 'static');
 final _androidPath = path.join(_targetPath, 'template', 'android');
-final _rootPath = path.join(_targetPath, 'template');
-final _libPath = path.join(_targetPath, 'template', 'lib');
 final _androidKotlinPath = path.join(_androidPath, 'app', 'src', 'main', 'kotlin');
-final _orgPath = path.join(_androidKotlinPath, 'com');
+final _orgPath = path.join(_androidKotlinPath, 'com/example');
 
 final pool = Pool(10, timeout: Duration(seconds: 30));
 
@@ -45,27 +43,27 @@ void main() async {
   await Shell.cp(_sourcePath, _targetPath);
 
   // delete existing main files and replace with the firebase templates
-  await Future.wait([
-    File(path.join(_libPath, 'main_development.dart')).delete(),
-    File(path.join(_libPath, 'main_production.dart')).delete(),
-    File(path.join(_libPath, 'main_staging.dart')).delete(),
-  ]);
-  await Shell.cp(
-    path.join(_staticDir, "main_development.dart"),
-    path.join(_libPath, "main_development.dart"),
-  );
-  await Shell.cp(
-    path.join(_staticDir, "main_staging.dart"),
-    path.join(_libPath, "main_staging.dart"),
-  );
-  await Shell.cp(
-    path.join(_staticDir, "main_production.dart"),
-    path.join(_libPath, "main_production.dart"),
-  );
-  await Shell.cp(
-    path.join(_staticDir, "codemagic.yaml"),
-    path.join(_rootPath, "codemagic.yaml"),
-  );
+  // await Future.wait([
+  //   File(path.join(_libPath, 'main_development.dart')).delete(),
+  //   File(path.join(_libPath, 'main_production.dart')).delete(),
+  //   File(path.join(_libPath, 'main_staging.dart')).delete(),
+  // ]);
+  // await Shell.cp(
+  //   path.join(_staticDir, "main_development.dart"),
+  //   path.join(_libPath, "main_development.dart"),
+  // );
+  // await Shell.cp(
+  //   path.join(_staticDir, "main_staging.dart"),
+  //   path.join(_libPath, "main_staging.dart"),
+  // );
+  // await Shell.cp(
+  //   path.join(_staticDir, "main_production.dart"),
+  //   path.join(_libPath, "main_production.dart"),
+  // );
+  // await Shell.cp(
+  // path.join(_staticDir, "codemagic.yaml"),
+  // path.join(_rootPath, "codemagic.yaml"),
+  // );
 
   // Delete Android's Organization Folder Hierarchy
   Directory(_orgPath).deleteSync(recursive: true);
@@ -77,49 +75,6 @@ void main() async {
       await file.delete();
     }
   });
-
-  // Directory(_targetPath)
-  //    .listSync(recursive: true)
-  //    .whereType<File>()
-  //    .toList();
-  // for (final _ in allFiles) {
-  //   var file = _;
-  //
-  //   try {
-  //     if (file.path.endsWith('Info.plist')) {
-  //       final contents = await readFile(file);
-  //       file = await file.writeAsString(
-  //         contents.replaceAll(
-  //           '<string>Flutter Template</string>',
-  //           r'<string>$(FLAVOR_APP_NAME)</string>',
-  //         ),
-  //       );
-  //     }
-  //
-  //     final contents = await readFile(file);
-  //     file = await file.writeAsString(
-  //       contents
-  //           .replaceAll('flutter_template', '{{project_name.snakeCase()}}')
-  //           .replaceAll('flutter-template', '{{project_name.paramCase()}}')
-  //           .replaceAll('A new Flutter project.', '{{{description}}}')
-  //           .replaceAll('Flutter Template', '{{project_name.titleCase()}}')
-  //           .replaceApplicationId(file.path),
-  //       flush: true,
-  //     );
-  //
-  //     final fileSegments = file.path.split('/').sublist(2);
-  //     if (fileSegments.contains('flutter_template')) {
-  //       final newPathSegment = fileSegments.join('/').replaceAll(
-  //             'flutter_template',
-  //             '{{project_name.snakeCase()}}',
-  //           );
-  //       final newPath = path.join(_targetPath, newPathSegment);
-  //       File(newPath).createSync(recursive: true);
-  //       file.renameSync(newPath);
-  //       Directory(file.parent.path).deleteSync(recursive: true);
-  //     }
-  //   } catch (_) {}
-  // }
 
   await Future.wait(
     Directory(path.join(_targetPath, 'template')).listSync(recursive: true).whereType<File>().map((_) async {
@@ -145,7 +100,7 @@ void main() async {
               .replaceApplicationId(file.path)
               .replaceAll('flutter_template', '{{project_name.snakeCase()}}')
               .replaceAll('flutter-template', '{{project_name.paramCase()}}')
-              .replaceAll('A new Flutter project.', '{{{description}}}')
+              .replaceAll('A new Flutter project.', '{{description}}')
               .replaceAll('Flutter Template', '{{project_name.titleCase()}}'),
           flush: true,
         );
@@ -161,7 +116,9 @@ void main() async {
           file.renameSync(newPath);
           Directory(file.parent.path).deleteSync(recursive: true);
         }
-      } catch (_) {}
+      } catch (e) {
+        print("ERROR:$e");
+      }
     }),
   );
 

@@ -11,8 +11,7 @@ executables:
 scripts:
   dev:test: flutter pub global activate -spath . --overwrite
   get:
-    - command: flutter pub get
-    - command: flutter pub get
+    - command: flutter pub get 
       cwd: packages/app/template
     - command: flutter pub get
       cwd: packages/app_brick_generator

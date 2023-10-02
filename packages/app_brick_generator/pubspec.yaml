@@ -1,5 +1,5 @@
 name: generator
-description: A template generator for Very Good CLI.
+description: A template generator for Digital Oasis CLI.
 publish_to: none
 
 environment:
