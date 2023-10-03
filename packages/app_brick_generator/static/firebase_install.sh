@@ -1,4 +1,3 @@
-flutter pub add firebase_core firebase_analytics firebase_crashlytics
 echo "This will create 3 Firebase projects. Named:"
 echo "{{project_name.paramCase()}}-dev"
 echo "{{project_name.paramCase()}}-stage"
@@ -21,22 +20,16 @@ flutterfire config \
 	--project={{project_name.paramCase()}}-dev \
 	--out=lib/firebase/firebase_options_development.dart \
 	--ios-bundle-id={{application_id}}.dev \
-	--android-package-name={{application_id_android}}.dev \
-	--android-out=/android/app/src/development/google-services.json \
-	--ios-out=ios/Firebase/development/GoogleService-Info.plist \
-	--ios-build-config=Debug-development \
-	--platforms="ios,android"
+	--android-package-name={{application_id_android}}.dev \	
+	--platforms="ios,android,web"
 
 flutterfire config \
 	--yes \
 	--project={{project_name.paramCase()}}-dev \
 	--out=lib/firebase/firebase_options_development.dart \
 	--ios-bundle-id={{application_id}}.dev \
-	--android-package-name={{application_id_android}}.dev \
-	--android-out=/android/app/src/development/google-services.json \
-	--ios-out=ios/Firebase/development/GoogleService-Info.plist \
-	--ios-build-config=Release-development \
-	--platforms="ios,android"
+	--android-package-name={{application_id_android}}.dev \	
+	--platforms="ios,android,web"
 
 # Staging =====================================================================
 
@@ -45,22 +38,16 @@ flutterfire config \
 	--project={{project_name.paramCase()}}-stage \
 	--out=lib/firebase/firebase_options_staging.dart \
 	--ios-bundle-id={{application_id}}.stage \
-	--android-package-name={{application_id_android}}.stage \
-	--android-out=/android/app/src/staging/google-services.json \
-	--ios-out=ios/Firebase/staging/GoogleService-Info.plist \
-	--ios-build-config=Debug-staging \
-	--platforms="ios,android"
+	--android-package-name={{application_id_android}}.stage \	
+	--platforms="ios,android,web"
 
 flutterfire config \
 	--yes \
 	--project={{project_name.paramCase()}}-stage \
 	--out=lib/firebase/firebase_options_staging.dart \
 	--ios-bundle-id={{application_id}}.stage \
-	--android-package-name={{application_id_android}}.stage \
-	--android-out=/android/app/src/staging/google-services.json \
-	--ios-out=ios/Firebase/staging/GoogleService-Info.plist \
-	--ios-build-config=Release-staging \
-	--platforms="ios,android"
+	--android-package-name={{application_id_android}}.stage \	
+	--platforms="ios,android,web"
 
 # Production =====================================================================
 
@@ -69,19 +56,13 @@ flutterfire config \
 	--project={{project_name.paramCase()}}-prod \
 	--out=lib/firebase/firebase_options_production.dart \
 	--ios-bundle-id={{application_id}}.prod \
-	--android-package-name={{application_id_android}}.prod \
-	--android-out=/android/app/src/production/google-services.json \
-	--ios-out=ios/Firebase/production/GoogleService-Info.plist \
-	--ios-build-config=Debug-production \
-	--platforms="ios,android"
+	--android-package-name={{application_id_android}}.prod \	
+	--platforms="ios,android,web"
 
 flutterfire config \
 	--yes \
 	--project={{project_name.paramCase()}}-prod \
 	--out=lib/firebase/firebase_options_production.dart \
 	--ios-bundle-id={{application_id}}.prod \
-	--android-package-name={{application_id_android}}.prod \
-	--android-out=/android/app/src/production/google-services.json \
-	--ios-out=ios/Firebase/production/GoogleService-Info.plist \
-	--ios-build-config=Release-production \
-	--platforms="ios,android"
+	--android-package-name={{application_id_android}}.prod \	
+	--platforms="ios,android,web"

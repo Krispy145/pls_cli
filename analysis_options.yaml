@@ -30,7 +30,7 @@ linter:
     # False positive for custom enum-like classes (such as Flutter's "Colors")
     avoid_classes_with_only_static_members: false
 
-    # False positive whe nthe future is returned by the function
+    # False positive when the future is returned by the function
     discarded_futures: false
     parameter_assignments: false
     avoid_positional_boolean_parameters: false
@@ -54,7 +54,6 @@ linter:
     # Too verbose with little value, and this is taken care of by the Flutter devtool anyway.
     diagnostic_describe_all_properties: false
 
-    # Annoy andy
     prefer_double_quotes: false
     prefer_single_quotes: false
 

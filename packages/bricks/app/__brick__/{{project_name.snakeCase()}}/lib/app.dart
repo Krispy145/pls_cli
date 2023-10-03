@@ -2,6 +2,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 {{/has_firebase}}
 import 'package:flutter/material.dart';
 import 'package:{{project_name.snakeCase()}}/dependency_injection/injection_container.dart';
@@ -11,25 +12,21 @@ import 'package:{{project_name.snakeCase()}}/firebase/firebase_options_staging.d
 import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 import 'package:utilities/flavors/flavor_config.dart';
 
-Future<void> appMain({required FlavorConfig flavorConfig}) async {
-  WidgetsFlutterBinding.ensureInitialized();
+/// Main App Function
+void appMain({required FlavorConfig flavorConfig})  {
   Managers.init(flavorConfig: flavorConfig);
   
   {{#has_firebase}}
-  // Initialise firebase project
-  await Firebase.initializeApp(
-    name: flavorConfig.environment.name,
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (!kIsWeb) {
+    // Pass all uncaught "fatal" errors from the framework to Crashlytics  
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-  // Pass all uncaught "fatal" errors from the framework to Crashlytics
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-
-  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
+    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+  }
   {{/has_firebase}}
   runApp(const MainApp());
 }
@@ -48,7 +45,7 @@ class MainApp extends StatelessWidget {
       routerConfig: AppRouter.router(
         
         {{#has_firebase}}
-        observers: [FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)],
+        observers: !kIsWeb?[FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)]:null,
         {{/has_firebase}}
       ),
     );

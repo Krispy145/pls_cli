@@ -132,7 +132,7 @@ class CreateFlutterAppCommand extends RenderCommand {
       );
 
       // Run scripts defined in pubspec.yaml after project generation
-      await _runScripts();
+      await _runScripts(_hasFirebase);
     } catch (e) {
       generateProgress.finish(
         message: 'Failed to generate files',
@@ -146,12 +146,11 @@ class CreateFlutterAppCommand extends RenderCommand {
         )
         ..info("You must also be logged into the firebase cli.")
         ..info("Then run the following command:")
-        ..info("→ cd ${_projectName?.snakeCase}".green)
         ..info("→ bash ./tools/firebase_install.sh".green);
     }
   }
 
-  Future<void> _runScripts() async {
+  Future<void> _runScripts(bool _hasFirebase) async {
     final projectDirectory = Directory("./$_projectName");
     if (!projectDirectory.existsSync()) {
       logger.err('Project directory not found: $_projectName');
@@ -164,6 +163,7 @@ class CreateFlutterAppCommand extends RenderCommand {
 
     // Run the scripts one by one
     final scripts = [
+      if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics',
       'flutter clean',
       'flutter pub get',
       'flutter pub run build_runner build --delete-conflicting-outputs',

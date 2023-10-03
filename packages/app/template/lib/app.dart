@@ -2,6 +2,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 //FIREBASE END
 import 'package:flutter/material.dart';
 import 'package:flutter_template/dependency_injection/injection_container.dart';
@@ -12,25 +13,20 @@ import 'package:flutter_template/navigation/routes.dart';
 import 'package:utilities/flavors/flavor_config.dart';
 
 /// Main App Function
-Future<void> appMain({required FlavorConfig flavorConfig}) async {
-  WidgetsFlutterBinding.ensureInitialized();
+void appMain({required FlavorConfig flavorConfig})  {
   Managers.init(flavorConfig: flavorConfig);
   
   //FIREBASE START
-  // Initialise firebase project
-  await Firebase.initializeApp(
-    name: flavorConfig.environment.name,
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (!kIsWeb) {
+    // Pass all uncaught "fatal" errors from the framework to Crashlytics  
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-  // Pass all uncaught "fatal" errors from the framework to Crashlytics
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-
-  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
+    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+  }
   //FIREBASE END
   runApp(const MainApp());
 }
@@ -49,7 +45,7 @@ class MainApp extends StatelessWidget {
       routerConfig: AppRouter.router(
         
         //FIREBASE START
-        observers: [FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)],
+        observers: !kIsWeb?[FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)]:null,
         //FIREBASE END
       ),
     );
