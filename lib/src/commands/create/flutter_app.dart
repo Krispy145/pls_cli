@@ -183,6 +183,8 @@ class CreateFlutterAppCommand extends RenderCommand {
         return;
       }
     }
+    // Open VS Code with the project directory
+    await Process.start('code', ['.']);
   }
 
   bool _isValidPackageName(String name) {

@@ -6,8 +6,10 @@ final _sourcePath = path.join(path.current, "packages", "app");
 final _targetPath = path.join(path.current, "packages", "bricks", 'app', '__brick__');
 final _staticDir = path.join(path.current, 'packages', 'app_brick_generator', 'static');
 final _androidPath = path.join(_targetPath, 'template', 'android');
+final _rootPath = path.join(_targetPath, 'template');
+final _libPath = path.join(_targetPath, 'template', 'lib');
 final _androidKotlinPath = path.join(_androidPath, 'app', 'src', 'main', 'kotlin');
-final _orgPath = path.join(_androidKotlinPath, 'com/example');
+final _orgPath = path.join(_androidKotlinPath, 'com');
 
 final pool = Pool(10, timeout: Duration(seconds: 30));
 
@@ -61,8 +63,8 @@ void main() async {
   //   path.join(_libPath, "main_production.dart"),
   // );
   // await Shell.cp(
-  // path.join(_staticDir, "codemagic.yaml"),
-  // path.join(_rootPath, "codemagic.yaml"),
+  //   path.join(_staticDir, "codemagic.yaml"),
+  //   path.join(_rootPath, "codemagic.yaml"),
   // );
 
   // Delete Android's Organization Folder Hierarchy
@@ -100,8 +102,10 @@ void main() async {
               .replaceApplicationId(file.path)
               .replaceAll('flutter_template', '{{project_name.snakeCase()}}')
               .replaceAll('flutter-template', '{{project_name.paramCase()}}')
-              .replaceAll('A new Flutter project.', '{{description}}')
-              .replaceAll('Flutter Template', '{{project_name.titleCase()}}'),
+              .replaceAll('A new Flutter project.', '{{{description}}}')
+              .replaceAll('Flutter Template', '{{project_name.titleCase()}}')
+              .replaceAll('//FIREBASE START', '{{#has_firebase}}')
+              .replaceAll('//FIREBASE END', '{{/has_firebase}}'),
           flush: true,
         );
 
@@ -116,9 +120,7 @@ void main() async {
           file.renameSync(newPath);
           Directory(file.parent.path).deleteSync(recursive: true);
         }
-      } catch (e) {
-        print("ERROR:$e");
-      }
+      } catch (_) {}
     }),
   );
 

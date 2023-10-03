@@ -5,8 +5,8 @@
   "version": "0.2.0",
   "configurations": [
       {
-          "name": "{{project_name.titleCase()}} (Dev)",
-          "program": "lib/flavors/main_development.dart",
+          "name": "Flutter Template (Dev)",
+          "program": "lib/main_development.dart",
           "request": "launch",
           "type": "dart",
           "args": [
@@ -15,8 +15,8 @@
           ]
       },
       {
-          "name": "{{project_name.titleCase()}} (profile mode) (Dev)",
-          "program": "lib/flavors/main_development.dart",
+          "name": "Flutter Template (profile mode) (Dev)",
+          "program": "lib/main_development.dart",
           "request": "launch",
           "type": "dart",
           "flutterMode": "profile", 
@@ -26,8 +26,8 @@
           ]
       },
       {
-          "name": "{{project_name.titleCase()}} (release mode) (Dev)",
-          "program": "lib/flavors/main_development.dart",
+          "name": "Flutter Template (release mode) (Dev)",
+          "program": "lib/main_development.dart",
           "request": "launch",
           "type": "dart",
           "flutterMode": "release",
@@ -40,8 +40,8 @@
 
 
       {
-        "name": "{{project_name.titleCase()}} (Staging)",
-        "program": "lib/flavors/main_staging.dart",
+        "name": "Flutter Template (Staging)",
+        "program": "lib/main_staging.dart",
         "request": "launch",
         "type": "dart",
         "args": [
@@ -50,8 +50,8 @@
         ]
     },
     {
-        "name": "{{project_name.titleCase()}} (profile mode) (Staging)",
-        "program": "lib/flavors/main_staging.dart",
+        "name": "Flutter Template (profile mode) (Staging)",
+        "program": "lib/main_staging.dart",
         "request": "launch",
         "type": "dart",
         "flutterMode": "profile", 
@@ -61,8 +61,8 @@
         ]
     },
     {
-        "name": "{{project_name.titleCase()}} (release mode) (Staging)",
-        "program": "lib/flavors/main_staging.dart",
+        "name": "Flutter Template (release mode) (Staging)",
+        "program": "lib/main_staging.dart",
         "request": "launch",
         "type": "dart",
         "flutterMode": "release",
@@ -72,8 +72,8 @@
         ]
     },
       {
-          "name": "{{project_name.titleCase()}} (Prod)",
-          "program": "lib/flavors/main_production.dart",
+          "name": "Flutter Template (Prod)",
+          "program": "lib/main_production.dart",
           "request": "launch",
           "type": "dart",
           "args": [
@@ -82,8 +82,8 @@
           ]
       },
       {
-          "name": "{{project_name.titleCase()}} (profile mode) (Prod)",
-          "program": "lib/flavors/main_production.dart",
+          "name": "Flutter Template (profile mode) (Prod)",
+          "program": "lib/main_production.dart",
           "request": "launch",
           "type": "dart",
           "flutterMode": "profile",
@@ -93,8 +93,8 @@
           ]
       },
       {
-          "name": "{{project_name.titleCase()}} (release mode) (Prod)",
-          "program": "lib/flavors/main_production.dart",
+          "name": "Flutter Template (release mode) (Prod)",
+          "program": "lib/main_production.dart",
           "request": "launch",
           "type": "dart",
           "flutterMode": "release",
@@ -104,8 +104,8 @@
           ]
       },
       {
-          "name": "{{project_name.titleCase()}} Web (Dev)",
-          "program": "lib/flavors/main_development.dart",
+          "name": "Flutter Template Web (Dev)",
+          "program": "lib/main_development.dart",
           "request": "launch",
           "type": "dart",
           "flutterMode": "debug",
@@ -117,8 +117,8 @@
           ]
       },
       {
-        "name": "{{project_name.titleCase()}} Web (Staging)",
-        "program": "lib/flavors/main_staging.dart",
+        "name": "Flutter Template Web (Staging)",
+        "program": "lib/main_staging.dart",
         "request": "launch",
         "type": "dart",
         "flutterMode": "debug",
@@ -130,8 +130,8 @@
         ]
     },
       {
-          "name": "{{project_name.titleCase()}} Web (Prod)",
-          "program": "lib/flavors/main_production.dart",
+          "name": "Flutter Template Web (Prod)",
+          "program": "lib/main_production.dart",
           "request": "launch",
           "type": "dart",
           "flutterMode": "debug",

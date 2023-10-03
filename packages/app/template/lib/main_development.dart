@@ -1,4 +1,4 @@
-import 'package:{{project_name.snakeCase()}}/main.dart';
+import 'package:flutter_template/app.dart';
 import 'package:utilities/flavors/flavor_config.dart';
 
 void main() {
