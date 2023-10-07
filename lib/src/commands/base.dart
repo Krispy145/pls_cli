@@ -33,4 +33,38 @@ abstract class RenderCommand extends Command<void> {
       }
     }
   }
+
+  /// Runs the function from the root lib directory
+  void runInLibDirectory(void Function() function) {
+    // Get the current directory
+    var currentDirectory = Directory.current;
+
+    // Define the name of the root folder you want to reach (e.g., 'lib')
+    const rootFolderName = 'lib';
+
+    // Variable to store the original working directory
+    final originalDirectory = currentDirectory.path;
+
+    try {
+      // Loop through the parent directories until you reach the root folder
+      while (currentDirectory.path != '/' && !currentDirectory.path.endsWith(rootFolderName)) {
+        currentDirectory = currentDirectory.parent;
+      }
+
+      // Check if you've reached the root folder
+      if (currentDirectory.path.endsWith(rootFolderName)) {
+        // Change the working directory to the root folder
+        Directory.current = currentDirectory;
+
+        // Run the provided function
+        function();
+      } else {
+        // The root folder was not found
+        logger.err('Root "$rootFolderName" folder not found.');
+      }
+    } finally {
+      // Restore the original working directory
+      Directory.current = Directory(originalDirectory);
+    }
+  }
 }
