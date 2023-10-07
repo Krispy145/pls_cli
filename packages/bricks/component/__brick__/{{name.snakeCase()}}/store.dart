@@ -2,9 +2,9 @@ import 'package:mobx/mobx.dart';
 
 part 'store.g.dart';
 
-class {{name.pascalCase()}}ViewStore = {{name.pascalCase()}}ViewStoreBase with _${{name.pascalCase()}}ViewStore;
+class {{name.pascalCase()}}Store = {{name.pascalCase()}}StoreBase with _${{name.pascalCase()}}Store;
 
-abstract class {{name.pascalCase()}}ViewStoreBase with Store {
+abstract class {{name.pascalCase()}}StoreBase with Store {
   @observable
   bool _isBusy = false;
 
