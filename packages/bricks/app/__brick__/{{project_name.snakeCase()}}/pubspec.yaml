@@ -36,7 +36,6 @@ dependencies:
   freezed_annotation: ^2.4.1
   shimmer: ^3.0.0   
   json_annotation: ^4.8.1  
-  firebase_dynamic_links: ^5.3.4
   dio: ^5.3.3
 
 dev_dependencies:

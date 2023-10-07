@@ -21,7 +21,7 @@ abstract class BrickCommandBase extends RenderCommand {
   set bundle(mason.MasonBundle b) => bundle = b;
 
   /// List of all pre hooks to be called in order
-  List<ArchPreHook> preHooks = [];
+  List<PreHook> preHooks = [];
 
   /// {@macro brickCommandBase}
   BrickCommandBase() {
@@ -107,8 +107,7 @@ abstract class BrickCommandBase extends RenderCommand {
         // The argument has been passed through the command line
         vars.addAll(<String, dynamic>{variable: _maybeDecode(arg)});
       } else {
-        final prompt =
-            '''${'?'.greenBright.bold} ${properties.prompt ?? variable}''';
+        final prompt = '''${'?'.greenBright.bold} ${properties.prompt ?? variable}''';
         late final dynamic response;
         //ignore: missing_enum_constant_in_switch
         switch (properties.type) {
@@ -179,9 +178,7 @@ extension DefaultOptions on ArgParser {
 extension on Logger {
   void logFilesChanged(int fileCount) {
     if (fileCount == 0) return info('${'✅'} 0 files changed');
-    return fileCount == 1
-        ? info("🎉 $fileCount file changed")
-        : info("🎉 $fileCount files changed");
+    return fileCount == 1 ? info("🎉 $fileCount file changed") : info("🎉 $fileCount files changed");
   }
 
   void logFilesGenerated(int fileCount) {
@@ -216,7 +213,7 @@ extension on mason.GeneratedFile {
 /// A hook that will be called before the generation.
 ///
 /// Must return the new or unchanged variables.
-typedef ArchPreHook = FutureOr<Map<String, dynamic>> Function(
+typedef PreHook = FutureOr<Map<String, dynamic>> Function(
   Map<String, dynamic> vars,
   ArgResults argResults,
   String? outputDir,

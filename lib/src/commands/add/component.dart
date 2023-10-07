@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:mason/mason.dart';
 
 import '../../../bundles/_bundles.dart';
@@ -17,4 +19,31 @@ class ComponentCommand extends BrickCommandBase {
 
   @override
   String get name => "component";
+
+  @override
+  Future<void> run() async {
+    // Get the current directory
+    final currentDirectory = Directory.current;
+
+    // Check if the current directory is 'components'
+    if (currentDirectory.path.endsWith('components')) {
+      // Run the brick directly in the 'components' directory
+      await super.run();
+    } else {
+      // Create a directory using the current directory path and change to that directory
+      const componentName = 'components'; // Change this to your desired component name
+      final componentDirectory = Directory('${currentDirectory.path}/$componentName');
+
+      // Check if the directory already exists
+      if (!componentDirectory.existsSync()) {
+        componentDirectory.createSync();
+      }
+
+      // Change to the component directory
+      Directory.current = componentDirectory;
+
+      // Run the brick in the new component directory
+      await super.run();
+    }
+  }
 }

@@ -162,7 +162,7 @@ class CreateFlutterAppCommand extends RenderCommand {
     logger.info("Changed directory to $_projectName".green);
 
     await runScripts([
-      if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics',
+      if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase dynamic_links',
       'flutter clean',
       'flutter pub get',
       'flutter pub run build_runner build --delete-conflicting-outputs',

@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Digital Oasis Test',
+      title: 'Flutter Template',
       debugShowCheckedModeBanner: false,
       // theme: AppTheme.lightTheme,
       // darkTheme: AppTheme.darkTheme,

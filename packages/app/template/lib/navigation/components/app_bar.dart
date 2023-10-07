@@ -1,5 +1,5 @@
-import 'package:flutter_template/dependency_injection/injection_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/dependency_injection/injection_container.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   MainAppBar({
@@ -15,7 +15,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: const Column(
         children: [
-          Text("Digital Oasis Test"),
+          Text("Flutter Template"),
         ],
       ),
     );

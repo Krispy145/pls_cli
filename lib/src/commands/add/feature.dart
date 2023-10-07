@@ -11,7 +11,7 @@ class FeatureCommand extends BrickCommandBase {
   final MasonBundle bundle = featureBundle;
 
   @override
-  String get description => "Creates a new feature with all the barrel file";
+  String get description => "Creates a new feature for the app";
 
   @override
   String get name => "feature";
