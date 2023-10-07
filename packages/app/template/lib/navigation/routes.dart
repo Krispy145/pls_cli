@@ -1,8 +1,12 @@
+import 'package:flutter_template/features/home/presentation/route_data.dart';
+import 'package:flutter_template/features/main/presentation/route_data.dart';
+import 'package:flutter_template/navigation/components/app_bar.dart';
+import 'package:flutter_template/navigation/components/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/dependency_injection/injection_container.dart';
-import 'package:flutter_template/src/presentation/main/route_data.dart';
 import 'package:go_router/go_router.dart';
 import 'package:navigation/structures/default_shell_structure/widget.dart';
+import 'package:utilities/helpers/tuples.dart';
 
 part 'routes.g.dart';
 
@@ -14,9 +18,14 @@ class AppRouter {
 /// Main Tree of App LifeCycle (To be updated to include all routes and nested routes within the app)
 @TypedShellRoute<MainShellRoute>(
   routes: <TypedGoRoute<GoRouteData>>[
-    TypedGoRoute<MainRoute>(path: '/', routes: <TypedGoRoute<GoRouteData>>[
-      ///MAIN ROUTES END
-    ],)
+    TypedGoRoute<MainRoute>(
+      path: '/',
+      routes: <TypedGoRoute<GoRouteData>>[
+        homeRoute,
+
+        ///MAIN ROUTES END
+      ],
+    )
   ],
 )
 class MainShellRoute extends ShellRouteData {
@@ -34,27 +43,11 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultShellStructure(
       store: Managers.defaultShellStore,
-      appBar: AppBar(
-        title: const Column(
-          children: [
-            Text("Flutter Template"),
-          ],
-        ),
-      ),
+      appBar: MainAppBar(),
       body: body,
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                iconSize: 30,
-                onPressed: () => const MainRoute().go(context),
-                icon: const Icon(Icons.home),
-              ),                            
-            ],
-          ),          
+      bottomNavigationBar: MainBottomNavBar(
+        iconButtons: [
+          Pair(Icons.home, () => const HomeRoute().go(context)),
         ],
       ),
     );

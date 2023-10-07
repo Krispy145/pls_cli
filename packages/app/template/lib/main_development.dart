@@ -1,11 +1,6 @@
-//FIREBASE START
-import 'package:firebase_core/firebase_core.dart';
-//FIREBASE END
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/app.dart';
-//FIREBASE START
-import 'package:flutter_template/firebase/firebase_options_development.dart';
-//FIREBASE END
+
 import 'package:utilities/flavors/flavor_config.dart';
 
 void main() async {
@@ -15,12 +10,5 @@ void main() async {
     apiPrefix: "",
   );
 
-  //FIREBASE START
-  // Initialise firebase project
-  await Firebase.initializeApp(
-    name: flavorConfig.environment.name,
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  //FIREBASE END
   appMain(flavorConfig: flavorConfig);
 }
