@@ -93,7 +93,7 @@ class UpdateCommand extends RenderCommand {
           "global",
           "activate",
           "-sgit",
-          "ssh://$githubPath",
+          githubPath,
         ],
       );
     }
