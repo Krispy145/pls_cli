@@ -1,9 +1,9 @@
-import 'package:{{project_name.snakeCase()}}/{{name.snakeCase()}}/{{name}}/domain/models/model.dart';
+import '../../domain/models/{{name.snakeCase()}}_model.dart';
 
-abstract class {{name.titleCase()}}DataSource {
-  Future<List<{{name.titleCase()}}Model>> fetch{{name.titleCase()}}Models();
-  Future<{{name.titleCase()}}Model> fetch{{name.titleCase()}}ModelById(String id);
-  Future<void> add{{name.titleCase()}}Model({{name.titleCase()}}Model {{name.camelCase()}});
-  Future<void> update{{name.titleCase()}}Model({{name.titleCase()}}Model {{name.camelCase()}});
-  Future<void> delete{{name.titleCase()}}Model(String id);
+abstract class {{name.pascalCase()}}DataSource {
+  Future<List<{{name.pascalCase()}}Model>> fetch{{name.pascalCase()}}Models();
+  Future<{{name.pascalCase()}}Model> fetch{{name.pascalCase()}}ModelById(String id);
+  Future<void> add{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}});
+  Future<void> update{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}});
+  Future<void> delete{{name.pascalCase()}}Model(String id);
 }

@@ -1,11 +1,11 @@
-import 'package:{{project_name.snakeCase()}}/{{name.snakeCase()}}/{{name}}/presentation/store.dart';
+import '../../presentation/store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class {{name.titleCase()}}View extends StatelessWidget {
-  {{name.titleCase()}}View();
+class {{name.pascalCase()}}View extends StatelessWidget {
+  {{name.pascalCase()}}View();
 
-  final {{name.titleCase()}}Store store = {{name.titleCase()}}Store();
+  final {{name.pascalCase()}}Store store = {{name.pascalCase()}}Store();
 
   @override
   Widget build(BuildContext context) {

@@ -1,34 +1,34 @@
-import 'package:{{project_name.snakeCase()}}/{{name.snakeCase()}}/{{name}}/data/sources/source.dart';
-import 'package:{{project_name.snakeCase()}}/{{name.snakeCase()}}/{{name}}/domain/models/model.dart';
-import 'package:{{project_name.snakeCase()}}/{{name.snakeCase()}}/{{name}}/domain/repositories/repository.dart';
+import '../../data/sources/{{name.snakeCase()}}_source.dart';
+import '../../domain/models/{{name.snakeCase()}}_model.dart';
+import '../../domain/repositories/{{name.snakeCase()}}_repository.dart';
 
-class {{name.titleCase()}}DataRepository implements {{name.titleCase()}}Repository {
-  final {{name.titleCase()}}DataSource dataSource;
+class {{name.pascalCase()}}DataRepository implements {{name.pascalCase()}}Repository {
+  final {{name.pascalCase()}}DataSource dataSource;
 
-  {{name.titleCase()}}DataRepository(this.dataSource);
+  {{name.pascalCase()}}DataRepository(this.dataSource);
 
   @override
-  Future<List<{{name.titleCase()}}Model>> getAll{{name.titleCase()}}Models() async {
-    return await dataSource.fetch{{name.titleCase()}}s();
+  Future<List<{{name.pascalCase()}}Model>> getAll{{name.pascalCase()}}Models() async {
+    return await dataSource.fetch{{name.pascalCase()}}s();
   }
 
   @override
-  Future<{{name.titleCase()}}Model> get{{name.titleCase()}}ModelById(String id) async {
-    return await dataSource.fetch{{name.titleCase()}}ById(id);
+  Future<{{name.pascalCase()}}Model> get{{name.pascalCase()}}ModelById(String id) async {
+    return await dataSource.fetch{{name.pascalCase()}}ById(id);
   }
 
   @override
-  Future<void> add{{name.titleCase()}}Model({{name.titleCase()}}Model {{name.camelCase()}}) async {
-    await dataSource.add{{name.titleCase()}}({{name.camelCase()}});
+  Future<void> add{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
+    await dataSource.add{{name.pascalCase()}}({{name.camelCase()}});
   }
 
   @override
-  Future<void> update{{name.titleCase()}}Model({{name.titleCase()}}Model {{name.camelCase()}}) async {
-    await dataSource.update{{name.titleCase()}}({{name.camelCase()}});
+  Future<void> update{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
+    await dataSource.update{{name.pascalCase()}}({{name.camelCase()}});
   }
 
   @override
-  Future<void> delete{{name.titleCase()}}Model(String id) async {
-    await dataSource.delete{{name.titleCase()}}(id);
+  Future<void> delete{{name.pascalCase()}}Model(String id) async {
+    await dataSource.delete{{name.pascalCase()}}(id);
   }
 }

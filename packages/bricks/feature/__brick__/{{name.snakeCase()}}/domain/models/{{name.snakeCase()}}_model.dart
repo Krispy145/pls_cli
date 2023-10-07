@@ -4,11 +4,11 @@ part '{{name.snakeCase()}}_model.freezed.dart';
 part '{{name.snakeCase()}}_model.g.dart';
 
 @freezed
-class {{name.titleCase()}}Model with _${{name.titleCase()}}Model {
-  const factory {{name.titleCase()}}Model({
+class {{name.pascalCase()}}Model with _${{name.pascalCase()}}Model {
+  const factory {{name.pascalCase()}}Model({
     required String name,
     required int age,
-  }) = _{{name.titleCase()}}Model;
+  }) = _{{name.pascalCase()}}Model;
 
-  factory {{name.titleCase()}}Model.fromJson(Map<String, dynamic> json) => _${{name.titleCase()}}ModelFromJson(json);
+  factory {{name.pascalCase()}}Model.fromJson(Map<String, dynamic> json) => _${{name.pascalCase()}}ModelFromJson(json);
 }
