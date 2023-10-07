@@ -18,9 +18,9 @@ class FeatureCommand extends BrickCommandBase {
 
   @override
   Future<void> run() async {
-    await super.run();
     await runScripts([
       'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
+    await super.run();
   }
 }
