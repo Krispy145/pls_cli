@@ -9,26 +9,26 @@ class {{name.pascalCase()}}DataRepository implements {{name.pascalCase()}}Reposi
 
   @override
   Future<List<{{name.pascalCase()}}Model>> getAll{{name.pascalCase()}}Models() async {
-    return await dataSource.fetch{{name.pascalCase()}}s();
+    return await dataSource.fetch{{name.pascalCase()}}Models();
   }
 
   @override
   Future<{{name.pascalCase()}}Model> get{{name.pascalCase()}}ModelById(String id) async {
-    return await dataSource.fetch{{name.pascalCase()}}ById(id);
+    return await dataSource.fetch{{name.pascalCase()}}ModelById(id);
   }
 
   @override
   Future<void> add{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
-    await dataSource.add{{name.pascalCase()}}({{name.camelCase()}});
+    await dataSource.add{{name.pascalCase()}}({{name.camelCase()}})Model;
   }
 
   @override
   Future<void> update{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
-    await dataSource.update{{name.pascalCase()}}({{name.camelCase()}});
+    await dataSource.update{{name.pascalCase()}}({{name.camelCase()}})Model;
   }
 
   @override
   Future<void> delete{{name.pascalCase()}}Model(String id) async {
-    await dataSource.delete{{name.pascalCase()}}(id);
+    await dataSource.delete{{name.pascalCase()}}Model(id);
   }
 }

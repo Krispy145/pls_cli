@@ -161,28 +161,13 @@ class CreateFlutterAppCommand extends RenderCommand {
     Directory.current = projectDirectory;
     logger.info("Changed directory to $_projectName".green);
 
-    // Run the scripts one by one
-    final scripts = [
+    await runScripts([
       if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics',
       'flutter clean',
       'flutter pub get',
       'flutter pub run build_runner build --delete-conflicting-outputs',
-    ];
+    ]);
 
-    for (final script in scripts) {
-      logger.info('Running script: $script');
-      final processResult = await Process.run('sh', ['-c', script]);
-
-      if (processResult.exitCode == 0) {
-        logger.info('Script executed successfully.'.green);
-      } else {
-        logger
-          ..err('Error executing script:')
-          ..err(processResult.stdout.toString())
-          ..err(processResult.stderr.toString());
-        return;
-      }
-    }
     // Open VS Code with the project directory
     await Process.start('code', ['.']);
   }

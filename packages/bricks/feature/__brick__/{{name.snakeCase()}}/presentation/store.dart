@@ -1,8 +1,8 @@
-import '../../data/repositories/{{name.snakeCase()}}_repository.dart';
-import '../../data/sources/{{name.snakeCase()}}_in_memory.dart';
-import '../../data/sources/{{name.snakeCase()}}_source.dart';
-import '../../domain/models/{{name.snakeCase()}}_model.dart';
-import '../../domain/repositories/{{name.snakeCase()}}_repository.dart';
+import '../data/repositories/{{name.snakeCase()}}_repository.dart';
+import '../data/sources/{{name.snakeCase()}}_in_memory.dart';
+import '../data/sources/{{name.snakeCase()}}_source.dart';
+import '../domain/models/{{name.snakeCase()}}_model.dart';
+import '../domain/repositories/{{name.snakeCase()}}_repository.dart';
 import 'package:mobx/mobx.dart';
 
 part 'store.g.dart';

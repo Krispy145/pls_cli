@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:ansi_styles/extension.dart';
 import 'package:args/command_runner.dart';
 import 'package:render_cli/src/logger.dart';
 import 'package:render_cli/src/process_runner.dart';
@@ -12,4 +15,22 @@ abstract class RenderCommand extends Command<void> {
 
   /// Consistent runner for all commands
   ProcessRunner get processRunner => ProcessRunner();
+
+  /// Run Scripts for bricks
+  Future<void> runScripts(List<String> scripts) async {
+    // Run the scripts one by one
+    for (final script in scripts) {
+      logger.info('Running script: $script');
+      final processResult = await Process.run('sh', ['-c', script]);
+
+      if (processResult.exitCode == 0) {
+        logger.info('Script executed successfully.'.green);
+      } else {
+        logger
+          ..err('Error executing script:')
+          ..err(processResult.stdout.toString())
+          ..err(processResult.stderr.toString());
+      }
+    }
+  }
 }

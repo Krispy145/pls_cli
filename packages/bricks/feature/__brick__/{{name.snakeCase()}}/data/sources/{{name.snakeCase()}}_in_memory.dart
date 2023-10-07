@@ -6,13 +6,13 @@ class InMemory{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}Da
   final Map<String, {{name.pascalCase()}}Model> _dataStore = {};
 
   @override
-  Future<List<{{name.pascalCase()}}Model>> fetch{{name.pascalCase()}}s() async {
+  Future<List<{{name.pascalCase()}}Model>> fetch{{name.pascalCase()}}Models() async {
     final List<{{name.pascalCase()}}Model> {{name.camelCase()}}s = _dataStore.values.toList();
     return Future.value({{name.camelCase()}}s);
   }
 
   @override
-  Future<{{name.pascalCase()}}Model> fetch{{name.pascalCase()}}ById(String id) async {
+  Future<{{name.pascalCase()}}Model> fetch{{name.pascalCase()}}ModelById(String id) async {
     final {{name.pascalCase()}}Model? {{name.camelCase()}} = _dataStore[id];
     if ({{name.camelCase()}} != null) {
       return Future.value({{name.camelCase()}});
@@ -22,12 +22,12 @@ class InMemory{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}Da
   }
 
   @override
-  Future<void> add{{name.pascalCase()}}({{name.pascalCase()}}Model {{name.camelCase()}}) async {
+  Future<void> add{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
     _dataStore[{{name.camelCase()}}.name] = {{name.camelCase()}};
   }
 
   @override
-  Future<void> update{{name.pascalCase()}}({{name.pascalCase()}}Model {{name.camelCase()}}) async {
+  Future<void> update{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
     if (_dataStore.containsKey({{name.camelCase()}}.name)) {
       _dataStore[{{name.camelCase()}}.name] = {{name.camelCase()}};
     } else {

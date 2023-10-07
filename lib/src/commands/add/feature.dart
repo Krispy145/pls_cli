@@ -15,4 +15,12 @@ class FeatureCommand extends BrickCommandBase {
 
   @override
   String get name => "feature";
+
+  @override
+  Future<void> run() async {
+    await super.run();
+    await runScripts([
+      'flutter pub run build_runner build --delete-conflicting-outputs',
+    ]);
+  }
 }
