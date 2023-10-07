@@ -19,12 +19,12 @@ class {{name.pascalCase()}}DataRepository implements {{name.pascalCase()}}Reposi
 
   @override
   Future<void> add{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
-    await dataSource.add{{name.pascalCase()}}({{name.camelCase()}})Model;
+    await dataSource.add{{name.pascalCase()}}Model({{name.camelCase()}});
   }
 
   @override
   Future<void> update{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
-    await dataSource.update{{name.pascalCase()}}({{name.camelCase()}})Model;
+    await dataSource.update{{name.pascalCase()}}Model({{name.camelCase()}});
   }
 
   @override
