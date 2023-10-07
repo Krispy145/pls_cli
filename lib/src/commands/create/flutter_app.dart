@@ -12,7 +12,7 @@ final RegExp _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
 final RegExp _orgNameRegExp = RegExp(r'^[a-zA-Z][\w-]*(\.[a-zA-Z][\w-]*)+$');
 
 const _defaultOrgName = 'com.digitalOasis';
-const _defaultDescription = 'A new Flutter project.';
+const _defaultDescription = 'A Flutter project created by Digital Oasis.';
 
 /// A method which returns a [Future<MasonGenerator>] given a [MasonBundle].
 typedef MasonGeneratorFromBundle = Future<MasonGenerator> Function(MasonBundle);
@@ -108,7 +108,7 @@ class CreateFlutterAppCommand extends RenderCommand {
       );
     }
 
-    final generateProgress = logger.progress('Bootstrapping');
+    final generateProgress = logger.progress('Creating');
 
     try {
       final generator = await MasonGenerator.fromBundle(bundle);
@@ -130,6 +130,9 @@ class CreateFlutterAppCommand extends RenderCommand {
         message: 'Generated ${files.length} file(s)',
         showTiming: true,
       );
+
+      // Run scripts defined in pubspec.yaml after project generation
+      await _runScripts(_hasFirebase);
     } catch (e) {
       generateProgress.finish(
         message: 'Failed to generate files',
@@ -143,9 +146,45 @@ class CreateFlutterAppCommand extends RenderCommand {
         )
         ..info("You must also be logged into the firebase cli.")
         ..info("Then run the following command:")
-        ..info("→ cd ${_projectName?.snakeCase}".green)
         ..info("→ bash ./tools/firebase_install.sh".green);
     }
+  }
+
+  Future<void> _runScripts(bool _hasFirebase) async {
+    final projectDirectory = Directory("./$_projectName");
+    if (!projectDirectory.existsSync()) {
+      logger.err('Project directory not found: $_projectName');
+      return;
+    }
+
+    // Change the current working directory to the project directory
+    Directory.current = projectDirectory;
+    logger.info("Changed directory to $_projectName".green);
+
+    // Run the scripts one by one
+    final scripts = [
+      if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics',
+      'flutter clean',
+      'flutter pub get',
+      'flutter pub run build_runner build --delete-conflicting-outputs',
+    ];
+
+    for (final script in scripts) {
+      logger.info('Running script: $script');
+      final processResult = await Process.run('sh', ['-c', script]);
+
+      if (processResult.exitCode == 0) {
+        logger.info('Script executed successfully.'.green);
+      } else {
+        logger
+          ..err('Error executing script:')
+          ..err(processResult.stdout.toString())
+          ..err(processResult.stderr.toString());
+        return;
+      }
+    }
+    // Open VS Code with the project directory
+    await Process.start('code', ['.']);
   }
 
   bool _isValidPackageName(String name) {

@@ -38,11 +38,7 @@ List<Feature> listFeatures() {
       // Check if there isn't any nested features
       final hasNoNestedFeatures = subEntities.any((e) {
         final name = path.basename(e.path);
-        return name == "blocs" ||
-            name == "components" ||
-            name == "pages" ||
-            name == "repositories" ||
-            name == "services";
+        return name == "blocs" || name == "components" || name == "pages" || name == "repositories" || name == "services";
       });
       if (hasNoNestedFeatures) {
         features.add(Feature(name: name));
@@ -50,10 +46,7 @@ List<Feature> listFeatures() {
         features.add(
           Feature(
             name: name,
-            childFeatures: subEntities
-                .whereType<Directory>()
-                .map((e) => Feature(name: path.basename(e.path)))
-                .toList(),
+            childFeatures: subEntities.whereType<Directory>().map((e) => Feature(name: path.basename(e.path))).toList(),
           ),
         );
       }

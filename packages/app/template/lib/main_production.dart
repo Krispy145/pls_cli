@@ -1,19 +1,14 @@
-///THIS PAGE IS ONLY FOR DEVELOPMENT PURPOSES
-/// IT IS OVERWRITTEN WHEN GENERATING THE TEMPLATE
-import 'dart:async';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_template/app.dart';
 
-import 'package:flutter/material.dart';
+import 'package:utilities/flavors/flavor_config.dart';
 
-import 'app.dart';
-import 'bootstrap.dart';
-import 'config/_config.dart';
-
-// flutter build -t lib/main_development.dart
 void main() async {
-  // Always call this if the main method is asynchronous
   WidgetsFlutterBinding.ensureInitialized();
+  final FlavorConfig flavorConfig = FlavorConfig(
+    environment: Environment.production,
+    apiPrefix: "",
+  );
 
-  await Config.instance.initialize("config/production.json", Environment.prod);
-
-  unawaited(bootstrap((_) => const App()));
+  appMain(flavorConfig: flavorConfig);
 }
