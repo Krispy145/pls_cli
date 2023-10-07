@@ -10,7 +10,9 @@ export const newFeature = async (args: Uri) => {
   const targetDir = await getTargetDirectory(args);
 
   if (name) {
-    const command = `render add feature --name ${name} --path ${targetDir} &&  flutter pub run build_runner build --delete-conflicting-outputs`;
-    exec(command);
+    const commandNewFeature = `render add feature --name ${name} --path ${targetDir}`;
+    const commandFlutterBuildRunner =`flutter pub run build_runner build --delete-conflicting-outputs`;
+    exec(commandNewFeature);
+    exec(commandFlutterBuildRunner);
   }
 };
