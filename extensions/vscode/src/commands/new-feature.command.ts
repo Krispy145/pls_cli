@@ -11,8 +11,6 @@ export const newFeature = async (args: Uri) => {
 
   if (name) {
     const commandNewFeature = `rn add feature --name ${name} --path ${targetDir}`;
-    const commandFlutterBuildRunner =`flutter pub run build_runner build --delete-conflicting-outputs`;
     exec(commandNewFeature);
-    exec(commandFlutterBuildRunner);
   }
 };
