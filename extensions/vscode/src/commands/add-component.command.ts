@@ -16,6 +16,6 @@ export const addComponent = async (args: Uri) => {
       `render add component --name ${name} --path ${targetDir}/components`
     );
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
-   await buildRunner("Logger");
+   await buildRunner("Component");
   }
 };

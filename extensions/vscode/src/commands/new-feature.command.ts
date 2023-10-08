@@ -32,30 +32,9 @@ export const newFeature = async (args: Uri) => {
       });
 
       // Continue with running the build runner command
-      await buildRunner('Feature and Logger');
-      // const buildRunnerCommand =
-      //   "flutter pub run build_runner build --delete-conflicting-outputs";
-      // const workspaceFolder = workspace.workspaceFolders?.[0];
-      // if (workspaceFolder) {
-      //   const buildRunnerResult = await runCommandInWorkspaceFolder(
-      //     workspaceFolder.uri.fsPath,
-      //     buildRunnerCommand
-      //   );
-      //   if (buildRunnerResult.error) {
-      //     window.showErrorMessage(
-      //       `Error running build runner: ${buildRunnerResult.error}`
-      //     );
-      //   } else {
-      //     window.showInformationMessage(
-      //       "Feature created successfully and build runner completed."
-      //     );
-      //   }
-      // } else {
-      //   window.showWarningMessage("No workspace folder found.");
-      // }
+      await buildRunner('Feature and Logger');     
     }
-  } catch (error) {
-    // Handle exceptions (e.g., if showInputBox or getTargetDirectory fails)
+  } catch (error) {    
     window.showErrorMessage(`Error: ${error}`);
   }
 };
