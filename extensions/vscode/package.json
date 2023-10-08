@@ -13,9 +13,9 @@
   ],
   "activationEvents": [
     "onCommand:digital-oasis.new-feature",
-    "onCommand:digital-oasis.add-component",     
-    "onCommand:digital-oasis.add-model",  
-    "onCommand:digital-oasis.add-file",    
+    "onCommand:digital-oasis.add-component",
+    "onCommand:digital-oasis.add-model",
+    "onCommand:digital-oasis.add-file",
     "onCommand:digital-oasis.add-input"
   ],
   "main": "./out/extension.js",
@@ -36,7 +36,7 @@
         "command": "digital-oasis.add-input",
         "title": "Bloc: Input",
         "shortTitle": "Input"
-      },      
+      },
       {
         "command": "digital-oasis.add-component",
         "title": "Component",
@@ -51,7 +51,7 @@
         "command": "digital-oasis.add-file",
         "shortTitle": "New File",
         "title": "File"
-      }     
+      }
     ],
     "menus": {
       "explorer/context": [
@@ -59,7 +59,7 @@
           "group": "01_flutter",
           "submenu": "digital-oasis.submenu",
           "when": "explorerResourceIsFolder"
-        },       
+        },
         {
           "group": "01_flutter",
           "command": "digital-oasis.add-input",
@@ -80,7 +80,7 @@
         {
           "command": "digital-oasis.add-file",
           "when": "explorerResourceIsFolder"
-        },        
+        },
         {
           "command": "digital-oasis.add-component",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
@@ -88,7 +88,7 @@
         {
           "command": "digital-oasis.add-model",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
-        }       
+        }
       ]
     }
   },
@@ -102,7 +102,6 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "vsce": "^2.11.0",
     "@types/glob": "^7.2.0",
     "@types/lodash": "^4.14.182",
     "@types/mocha": "^9.1.1",
@@ -114,9 +113,11 @@
     "eslint": "^8.14.0",
     "glob": "^8.0.1",
     "mocha": "^9.2.2",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "vsce": "^2.11.0"
   },
   "dependencies": {
+    "change-case": "^5.0.2",
     "lodash": "^4.17.21"
   }
 }
