@@ -15,25 +15,30 @@ export const newFeature = async (args: Uri) => {
       exec(commandNewFeature, async (error, stdout, stderr) => {
         if (error) {
           // Handle the error by displaying an error message to the user
-          window.showErrorMessage(`Error: ${error.message}`);
+          window.showErrorMessage(`Error creating feature: ${error.message}`);
         } else {
           // Process the command's output (if needed)
           const commandNewLoggerFeature = `rn add logger --name ${name}`;
-          exec(commandNewLoggerFeature);
-
-          // Run the build runner command
-          const buildRunnerCommand = "flutter pub run build_runner build --delete-conflicting-outputs";
-          const workspaceFolder = workspace.workspaceFolders?.[0];
-          if (workspaceFolder) {
-            const buildRunnerResult = await runCommandInWorkspaceFolder(workspaceFolder.uri.fsPath, buildRunnerCommand);
-            if (buildRunnerResult.error) {
-              window.showErrorMessage(`Error running build runner: ${buildRunnerResult.error}`);
+          exec(commandNewLoggerFeature, async (loggerError, loggerStdout, loggerStderr) => {
+            if (loggerError) {
+              // Handle the error by displaying an error message to the user
+              window.showErrorMessage(`Error creating logger feature: ${loggerError.message}`);
             } else {
-              window.showInformationMessage("Feature created successfully and build runner completed.");
+              // Run the build runner command
+              const buildRunnerCommand = "flutter pub run build_runner build --delete-conflicting-outputs";
+              const workspaceFolder = workspace.workspaceFolders?.[0];
+              if (workspaceFolder) {
+                const buildRunnerResult = await runCommandInWorkspaceFolder(workspaceFolder.uri.fsPath, buildRunnerCommand);
+                if (buildRunnerResult.error) {
+                  window.showErrorMessage(`Error running build runner: ${buildRunnerResult.error}`);
+                } else {
+                  window.showInformationMessage("Feature created successfully and build runner completed.");
+                }
+              } else {
+                window.showWarningMessage("No workspace folder found.");
+              }
             }
-          } else {
-            window.showWarningMessage("No workspace folder found.");
-          }
+          });
         }
       });
     }
