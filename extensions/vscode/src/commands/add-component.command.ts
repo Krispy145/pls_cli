@@ -7,12 +7,11 @@ export const addComponent = async (args: Uri) => {
     prompt: "Name of the component",
     placeHolder: "Component name",
   });
+  const targetDir = await getTargetDirectory(args);
 
   if (name) {
     let child = exec(
-      `render add component --name ${name} --path ${await getTargetDirectory(
-        args
-      )}`
+      `render add component --name ${name} --path ${targetDir}`
     );
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
   }
