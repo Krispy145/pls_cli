@@ -22,7 +22,7 @@
   "contributes": {
     "submenus": [
       {
-        "label": "Digital Oasis Test",
+        "label": "Digital Oasis",
         "id": "digital-oasis.submenu"
       }
     ],
