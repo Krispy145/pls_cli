@@ -1,4 +1,4 @@
-import { window, workspace } from "vscode";
+import { window, workspace, ProgressLocation } from "vscode";
 import { exec } from "child_process";
 
 export const buildRunner = async (commandName: string) => {
@@ -7,15 +7,24 @@ export const buildRunner = async (commandName: string) => {
     "flutter pub run build_runner build --delete-conflicting-outputs";
   const workspaceFolder = workspace.workspaceFolders?.[0];
   if (workspaceFolder) {
-    const buildRunnerResult = await runCommandInWorkspaceFolder(
-      workspaceFolder.uri.fsPath,
-      buildRunnerCommand
+    await window.withProgress(
+      {
+        location: ProgressLocation.Notification,
+        title: `Running ${commandName} and Build Runner...`,
+        cancellable: false,
+      },
+      async () => {
+        const buildRunnerResult = await runCommandInWorkspaceFolder(
+          workspaceFolder.uri.fsPath,
+          buildRunnerCommand
+        );
+        if (buildRunnerResult.error) {
+          window.showErrorMessage(`Error running build runner: ${buildRunnerResult.error}`);
+        } else {
+          window.showInformationMessage(`${commandName} created successfully and build runner completed.`);
+        }
+      }
     );
-    if (buildRunnerResult.error) {
-      window.showErrorMessage(`Error running build runner: ${buildRunnerResult.error}`);
-    } else {
-      window.showInformationMessage(`${commandName} created successfully and build runner completed.`);
-    }
   } else {
     window.showWarningMessage("No workspace folder found.");
   }
