@@ -46,9 +46,9 @@ class ComponentCommand extends BrickCommandBase {
         // Run the brick in the new component directory
         await super.run();
       }
+      return runScripts(['flutter pub run build_runner build --delete-conflicting-outputs']);
     } else {
       await super.run();
     }
-    return runScripts(['flutter pub run build_runner build --delete-conflicting-outputs']);
   }
 }

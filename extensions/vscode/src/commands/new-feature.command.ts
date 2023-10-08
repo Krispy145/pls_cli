@@ -2,6 +2,7 @@ import { Uri, window, workspace } from "vscode";
 import { exec } from "child_process";
 import { getTargetDirectory } from "../utils/get-target-directory";
 import * as path from "path";
+import { buildRunner } from "../utils/build_runner";
 
 
 export const newFeature = async (args: Uri) => {
@@ -31,26 +32,27 @@ export const newFeature = async (args: Uri) => {
       });
 
       // Continue with running the build runner command
-      const buildRunnerCommand =
-        "flutter pub run build_runner build --delete-conflicting-outputs";
-      const workspaceFolder = workspace.workspaceFolders?.[0];
-      if (workspaceFolder) {
-        const buildRunnerResult = await runCommandInWorkspaceFolder(
-          workspaceFolder.uri.fsPath,
-          buildRunnerCommand
-        );
-        if (buildRunnerResult.error) {
-          window.showErrorMessage(
-            `Error running build runner: ${buildRunnerResult.error}`
-          );
-        } else {
-          window.showInformationMessage(
-            "Feature created successfully and build runner completed."
-          );
-        }
-      } else {
-        window.showWarningMessage("No workspace folder found.");
-      }
+      await buildRunner('Feature and Logger');
+      // const buildRunnerCommand =
+      //   "flutter pub run build_runner build --delete-conflicting-outputs";
+      // const workspaceFolder = workspace.workspaceFolders?.[0];
+      // if (workspaceFolder) {
+      //   const buildRunnerResult = await runCommandInWorkspaceFolder(
+      //     workspaceFolder.uri.fsPath,
+      //     buildRunnerCommand
+      //   );
+      //   if (buildRunnerResult.error) {
+      //     window.showErrorMessage(
+      //       `Error running build runner: ${buildRunnerResult.error}`
+      //     );
+      //   } else {
+      //     window.showInformationMessage(
+      //       "Feature created successfully and build runner completed."
+      //     );
+      //   }
+      // } else {
+      //   window.showWarningMessage("No workspace folder found.");
+      // }
     }
   } catch (error) {
     // Handle exceptions (e.g., if showInputBox or getTargetDirectory fails)
@@ -91,21 +93,6 @@ const getLoggerFeatureFilePath = (): string => {
   }
 };
 
-// Function to run a command in a specified workspace folder
-const runCommandInWorkspaceFolder = async (
-  folderPath: string,
-  command: string
-): Promise<{ error?: string }> => {
-  return new Promise((resolve) => {
-    exec(command, { cwd: folderPath }, (error, stdout, stderr) => {
-      if (error) {
-        resolve({ error: error.message });
-      } else {
-        resolve({});
-      }
-    });
-  });
-};
 
 // Function to write content to a file, replacing a specific text
 const writeFileWithReplacement = (
