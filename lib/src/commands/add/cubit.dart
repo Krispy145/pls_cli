@@ -26,8 +26,7 @@ class CubitCommand extends BrickCommandBase {
       ..addMultiOption(
         "inputs",
         abbr: "i",
-        help:
-            "A add inputs to a form, this flag can be used multiple times. Only used in a form bloc",
+        help: "A add inputs to a form, this flag can be used multiple times. Only used in a form bloc",
       );
 
     // If using the prompts separate the events and inputs into a list
@@ -36,10 +35,7 @@ class CubitCommand extends BrickCommandBase {
         if (vars.containsKey("inputs") && vars['inputs'] is String) {
           return <String, dynamic>{
             ...vars,
-            "inputs": (vars['inputs'] as String)
-                .split(",")
-                .map((e) => e.trim())
-                .toList(),
+            "inputs": (vars['inputs'] as String).split(",").map((e) => e.trim()).toList(),
           };
         }
         return vars;
@@ -48,10 +44,7 @@ class CubitCommand extends BrickCommandBase {
         if (results['form'] as bool) {
           return <String, dynamic>{
             ...vars,
-            "componentName": (vars["name"] as String)
-                    .contains(RegExp("form", caseSensitive: false))
-                ? vars["name"]
-                : "${vars["name"]}_form",
+            "componentName": (vars["name"] as String).contains(RegExp("form", caseSensitive: false)) ? vars["name"] : "${vars["name"]}_form",
           };
         }
         return vars;

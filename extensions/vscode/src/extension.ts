@@ -24,30 +24,21 @@ export function activate(context: ExtensionContext) {
     "digital-oasis.add-component",
     addComponent
   );
-  let page = commands.registerCommand("digital-oasis.add-page", addPage);
-  let bloc = commands.registerCommand("digital-oasis.add-bloc", addBloc);
-  let cubit = commands.registerCommand("digital-oasis.add-cubit", addCubit);
+  
+  
   let model = commands.registerCommand("digital-oasis.add-model", addModel);
   let newFile = commands.registerCommand("digital-oasis.add-file", addFile);
   let formInput = commands.registerCommand(
     "digital-oasis.add-input",
     addFormInput
   );
-  let blocEvent = commands.registerCommand(
-    "digital-oasis.add-event",
-    addBlocEvent
-  );
 
   context.subscriptions.push(
     feature,
     formInput,
-    component,
-    page,
-    bloc,
-    cubit,
+    component,    
     model,
     newFile,
-    blocEvent
   );
 }
 

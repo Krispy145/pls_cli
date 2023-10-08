@@ -13,14 +13,9 @@
   ],
   "activationEvents": [
     "onCommand:digital-oasis.new-feature",
-    "onCommand:digital-oasis.add-component",
-    "onCommand:digital-oasis.add-og-page",
-    "onCommand:digital-oasis.add-page",
-    "onCommand:digital-oasis.add-model",
-    "onCommand:digital-oasis.add-bloc",
-    "onCommand:digital-oasis.add-cubit",
-    "onCommand:digital-oasis.add-file",
-    "onCommand:digital-oasis.add-event",
+    "onCommand:digital-oasis.add-component",     
+    "onCommand:digital-oasis.add-model",  
+    "onCommand:digital-oasis.add-file",    
     "onCommand:digital-oasis.add-input"
   ],
   "main": "./out/extension.js",
@@ -41,12 +36,7 @@
         "command": "digital-oasis.add-input",
         "title": "Bloc: Input",
         "shortTitle": "Input"
-      },
-      {
-        "command": "digital-oasis.add-event",
-        "title": "Bloc: Event",
-        "shortTitle": "Event"
-      },
+      },      
       {
         "command": "digital-oasis.add-component",
         "title": "Component",
@@ -58,30 +48,10 @@
         "title": "Model"
       },
       {
-        "command": "digital-oasis.add-bloc",
-        "shortTitle": "New Bloc",
-        "title": "Bloc"
-      },
-      {
         "command": "digital-oasis.add-file",
         "shortTitle": "New File",
         "title": "File"
-      },
-      {
-        "command": "digital-oasis.add-cubit",
-        "shortTitle": "New Cubit",
-        "title": "Cubit"
-      },
-      {
-        "command": "digital-oasis.add-page",
-        "shortTitle": "New Page",
-        "title": "Page"
-      },
-      {
-        "command": "digital-oasis.add-og-page",
-        "shortTitle": "Old Page (Nav 1.0)",
-        "title": "Old Page"
-      }
+      }     
     ],
     "menus": {
       "explorer/context": [
@@ -89,12 +59,7 @@
           "group": "01_flutter",
           "submenu": "digital-oasis.submenu",
           "when": "explorerResourceIsFolder"
-        },
-        {
-          "group": "01_flutter",
-          "command": "digital-oasis.add-event",
-          "when": "!explorerResourceIsFolder && resourceFilename =~ /bloc|cubit/"
-        },
+        },       
         {
           "group": "01_flutter",
           "command": "digital-oasis.add-input",
@@ -115,15 +80,7 @@
         {
           "command": "digital-oasis.add-file",
           "when": "explorerResourceIsFolder"
-        },
-        {
-          "command": "digital-oasis.add-og-page",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
-        },
-        {
-          "command": "digital-oasis.add-page",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
-        },
+        },        
         {
           "command": "digital-oasis.add-component",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
@@ -131,15 +88,7 @@
         {
           "command": "digital-oasis.add-model",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
-        },
-        {
-          "command": "digital-oasis.add-cubit",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
-        },
-        {
-          "command": "digital-oasis.add-bloc",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
-        }
+        }       
       ]
     }
   },

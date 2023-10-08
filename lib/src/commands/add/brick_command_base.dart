@@ -68,24 +68,31 @@ abstract class BrickCommandBase extends RenderCommand {
       vars = await hook(vars, results, outputPath);
     }
 
+    await generator(target, vars);
+  }
+
+  /// mason generator
+  Future<void> generator(mason.DirectoryGeneratorTarget target, Map<String, dynamic>? vars) async {
     final generator = await mason.MasonGenerator.fromBundle(bundle);
     final progress = logger.spinner(
       rightPrompt: (done) => done ? "" : 'Making ${generator.id}',
     );
     try {
-      final files = await generator.generate(
-        target,
-        vars: vars,
-        fileConflictResolution: mason.FileConflictResolution.append,
-        logger: mason.Logger(),
-      );
-      logger.logFilesGenerated(files.length);
+      if (vars != null) {
+        final files = await generator.generate(
+          target,
+          vars: vars,
+          fileConflictResolution: mason.FileConflictResolution.append,
+          logger: mason.Logger(),
+        );
 
-      final filesChanged = files.where((file) => file.hasChanged);
-      logger.logFilesChanged(filesChanged.length);
+        logger.logFilesGenerated(files.length);
 
-      if (filesChanged.isNotEmpty) return;
+        final filesChanged = files.where((file) => file.hasChanged);
+        logger.logFilesChanged(filesChanged.length);
 
+        if (filesChanged.isNotEmpty) return;
+      }
       return;
     } catch (_) {
       rethrow;
@@ -94,7 +101,7 @@ abstract class BrickCommandBase extends RenderCommand {
     }
   }
 
-  /// Parse ass the command variables and prompt if they don't exist.
+  /// Parse the command variables and prompt if they don't exist.
   Map<String, dynamic> parseVars(ArgResults results) {
     final vars = <String, dynamic>{};
     for (final entry in bundle.vars.entries) {

@@ -21,9 +21,10 @@ class FeatureCommand extends BrickCommandBase {
   @override
   Future<void> run() async {
     await super.run();
-
+    // parse the event name
+    final featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the logger feature?");
     // Call the runInLibDirectory function to change the working directory to "lib"
-    runInLibDirectory(replaceLoggerFeatureString);
+    runInLibDirectory(() => replaceLoggerFeatureString(featureName));
 
     return runScripts([
       'flutter pub run build_runner build --delete-conflicting-outputs',
@@ -31,12 +32,12 @@ class FeatureCommand extends BrickCommandBase {
   }
 
   /// Add the Feature to the Logger to be used in the app
-  void replaceLoggerFeatureString() {
+  void replaceLoggerFeatureString(String name) {
     // Define the string to replace
     const searchString = '///LOGGER FEATURE END';
 
     // Define the replacement string
-    const replacementString = 'static final AppLoggerFeature {{name.camelCase()}} = AppLoggerFeature("{{name.constantCase()}}", true);\n///LOGGER FEATURE END';
+    final replacementString = 'static final LoggerFeature ${name.camelCase} = LoggerFeature("${name.constantCase}", true);\n///LOGGER FEATURE END';
 
     // Get the current working directory
     final currentDirectory = Directory.current;
@@ -45,7 +46,7 @@ class FeatureCommand extends BrickCommandBase {
     final utilsDirectory = Directory.fromUri(currentDirectory.uri.resolve('utils'));
 
     // Read the content of the logger feature file
-    final loggerFeatureFile = File.fromUri(utilsDirectory.uri.resolve('logger_feature.dart'));
+    final loggerFeatureFile = File.fromUri(utilsDirectory.uri.resolve('logger_features.dart'));
     var fileContent = loggerFeatureFile.readAsStringSync();
 
     // Replace the string
