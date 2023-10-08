@@ -8,12 +8,12 @@ class {{name.pascalCase()}}DataRepository implements {{name.pascalCase()}}Reposi
   {{name.pascalCase()}}DataRepository(this.dataSource);
 
   @override
-  Future<List<{{name.pascalCase()}}Model>> getAll{{name.pascalCase()}}Models() async {
+  Future<List<{{name.pascalCase()}}Model>?> getAll{{name.pascalCase()}}Models() async {
     return await dataSource.fetch{{name.pascalCase()}}Models();
   }
 
   @override
-  Future<{{name.pascalCase()}}Model> get{{name.pascalCase()}}ModelById(String id) async {
+  Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}ModelById(String id) async {
     return await dataSource.fetch{{name.pascalCase()}}ModelById(id);
   }
 

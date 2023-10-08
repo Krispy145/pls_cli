@@ -18,10 +18,13 @@ abstract class _{{name.pascalCase()}}Store with Store {
   @observable
   ObservableList<{{name.pascalCase()}}Model> {{name.camelCase()}}s = ObservableList<{{name.pascalCase()}}Model>();
 
+
   @action
-  Future<void> load{{name.pascalCase()}}s() async {
-    final loaded{{name.pascalCase()}}s = await repository.getAll{{name.pascalCase()}}Models();
-    {{name.camelCase()}}s.clear();
-    {{name.camelCase()}}s.addAll(loaded{{name.pascalCase()}}s);
-  }
+    Future<void> load{{name.pascalCase()}}s() async {
+      final loaded{{name.pascalCase()}}s = await repository.getAll{{name.pascalCase()}}Models();
+      if (loaded{{name.pascalCase()}}s != null) {
+        {{name.camelCase()}}s.clear();
+      {{name.camelCase()}}s.addAll(loaded{{name.pascalCase()}}s);
+      }
+    }
 }

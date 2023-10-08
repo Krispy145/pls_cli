@@ -1,3 +1,6 @@
+import 'package:utilities/logger/logger.dart';
+
+import '../../../../utils/logger_features.dart';
 import '../../data/sources/{{name.snakeCase()}}_source.dart';
 import '../../domain/models/{{name.snakeCase()}}_model.dart';
 import 'package:dio/dio.dart';
@@ -9,26 +12,31 @@ class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSou
   Api{{name.pascalCase()}}DataSource(this.baseUrl) : dio = Dio();
 
   @override
-  Future<List<{{name.pascalCase()}}Model>> fetch{{name.pascalCase()}}Models() async {
+  Future<List<{{name.pascalCase()}}Model>?> fetch{{name.pascalCase()}}Models() async {
     try {
       final response = await dio.get('$baseUrl/{{name.snakeCase()}}');
       final List<dynamic> data = response.data;
       final List<{{name.pascalCase()}}Model> {{name.camelCase()}}s = data.map((json) => {{name.pascalCase()}}Model.fromJson(json)).toList();
+      Logger.print("API RESULT: {{name.titleCase()}}s fetched: ${{{name.camelCase()}}s.map((e) => e.toString())} ", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.information);
       return {{name.camelCase()}}s;
     } catch (e) {
-      throw Exception('Failed to fetch {{name.camelCase()}}s: $e');
+       Logger.print("API RESULT: Failed to fetch {{name.titleCase()}}s: $e ", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      return null;      
     }
   }
 
   @override
-  Future<{{name.pascalCase()}}Model> fetch{{name.pascalCase()}}ModelById(String id) async {
+  Future<{{name.pascalCase()}}Model?> fetch{{name.pascalCase()}}ModelById(String id) async {
     try {
       final response = await dio.get('$baseUrl/{{name.snakeCase()}}/$id');
       final Map<String, dynamic> data = response.data;
       final {{name.pascalCase()}}Model {{name.camelCase()}} = {{name.pascalCase()}}Model.fromJson(data);
+      Logger.print("API RESULT: {{name.titleCase()}} fetched by ID: ${{{name.camelCase()}}.toString()}", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.information);
       return {{name.camelCase()}};
     } catch (e) {
-      throw Exception('Failed to fetch {{name.camelCase()}} by ID: $e');
+      Logger.print("API RESULT: Failed to fetch {{name.titleCase()}} by ID: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      return null;
+      
     }
   }
 
@@ -39,8 +47,9 @@ class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSou
         '$baseUrl/{{name.snakeCase()}}',
         data: {{name.camelCase()}}.toJson(),
       );
+      Logger.print("API RESULT: {{name.titleCase()}} added successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
     } catch (e) {
-      throw Exception('Failed to add {{name.camelCase()}}: $e');
+      Logger.print("API RESULT: Failed to add {{name.titleCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 
@@ -51,8 +60,9 @@ class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSou
         '$baseUrl/{{name.snakeCase()}}/${{{name.camelCase()}}.name}',
         data: {{name.camelCase()}}.toJson(),
       );
+    Logger.print("API RESULT: {{name.titleCase()}} updated successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
     } catch (e) {
-      throw Exception('Failed to update {{name.camelCase()}}: $e');
+      Logger.print("API RESULT: Failed to update {{name.titleCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 
@@ -60,8 +70,9 @@ class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSou
   Future<void> delete{{name.pascalCase()}}Model(String id) async {
     try {
       await dio.delete('$baseUrl/{{name.snakeCase()}}/$id');
+    Logger.print("API RESULT: {{name.titleCase()}} deleted successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
     } catch (e) {
-      throw Exception('Failed to delete {{name.camelCase()}}: $e');
+      Logger.print("API RESULT: Failed to delete {{name.titleCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 }
