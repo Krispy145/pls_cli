@@ -22,13 +22,11 @@ class FeatureCommand extends BrickCommandBase {
   Future<void> run() async {
     await super.run();
     // parse the event name
-    final featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the logger feature?");
-    // Call the runInLibDirectory function to change the working directory to "lib"
-    runInLibDirectory(() => replaceLoggerFeatureString(featureName));
+    // final featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the logger feature?");
+    // // Call the runInLibDirectory function to change the working directory to "lib"
+    // runInLibDirectory(() => replaceLoggerFeatureString(featureName));
 
-    return runScripts([
-      'flutter pub run build_runner build --delete-conflicting-outputs',
-    ]);
+    return runScripts(['flutter pub run build_runner build --delete-conflicting-outputs', 'rn add logger --name ${argResults?['name'] as String}']);
   }
 
   /// Add the Feature to the Logger to be used in the app

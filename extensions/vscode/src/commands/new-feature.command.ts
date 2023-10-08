@@ -8,7 +8,7 @@ const createLoggerFeatureString = (name: string): string => {
   const camelCaseName = toCamelCase(name);
   const constantCaseName = toConstantCase(name);
 
-  return `static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
+  return `  static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
 };
 
 // Function to convert a string to camelCase
