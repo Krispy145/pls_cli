@@ -79,14 +79,22 @@ export const newFeature = async (args: Uri) => {
     const targetDir = await getTargetDirectory(args);
 
     if (name) {
-      // Create a logger feature string using the provided name
-      const loggerFeatureString = createLoggerFeatureString(name);
+      const commandNewFeature = `rn add feature --name ${name} --path ${targetDir}`;
+      exec(commandNewFeature, async (error, stdout, stderr) => {
+        if (error) {
+          // Handle the error by displaying an error message to the user
+          window.showErrorMessage(`Error creating feature: ${error.message}`);
+        } else {
+          // Create a logger feature string using the provided name
+          const loggerFeatureString = createLoggerFeatureString(name);
 
-      // Get the path to the logger feature file
-      const loggerFeatureFilePath = getLoggerFeatureFilePath();
+          // Get the path to the logger feature file
+          const loggerFeatureFilePath = getLoggerFeatureFilePath();
 
-      // Replace the content within the logger feature file
-      writeFileWithReplacement(loggerFeatureFilePath, loggerFeatureString);
+          // Replace the content within the logger feature file
+          writeFileWithReplacement(loggerFeatureFilePath, loggerFeatureString);
+        }
+      });
 
       // Continue with running the build runner command
       const buildRunnerCommand =
