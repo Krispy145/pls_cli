@@ -2,7 +2,7 @@
   "name": "digital-oasis",
   "displayName": "Digital Oasis",
   "description": "vscode extension to streamline dev",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "repository": "https://github.com/Krispy145/digital-oasis-cli",
   "private": true,
   "engines": {
