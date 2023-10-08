@@ -8,7 +8,6 @@ import 'package:mason/mason.dart' as mason;
 import 'package:path/path.dart' as p;
 import 'package:render_cli/src/commands/base.dart';
 import 'package:render_cli/src/logger.dart';
-import 'package:render_cli/src/utils/find_project_root.dart';
 
 /// {@template brickCommandBase}
 ///
@@ -35,24 +34,17 @@ abstract class BrickCommandBase extends RenderCommand {
       if (stderr.hasTerminal) logger.err("No argument results found");
       return;
     }
-    final featurePath = results['feature'] as String?;
+
     final givenPath = results['path'] as String?;
 
     final cwd = Directory.current;
-    final projectRoot = findProjectRoot(Directory(p.join(cwd.path, givenPath)));
 
     String outputPath;
 
     if (givenPath != null) {
       outputPath = p.canonicalize(p.join(cwd.path, givenPath));
-    } else if (featurePath != null) {
-      outputPath = p.canonicalize(
-        p.join(projectRoot.path, "lib", featurePath),
-      );
     } else {
-      outputPath = p.canonicalize(
-        p.join(projectRoot.path, "lib"),
-      );
+      outputPath = cwd.path;
     }
 
     final outputDir = Directory(outputPath);
@@ -173,11 +165,6 @@ extension DefaultOptions on ArgParser {
         "name",
         abbr: "n",
         help: "The name of the generated item.",
-      )
-      ..addOption(
-        "feature",
-        abbr: "f",
-        help: "Add the generation to a feature",
       );
   }
 }
