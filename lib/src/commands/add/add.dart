@@ -24,6 +24,7 @@ class AddCommand extends RenderCommand {
     addSubcommand(BlocCommand());
     addSubcommand(CubitCommand());
     addSubcommand(FeatureCommand());
+    addSubcommand(LoggerFeatureCommand());
     addSubcommand(ModelCommand());
     addSubcommand(OgPageCommand());
     addSubcommand(PageCommand());

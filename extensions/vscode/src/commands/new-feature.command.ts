@@ -18,6 +18,8 @@ export const newFeature = async (args: Uri) => {
           window.showErrorMessage(`Error: ${error.message}`);
         } else {
           // Process the command's output (if needed)
+          const commandNewLoggerFeature = `rn add logger --name ${name}`;
+          exec(commandNewLoggerFeature);
 
           // Run the build runner command
           const buildRunnerCommand = "flutter pub run build_runner build --delete-conflicting-outputs";
