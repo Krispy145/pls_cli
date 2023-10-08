@@ -5,7 +5,7 @@ import 'brick_command_base.dart';
 
 /// {@template cubitCommand}
 ///
-/// Add a cubit to a flutter project.
+/// Add a cubit the app.
 ///
 /// {@endtemplate}
 class CubitCommand extends BrickCommandBase {

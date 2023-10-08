@@ -14,7 +14,7 @@ import 'form_input/form_input.dart';
 import 'model.dart';
 
 /// {@template addCommand}
-/// Add various parts to a flutter project.
+/// Add various parts the app.
 /// {@endtemplate}
 class AddCommand extends RenderCommand {
   /// {@macro addCommand}
@@ -34,7 +34,7 @@ class AddCommand extends RenderCommand {
     addSubcommand(AssetsCommand());
   }
   @override
-  String get description => "Add parts to a flutter project";
+  String get description => "Add parts the app";
 
   @override
   String get name => "add";

@@ -7,7 +7,7 @@ import 'package:render_cli/src/commands/add/brick_command_base.dart';
 import 'package:render_cli/src/utils/process_log.dart';
 
 /// {@template pageCommand}
-/// Add a page to a flutter project and add the route to the router config
+/// Add a page the app and add the route to the router config
 ///
 /// Uses AutoRoute
 /// {@endtemplate}
@@ -37,11 +37,10 @@ class PageCommand extends BrickCommandBase {
   mason.MasonBundle get bundle => goRouterPageBundle;
 
   @override
-  String get description => "Add a page to a flutter project using go router";
+  String get description => "Add a page the app using go router";
 
   @override
   String get name => "page";
 }
 
-String _routeTemplate(String name) =>
-    'AutoRoute(path: "/${name.paramCase}", page: ${name.pascalCase}Route.page)';
+String _routeTemplate(String name) => 'AutoRoute(path: "/${name.paramCase}", page: ${name.pascalCase}Route.page)';

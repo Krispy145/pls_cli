@@ -7,7 +7,7 @@ import '../../../../render_cli.dart';
 import '../brick_command_base.dart';
 
 /// {@template pageCommand}
-/// Add a page to a flutter project and add the route to the route_generator.
+/// Add a page the app and add the route to the route_generator.
 /// {@endtemplate}
 class OgPageCommand extends BrickCommandBase {
   /// {@macro pageCommand}
@@ -39,8 +39,7 @@ class OgPageCommand extends BrickCommandBase {
   MasonBundle get bundle => pageBundle;
 
   @override
-  String get description =>
-      "Using navigator 1.0 create a new page and add it to the route generator.";
+  String get description => "Using navigator 1.0 create a new page and add it to the route generator.";
 
   @override
   String get name => "og-page";

@@ -16,7 +16,7 @@ const deployEmail = "andrew@digitaloasis.com";
 const deployName = "andrewlonsdale";
 
 /// {@template deployCommand}
-/// Add various parts to a flutter project.
+/// Add various parts the app.
 /// {@endtemplate}
 class DeployCommand extends RenderCommand {
   /// All the available deploy environments

@@ -21,7 +21,7 @@ typedef MasonGeneratorFromBundle = Future<MasonGenerator> Function(MasonBundle);
 typedef MasonGeneratorFromBrick = Future<MasonGenerator> Function(Brick);
 
 /// {@template modelCommand}
-/// Add a new model to a flutter project.
+/// Add a new model the app.
 /// {@endtemplate}
 class CreateFlutterAppCommand extends RenderCommand {
   /// The [MasonBundle] used to generate the project.

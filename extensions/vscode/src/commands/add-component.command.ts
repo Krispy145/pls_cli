@@ -11,7 +11,7 @@ export const addComponent = async (args: Uri) => {
 
   if (name) {
     let child = exec(
-      `render add component --name ${name} --path ${targetDir}`
+      `render add component --name ${name} --path ${targetDir}/components`
     );
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
   }

@@ -4,7 +4,7 @@ import '../../../bundles/_bundles.dart';
 import 'brick_command_base.dart';
 
 /// {@template modelCommand}
-/// Add a new model to a flutter project.
+/// Add a new model the app.
 /// {@endtemplate}
 class ModelCommand extends BrickCommandBase {
   /// {@macro modelCommand}
