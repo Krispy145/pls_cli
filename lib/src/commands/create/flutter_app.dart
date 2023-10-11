@@ -11,7 +11,7 @@ import '../../../bundles/_bundles.dart';
 final RegExp _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
 final RegExp _orgNameRegExp = RegExp(r'^[a-zA-Z][\w-]*(\.[a-zA-Z][\w-]*)+$');
 
-const _defaultOrgName = 'com.digitalOasis';
+const _defaultOrgName = 'com.digital.oasis';
 const _defaultDescription = 'A Flutter project created by Digital Oasis.';
 
 /// A method which returns a [Future<MasonGenerator>] given a [MasonBundle].

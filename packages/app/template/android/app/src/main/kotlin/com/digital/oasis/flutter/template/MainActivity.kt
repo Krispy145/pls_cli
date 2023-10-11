@@ -1,4 +1,4 @@
-package com.digitalOasis.flutter_template
+package com.digital.oasis.flutter_template
 
 import io.flutter.embedding.android.FlutterActivity
 

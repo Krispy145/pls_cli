@@ -19,16 +19,16 @@ extension GeneratorStringX on String {
 
     if (isAndroid && filePath.endsWith('build.gradle')) {
       return replaceAll(
-        'com.digitalOasis.flutter_template',
+        'com.digital.oasis.flutter_template',
         '{{application_id_android}}',
       );
     } else if (isAndroid) {
       return replaceAll(
-        'com.digitalOasis.flutter_template',
+        'com.digital.oasis.flutter_template',
         '{{application_id_android}}',
       );
     } else {
-      return replaceAll('com.digitalOasis.flutter-template', '{{application_id}}');
+      return replaceAll('com.digital.oasis.flutter-template', '{{application_id}}');
     }
   }
 }
