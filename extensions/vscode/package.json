@@ -14,9 +14,7 @@
   "activationEvents": [
     "onCommand:digital-oasis.new-feature",
     "onCommand:digital-oasis.add-component",
-    "onCommand:digital-oasis.add-model",
-    "onCommand:digital-oasis.add-file",
-    "onCommand:digital-oasis.add-input"
+    "onCommand:digital-oasis.add-model"    
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -31,12 +29,7 @@
         "command": "digital-oasis.new-feature",
         "title": "Feature",
         "shortTitle": "New Feature"
-      },
-      {
-        "command": "digital-oasis.add-input",
-        "title": "Bloc: Input",
-        "shortTitle": "Input"
-      },
+      },      
       {
         "command": "digital-oasis.add-component",
         "title": "Component",
@@ -46,12 +39,7 @@
         "command": "digital-oasis.add-model",
         "shortTitle": "New Model",
         "title": "Model"
-      },
-      {
-        "command": "digital-oasis.add-file",
-        "shortTitle": "New File",
-        "title": "File"
-      }
+      }      
     ],
     "menus": {
       "explorer/context": [
@@ -67,20 +55,13 @@
         }
       ],
       "commandPalette": [
-        {
-          "command": "digital-oasis.add-event",
-          "when": "false"
-        }
+       
       ],
       "digital-oasis.submenu": [
         {
           "command": "digital-oasis.new-feature",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
-        },
-        {
-          "command": "digital-oasis.add-file",
-          "when": "explorerResourceIsFolder"
-        },
+        },        
         {
           "command": "digital-oasis.add-component",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"

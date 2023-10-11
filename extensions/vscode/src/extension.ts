@@ -5,8 +5,7 @@ import { newFeature } from "./commands/new-feature.command";
 import { addComponent } from "./commands/add-component.command";
 import { commands, ExtensionContext } from "vscode";
 import { addModel } from "./commands/add-model.command";
-import { addFile } from "./commands/add-file.command";
-import { addFormInput } from "./commands/add-input.command";
+
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -22,18 +21,13 @@ export function activate(context: ExtensionContext) {
   
   
   let model = commands.registerCommand("digital-oasis.add-model", addModel);
-  let newFile = commands.registerCommand("digital-oasis.add-file", addFile);
-  let formInput = commands.registerCommand(
-    "digital-oasis.add-input",
-    addFormInput
-  );
+  
+  
 
   context.subscriptions.push(
     feature,
-    formInput,
     component,    
-    model,
-    newFile,
+    model,  
   );
 }
 
