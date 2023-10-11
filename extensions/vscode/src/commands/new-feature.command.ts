@@ -44,7 +44,7 @@ const createLoggerFeatureString = (name: string): string => {
   const constantCaseName = toConstantCase(name);
   const pascalCaseName = toPascalCase(name);
 
-  return `/// ${pascalCaseName} logger feature.\nstatic final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
+  return `/// ${pascalCaseName} logger feature.\n static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
 };
 
 // Function to convert a string to camelCase
@@ -57,10 +57,10 @@ const toConstantCase = (str: string): string => {
   return str.replace(/[-\s]+/g, "_").toUpperCase();
 };
 
+// Function to convert a string to PascalCase
 const toPascalCase = (str: string): string => {
-  return str.replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
+  return str.replace(/[-_\s]+./g, (match) => match.charAt(match.length - 1).toUpperCase());
 };
-
 
 
 // Function to get the path to the logger feature file
