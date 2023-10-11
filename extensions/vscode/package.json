@@ -5,7 +5,7 @@
   "version": "0.7.1",
   "repository": "https://github.com/Krispy145/digital-oasis-cli",
   "private": true,
-  "icon": "./images/skate-oasis-circle.png",
+  "icon": "./out/skate-oasis-circle.png",
   "engines": {
     "vscode": "^1.66.0"
   },
