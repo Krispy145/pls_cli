@@ -1,6 +1,5 @@
 import 'package:render_cli/src/commands/base.dart';
 import 'package:render_cli/src/commands/list/features.dart';
-import 'package:render_cli/src/commands/list/route_generators.dart';
 
 /// {@template listCommand}
 /// List various aspects of a flutter project.
@@ -10,7 +9,6 @@ import 'package:render_cli/src/commands/list/route_generators.dart';
 class ListCommand extends RenderCommand {
   /// {@macro listCommand}
   ListCommand() {
-    addSubcommand(RouteGeneratorsCommand());
     addSubcommand(ListFeaturesCommand());
   }
   @override

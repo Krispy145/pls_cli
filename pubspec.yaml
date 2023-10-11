@@ -19,15 +19,11 @@ scripts:
   # Useful for bundling all the add bricks eg `BRICK=bloc rn run bundle`
   bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
   bundle:app: BRICK=app rn run bundle
-  bundle:assets: BRICK=assets rn run bundle
-  bundle:bloc: BRICK=bloc rn run bundle
-  bundle:bloc_form: BRICK=bloc_form rn run bundle
-  bundle:component: BRICK=component rn run bundle
-  bundle:cubit: BRICK=cubit rn run bundle
-  bundle:cubit_form: BRICK=cubit_form rn run bundle
+  bundle:assets: BRICK=assets rn run bundle  
+  bundle:component: BRICK=component rn run bundle  
   bundle:feature: BRICK=feature rn run bundle
-  bundle:font_family: BRICK=font_family rn run bundle
-  bundle:a_page: BRICK=auto_router_page rn run bundle
+  bundle:model: BRICK=model rn run bundle
+  bundle:font_family: BRICK=font_family rn run bundle  
   gen:app_brick:
     - command: flutter clean
       cwd: packages/app/template

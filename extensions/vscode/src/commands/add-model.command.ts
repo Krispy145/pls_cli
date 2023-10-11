@@ -1,23 +1,26 @@
 import { exec } from "child_process";
 import { Uri, window } from "vscode";
 import { getTargetDirectory } from "../utils/get-target-directory";
+import { buildRunner } from "../utils/build_runner";
 
 export const addModel = async (args: Uri) => {
   const name = await window.showInputBox({
     prompt: "Name of the model",
     placeHolder: "Model name",
   });
-  const isSerializable = await window.showQuickPick(["Yes", "No"], {
-    canPickMany: false,
-    title: "Is the model serializable?",
-  });
+  var targetDir = await getTargetDirectory(args);
 
-  if (name) {
-    let command = `render add model --name ${name} -p ${await getTargetDirectory(
-      args
-    )} ${isSerializable === "Yes" && "--serializable"}`;
+  if (name&&targetDir) {
+    // Check if the targetDir ends with "models"
+    if (!targetDir.endsWith("models")) {
+      targetDir += "/models";
+    }
 
-    let child = exec(command);
+    let child = exec(
+      `render add model --name ${name} --path ${targetDir}`
+    );
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
+    
+    await buildRunner("Model");
   }
 };

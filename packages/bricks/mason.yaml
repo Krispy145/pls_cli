@@ -2,16 +2,7 @@ bricks:
   feature:
     path: ./feature
   model:
-    path: ./model
-  page:
-    path: ./page
+    path: ./model    
   component:
     path: ./component
-  bloc:
-    path: ./bloc
-  cubit:
-    path: ./cubit
-  cubit_form:
-    path: ./cubit_form
-  bloc_form:
-    path: ./bloc_form
+  
