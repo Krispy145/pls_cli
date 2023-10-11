@@ -61,15 +61,15 @@
       "digital-oasis.submenu": [
         {
           "command": "digital-oasis.new-feature",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(features))$/"
         },        
         {
           "command": "digital-oasis.add-component",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(components|lib|presentation|navigation|utils|core|config|app))$/"
         },
         {
           "command": "digital-oasis.add-model",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<!(\\\\|\\/)(blocs|components|models|pages|repositories|services))$/"
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(models|domain|))$/"
         }
       ]
     }
