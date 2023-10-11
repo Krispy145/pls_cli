@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/dependency_injection/injection_container.dart';
 
+/// [MainAppBar] is a class that defines the main app bar of the app.
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
-  MainAppBar({
+  /// [MainAppBar] constructor.
+  const MainAppBar({
     super.key,
-  }) : preferredSize = Size.fromHeight(kToolbarHeight);
+  }) : preferredSize = const Size.fromHeight(kToolbarHeight);
 
   @override
   final Size preferredSize;
-  final defaultShellStore = Managers.defaultShellStore;
 
   @override
   Widget build(BuildContext context) {

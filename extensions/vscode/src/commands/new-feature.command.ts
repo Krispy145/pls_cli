@@ -42,8 +42,9 @@ export const newFeature = async (args: Uri) => {
 const createLoggerFeatureString = (name: string): string => {
   const camelCaseName = toCamelCase(name);
   const constantCaseName = toConstantCase(name);
+  const pascalCaseName = toPascalCase(name);
 
-  return `static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n ///LOGGER FEATURE END`;
+  return `/// ${pascalCaseName} logger feature.\nstatic final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
 };
 
 // Function to convert a string to camelCase
@@ -55,6 +56,12 @@ const toCamelCase = (str: string): string => {
 const toConstantCase = (str: string): string => {
   return str.replace(/[-\s]+/g, "_").toUpperCase();
 };
+
+const toPascalCase = (str: string): string => {
+  return str.replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
+};
+
+
 
 // Function to get the path to the logger feature file
 const getLoggerFeatureFilePath = (): string => {

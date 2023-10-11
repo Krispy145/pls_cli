@@ -1,31 +1,36 @@
-import 'store.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:utilities/widgets/load_state/state_widget.dart';
 
+import 'store.dart';
+
+/// [{{name.pascalCase()}}View] of the app.
 class {{name.pascalCase()}}View extends StatelessWidget {
-  {{name.pascalCase()}}View();
+  /// [{{name.pascalCase()}}View] constructor.
+  {{name.pascalCase()}}View({super.key});
 
-  final {{name.pascalCase()}}Store store = {{name.pascalCase()}}Store();
+  /// [store] is an instance of [{{name.pascalCase()}}Store], used in the [LoadStateBuilder].
+  final {{name.pascalCase()}}Store store = {{name.pascalCase()}}Store()..load{{name.pascalCase()}}Models();
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (context) {
-        if (store.{{name.camelCase()}}s.isEmpty) {
-          return CircularProgressIndicator();
-        } else {
-          return ListView.builder(
-            itemCount: store.{{name.camelCase()}}s.length,
-            itemBuilder: (context, index) {
-              final {{name.camelCase()}} = store.{{name.camelCase()}}s[index];
-              return ListTile(
-                title: Text({{name.camelCase()}}.name),
-                subtitle: Text('Age: ${{{name.camelCase()}}.age}'),
-              );
-            },
+    return LoadStateBuilder(
+      viewStore: store,
+      emptyBuilder: (context) => const Center(
+        child: Text("Empty {{name.camelCase()}} view."),
+      ),
+      loadedBuilder: (context) => ListView.builder(
+        itemCount: store.{{name.camelCase()}}s.length,
+        itemBuilder: (context, index) {
+          final {{name.camelCase()}}Model = store.{{name.camelCase()}}s[index]!;
+          return ListTile(
+            title: Text('Name: ${{{name.camelCase()}}Model.name}'),
+            subtitle: Text('Age: ${{{name.camelCase()}}Model.age}'),
           );
-        }
-      },
+        },
+      ),
+      errorBuilder: (context) => const Center(
+        child: Text("Error loading {{name.camelCase()}} view."),
+      ),
     );
   }
 }

@@ -4,51 +4,45 @@ version: 1.0.0+1
 publish_to: none
 
 scripts:
-  gen: 
-    - command: flutter pub run build_runner build --delete-conflicting-outputs  
-    - command: flutter clean    
-    - command: flutter pub get      
-  get:
-    - command: flutter pub get      
-  clean:
-    - command: flutter clean    
+  gen:
+    - command: flutter pub run build_runner build --delete-conflicting-outputs
+    - command: flutter clean
+    - command: flutter pub get
 
 environment:
-  sdk: '>=3.0.3 <4.0.0'
+  sdk: ">=3.0.3 <4.0.0"
 
-dependencies: 
+dependencies:
   flutter:
-    sdk: flutter  
+    sdk: flutter
   navigation:
     path: /Users/davidkisbey-green/Desktop/Digital_Oasis/navigation
     # git:
-    #   url: github.com/Krispy145/navigation_package.git      
+    #   url: github.com/Krispy145/navigation_package.git
     #   ref: navigation_package
   utilities:
     path: /Users/davidkisbey-green/Desktop/Digital_Oasis/utilities
     # git:
-    #   url: github.com/Krispy145/utilities_package.git      
+    #   url: github.com/Krispy145/utilities_package.git
     #   ref: utilities_package
-    
+
   get_it: ^7.6.4
-  internet_connection_checker: ^1.0.0+1  
-  hive_flutter: ^1.1.0
+  internet_connection_checker: ^1.0.0+1
   freezed_annotation: ^2.4.1
-  shimmer: ^3.0.0   
-  json_annotation: ^4.8.1  
+  json_annotation: ^4.8.1
   dio: ^5.3.3
 
 dev_dependencies:
   flutter_test:
-    sdk: flutter  
+    sdk: flutter
   freezed: ^2.4.1
   json_serializable: ^6.7.1
   flutter_lints: ^2.0.0
   mobx_codegen: ^2.3.0
-  build_runner:      
+  build_runner:
   go_router_builder: ^2.3.1
 
 flutter:
-  uses-material-design: true  
-  assets:    
+  uses-material-design: true
+  assets:
     - assets/images/

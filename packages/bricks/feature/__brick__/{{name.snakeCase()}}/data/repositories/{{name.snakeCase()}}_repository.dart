@@ -1,20 +1,23 @@
-import '../../data/sources/{{name.snakeCase()}}_source.dart';
-import '../../domain/models/{{name.snakeCase()}}_model.dart';
-import '../../domain/repositories/{{name.snakeCase()}}_repository.dart';
+import '../../data/sources/{{name.camelCase()}}_source.dart';
+import '../../domain/models/{{name.camelCase()}}_model.dart';
+import '../../domain/repositories/{{name.camelCase()}}_repository.dart';
 
+/// [{{name.pascalCase()}}DataRepository] is a class that implements [{{name.pascalCase()}}Repository] interface.
 class {{name.pascalCase()}}DataRepository implements {{name.pascalCase()}}Repository {
+  /// [dataSource] is an instance of [{{name.pascalCase()}}DataSource].
   final {{name.pascalCase()}}DataSource dataSource;
 
+  /// [{{name.pascalCase()}}DataRepository] constructor.
   {{name.pascalCase()}}DataRepository(this.dataSource);
 
   @override
-  Future<List<{{name.pascalCase()}}Model>?> getAll{{name.pascalCase()}}Models() async {
-    return await dataSource.fetch{{name.pascalCase()}}Models();
+  Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models() async {
+    return dataSource.fetch{{name.pascalCase()}}Models();
   }
 
   @override
   Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}ModelById(String id) async {
-    return await dataSource.fetch{{name.pascalCase()}}ModelById(id);
+    return dataSource.fetch{{name.pascalCase()}}ModelById(id);
   }
 
   @override

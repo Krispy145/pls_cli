@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:{{project_name.snakeCase()}}/features/home/presentation/store.dart';
+import 'package:utilities/widgets/load_state/state_widget.dart';
 
+import 'store.dart';
+
+/// [HomeView] of the app.
 class HomeView extends StatelessWidget {
-  HomeView();
+  /// [HomeView] constructor.
+  HomeView({super.key});
 
+  /// [store] is an instance of [HomeStore], used in the [LoadStateBuilder].
   final HomeStore store = HomeStore()..loadHomeModels();
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (context) {
-        if (store.homes.isEmpty) {
-          return Center(child: CircularProgressIndicator());
-        } else {
-          return ListView.builder(
-            itemCount: store.homes.length,
-            itemBuilder: (context, index) {
-              final feature = store.homes[index];
-              return ListTile(
-                title: Text(feature.name),
-                subtitle: Text('Age: ${feature.age}'),
-              );
-            },
+    return LoadStateBuilder(
+      viewStore: store,
+      emptyBuilder: (context) => const Center(
+        child: Text("Empty home view."),
+      ),
+      loadedBuilder: (context) => ListView.builder(
+        itemCount: store.homes.length,
+        itemBuilder: (context, index) {
+          final homeModel = store.homes[index]!;
+          return ListTile(
+            title: Text('Name: ${homeModel.name}'),
+            subtitle: Text('Age: ${homeModel.age}'),
           );
-        }
-      },
+        },
+      ),
+      errorBuilder: (context) => const Center(
+        child: Text("Error loading home view."),
+      ),
     );
   }
 }

@@ -94,8 +94,5 @@ linter:
     # Often unnecessary
     prefer_final_parameters: false
 
-    # Boring as it sometimes force a line of 81 characters to be split in two.
-    # As long as we try to respect that 80 characters limit, going slightly
-    # above is fine.
     lines_longer_than_80_chars: false
     always_put_control_body_on_new_line: false
