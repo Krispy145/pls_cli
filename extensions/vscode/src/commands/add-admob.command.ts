@@ -9,10 +9,10 @@ import * as path from "path";
 
 export const addAdmob = async (args: Uri) => {
     const pythonScriptName = "/assets/admob.py"; 
-    const extension = extensions.getExtension("digital-oasis.skate-oasis");
+    const extension = extensions.getExtension("skate-oasis.digital-oasis");
   
     if (!extension) {
-      window.showErrorMessage("Extension 'digital-oasis.skate-oasis' not found.");
+      window.showErrorMessage("Extension 'skate-oasis.digital-oasis' not found.");
       return;
     }
   
