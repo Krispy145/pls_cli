@@ -1,6 +1,7 @@
 {
   "name": "digital-oasis",
   "displayName": "Digital Oasis",
+  "publisher": "skate-oasis",
   "description": "vscode extension to streamline dev",
   "version": "0.7.1",
   "repository": "https://github.com/Krispy145/digital-oasis-cli",
