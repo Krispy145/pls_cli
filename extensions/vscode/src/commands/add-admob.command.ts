@@ -66,11 +66,12 @@ export const addAdmob = async (args: Uri) => {
 
         // Code snippet to be added
         const admobSetupCode = `
-                              ..registerLazySingleton<AdMobStore>(() => AdMobStore(
-                                bannerAdUnitId: '${bannerAdUnitId}',
-                                interstitialAdUnitId: '${interstitialAdUnitId}',
-                                rewardAdUnitId: '${rewardAdUnitId}',
-                              ))`;
+
+            ..registerLazySingleton<AdMobStore>(() => AdMobStore(
+            bannerAdUnitId: '${bannerAdUnitId}',
+            interstitialAdUnitId: '${interstitialAdUnitId}',
+            rewardAdUnitId: '${rewardAdUnitId}',
+            ),)`;
 
         // Getter to be added
         const getterCode =
@@ -90,7 +91,7 @@ export const addAdmob = async (args: Uri) => {
         // Find the comment "///END OF CORE" and insert the AdMob setup code just before it
         const updatedContent2 = updatedContent1.replace(
           /(;\s*\n\s*\n\s*\/\/\/END OF CORE)/,
-          `${admobSetupCode.trim()}\n$1`
+          `${admobSetupCode.trim()}$1`
         );
 
         // Add the getter at the end of the class
