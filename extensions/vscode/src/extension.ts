@@ -3,7 +3,7 @@
 
 import { newFeature } from "./commands/new-feature.command";
 import { addComponent } from "./commands/add-component.command";
-import { commands, ExtensionContext, Uri } from "vscode";
+import { commands, ExtensionContext } from "vscode";
 import { addModel } from "./commands/add-model.command";
 import { addAdmob } from "./commands/add-admob.command";
 
@@ -18,12 +18,7 @@ export function activate(context: ExtensionContext) {
     "digital-oasis.add-component",
     addComponent
   );
-  let admob = commands.registerCommand(
-    "digital-oasis.add-admob",
-    (uri: Uri) => {
-      addAdmob(uri, context);
-    }
-  );
+  let admob = commands.registerCommand("digital-oasis.add-admob", addAdmob);
 
   let model = commands.registerCommand("digital-oasis.add-model", addModel);
 
