@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { exec } from "child_process";
 import { Uri, window, extensions, ExtensionContext } from "vscode";
 import {
   getFeatureFilePath as getFilePath,
@@ -32,7 +32,7 @@ export const addAdmob = async (args: Uri) => {
       await appendToFile(
         androidManifestPath,
         androidManifestSnippet,
-        "</application>\n</manifest>"
+        "(\\s*)</application>\\s*</manifest>"
       );
 
       // Add iOS Info.plist snippet
@@ -104,8 +104,21 @@ export const addAdmob = async (args: Uri) => {
         const admobPath =
           "/Users/davidkisbey-green/Desktop/Digital_Oasis/admob/";
         const cmd = `flutter pub add admob --path=${admobPath}`;
-        execSync(cmd, { stdio: "inherit" });
-        window.showInformationMessage("AdMob package added to dependencies");
+
+        exec(cmd, (error, stdout, stderr) => {
+          if (error) {
+            console.error(`Error: ${error.message}`);
+            window.showErrorMessage(`Error: ${error.message}`);
+            return;
+          }
+          if (stderr) {
+            console.error(`stderr: ${stderr}`);
+            window.showErrorMessage(`stderr: ${stderr}`);
+            return;
+          }
+          console.log(`stdout: ${stdout}`);
+          window.showInformationMessage("AdMob package added to dependencies");
+        });
       }
     }
   } catch (error) {

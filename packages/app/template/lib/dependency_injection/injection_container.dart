@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_lambdas,
 import 'package:get_it/get_it.dart';
+import 'package:admob/ads/store.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:navigation/structures/default_shell_structure/store.dart';
 import 'package:utilities/flavors/flavor_config.dart';
@@ -37,7 +38,12 @@ class ManagerInjector {
     Logger.print("Initializing core services...", [LoggerFeatures.dependancyInjection]);
     _serviceLocator
       ..registerLazySingleton<NetworkInfo>(() => NetworkInfo(_serviceLocator()))
-      ..registerLazySingleton<FlavorManager>(() => FlavorManager(flavorConfig: flavorConfig));
+      ..registerLazySingleton<FlavorManager>(() => FlavorManager(flavorConfig: flavorConfig))..registerLazySingleton<AdMobStore>(() => AdMobStore(
+                                bannerAdUnitId: 'bbbbbbbbbbb',
+                                interstitialAdUnitId: 'iiiiiiiiiiiii',
+                                rewardAdUnitId: 'rrrrrrrrrrrrrrrr',
+                              ))
+;
 
     ///END OF CORE
   }
@@ -67,4 +73,5 @@ class ManagerInjector {
 
   /// [DefaultShellStructureStore] getter
   DefaultShellStructureStore get defaultShellStore => _serviceLocator.get<DefaultShellStructureStore>();
+  AdMobStore get adMobStore => _serviceLocator.get<AdMobStore>();
 }
