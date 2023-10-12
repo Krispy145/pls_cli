@@ -8,17 +8,17 @@ import * as fs from "fs";
 import * as path from "path";
 
 export const addAdmob = async (args: Uri) => {
-  const pythonScriptName = 'scripts/admob.py'; 
-  const extensionPath = __dirname;
+  const pythonScriptName = './out/scripts/admob.py'; 
+//   const extensionPath = __dirname;
 
   // Create a terminal instance
   const terminal = window.createTerminal('Python Terminal');
 
   // Set the Python script path
-  const pythonScriptPath = `${extensionPath}/${pythonScriptName}`;
+//   const pythonScriptPath = `${extensionPath}/${pythonScriptName}`;
 
   // Run Python script in the terminal
-  terminal.sendText(`python3 ${pythonScriptPath}`);
+  terminal.sendText(`python3 ${pythonScriptName}`);
 
 //   // Handle user input using a VS Code input box
 //   const androidAppId = await window.showInputBox({
