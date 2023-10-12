@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import { Uri, window, extensions } from "vscode";
+import { Uri, window, extensions, ExtensionContext } from "vscode";
 import {
   getFeatureFilePath as getFilePath,
   getTargetDirectory,
@@ -7,9 +7,9 @@ import {
 import * as fs from "fs";
 import * as path from "path";
 
-export const addAdmob = async (args: Uri) => {
+export const addAdmob = async (args: Uri,context: ExtensionContext) => {
   const pythonScriptName = 'scripts/admob.py'; 
-  const extensionPath = __dirname;
+  const extensionPath = context.extensionPath;
 
   // Create a terminal instance
   const terminal = window.createTerminal('Python Terminal');

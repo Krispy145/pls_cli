@@ -3,10 +3,9 @@
 
 import { newFeature } from "./commands/new-feature.command";
 import { addComponent } from "./commands/add-component.command";
-import { commands, ExtensionContext } from "vscode";
+import { commands, ExtensionContext, Uri } from "vscode";
 import { addModel } from "./commands/add-model.command";
 import { addAdmob } from "./commands/add-admob.command";
-
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -21,20 +20,14 @@ export function activate(context: ExtensionContext) {
   );
   let admob = commands.registerCommand(
     "digital-oasis.add-admob",
-    addAdmob
+    (uri: Uri) => {
+      addAdmob(uri, context);
+    }
   );
-  
-  
-  let model = commands.registerCommand("digital-oasis.add-model", addModel);
-  
-  
 
-  context.subscriptions.push(
-    feature,
-    component,    
-    model,
-    admob,  
-  );
+  let model = commands.registerCommand("digital-oasis.add-model", addModel);
+
+  context.subscriptions.push(feature, component, model, admob);
 }
 
 // this method is called when your extension is deactivated
