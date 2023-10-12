@@ -67,15 +67,16 @@ export const addAdmob = async (args: Uri) => {
 
         // Code snippet to be added
         const admobSetupCode = `
-            \n..registerLazySingleton<AdMobStore>(() => AdMobStore(
+            ..registerLazySingleton<AdMobStore>(() => AdMobStore(
             bannerAdUnitId: '${bannerAdUnitId}',
             interstitialAdUnitId: '${interstitialAdUnitId}',
             rewardAdUnitId: '${rewardAdUnitId}',
             ),)`;
 
         // Getter to be added
-        const getterCode =
-          "  AdMobStore get adMobStore => _serviceLocator.get<AdMobStore>();";
+        const getterCode = `
+    /// [AdMobStore] getter
+    AdMobStore get adMobStore => _serviceLocator.get<AdMobStore>();`;
 
         const injectionContainerPath = getFilePath(
           "lib/dependency_injection/injection_container.dart"
@@ -91,7 +92,7 @@ export const addAdmob = async (args: Uri) => {
         // Find the comment "///END OF CORE" and insert the AdMob setup code just before it
         const updatedContent2 = updatedContent1.replace(
           /(;\s*\n\s*\n\s*\/\/\/END OF CORE)/,
-          `${admobSetupCode.trim()}$1`
+          `${admobSetupCode}$1`
         );
 
         // Add the getter at the end of the class
