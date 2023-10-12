@@ -79,7 +79,7 @@
         },
         {
           "command": "digital-oasis.add-admob",
-          "when": "editorLangId == 'dart' && editorFileName == 'injection_container.dart'"
+          "when": "editorFileName == 'injection_container.dart'"
         }        
       ]
     }
