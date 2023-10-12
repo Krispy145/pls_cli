@@ -67,16 +67,12 @@ export const addAdmob = async (args: Uri) => {
 
         // Code snippet to be added
         const admobSetupCode = `
-            ..registerLazySingleton<AdMobStore>(() => AdMobStore(
-            bannerAdUnitId: '${bannerAdUnitId}',
-            interstitialAdUnitId: '${interstitialAdUnitId}',
-            rewardAdUnitId: '${rewardAdUnitId}',
-            ),)`;
+..registerLazySingleton<AdMobStore>(() => AdMobStore(bannerAdUnitId: 'bbbbbbbbbbbbbbb',interstitialAdUnitId: 'iiiiiiiiiiiiiiiiii',rewardAdUnitId: 'rrrrrrrrrrrrrrrrrrrrrrr'))`;
 
         // Getter to be added
         const getterCode = `
-    /// [AdMobStore] getter
-    AdMobStore get adMobStore => _serviceLocator.get<AdMobStore>();`;
+/// [AdMobStore] getter
+AdMobStore get adMobStore => _serviceLocator.get<AdMobStore>();`;
 
         const injectionContainerPath = getFilePath(
           "lib/dependency_injection/injection_container.dart"
