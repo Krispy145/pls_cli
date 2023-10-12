@@ -8,7 +8,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 export const addAdmob = async (args: Uri) => {
-  const pythonScriptName = './out/scripts/admob.py'; 
+  const pythonScriptName = 'scripts/admob.py'; 
   const extensionPath = __dirname;
 
   // Create a terminal instance
