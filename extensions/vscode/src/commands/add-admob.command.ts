@@ -8,31 +8,40 @@ import * as fs from "fs";
 import * as path from "path";
 
 export const addAdmob = async (args: Uri) => {
-    const pythonScriptName = "/assets/admob.py"; 
-    const extension = extensions.getExtension("skate-oasis.digital-oasis");
-  
-    if (!extension) {
-      window.showErrorMessage("Extension 'skate-oasis.digital-oasis' not found.");
-      return;
-    }
-  
-    const extensionPath = extension.extensionPath;
-    const pythonScriptPath = path.join(extensionPath, pythonScriptName);
-  
-    const pythonProcess = spawn("python", [pythonScriptPath]);
-  
-    pythonProcess.stdout.on("data", (data) => {
-      console.log(`Python Script Output: ${data}`);
-    });
-  
-    pythonProcess.stderr.on("data", (data) => {
-      console.error(`Python Script Error: ${data}`);
-    });
-  
-    pythonProcess.on("close", (code) => {
-      console.log(`Python Script Exited with Code: ${code}`);
-    });
-  };
+  const pythonScriptName = 'assets/admob.py'; 
+  const extensionPath = __dirname;
+
+  // Create a terminal instance
+  const terminal = window.createTerminal('Python Terminal');
+
+  // Set the Python script path
+  const pythonScriptPath = `${extensionPath}/${pythonScriptName}`;
+
+  // Run Python script in the terminal
+  terminal.sendText(`python3 ${pythonScriptPath}`);
+
+//   // Handle user input using a VS Code input box
+//   const androidAppId = await window.showInputBox({
+//     prompt: 'Enter Android AdMob Application Identifier:',
+//   });
+
+//   const iosAppId = await window.showInputBox({
+//     prompt: 'Enter iOS AdMob Application Identifier:',
+//   });
+
+//   // Send the user input to the terminal
+//   if (androidAppId) {
+//     terminal.sendText(`echo ${androidAppId}`);
+//   }
+
+//   if (iosAppId) {
+//     terminal.sendText(`echo ${iosAppId}`);
+//   }
+
+  // Show the terminal
+  terminal.show();
+};
+
   //   try {
   //     const androidManifestPath = getFilePath(
   //       "android/app/src/main/AndroidManifest.xml"
