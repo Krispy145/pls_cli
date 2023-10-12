@@ -38,27 +38,33 @@ class ManagerInjector {
     _serviceLocator
       ..registerLazySingleton<NetworkInfo>(() => NetworkInfo(_serviceLocator()))
       ..registerLazySingleton<FlavorManager>(() => FlavorManager(flavorConfig: flavorConfig));
+
+    ///END OF CORE
   }
 
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
   void initApp() {
     Logger.print("Initializing app services...", [LoggerFeatures.dependancyInjection]);
     _serviceLocator.registerLazySingleton<DefaultShellStructureStore>(() => DefaultShellStructureStore());
+
+    ///END OF APP
   }
 
   /// Method responsible for handling all service locator registrations for external services.
   void initExternal() {
     Logger.print("Initializing external services...", [LoggerFeatures.dependancyInjection]);
     _serviceLocator.registerLazySingleton(() => InternetConnectionChecker());
+
+    ///END OF EXTERNAL
   }
 
   /// Getters for all services
-  /// flaverManager
+  /// [FlavorManager] getter
   FlavorManager get _flavor => _serviceLocator.get<FlavorManager>();
 
-  /// flavorConfig getter
+  /// [FlavorConfig] getter
   FlavorConfig get flavor => _flavor.flavorConfig;
 
-  /// networkInfo getter
+  /// [DefaultShellStructureStore] getter
   DefaultShellStructureStore get defaultShellStore => _serviceLocator.get<DefaultShellStructureStore>();
 }

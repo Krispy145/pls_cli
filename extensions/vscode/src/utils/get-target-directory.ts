@@ -7,6 +7,8 @@ import {
 } from "vscode";
 import * as _ from "lodash";
 import { lstatSync } from "fs";
+import * as path from 'path';
+
 
 export const getTargetDirectory = async (
   uri: Uri
@@ -38,3 +40,14 @@ async function promptForTargetDirectory(): Promise<string | undefined> {
     return uri[0].fsPath;
   });
 }
+
+
+// Function to get the path to a feature file with a provided relative path
+export const getFeatureFilePath = (relativePath: string): string => {
+  const currentWorkspace = workspace.workspaceFolders?.[0];
+  if (currentWorkspace) {
+    return path.join(currentWorkspace.uri.fsPath, relativePath);
+  } else {
+    throw new Error('No workspace folder found.');
+  }
+};

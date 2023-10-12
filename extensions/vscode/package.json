@@ -15,7 +15,8 @@
   "activationEvents": [
     "onCommand:digital-oasis.new-feature",
     "onCommand:digital-oasis.add-component",
-    "onCommand:digital-oasis.add-model"    
+    "onCommand:digital-oasis.add-model",
+    "onCommand:digital-oasis.add-admob"    
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -40,6 +41,11 @@
         "command": "digital-oasis.add-model",
         "shortTitle": "New Model",
         "title": "Model"
+      },
+      {
+        "command": "digital-oasis.add-admob",
+        "title": "Add Admob",
+        "shortTitle": "Add AdMob"
       }      
     ],
     "menus": {
@@ -70,7 +76,11 @@
         {
           "command": "digital-oasis.add-model",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(models|domain|))$/"
-        }
+        },
+        {
+          "command": "digital-oasis.add-admob",
+          "when": "editorLangId == 'dart' && editorFileName == 'injection_container.dart'"
+        }        
       ]
     }
   },
