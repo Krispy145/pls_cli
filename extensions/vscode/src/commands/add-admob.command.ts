@@ -8,6 +8,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 export const addAdmob = async (args: Uri) => {
+  var targetDir = await getTargetDirectory(args);
   try {
     const androidManifestPath = getFilePath(
       "android/app/src/main/AndroidManifest.xml"
@@ -25,10 +26,10 @@ export const addAdmob = async (args: Uri) => {
     if (androidAppId && iosAppId) {
       // Add AndroidManifest.xml snippet
       const androidManifestSnippet = `
-          <!-- Admob -->
-          <meta-data
-              android:name="com.google.android.gms.ads.APPLICATION_ID"
-              android:value="${androidAppId}"/>`;
+        <!-- Admob -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${androidAppId}"/>`;
       await appendToFile(
         androidManifestPath,
         androidManifestSnippet,
@@ -37,13 +38,13 @@ export const addAdmob = async (args: Uri) => {
 
       // Add iOS Info.plist snippet
       const iosInfoPlistSnippet = `
-      <!-- Admob -->
-      <key>GADApplicationIdentifier</key>
-      <string>${iosAppId}</string>
-      <key>io.flutter.embedded_views_preview</key>
-      <true/>
-      <key>NSUserTrackingUsageDescription</key>
-      <string>This identifier will be used to deliver personalized ads to you.</string>`;
+    <!-- Admob -->
+    <key>GADApplicationIdentifier</key>
+    <string>${iosAppId}</string>
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>This identifier will be used to deliver personalized ads to you.</string>`;
       await appendToFile(
         iosInfoPlistPath,
         iosInfoPlistSnippet,
@@ -66,8 +67,7 @@ export const addAdmob = async (args: Uri) => {
 
         // Code snippet to be added
         const admobSetupCode = `
-
-            ..registerLazySingleton<AdMobStore>(() => AdMobStore(
+            \n..registerLazySingleton<AdMobStore>(() => AdMobStore(
             bannerAdUnitId: '${bannerAdUnitId}',
             interstitialAdUnitId: '${interstitialAdUnitId}',
             rewardAdUnitId: '${rewardAdUnitId}',
@@ -106,7 +106,7 @@ export const addAdmob = async (args: Uri) => {
           "/Users/davidkisbey-green/Desktop/Digital_Oasis/admob/";
         const cmd = `flutter pub add admob --path=${admobPath}`;
 
-        exec(cmd, (error, stdout, stderr) => {
+        exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
           if (error) {
             console.error(`Error: ${error.message}`);
             window.showErrorMessage(`Error: ${error.message}`);

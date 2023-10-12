@@ -51,13 +51,5 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-
-      <!-- Admob -->
-      <key>GADApplicationIdentifier</key>
-      <string>ooooooooooooooooo</string>
-      <key>io.flutter.embedded_views_preview</key>
-      <true/>
-      <key>NSUserTrackingUsageDescription</key>
-      <string>This identifier will be used to deliver personalized ads to you.</string>
 </dict>
 </plist>
