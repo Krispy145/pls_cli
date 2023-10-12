@@ -79,7 +79,7 @@
         },
         {
           "command": "digital-oasis.add-admob",
-          "when": "editorFileName == 'injection_container.dart'"
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependancy_injection|lib|))$/"
         }        
       ]
     }
