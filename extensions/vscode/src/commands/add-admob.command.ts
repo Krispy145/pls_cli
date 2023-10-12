@@ -26,10 +26,10 @@ export const addAdmob = async (args: Uri) => {
     if (androidAppId && iosAppId) {
       // Add AndroidManifest.xml snippet
       const androidManifestSnippet = `
-                        <!-- Admob -->
-                        <meta-data
-                            android:name="com.google.android.gms.ads.APPLICATION_ID"
-                            android:value="${androidAppId}"/>`;
+        <!-- Admob -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${androidAppId}"/>`;
       await appendToFile(
         androidManifestPath,
         androidManifestSnippet,
@@ -38,13 +38,13 @@ export const addAdmob = async (args: Uri) => {
 
       // Add iOS Info.plist snippet
       const iosInfoPlistSnippet = `
-                        <!-- Admob -->
-                        <key>GADApplicationIdentifier</key>
-                        <string>${iosAppId}</string>
-                        <key>io.flutter.embedded_views_preview</key>
-                        <true/>
-                        <key>NSUserTrackingUsageDescription</key>
-                        <string>This identifier will be used to deliver personalized ads to you.</string>`;
+    <!-- Admob -->
+    <key>GADApplicationIdentifier</key>
+    <string>${iosAppId}</string>
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>This identifier will be used to deliver personalized ads to you.</string>`;
       await appendToFile(
         iosInfoPlistPath,
         iosInfoPlistSnippet,
@@ -90,7 +90,7 @@ export const addAdmob = async (args: Uri) => {
 
         // Find the comment "///END OF CORE" and insert the AdMob setup code just before it
         const updatedContent2 = updatedContent1.replace(
-          /(;\s*\n\s*\n\s*\/\/END OF CORE)/,
+          /(;\s*\n\s*\n\s*\/\/\/END OF CORE)/,
           `${admobSetupCode.trim()}\n$1`
         );
 
