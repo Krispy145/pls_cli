@@ -8,6 +8,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 export const addAdmob = async (args: Uri) => {
+    
   try {
     const androidManifestPath = getFilePath(
       "android/app/src/main/AndroidManifest.xml"

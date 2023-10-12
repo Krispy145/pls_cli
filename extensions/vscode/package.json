@@ -79,7 +79,7 @@
         },
         {
           "command": "digital-oasis.add-admob",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependancy_injection|lib|))$/"
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependency_injection|lib|))$/"
         }        
       ]
     }
