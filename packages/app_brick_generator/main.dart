@@ -19,16 +19,16 @@ extension GeneratorStringX on String {
 
     if (isAndroid && filePath.endsWith('build.gradle')) {
       return replaceAll(
-        'com.digital.oasis.flutter_template',
+        'com.digital.oasis.app_template',
         '{{application_id_android}}',
       );
     } else if (isAndroid) {
       return replaceAll(
-        'com.digital.oasis.flutter_template',
+        'com.digital.oasis.app_template',
         '{{application_id_android}}',
       );
     } else {
-      return replaceAll('com.digital.oasis.flutter-template', '{{application_id}}');
+      return replaceAll('com.digital.oasis.app-template', '{{application_id}}');
     }
   }
 }
@@ -43,29 +43,6 @@ void main() async {
 
   // Copy Project Files
   await Shell.cp(_sourcePath, _targetPath);
-
-  // delete existing main files and replace with the firebase templates
-  // await Future.wait([
-  //   File(path.join(_libPath, 'main_development.dart')).delete(),
-  //   File(path.join(_libPath, 'main_production.dart')).delete(),
-  //   File(path.join(_libPath, 'main_staging.dart')).delete(),
-  // ]);
-  // await Shell.cp(
-  //   path.join(_staticDir, "main_development.dart"),
-  //   path.join(_libPath, "main_development.dart"),
-  // );
-  // await Shell.cp(
-  //   path.join(_staticDir, "main_staging.dart"),
-  //   path.join(_libPath, "main_staging.dart"),
-  // );
-  // await Shell.cp(
-  //   path.join(_staticDir, "main_production.dart"),
-  //   path.join(_libPath, "main_production.dart"),
-  // );
-  // await Shell.cp(
-  //   path.join(_staticDir, "codemagic.yaml"),
-  //   path.join(_rootPath, "codemagic.yaml"),
-  // );
 
   // Delete Android's Organization Folder Hierarchy
   Directory(_orgPath).deleteSync(recursive: true);
@@ -90,7 +67,7 @@ void main() async {
           final contents = await readFile(file);
           file = await file.writeAsString(
             contents.replaceAll(
-              '<string>Flutter Template</string>',
+              '<string>App Template</string>',
               r'<string>$(FLAVOR_APP_NAME)</string>',
             ),
           );
@@ -100,19 +77,28 @@ void main() async {
         file = await file.writeAsString(
           contents
               .replaceApplicationId(file.path)
-              .replaceAll('flutter_template', '{{project_name.snakeCase()}}')
-              .replaceAll('flutter-template', '{{project_name.paramCase()}}')
-              .replaceAll('A new Flutter project.', '{{{description}}}')
-              .replaceAll('Flutter Template', '{{project_name.titleCase()}}')
-              .replaceAll('//FIREBASE START', '{{#has_firebase}}')
-              .replaceAll('//FIREBASE END', '{{/has_firebase}}'),
+              .replaceAll('app_template', '{{project_name.snakeCase()}}')
+              .replaceAll('app-template', '{{project_name.paramCase()}}')
+              .replaceAll('A new Digital Oasis Project.', '{{{description}}}')
+              .replaceAll('App Template', '{{project_name.titleCase()}}')
+              .replaceAll('/// FIREBASE START', '{{#has_firebase}}')
+              .replaceAll('/// FIREBASE END', '{{/has_firebase}}')
+              .replaceAll('/// IS_DEFAULT START', '{{#is_default}}')
+              .replaceAll('/// IS_DEFAULT END', '{{/is_default}}')
+              .replaceAll('/// IS_DEFAULTMAP START', '{{#is_default_map}}')
+              .replaceAll('/// IS_DEFAULTMAP END', '{{/is_default_map}}')
+              .replaceAll('/// IS_MAP START', '{{#is_map}}')
+              .replaceAll('/// IS_MAP END', '{{/is_map}}')
+              .replaceAll('/// IS_DASHBOARD START', '{{#is_dashboard}}')
+              .replaceAll('/// IS_DASHBOARD END', '{{/is_dashboard}}')
+              .replaceAll("// ignore: cascade_invocations", ''),
           flush: true,
         );
 
         final fileSegments = file.path.split('/').sublist(2);
-        if (fileSegments.contains('flutter_template')) {
+        if (fileSegments.contains('app_template')) {
           final newPathSegment = fileSegments.join('/').replaceAll(
-                'flutter_template',
+                'app_template',
                 '{{project_name.snakeCase()}}',
               );
           final newPath = path.join(_targetPath, newPathSegment);
@@ -126,7 +112,7 @@ void main() async {
 
   final mainActivityKt = File(
     path.join(
-      _androidKotlinPath.replaceAll('template', '{{project_name.snakeCase()}}'),
+      _androidKotlinPath.replaceAll('app_template', '{{project_name.snakeCase()}}'),
       '{{application_id_android.pathCase()}}',
       'MainActivity.kt',
     ),

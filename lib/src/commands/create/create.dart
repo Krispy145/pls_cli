@@ -1,6 +1,6 @@
 import 'package:render_cli/src/commands/base.dart';
 
-import 'flutter_app.dart';
+import 'app.dart';
 
 /// {@template createCommand}
 /// Create a new project.
@@ -8,7 +8,7 @@ import 'flutter_app.dart';
 class CreateCommand extends RenderCommand {
   /// {@macro createCommand}
   CreateCommand() {
-    addSubcommand(CreateFlutterAppCommand());
+    addSubcommand(CreateAppCommand());
   }
 
   @override

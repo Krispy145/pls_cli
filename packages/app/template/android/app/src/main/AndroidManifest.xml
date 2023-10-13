@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.digital.oasis.flutter_template">
+    package="com.digital.oasis.app_template">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="flutter_template"
+        android:label="app_template"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

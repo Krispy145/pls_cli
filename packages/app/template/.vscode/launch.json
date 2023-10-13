@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
       {
-          "name": "Flutter Template (Dev)",
+          "name": "App Template (Dev)",
           "program": "lib/main_development.dart",
           "request": "launch",
           "type": "dart",
@@ -15,7 +15,7 @@
           ]
       },
       {
-          "name": "Flutter Template (profile mode) (Dev)",
+          "name": "App Template (profile mode) (Dev)",
           "program": "lib/main_development.dart",
           "request": "launch",
           "type": "dart",
@@ -26,7 +26,7 @@
           ]
       },
       {
-          "name": "Flutter Template (release mode) (Dev)",
+          "name": "App Template (release mode) (Dev)",
           "program": "lib/main_development.dart",
           "request": "launch",
           "type": "dart",
@@ -40,7 +40,7 @@
 
 
       {
-        "name": "Flutter Template (Staging)",
+        "name": "App Template (Staging)",
         "program": "lib/main_staging.dart",
         "request": "launch",
         "type": "dart",
@@ -50,7 +50,7 @@
         ]
     },
     {
-        "name": "Flutter Template (profile mode) (Staging)",
+        "name": "App Template (profile mode) (Staging)",
         "program": "lib/main_staging.dart",
         "request": "launch",
         "type": "dart",
@@ -61,7 +61,7 @@
         ]
     },
     {
-        "name": "Flutter Template (release mode) (Staging)",
+        "name": "App Template (release mode) (Staging)",
         "program": "lib/main_staging.dart",
         "request": "launch",
         "type": "dart",
@@ -72,7 +72,7 @@
         ]
     },
       {
-          "name": "Flutter Template (Prod)",
+          "name": "App Template (Prod)",
           "program": "lib/main_production.dart",
           "request": "launch",
           "type": "dart",
@@ -82,7 +82,7 @@
           ]
       },
       {
-          "name": "Flutter Template (profile mode) (Prod)",
+          "name": "App Template (profile mode) (Prod)",
           "program": "lib/main_production.dart",
           "request": "launch",
           "type": "dart",
@@ -93,7 +93,7 @@
           ]
       },
       {
-          "name": "Flutter Template (release mode) (Prod)",
+          "name": "App Template (release mode) (Prod)",
           "program": "lib/main_production.dart",
           "request": "launch",
           "type": "dart",
@@ -104,7 +104,7 @@
           ]
       },
       {
-          "name": "Flutter Template Web (Dev)",
+          "name": "App Template Web (Dev)",
           "program": "lib/main_development.dart",
           "request": "launch",
           "type": "dart",
@@ -117,7 +117,7 @@
           ]
       },
       {
-        "name": "Flutter Template Web (Staging)",
+        "name": "App Template Web (Staging)",
         "program": "lib/main_staging.dart",
         "request": "launch",
         "type": "dart",
@@ -130,7 +130,7 @@
         ]
     },
       {
-          "name": "Flutter Template Web (Prod)",
+          "name": "App Template Web (Prod)",
           "program": "lib/main_production.dart",
           "request": "launch",
           "type": "dart",

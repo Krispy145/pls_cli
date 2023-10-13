@@ -13,7 +13,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: const Column(
         children: [
-          Text("Flutter Template"),
+          Text("App Template"),
         ],
       ),
     );

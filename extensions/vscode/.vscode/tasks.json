@@ -13,7 +13,7 @@
 			},
 			"group": {
 				"kind": "build",
-				"isDefault": true
+				" IS_DEFAULT": true
 			}
 		}
 	]

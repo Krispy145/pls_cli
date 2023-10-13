@@ -10,10 +10,10 @@ import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
 /// The git config for the deploy
-const deployEmail = "andrew@digitaloasis.com";
+const deployEmail = "skateoasisdubai@gmail.com";
 
 /// The git config for the deploy
-const deployName = "andrewlonsdale";
+const deployName = "skateoasisdubai";
 
 /// {@template deployCommand}
 /// Add various parts the app.

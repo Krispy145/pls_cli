@@ -1,7 +1,23 @@
 // ignore_for_file: unnecessary_lambdas,
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+
+/// IS_DASHBOARD START
+import 'package:navigation/structures/dashboard_shell_structure/shell/store.dart';
+
+/// IS_DASHBOARD END
+/// IS_DEFAULTMAP START
+import 'package:navigation/structures/default_map_shell_structure/store.dart';
+
+/// IS_DEFAULTMAP END
+/// IS_DEFAULT START
 import 'package:navigation/structures/default_shell_structure/store.dart';
+
+/// IS_DEFAULT END
+/// IS_MAP START
+import 'package:navigation/structures/map_shell_structure/store.dart';
+
+/// IS_MAP END
 import 'package:utilities/flavors/flavor_config.dart';
 import 'package:utilities/flavors/flavor_manager.dart';
 import 'package:utilities/logger/logger.dart';
@@ -45,7 +61,29 @@ class ManagerInjector {
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
   void initApp() {
     Logger.print("Initializing app services...", [LoggerFeatures.dependancyInjection]);
+
+    /// IS_DEFAULT START
     _serviceLocator.registerLazySingleton<DefaultShellStructureStore>(() => DefaultShellStructureStore());
+
+    /// IS_DEFAULT END
+
+    /// IS_DEFAULTMAP START
+    // ignore: cascade_invocations
+    _serviceLocator.registerLazySingleton<DefaultMapShellStructureStore>(() => DefaultMapShellStructureStore());
+
+    /// IS_DEFAULTMAP END
+
+    /// IS_MAP START
+    // ignore: cascade_invocations
+    _serviceLocator.registerLazySingleton<MapShellStructureStore>(() => MapShellStructureStore());
+
+    /// IS_MAP END
+
+    /// IS_DASHBOARD START
+    // ignore: cascade_invocations
+    _serviceLocator.registerLazySingleton<DashboardShellStructureStore>(() => DashboardShellStructureStore());
+
+    /// IS_DASHBOARD END
 
     ///END OF APP
   }
@@ -65,6 +103,27 @@ class ManagerInjector {
   /// [FlavorConfig] getter
   FlavorConfig get flavor => _flavor.flavorConfig;
 
+  /// IS_DEFAULT START
   /// [DefaultShellStructureStore] getter
   DefaultShellStructureStore get defaultShellStore => _serviceLocator.get<DefaultShellStructureStore>();
+
+  /// IS_DEFAULT END
+
+  /// IS_DEFAULTMAP START
+  /// [DefaultMapShellStructureStore] getter
+  DefaultMapShellStructureStore get defaultMapShellStore => _serviceLocator.get<DefaultMapShellStructureStore>();
+
+  /// IS_DEFAULTMAP END
+
+  /// IS_MAP START
+  /// [MapShellStructureStore] getter
+  MapShellStructureStore get mapShellStore => _serviceLocator.get<MapShellStructureStore>();
+
+  /// IS_MAP END
+
+  /// IS_DASHBOARD START
+  /// [DashboardShellStructureStore] getter
+  DashboardShellStructureStore get dashboardShellStore => _serviceLocator.get<DashboardShellStructureStore>();
+
+  /// IS_DASHBOARD END
 }

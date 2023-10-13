@@ -1,4 +1,4 @@
-name: flutter_template
+name: app_template
 description: A flutter app template for Digital Oasis.
 version: 0.0.1
 
@@ -28,5 +28,5 @@ vars:
   description:
     type: string
     description: A short project description
-    default: A Very Good App
+    default: A Digital Oasis App
     prompt: What is the project description?

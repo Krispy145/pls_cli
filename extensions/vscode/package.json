@@ -14,13 +14,14 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:digital-oasis.create-app",
     "onCommand:digital-oasis.new-feature",
     "onCommand:digital-oasis.add-component",
     "onCommand:digital-oasis.add-model",
     "onCommand:digital-oasis.add-admob"    
   ],
   "main": "./out/extension.js",
-  "contributes": {
+  "contributes": {    
     "submenus": [
       {
         "label": "Digital Oasis",
@@ -28,6 +29,10 @@
       }
     ],
     "commands": [
+      {
+        "command": "extension.create-app",
+        "title": "Create a New App"
+      },      
       {
         "command": "digital-oasis.new-feature",
         "title": "Feature",

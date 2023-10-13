@@ -6,10 +6,15 @@ import { addComponent } from "./commands/add-component.command";
 import { commands, ExtensionContext } from "vscode";
 import { addModel } from "./commands/add-model.command";
 import { addAdmob } from "./commands/add-admob.command";
+import { createApp } from "./commands/create-app.command";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
+  let app = commands.registerCommand(
+    "digital-oasis.create-app",
+    createApp
+  );
   let feature = commands.registerCommand(
     "digital-oasis.new-feature",
     newFeature
@@ -22,7 +27,7 @@ export function activate(context: ExtensionContext) {
 
   let model = commands.registerCommand("digital-oasis.add-model", addModel);
 
-  context.subscriptions.push(feature, component, model, admob);
+  context.subscriptions.push(app,feature, component, model, admob);
 }
 
 // this method is called when your extension is deactivated

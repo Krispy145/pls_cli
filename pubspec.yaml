@@ -2,7 +2,7 @@ name: render_cli
 version: 2.2.0
 
 environment:
-  sdk: ">=2.12.0 <4.0.0"
+  sdk: ">=2.15.0 <4.0.0"
 
 executables:
   render: main

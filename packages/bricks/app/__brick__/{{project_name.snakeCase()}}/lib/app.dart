@@ -1,15 +1,18 @@
+import 'package:{{project_name.snakeCase()}}/dependency_injection/injection_container.dart';
+
+{{#has_firebase}}
+import 'package:{{project_name.snakeCase()}}/firebase/firebase_options_staging.dart';
+
+{{/has_firebase}}
+import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 {{#has_firebase}}
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
+
 {{/has_firebase}}
 import 'package:flutter/material.dart';
-import 'package:{{project_name.snakeCase()}}/dependency_injection/injection_container.dart';
-{{#has_firebase}}
-import 'package:{{project_name.snakeCase()}}/firebase/firebase_options_staging.dart';
-{{/has_firebase}}
-import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 import 'package:utilities/flavors/flavor_config.dart';
 
 /// Main App Function
@@ -27,6 +30,7 @@ void appMain({required FlavorConfig flavorConfig}) {
       return true;
     };
   }
+
   {{/has_firebase}}
   runApp(const MainApp());
 }
@@ -47,6 +51,7 @@ class MainApp extends StatelessWidget {
       routerConfig: AppRouter.router(
         {{#has_firebase}}
         observers: !kIsWeb ? [FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)] : null,
+
         {{/has_firebase}}
       ),
     );
