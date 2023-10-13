@@ -30,8 +30,8 @@
     ],
     "commands": [
       {
-        "command": "extension.create-app",
-        "title": "Create a New App"
+        "command": "digital-oasis.create-app",
+        "title": "Digital Oasis: Create a New App"
       },      
       {
         "command": "digital-oasis.new-feature",
