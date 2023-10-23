@@ -1,3 +1,5 @@
+import 'package:{{project_name.snakeCase()}}/dependencies/injection.dart';
+import 'package:{{project_name.snakeCase()}}/features/main/data/sources/main_api.dart';
 import 'package:mobx/mobx.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
@@ -13,12 +15,22 @@ part 'store.g.dart';
 class MainStore = MainBaseStore with _$MainStore;
 
 /// [MainBaseStore] is a class that manages the state of the main feature.
-abstract class MainBaseStore extends LoadStateStore with Store {
+class MainBaseStore extends LoadStateStore with Store {
+  /// connectionStatus is an instance of ConnectionStateStore, which is used to determine the current connection state.
+  @observable
+  final connectionStatus = Managers.connectionStateStore;
+
   /// [dataSource] is an instance of [MainDataSource], specifically the in memory data source.
-  final MainDataSource dataSource = InMemoryMainDataSource();
+  /// TODO: Replace "baseUrl" with the appropriate url.
+  @computed
+  MainDataSource get dataSource => connectionStatus.handleConnectionState(
+        online: ApiMainDataSource("baseUrl"),
+        offline: InMemoryMainDataSource(),
+      );
 
   /// [repository] is an instance of [MainRepository], which takes in the appropriate [dataSource].
   /// This can be in memory or an api.
+  @computed
   MainRepository get repository => MainDataRepository(dataSource);
 
   /// [mains] is an observable list of [MainModel]s.

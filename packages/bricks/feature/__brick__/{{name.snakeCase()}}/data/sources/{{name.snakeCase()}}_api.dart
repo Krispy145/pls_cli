@@ -25,10 +25,10 @@ class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSou
       final {{name.camelCase()}}DataList = response.data;
       final {{name.camelCase()}}s = {{name.camelCase()}}DataList?.map({{name.pascalCase()}}Model.fromJson).toList() ?? [];
 
-      Logger.print("API RESULT: {{name.pascalCase()}}s fetched: ${{{name.camelCase()}}s.map((e) => e.toString())}", [AppLoggerFeatures.{{name.camelCase()}}]);
+      AppLogger.print("API RESULT: {{name.pascalCase()}}s fetched: ${{{name.camelCase()}}s.map((e) => e.toString())}", [AppLoggerFeatures.{{name.camelCase()}}]);
       return {{name.camelCase()}}s;
     } catch (e) {
-      Logger.print("API RESULT: Failed to fetch {{name.pascalCase()}}s: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to fetch {{name.pascalCase()}}s: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
       return [];
     }
   }
@@ -40,14 +40,14 @@ class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSou
       final responseData = response.data;
       if (responseData != null) {
         final {{name.camelCase()}} = {{name.pascalCase()}}Model.fromJson(responseData);
-        Logger.print("API RESULT: {{name.pascalCase()}} fetched by ID: ${{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
+        AppLogger.print("API RESULT: {{name.pascalCase()}} fetched by ID: ${{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
         return {{name.camelCase()}};
       } else {
-        Logger.print("API RESULT: Response data is null", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+        AppLogger.print("API RESULT: Response data is null", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
         return null;
       }
     } catch (e) {
-      Logger.print("API RESULT: Failed to fetch {{name.pascalCase()}} by ID: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to fetch {{name.pascalCase()}} by ID: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
       return null;
     }
   }
@@ -59,9 +59,9 @@ class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSou
         '$baseUrl/{{name.camelCase()}}',
         data: {{name.camelCase()}}.toJson(),
       );
-      Logger.print("API RESULT: {{name.pascalCase()}} added successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
+      AppLogger.print("API RESULT: {{name.pascalCase()}} added successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
     } catch (e) {
-      Logger.print("API RESULT: Failed to add {{name.pascalCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to add {{name.pascalCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 
@@ -72,9 +72,9 @@ class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSou
         '$baseUrl/{{name.camelCase()}}/${{{name.camelCase()}}.name}',
         data: {{name.camelCase()}}.toJson(),
       );
-      Logger.print("API RESULT: {{name.pascalCase()}} updated successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
+      AppLogger.print("API RESULT: {{name.pascalCase()}} updated successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
     } catch (e) {
-      Logger.print("API RESULT: Failed to update {{name.pascalCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to update {{name.pascalCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 
@@ -82,9 +82,9 @@ class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSou
   Future<void> delete{{name.pascalCase()}}Model(String id) async {
     try {
       await dio.delete<bool>('$baseUrl/{{name.camelCase()}}/$id');
-      Logger.print("API RESULT: {{name.pascalCase()}} deleted successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
+      AppLogger.print("API RESULT: {{name.pascalCase()}} deleted successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
     } catch (e) {
-      Logger.print("API RESULT: Failed to delete {{name.pascalCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to delete {{name.pascalCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 }

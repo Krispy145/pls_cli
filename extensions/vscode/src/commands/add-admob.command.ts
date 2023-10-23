@@ -75,7 +75,7 @@ export const addAdmob = async (args: Uri) => {
     AdMobStore get adMobStore => _serviceLocator.get<AdMobStore>();`;
 
         const injectionContainerPath = getFilePath(
-          "lib/dependency_injection/injection_container.dart"
+          "lib/dependencies/injection.dart"
         );
         const content = fs.readFileSync(injectionContainerPath, "utf-8");
 

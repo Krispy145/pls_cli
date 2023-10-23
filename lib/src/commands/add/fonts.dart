@@ -15,8 +15,7 @@ import 'package:yaml_edit/yaml_edit.dart';
 /// The file must be in the format <font-family>-<weight>-<style>
 class FontsCommand extends RenderCommand {
   @override
-  String get description =>
-      "Add font assets to pubspec, the file name must be <font-family>-<weight>-<style> eg.ComicNeue-Bold-Italic.ttf";
+  String get description => "Add font assets to pubspec, the file name must be <font-family>-<weight>-<style> eg.ComicNeue-Bold-Italic.ttf";
 
   @override
   String get name => "fonts";
@@ -68,7 +67,8 @@ class FontsCommand extends RenderCommand {
     }
 
     await pubspecFile.writeAsString(yamlEditor.toString());
-    await _createFontFamilyDartFile(fonts, projectRoot);
+    await runScripts(['flutter pub run build_runner build --delete-conflicting-outputs']);
+    // await _createFontFamilyDartFile(fonts, projectRoot);
 
     return;
   }
@@ -87,8 +87,7 @@ class FontsCommand extends RenderCommand {
           ),
         );
       }
-      if (entity is File &&
-          path.basenameWithoutExtension(entity.path) != ".DS_Store") {
+      if (entity is File && path.basenameWithoutExtension(entity.path) != ".DS_Store") {
         final fileName = path.basenameWithoutExtension(entity.path).split("-");
 
         final familyName = fileName[0];
@@ -99,8 +98,7 @@ class FontsCommand extends RenderCommand {
           style: fileName.length >= 3 ? fileName[2].toLowerCase() : null,
         );
 
-        final font =
-            fonts.firstWhereOrNull((element) => element.family == familyName);
+        final font = fonts.firstWhereOrNull((element) => element.family == familyName);
 
         if (font == null) {
           fonts.add(Font(family: familyName, variants: [variant]));
@@ -121,8 +119,7 @@ class FontsCommand extends RenderCommand {
     final generateProgress = logger.progress('Generating dart file');
 
     final generator = await MasonGenerator.fromBundle(bundle);
-    final target =
-        Directory(path.join(projectRoot.path, "lib", "core", "theme"));
+    final target = Directory(path.join(projectRoot.path, "lib", "theme"));
     if (!target.existsSync()) {
       target.createSync(recursive: true);
     }

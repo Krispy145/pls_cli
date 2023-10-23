@@ -25,10 +25,10 @@ class ApiMainDataSource implements MainDataSource {
       final mainDataList = response.data;
       final mains = mainDataList?.map(MainModel.fromJson).toList() ?? [];
 
-      Logger.print("API RESULT: Mains fetched: ${mains.map((e) => e.toString())}", [AppLoggerFeatures.main]);
+      AppLogger.print("API RESULT: Mains fetched: ${mains.map((e) => e.toString())}", [AppLoggerFeatures.main]);
       return mains;
     } catch (e) {
-      Logger.print("API RESULT: Failed to fetch Mains: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to fetch Mains: $e", [AppLoggerFeatures.main], type: LoggerType.error);
       return [];
     }
   }
@@ -40,14 +40,14 @@ class ApiMainDataSource implements MainDataSource {
       final responseData = response.data;
       if (responseData != null) {
         final main = MainModel.fromJson(responseData);
-        Logger.print("API RESULT: Main fetched by ID: $main", [AppLoggerFeatures.main]);
+        AppLogger.print("API RESULT: Main fetched by ID: $main", [AppLoggerFeatures.main]);
         return main;
       } else {
-        Logger.print("API RESULT: Response data is null", [AppLoggerFeatures.main], type: LoggerType.error);
+        AppLogger.print("API RESULT: Response data is null", [AppLoggerFeatures.main], type: LoggerType.error);
         return null;
       }
     } catch (e) {
-      Logger.print("API RESULT: Failed to fetch Main by ID: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to fetch Main by ID: $e", [AppLoggerFeatures.main], type: LoggerType.error);
       return null;
     }
   }
@@ -59,9 +59,9 @@ class ApiMainDataSource implements MainDataSource {
         '$baseUrl/main',
         data: main.toJson(),
       );
-      Logger.print("API RESULT: Main added successfully", [AppLoggerFeatures.main], type: LoggerType.confirmation);
+      AppLogger.print("API RESULT: Main added successfully", [AppLoggerFeatures.main], type: LoggerType.confirmation);
     } catch (e) {
-      Logger.print("API RESULT: Failed to add Main: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to add Main: $e", [AppLoggerFeatures.main], type: LoggerType.error);
     }
   }
 
@@ -72,9 +72,9 @@ class ApiMainDataSource implements MainDataSource {
         '$baseUrl/main/${main.name}',
         data: main.toJson(),
       );
-      Logger.print("API RESULT: Main updated successfully", [AppLoggerFeatures.main], type: LoggerType.confirmation);
+      AppLogger.print("API RESULT: Main updated successfully", [AppLoggerFeatures.main], type: LoggerType.confirmation);
     } catch (e) {
-      Logger.print("API RESULT: Failed to update Main: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to update Main: $e", [AppLoggerFeatures.main], type: LoggerType.error);
     }
   }
 
@@ -82,9 +82,9 @@ class ApiMainDataSource implements MainDataSource {
   Future<void> deleteMainModel(String id) async {
     try {
       await dio.delete<bool>('$baseUrl/main/$id');
-      Logger.print("API RESULT: Main deleted successfully", [AppLoggerFeatures.main], type: LoggerType.confirmation);
+      AppLogger.print("API RESULT: Main deleted successfully", [AppLoggerFeatures.main], type: LoggerType.confirmation);
     } catch (e) {
-      Logger.print("API RESULT: Failed to delete Main: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to delete Main: $e", [AppLoggerFeatures.main], type: LoggerType.error);
     }
   }
 }

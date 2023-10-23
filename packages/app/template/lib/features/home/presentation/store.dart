@@ -1,3 +1,5 @@
+import 'package:app_template/dependencies/injection.dart';
+import 'package:app_template/features/home/data/sources/home_api.dart';
 import 'package:mobx/mobx.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
@@ -14,11 +16,20 @@ class HomeStore = HomeBaseStore with _$HomeStore;
 
 /// [HomeBaseStore] is a class that manages the state of the home feature.
 abstract class HomeBaseStore extends LoadStateStore with Store {
+  /// connectionStatus is an instance of ConnectionStateStore, which is used to determine the current connection state.
+  final connectionStatus = Managers.connectionStateStore;
+
   /// [dataSource] is an instance of [HomeDataSource], specifically the in memory data source.
-  final HomeDataSource dataSource = InMemoryHomeDataSource();
+  // TODO: Replace "baseUrl" with the appropriate url.
+  @computed
+  HomeDataSource get dataSource => connectionStatus.handleConnectionState(
+        online: ApiHomeDataSource("baseUrl"),
+        offline: InMemoryHomeDataSource(),
+      );
 
   /// [repository] is an instance of [HomeRepository], which takes in the appropriate [dataSource].
   /// This can be in memory or an api.
+  @computed
   HomeRepository get repository => HomeDataRepository(dataSource);
 
   /// [homes] is an observable list of [HomeModel]s.

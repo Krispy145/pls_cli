@@ -94,12 +94,12 @@ ADMOB_SETUP_CODE = f"""
 # Getter to be added
 GETTER_CODE = "  AdMobStore get adMobStore => _serviceLocator.get<AdMobStore>();"
 
-# Determine the path to injection_container.dart in the current directory
+# Determine the path to injection.dart in the current directory
 INJECTION_CONTAINER_PATH = os.path.join(
-    CURRENT_DIR, "lib/dependency_injection/injection_container.dart"
+    CURRENT_DIR, "lib/dependencies/injection.dart"
 )
 
-# Read the content of injection_container.dart
+# Read the content of injection.dart
 with open(INJECTION_CONTAINER_PATH, "r") as file:
     content = file.read()
 
@@ -114,13 +114,13 @@ content = re.sub(
 # Add the getter at the end of the class
 content = re.sub(r"(})(?![\s\S]*\})", GETTER_CODE + r"\n\1", content, 1)
 
-# Write the updated content back to injection_container.dart
+# Write the updated content back to injection.dart
 with open(INJECTION_CONTAINER_PATH, "w") as file:
     file.write(content)
 
-print("Import statement added to injection_container.dart")
-print("AdMob setup code added to injection_container.dart")
-print("AdMobStore getter added to injection_container.dart")
+print("Import statement added to injection.dart")
+print("AdMob setup code added to injection.dart")
+print("AdMobStore getter added to injection.dart")
 
 # Run the Flutter command to add the dependency
 # Define the dependency and path

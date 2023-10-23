@@ -1,4 +1,4 @@
-import 'package:app_template/dependency_injection/injection_container.dart';
+import 'package:app_template/dependencies/injection.dart';
 import 'package:app_template/features/home/presentation/route_data.dart';
 import 'package:app_template/navigation/components/app_bar.dart';
 import 'package:app_template/navigation/components/bottom_nav_bar.dart';

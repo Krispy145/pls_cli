@@ -1,4 +1,4 @@
-import 'package:app_template/dependency_injection/injection_container.dart';
+import 'package:app_template/dependencies/injection.dart';
 import 'package:app_template/features/home/presentation/route_data.dart';
 import 'package:app_template/features/main/presentation/route_data.dart';
 import 'package:flutter/material.dart';

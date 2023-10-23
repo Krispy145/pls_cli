@@ -1,4 +1,4 @@
-import 'package:{{project_name.snakeCase()}}/dependency_injection/injection_container.dart';
+import 'package:{{project_name.snakeCase()}}/dependencies/injection.dart';
 import 'package:{{project_name.snakeCase()}}/features/home/presentation/route_data.dart';
 import 'package:{{project_name.snakeCase()}}/features/main/presentation/route_data.dart';
 import 'package:{{project_name.snakeCase()}}/navigation/components/app_bar.dart';

@@ -13,10 +13,10 @@ class InMemory{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}Da
   Future<List<{{name.pascalCase()}}Model?>> fetch{{name.pascalCase()}}Models() async {
     try {
       final {{name.camelCase()}}s = _dataStore.values.toList();
-      Logger.print("IN MEMORY RESULT: Fetched all {{name.pascalCase()}} models successfully", [AppLoggerFeatures.{{name.camelCase()}}]);
+      AppLogger.print("IN MEMORY RESULT: Fetched all {{name.pascalCase()}} models successfully", [AppLoggerFeatures.{{name.camelCase()}}]);
       return Future.value({{name.camelCase()}}s);
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error fetching all {{name.pascalCase()}} models: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error fetching all {{name.pascalCase()}} models: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
       return [];
     }
   }
@@ -26,14 +26,14 @@ class InMemory{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}Da
     try {
       final {{name.camelCase()}} = _dataStore[id];
       if ({{name.camelCase()}} != null) {
-        Logger.print("IN MEMORY RESULT: Fetched {{name.pascalCase()}} model by ID successfully: ${{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
+        AppLogger.print("IN MEMORY RESULT: Fetched {{name.pascalCase()}} model by ID successfully: ${{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
         return Future.value({{name.camelCase()}});
       } else {
-        Logger.print("IN MEMORY RESULT: Failed to fetch {{name.pascalCase()}} model by ID: Feature not found", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+        AppLogger.print("IN MEMORY RESULT: Failed to fetch {{name.pascalCase()}} model by ID: Feature not found", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
         return null;
       }
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error fetching {{name.pascalCase()}} model by ID: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error fetching {{name.pascalCase()}} model by ID: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
       return null;
     }
   }
@@ -42,9 +42,9 @@ class InMemory{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}Da
   Future<void> add{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
     try {
       _dataStore[{{name.camelCase()}}.name] = {{name.camelCase()}};
-      Logger.print("IN MEMORY RESULT: Added {{name.pascalCase()}} model successfully: ${{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
+      AppLogger.print("IN MEMORY RESULT: Added {{name.pascalCase()}} model successfully: ${{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error adding {{name.pascalCase()}} model: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error adding {{name.pascalCase()}} model: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 
@@ -53,12 +53,12 @@ class InMemory{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}Da
     try {
       if (_dataStore.containsKey({{name.camelCase()}}.name)) {
         _dataStore[{{name.camelCase()}}.name] = {{name.camelCase()}};
-        Logger.print("IN MEMORY RESULT: Updated {{name.pascalCase()}} model successfully: ${{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
+        AppLogger.print("IN MEMORY RESULT: Updated {{name.pascalCase()}} model successfully: ${{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
       } else {
-        Logger.print("Failed to update {{name.pascalCase()}} model: Feature not found", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+        AppLogger.print("Failed to update {{name.pascalCase()}} model: Feature not found", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
       }
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error updating {{name.pascalCase()}} model: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error updating {{name.pascalCase()}} model: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 
@@ -67,12 +67,12 @@ class InMemory{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}Da
     try {
       final removed{{name.camelCase()}} = _dataStore.remove(id);
       if (removed{{name.camelCase()}} != null) {
-        Logger.print("IN MEMORY RESULT: Deleted {{name.pascalCase()}} model successfully: $removed{{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
+        AppLogger.print("IN MEMORY RESULT: Deleted {{name.pascalCase()}} model successfully: $removed{{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
       } else {
-        Logger.print("IN MEMORY RESULT: Failed to delete {{name.pascalCase()}} model: Feature not found", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+        AppLogger.print("IN MEMORY RESULT: Failed to delete {{name.pascalCase()}} model: Feature not found", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
       }
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error deleting {{name.pascalCase()}} model: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error deleting {{name.pascalCase()}} model: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 }

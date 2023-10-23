@@ -25,10 +25,10 @@ class ApiHomeDataSource implements HomeDataSource {
       final homeDataList = response.data;
       final homes = homeDataList?.map(HomeModel.fromJson).toList() ?? [];
 
-      Logger.print("API RESULT: Homes fetched: ${homes.map((e) => e.toString())}", [AppLoggerFeatures.home]);
+      AppLogger.print("API RESULT: Homes fetched: ${homes.map((e) => e.toString())}", [AppLoggerFeatures.home]);
       return homes;
     } catch (e) {
-      Logger.print("API RESULT: Failed to fetch Homes: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to fetch Homes: $e", [AppLoggerFeatures.home], type: LoggerType.error);
       return [];
     }
   }
@@ -40,14 +40,14 @@ class ApiHomeDataSource implements HomeDataSource {
       final responseData = response.data;
       if (responseData != null) {
         final home = HomeModel.fromJson(responseData);
-        Logger.print("API RESULT: Home fetched by ID: $home", [AppLoggerFeatures.home]);
+        AppLogger.print("API RESULT: Home fetched by ID: $home", [AppLoggerFeatures.home]);
         return home;
       } else {
-        Logger.print("API RESULT: Response data is null", [AppLoggerFeatures.home], type: LoggerType.error);
+        AppLogger.print("API RESULT: Response data is null", [AppLoggerFeatures.home], type: LoggerType.error);
         return null;
       }
     } catch (e) {
-      Logger.print("API RESULT: Failed to fetch Home by ID: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to fetch Home by ID: $e", [AppLoggerFeatures.home], type: LoggerType.error);
       return null;
     }
   }
@@ -59,9 +59,9 @@ class ApiHomeDataSource implements HomeDataSource {
         '$baseUrl/home',
         data: home.toJson(),
       );
-      Logger.print("API RESULT: Home added successfully", [AppLoggerFeatures.home], type: LoggerType.confirmation);
+      AppLogger.print("API RESULT: Home added successfully", [AppLoggerFeatures.home], type: LoggerType.confirmation);
     } catch (e) {
-      Logger.print("API RESULT: Failed to add Home: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to add Home: $e", [AppLoggerFeatures.home], type: LoggerType.error);
     }
   }
 
@@ -72,9 +72,9 @@ class ApiHomeDataSource implements HomeDataSource {
         '$baseUrl/home/${home.name}',
         data: home.toJson(),
       );
-      Logger.print("API RESULT: Home updated successfully", [AppLoggerFeatures.home], type: LoggerType.confirmation);
+      AppLogger.print("API RESULT: Home updated successfully", [AppLoggerFeatures.home], type: LoggerType.confirmation);
     } catch (e) {
-      Logger.print("API RESULT: Failed to update Home: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to update Home: $e", [AppLoggerFeatures.home], type: LoggerType.error);
     }
   }
 
@@ -82,9 +82,9 @@ class ApiHomeDataSource implements HomeDataSource {
   Future<void> deleteHomeModel(String id) async {
     try {
       await dio.delete<bool>('$baseUrl/home/$id');
-      Logger.print("API RESULT: Home deleted successfully", [AppLoggerFeatures.home], type: LoggerType.confirmation);
+      AppLogger.print("API RESULT: Home deleted successfully", [AppLoggerFeatures.home], type: LoggerType.confirmation);
     } catch (e) {
-      Logger.print("API RESULT: Failed to delete Home: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("API RESULT: Failed to delete Home: $e", [AppLoggerFeatures.home], type: LoggerType.error);
     }
   }
 }

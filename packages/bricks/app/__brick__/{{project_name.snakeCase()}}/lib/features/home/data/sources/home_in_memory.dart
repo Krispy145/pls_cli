@@ -13,10 +13,10 @@ class InMemoryHomeDataSource implements HomeDataSource {
   Future<List<HomeModel?>> fetchHomeModels() async {
     try {
       final homes = _dataStore.values.toList();
-      Logger.print("IN MEMORY RESULT: Fetched all Home models successfully", [AppLoggerFeatures.home]);
+      AppLogger.print("IN MEMORY RESULT: Fetched all Home models successfully", [AppLoggerFeatures.home]);
       return Future.value(homes);
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error fetching all Home models: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error fetching all Home models: $e", [AppLoggerFeatures.home], type: LoggerType.error);
       return [];
     }
   }
@@ -26,14 +26,14 @@ class InMemoryHomeDataSource implements HomeDataSource {
     try {
       final home = _dataStore[id];
       if (home != null) {
-        Logger.print("IN MEMORY RESULT: Fetched Home model by ID successfully: $home", [AppLoggerFeatures.home]);
+        AppLogger.print("IN MEMORY RESULT: Fetched Home model by ID successfully: $home", [AppLoggerFeatures.home]);
         return Future.value(home);
       } else {
-        Logger.print("IN MEMORY RESULT: Failed to fetch Home model by ID: Feature not found", [AppLoggerFeatures.home], type: LoggerType.error);
+        AppLogger.print("IN MEMORY RESULT: Failed to fetch Home model by ID: Feature not found", [AppLoggerFeatures.home], type: LoggerType.error);
         return null;
       }
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error fetching Home model by ID: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error fetching Home model by ID: $e", [AppLoggerFeatures.home], type: LoggerType.error);
       return null;
     }
   }
@@ -42,9 +42,9 @@ class InMemoryHomeDataSource implements HomeDataSource {
   Future<void> addHomeModel(HomeModel home) async {
     try {
       _dataStore[home.name] = home;
-      Logger.print("IN MEMORY RESULT: Added Home model successfully: $home", [AppLoggerFeatures.home]);
+      AppLogger.print("IN MEMORY RESULT: Added Home model successfully: $home", [AppLoggerFeatures.home]);
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error adding Home model: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error adding Home model: $e", [AppLoggerFeatures.home], type: LoggerType.error);
     }
   }
 
@@ -53,12 +53,12 @@ class InMemoryHomeDataSource implements HomeDataSource {
     try {
       if (_dataStore.containsKey(home.name)) {
         _dataStore[home.name] = home;
-        Logger.print("IN MEMORY RESULT: Updated Home model successfully: $home", [AppLoggerFeatures.home]);
+        AppLogger.print("IN MEMORY RESULT: Updated Home model successfully: $home", [AppLoggerFeatures.home]);
       } else {
-        Logger.print("Failed to update Home model: Feature not found", [AppLoggerFeatures.home], type: LoggerType.error);
+        AppLogger.print("Failed to update Home model: Feature not found", [AppLoggerFeatures.home], type: LoggerType.error);
       }
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error updating Home model: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error updating Home model: $e", [AppLoggerFeatures.home], type: LoggerType.error);
     }
   }
 
@@ -67,12 +67,12 @@ class InMemoryHomeDataSource implements HomeDataSource {
     try {
       final removedhome = _dataStore.remove(id);
       if (removedhome != null) {
-        Logger.print("IN MEMORY RESULT: Deleted Home model successfully: $removedhome", [AppLoggerFeatures.home]);
+        AppLogger.print("IN MEMORY RESULT: Deleted Home model successfully: $removedhome", [AppLoggerFeatures.home]);
       } else {
-        Logger.print("IN MEMORY RESULT: Failed to delete Home model: Feature not found", [AppLoggerFeatures.home], type: LoggerType.error);
+        AppLogger.print("IN MEMORY RESULT: Failed to delete Home model: Feature not found", [AppLoggerFeatures.home], type: LoggerType.error);
       }
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error deleting Home model: $e", [AppLoggerFeatures.home], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error deleting Home model: $e", [AppLoggerFeatures.home], type: LoggerType.error);
     }
   }
 }

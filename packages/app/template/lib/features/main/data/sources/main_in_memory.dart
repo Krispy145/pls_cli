@@ -13,10 +13,10 @@ class InMemoryMainDataSource implements MainDataSource {
   Future<List<MainModel?>> fetchMainModels() async {
     try {
       final mains = _dataStore.values.toList();
-      Logger.print("IN MEMORY RESULT: Fetched all Main models successfully", [AppLoggerFeatures.main]);
+      AppLogger.print("IN MEMORY RESULT: Fetched all Main models successfully", [AppLoggerFeatures.main]);
       return Future.value(mains);
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error fetching all Main models: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error fetching all Main models: $e", [AppLoggerFeatures.main], type: LoggerType.error);
       return [];
     }
   }
@@ -26,14 +26,14 @@ class InMemoryMainDataSource implements MainDataSource {
     try {
       final main = _dataStore[id];
       if (main != null) {
-        Logger.print("IN MEMORY RESULT: Fetched Main model by ID successfully: $main", [AppLoggerFeatures.main]);
+        AppLogger.print("IN MEMORY RESULT: Fetched Main model by ID successfully: $main", [AppLoggerFeatures.main]);
         return Future.value(main);
       } else {
-        Logger.print("IN MEMORY RESULT: Failed to fetch Main model by ID: Feature not found", [AppLoggerFeatures.main], type: LoggerType.error);
+        AppLogger.print("IN MEMORY RESULT: Failed to fetch Main model by ID: Feature not found", [AppLoggerFeatures.main], type: LoggerType.error);
         return null;
       }
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error fetching Main model by ID: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error fetching Main model by ID: $e", [AppLoggerFeatures.main], type: LoggerType.error);
       return null;
     }
   }
@@ -42,9 +42,9 @@ class InMemoryMainDataSource implements MainDataSource {
   Future<void> addMainModel(MainModel main) async {
     try {
       _dataStore[main.name] = main;
-      Logger.print("IN MEMORY RESULT: Added Main model successfully: $main", [AppLoggerFeatures.main]);
+      AppLogger.print("IN MEMORY RESULT: Added Main model successfully: $main", [AppLoggerFeatures.main]);
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error adding Main model: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error adding Main model: $e", [AppLoggerFeatures.main], type: LoggerType.error);
     }
   }
 
@@ -53,12 +53,12 @@ class InMemoryMainDataSource implements MainDataSource {
     try {
       if (_dataStore.containsKey(main.name)) {
         _dataStore[main.name] = main;
-        Logger.print("IN MEMORY RESULT: Updated Main model successfully: $main", [AppLoggerFeatures.main]);
+        AppLogger.print("IN MEMORY RESULT: Updated Main model successfully: $main", [AppLoggerFeatures.main]);
       } else {
-        Logger.print("Failed to update Main model: Feature not found", [AppLoggerFeatures.main], type: LoggerType.error);
+        AppLogger.print("Failed to update Main model: Feature not found", [AppLoggerFeatures.main], type: LoggerType.error);
       }
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error updating Main model: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error updating Main model: $e", [AppLoggerFeatures.main], type: LoggerType.error);
     }
   }
 
@@ -67,12 +67,12 @@ class InMemoryMainDataSource implements MainDataSource {
     try {
       final removedmain = _dataStore.remove(id);
       if (removedmain != null) {
-        Logger.print("IN MEMORY RESULT: Deleted Main model successfully: $removedmain", [AppLoggerFeatures.main]);
+        AppLogger.print("IN MEMORY RESULT: Deleted Main model successfully: $removedmain", [AppLoggerFeatures.main]);
       } else {
-        Logger.print("IN MEMORY RESULT: Failed to delete Main model: Feature not found", [AppLoggerFeatures.main], type: LoggerType.error);
+        AppLogger.print("IN MEMORY RESULT: Failed to delete Main model: Feature not found", [AppLoggerFeatures.main], type: LoggerType.error);
       }
     } catch (e) {
-      Logger.print("IN MEMORY RESULT: Error deleting Main model: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print("IN MEMORY RESULT: Error deleting Main model: $e", [AppLoggerFeatures.main], type: LoggerType.error);
     }
   }
 }
