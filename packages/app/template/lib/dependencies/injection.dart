@@ -1,3 +1,4 @@
+import 'package:app_template/core/assets/assets.gen.dart';
 import 'package:get_it/get_it.dart';
 
 /// IS_DASHBOARD START

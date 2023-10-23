@@ -15,9 +15,8 @@ part 'store.g.dart';
 class HomeStore = HomeBaseStore with _$HomeStore;
 
 /// [HomeBaseStore] is a class that manages the state of the home feature.
-class HomeBaseStore extends LoadStateStore with Store {
+abstract class HomeBaseStore extends LoadStateStore with Store {
   /// connectionStatus is an instance of ConnectionStateStore, which is used to determine the current connection state.
-  @observable
   final connectionStatus = Managers.connectionStateStore;
 
   /// [dataSource] is an instance of [HomeDataSource], specifically the in memory data source.

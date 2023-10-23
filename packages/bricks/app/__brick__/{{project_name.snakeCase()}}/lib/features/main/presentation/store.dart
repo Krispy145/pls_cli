@@ -15,9 +15,8 @@ part 'store.g.dart';
 class MainStore = MainBaseStore with _$MainStore;
 
 /// [MainBaseStore] is a class that manages the state of the main feature.
-class MainBaseStore extends LoadStateStore with Store {
+abstract class MainBaseStore extends LoadStateStore with Store {
   /// connectionStatus is an instance of ConnectionStateStore, which is used to determine the current connection state.
-  @observable
   final connectionStatus = Managers.connectionStateStore;
 
   /// [dataSource] is an instance of [MainDataSource], specifically the in memory data source.

@@ -60,7 +60,7 @@ class ManagerInjector {
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
   void initApp() {
     AppLogger.print("Initializing app services...", [LoggerFeatures.dependancyInjection]);
-    _serviceLocator.registerLazySingleton<ThemeStateStore>(() => ThemeStateStore(assetPath: '', useLocal: true));
+    _serviceLocator.registerLazySingleton<ThemeStateStore>(() => ThemeStateStore(assetPath: Assets.colors.theme, useLocal: true));
 
     {{#is_default}}
     _serviceLocator.registerLazySingleton<DefaultShellStructureStore>(DefaultShellStructureStore.new);
