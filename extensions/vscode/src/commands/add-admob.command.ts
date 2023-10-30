@@ -1,11 +1,12 @@
 import { exec } from "child_process";
-import { Uri, window, extensions, ExtensionContext } from "vscode";
+import { Uri, window } from "vscode";
 import {
   getFeatureFilePath as getFilePath,
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import * as fs from "fs";
-import * as path from "path";
+import { appendToFile } from "../utils/append_to_file";
+
 
 export const addAdmob = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
@@ -66,6 +67,7 @@ export const addAdmob = async (args: Uri) => {
         const importCode = "import 'package:admob/ads/store.dart';";
 
         // Code snippet to be added
+        //TODO: Replace the AdMob IDs with the helper variables
         const admobSetupCode = `
             ..registerLazySingleton<AdMobStore>(() => AdMobStore(bannerAdUnitId: 'bbbbbbbbbbbbbbb',interstitialAdUnitId: 'iiiiiiiiiiiiiiiiii',rewardAdUnitId: 'rrrrrrrrrrrrrrrrrrrrrrr'))`;
 
@@ -124,18 +126,3 @@ export const addAdmob = async (args: Uri) => {
   }
 };
 
-async function appendToFile(
-  filePath: string,
-  snippet: string,
-  endMarker: string
-): Promise<void> {
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  if (fileContent.includes(snippet)) {
-    return; // The snippet is already present
-  }
-  const updatedContent = fileContent.replace(
-    new RegExp(`(${endMarker})`),
-    `${snippet}\n$1`
-  );
-  fs.writeFileSync(filePath, updatedContent);
-}

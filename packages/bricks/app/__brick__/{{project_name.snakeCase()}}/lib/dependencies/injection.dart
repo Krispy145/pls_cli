@@ -1,3 +1,4 @@
+import 'package:{{project_name.snakeCase()}}/core/assets/assets.gen.dart';
 import 'package:get_it/get_it.dart';
 
 {{#is_dashboard}}
@@ -60,28 +61,25 @@ class ManagerInjector {
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
   void initApp() {
     AppLogger.print("Initializing app services...", [LoggerFeatures.dependancyInjection]);
-    _serviceLocator.registerLazySingleton<ThemeStateStore>(() => ThemeStateStore(assetPath: Assets.colors.theme, useLocal: true));
+    _serviceLocator..registerLazySingleton<ThemeStateStore>(() => ThemeStateStore(assetPath: Assets.colors.theme, useLocal: true))
 
     {{#is_default}}
-    _serviceLocator.registerLazySingleton<DefaultShellStructureStore>(DefaultShellStructureStore.new);
+    ..registerLazySingleton<DefaultShellStructureStore>(DefaultShellStructureStore.new);
 
     {{/is_default}}
 
     {{#is_default_map}}
-    
-    _serviceLocator.registerLazySingleton<DefaultMapShellStructureStore>(DefaultMapShellStructureStore.new);
+    ..registerLazySingleton<DefaultMapShellStructureStore>(DefaultMapShellStructureStore.new);
 
     {{/is_default_map}}
 
     {{#is_map}}
-    
-    _serviceLocator.registerLazySingleton<MapShellStructureStore>(MapShellStructureStore.new);
+    ..registerLazySingleton<MapShellStructureStore>(MapShellStructureStore.new);
 
     {{/is_map}}
 
     {{#is_dashboard}}
-    
-    _serviceLocator.registerLazySingleton<DashboardShellStructureStore>(DashboardShellStructureStore.new);
+    ..registerLazySingleton<DashboardShellStructureStore>(DashboardShellStructureStore.new);
 
     {{/is_dashboard}}
 
