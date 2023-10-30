@@ -6,12 +6,17 @@ import {
   getFeatureFilePath as getFilePath,
   getTargetDirectory,
 } from "../utils/get-target-directory";
+import {
+  appendAfterMarkerInFile,
+  appendBeforeMarkerInFile,
+} from "../utils/append_files";
 
 export const addNotifications = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
   updateAppDelegate();
   updateBuildGradle();
   updateAndroidManifest();
+  updateStringsXml();
   const notificationsPath =
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
   const cmd = `flutter pub add notifications --path=${notificationsPath}`;
@@ -100,19 +105,11 @@ function updateBuildGradle() {
 
     // Define the code snippets to be added
     const codeToAddDefaultConfig = `
-        multiDexEnabled true 
-    }, 
-    compileOptions {
-        // Flag to enable support for the new language APIs
-        coreLibraryDesugaringEnabled true
-        // Sets Java compatibility to Java 8
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+          multiDexEnabled true
 `;
 
     const codeToAddDependencies = `
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
 `;
 
     // Define regular expression patterns to find the defaultConfig and dependencies blocks
@@ -124,11 +121,26 @@ function updateBuildGradle() {
     const dependenciesMatches = currentContent.match(dependenciesPattern);
 
     if (defaultConfigMatches) {
-      // Replace the closing brace (}) with the code snippet for defaultConfig
-      currentContent = currentContent.replace(
-        defaultConfigMatches[0],
-        defaultConfigMatches[0].replace("}", codeToAddDefaultConfig)
+      // Add the specified line to the defaultConfig block
+      appendAfterMarkerInFile(
+        buildGradlePath,
+        codeToAddDefaultConfig,
+        defaultConfigMatches[0]
       );
+
+      // Check the minSdkVersion
+      const minSdkVersionMatch = currentContent.match(/minSdkVersion\s+(\d+)/);
+      if (minSdkVersionMatch) {
+        const minSdkVersion = parseInt(minSdkVersionMatch[1], 10);
+        if (minSdkVersion < 33) {
+          // Update minSdkVersion to 33
+          currentContent = currentContent.replace(
+            /minSdkVersion\s+(\d+)/,
+            "minSdkVersion 33"
+          );
+          fs.writeFileSync(buildGradlePath, currentContent);
+        }
+      }
     } else {
       vscode.window.showErrorMessage(
         "Failed to locate the defaultConfig block in build.gradle."
@@ -137,9 +149,10 @@ function updateBuildGradle() {
 
     if (dependenciesMatches) {
       // Add the specified line to the dependencies block
-      currentContent = currentContent.replace(
-        dependenciesMatches[0],
-        `${dependenciesMatches[0].trim()}\n${codeToAddDependencies}`
+      appendBeforeMarkerInFile(
+        buildGradlePath,
+        codeToAddDependencies,
+        dependenciesMatches[0]
       );
     } else {
       vscode.window.showErrorMessage(
@@ -147,8 +160,6 @@ function updateBuildGradle() {
       );
     }
 
-    // Write the updated content to the file
-    fs.writeFileSync(buildGradlePath, currentContent);
     vscode.window.showInformationMessage(
       "build.gradle file updated successfully."
     );
@@ -159,16 +170,18 @@ function updateBuildGradle() {
   }
 }
 
-function updateAndroidManifest() {
+
+async function updateAndroidManifest() {
   const manifestPath = getFilePath("android/app/src/main/AndroidManifest.xml");
 
   const permissionsBlock = `
       <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-      <uses-permission android:name="android.permission.VIBRATE" />
-      <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
-      <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+      <uses-permission android:name="android.permission.VIBRATE"/>
+      <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+      <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
       <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    `;
+      <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+  `;
 
   const additionalBlock = `
       <service
@@ -185,12 +198,23 @@ function updateAndroidManifest() {
               <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
           </intent-filter>
       </receiver>
-    `;
+  `;
 
   const showWhenLockedAndTurnScreenOn = `
       android:showWhenLocked="true"
       android:turnScreenOn="true"
-    `;
+      <!-- Local Notification Channel -->
+    <meta-data
+        android:name="com.dexterous.flutterlocalnotifications.notification_channel"
+        android:resource="@string/local_notification_channel_id"
+    />
+
+    <!-- Push Notification Channel -->
+    <meta-data
+        android:name="com.dexterous.flutterlocalnotifications.notification_channel"
+        android:resource="@string/push_notification_channel_id"
+    />
+  `;
 
   try {
     // Read the current content of AndroidManifest.xml
@@ -203,29 +227,69 @@ function updateAndroidManifest() {
 
     if (insertionIndex !== -1) {
       // Add the additional block before </application>
-      const updatedContent =
-        currentContent.slice(0, insertionIndex) +
-        "    " +
-        showWhenLockedAndTurnScreenOn +
-        "\n" +
-        additionalBlock +
-        "\n  " +
-        currentContent.slice(insertionIndex);
+      await appendBeforeMarkerInFile(manifestPath, additionalBlock, "</application>");
 
       // Add permissions block below </application>
-      const updatedContentWithPermissions = updatedContent.replace(
-        /<\/application>/,
-        permissionsBlock + "\n  </application>"
-      );
+      await appendAfterMarkerInFile(manifestPath, permissionsBlock, "</application>");
 
-      // Write the updated content back to the file
-      fs.writeFileSync(manifestPath, updatedContentWithPermissions);
+      // Add showWhenLockedAndTurnScreenOn attributes
+      await appendBeforeMarkerInFile(manifestPath, showWhenLockedAndTurnScreenOn, 'android:windowSoftInputMode="adjustResize">');
+
       vscode.window.showInformationMessage(
         "Permissions and additional code added to AndroidManifest.xml"
       );
     } else {
       vscode.window.showErrorMessage(
         "Insertion point not found in AndroidManifest.xml"
+      );
+    }
+  } catch (error) {
+    vscode.window.showErrorMessage(`An error occurred: ${error}`);
+  }
+}
+
+
+async function updateStringsXml() {
+  const stringsXmlPath = getFilePath("android/app/src/main/res/values/strings.xml");
+  const stringsToAdd = `
+    <string name="local_notification_channel_id">local_notifications</string>
+    <string name="push_notification_channel_id">push_notifications</string>
+  `;
+
+  try {
+    let currentContent = "";
+    if (fs.existsSync(stringsXmlPath)) {
+      currentContent = fs.readFileSync(stringsXmlPath, "utf-8");
+    }
+
+    if (currentContent.includes(stringsToAdd)) {
+      // Strings are already present, no need to add again
+      return;
+    }
+
+    if (currentContent.trim() === "") {
+      // File is empty, add XML declaration
+      currentContent = '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n</resources>';
+    }
+
+    // Find the insertion point, which is after <resources>
+    const insertionIndex = currentContent.indexOf("<resources>");
+
+    if (insertionIndex !== -1) {
+      // Add the new strings below <resources>
+      const updatedContent =
+        currentContent.slice(0, insertionIndex + "<resources>".length) +
+        stringsToAdd +
+        "\n  " +
+        currentContent.slice(insertionIndex + "<resources>".length);
+
+      // Write the updated content back to the file
+      fs.writeFileSync(stringsXmlPath, updatedContent);
+
+      vscode.window.showInformationMessage("Strings added to strings.xml");
+    } else {
+      vscode.window.showErrorMessage(
+        "Insertion point not found in strings.xml"
       );
     }
   } catch (error) {

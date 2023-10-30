@@ -5,7 +5,7 @@ import {
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import * as fs from "fs";
-import { appendToFile } from "../utils/append_to_file";
+import { appendBeforeMarkerInFile } from "../utils/append_files";
 
 
 export const addAdmob = async (args: Uri) => {
@@ -31,7 +31,7 @@ export const addAdmob = async (args: Uri) => {
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="${androidAppId}"/>`;
-      await appendToFile(
+      await appendBeforeMarkerInFile(
         androidManifestPath,
         androidManifestSnippet,
         "(\\s*)</application>\\s*</manifest>"
@@ -46,7 +46,7 @@ export const addAdmob = async (args: Uri) => {
     <true/>
     <key>NSUserTrackingUsageDescription</key>
     <string>This identifier will be used to deliver personalized ads to you.</string>`;
-      await appendToFile(
+      await appendBeforeMarkerInFile(
         iosInfoPlistPath,
         iosInfoPlistSnippet,
         "</dict>\n</plist>"
