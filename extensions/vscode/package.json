@@ -18,10 +18,11 @@
     "onCommand:digital-oasis.new-feature",
     "onCommand:digital-oasis.add-component",
     "onCommand:digital-oasis.add-model",
-    "onCommand:digital-oasis.add-admob"    
+    "onCommand:digital-oasis.add-admob",
+    "onCommand:digital-oasis.add-notifications"
   ],
   "main": "./out/extension.js",
-  "contributes": {    
+  "contributes": {
     "submenus": [
       {
         "label": "Digital Oasis",
@@ -32,12 +33,12 @@
       {
         "command": "digital-oasis.create-app",
         "title": "Digital Oasis: Create a New App"
-      },      
+      },
       {
         "command": "digital-oasis.new-feature",
         "title": "Feature",
         "shortTitle": "New Feature"
-      },      
+      },
       {
         "command": "digital-oasis.add-component",
         "title": "Component",
@@ -52,7 +53,12 @@
         "command": "digital-oasis.add-admob",
         "title": "Add Admob",
         "shortTitle": "Add AdMob"
-      }      
+      },
+      {
+        "command": "digital-oasis.add-notifications",
+        "title": "Add Notifications",
+        "shortTitle": "Add Notifications"
+      }
     ],
     "menus": {
       "explorer/context": [
@@ -67,14 +73,12 @@
           "when": "!explorerResourceIsFolder && resourceFilename =~ /bloc|cubit/"
         }
       ],
-      "commandPalette": [
-       
-      ],
+      "commandPalette": [],
       "digital-oasis.submenu": [
         {
           "command": "digital-oasis.new-feature",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(features))$/"
-        },        
+        },
         {
           "command": "digital-oasis.add-component",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(components|lib|presentation|navigation|utils|core|config|app))$/"
@@ -86,7 +90,11 @@
         {
           "command": "digital-oasis.add-admob",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
-        }        
+        },
+        {
+          "command": "digital-oasis.add-notifications",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
+        }
       ]
     }
   },
