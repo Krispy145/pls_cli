@@ -21,24 +21,7 @@ export const addNotifications = async (args: Uri) => {
 
   const notificationsPath =
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
-  addFlutterPackage("notifications", notificationsPath, targetDir);
-  // const cmd = `flutter pub add notifications --path=${notificationsPath}`;
-  // exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
-  //   if (error) {
-  //     console.error(`Error: ${error.message}`);
-  //     window.showErrorMessage(`Error: ${error.message}`);
-  //     return;
-  //   }
-  //   if (stderr) {
-  //     console.error(`stderr: ${stderr}`);
-  //     window.showErrorMessage(`stderr: ${stderr}`);
-  //     return;
-  //   }
-  //   console.log(`stdout: ${stdout}`);
-  //   window.showInformationMessage(
-  //     "Notifications package added to dependencies"
-  //   );
-  // });
+  addFlutterPackage("notifications", notificationsPath, targetDir);  
 };
 
 async function updateAppDelegate() {
@@ -58,8 +41,7 @@ async function updateAppDelegate() {
       }
       if #available(iOS 10.0, *) {
       UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
-      }
-          `,
+      }`,
     ];
 
     for (const snippet of requiredCodeSnippets) {
@@ -230,7 +212,7 @@ async function updateAndroidManifest() {
 
           <!-- Push Notification Channel -->
           <meta-data
-              android:name="com.dexterous.flutterlocalnotifications.notification_channel"
+              android:name="com.google.firebase.messaging.default_notification_channel_id"
               android:resource="@string/push_notification_channel_id"
           />
   `;

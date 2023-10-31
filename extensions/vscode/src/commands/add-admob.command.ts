@@ -52,24 +52,36 @@ export const addAdmob = async (args: Uri) => {
         "</dict>\n</plist>"
       );
 
-      const bannerAdUnitId = await window.showInputBox({
+      var bannerAdUnitId = await window.showInputBox({
         prompt: "Enter your Banner Ad Unit ID:",
       });
-      const interstitialAdUnitId = await window.showInputBox({
+      var interstitialAdUnitId = await window.showInputBox({
         prompt: "Enter your Interstitial Ad Unit ID:",
       });
-      const rewardAdUnitId = await window.showInputBox({
+      var rewardAdUnitId = await window.showInputBox({
         prompt: "Enter your Reward Ad Unit ID:",
       });
 
-      if (bannerAdUnitId && interstitialAdUnitId && rewardAdUnitId) {
+      bannerAdUnitId = "" ? undefined : bannerAdUnitId;
+      interstitialAdUnitId = "" ? undefined : interstitialAdUnitId;
+      rewardAdUnitId = "" ? undefined : rewardAdUnitId;
+
+      if (bannerAdUnitId || interstitialAdUnitId || rewardAdUnitId) {
         // Import statement to be added
         const importCode = "import 'package:admob/ads/store.dart';";
 
         // Code snippet to be added
         //TODO: Replace the AdMob IDs with the helper variables
         const admobSetupCode = `
-            ..registerLazySingleton<AdMobStore>(() => AdMobStore(bannerAdUnitId: 'bbbbbbbbbbbbbbb',interstitialAdUnitId: 'iiiiiiiiiiiiiiiiii',rewardAdUnitId: 'rrrrrrrrrrrrrrrrrrrrrrr'))`;
+      ..registerLazySingleton<AdMobStore>(() => AdMobStore(bannerAdUnitId: '${
+        bannerAdUnitId !== undefined ? "'" + bannerAdUnitId + "'" : null
+      }',interstitialAdUnitId: '${
+          interstitialAdUnitId !== undefined
+            ? "'" + interstitialAdUnitId + "'"
+            : null
+        }',rewardAdUnitId: '${
+          rewardAdUnitId !== undefined ? "'" + rewardAdUnitId + "'" : null
+        }'))`;
 
         // Getter to be added
         const getterCode = `
