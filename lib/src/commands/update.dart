@@ -97,6 +97,7 @@ class UpdateCommand extends RenderCommand {
         ],
       );
     }
+
     return;
   }
 }

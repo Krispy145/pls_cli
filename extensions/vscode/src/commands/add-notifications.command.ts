@@ -38,7 +38,7 @@ export const addNotifications = async (args: Uri) => {
   });
 };
 
-function updateAppDelegate() {
+async function updateAppDelegate() {
   try {
     // File path for AppDelegate.swift
     const appDelegatePath = getFilePath("ios/Runner/AppDelegate.swift");
@@ -49,48 +49,33 @@ function updateAppDelegate() {
     // Code snippets to be added
     const requiredCodeSnippets = [
       "import flutter_local_notifications",
-      "FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { (registry) in",
-      "GeneratedPluginRegistrant.register(with: registry)",
-      "if #available(iOS 10.0, *) {",
-      "UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate",
+      `FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { (registry) in
+      GeneratedPluginRegistrant.register(with: registry)
+      }
+      if #available(iOS 10.0, *) {
+      UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
+      }`,
     ];
 
-    // Find the last import statement to add the import flutter_local_notifications below it
-    const lastImportIndex = currentContent.lastIndexOf("import");
-
-    let updatedContent = currentContent;
-
     for (const snippet of requiredCodeSnippets) {
+      // Check if the snippet already exists in the file
       if (!currentContent.includes(snippet)) {
-        // Find the insertion point and add the code snippet
-        const insertionIndex = currentContent.indexOf(
-          "GeneratedPluginRegistrant.register(with: self)"
-        );
-        if (insertionIndex !== -1) {
-          updatedContent = `${currentContent.slice(
-            0,
-            insertionIndex
-          )}\n${snippet}\n${currentContent.slice(insertionIndex)}`;
-        } else if (lastImportIndex !== -1) {
-          updatedContent = `${
-            currentContent.slice(0, lastImportIndex) + snippet
-          }\n${currentContent.slice(lastImportIndex)}`;
+        // Find the markers for insertion points
+        const importMarker = "import UIKit";
+        const codeMarker = "GeneratedPluginRegistrant.register(with: self)";
+
+        // Use appendAfterMarkerInFile and appendBeforeMarkerInFile as needed
+        if (snippet === "import flutter_local_notifications") {
+          await appendAfterMarkerInFile(appDelegatePath, snippet, importMarker);
+        } else {
+          await appendBeforeMarkerInFile(appDelegatePath, snippet, codeMarker);
         }
       }
     }
 
-    if (updatedContent !== currentContent) {
-      // Write the updated content to the file
-      fs.writeFileSync(appDelegatePath, updatedContent);
-
-      vscode.window.showInformationMessage(
-        "Notifications code added to AppDelegate.swift"
-      );
-    } else {
-      vscode.window.showInformationMessage(
-        "Notifications code is already present in AppDelegate.swift"
-      );
-    }
+    vscode.window.showInformationMessage(
+      "Notifications code added to AppDelegate.swift"
+    );
   } catch (error) {
     vscode.window.showErrorMessage(`An error occurred: ${error}`);
   }
@@ -109,23 +94,29 @@ function updateBuildGradle() {
 `;
 
     const codeToAddDependencies = `
-  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+          coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+`;
+
+const codeToAddToCompileOptions =`
+        coreLibraryDesugaringEnabled true
 `;
 
     // Define regular expression patterns to find the defaultConfig and dependencies blocks
-    const defaultConfigPattern = /defaultConfig\s*\{([\s\S]*?)\}/;
-    const dependenciesPattern = /dependencies\s*\{([\s\S]*?)\}/;
+    const defaultConfigPattern = "defaultConfig {";
+    const dependenciesPattern = "dependencies {";
+    const compileOptionsPattern = "compileOptions {";
 
     // Use regex to search for the defaultConfig block
-    const defaultConfigMatches = currentContent.match(defaultConfigPattern);
-    const dependenciesMatches = currentContent.match(dependenciesPattern);
+    const defaultConfigIncludes = currentContent.includes(codeToAddDefaultConfig);
+    const dependenciesIncludes = currentContent.includes(codeToAddDependencies);
+    const compileOptionsIncludes = currentContent.includes(codeToAddToCompileOptions);
 
-    if (defaultConfigMatches) {
+    if (!defaultConfigIncludes) {
       // Add the specified line to the defaultConfig block
       appendAfterMarkerInFile(
         buildGradlePath,
         codeToAddDefaultConfig,
-        defaultConfigMatches[0]
+        defaultConfigPattern,
       );
 
       // Check the minSdkVersion
@@ -147,16 +138,29 @@ function updateBuildGradle() {
       );
     }
 
-    if (dependenciesMatches) {
+    if (!dependenciesIncludes) {
       // Add the specified line to the dependencies block
-      appendBeforeMarkerInFile(
+      appendAfterMarkerInFile(
         buildGradlePath,
         codeToAddDependencies,
-        dependenciesMatches[0]
+        dependenciesPattern,
       );
     } else {
       vscode.window.showErrorMessage(
         "Failed to locate the dependencies block in build.gradle."
+      );
+    }
+
+    if (!compileOptionsIncludes) {
+      // Add the specified line to the dependencies block
+      appendAfterMarkerInFile(
+        buildGradlePath,
+        codeToAddToCompileOptions,
+        compileOptionsPattern,
+      );
+    } else {
+      vscode.window.showErrorMessage(
+        "Failed to locate the compile options block in build.gradle."
       );
     }
 
@@ -170,7 +174,6 @@ function updateBuildGradle() {
   }
 }
 
-
 async function updateAndroidManifest() {
   const manifestPath = getFilePath("android/app/src/main/AndroidManifest.xml");
 
@@ -183,7 +186,7 @@ async function updateAndroidManifest() {
       <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   `;
 
-  const additionalBlock = `
+  const serviceBlock = `
       <service
           android:name="com.dexterous.flutterlocalnotifications.ForegroundService"        
           android:exported="false"
@@ -202,7 +205,7 @@ async function updateAndroidManifest() {
 
   const showWhenLockedAndTurnScreenOn = `
       android:showWhenLocked="true"
-      android:turnScreenOn="true"
+      android:turnScreenOn="true">
       <!-- Local Notification Channel -->
     <meta-data
         android:name="com.dexterous.flutterlocalnotifications.notification_channel"
@@ -227,13 +230,25 @@ async function updateAndroidManifest() {
 
     if (insertionIndex !== -1) {
       // Add the additional block before </application>
-      await appendBeforeMarkerInFile(manifestPath, additionalBlock, "</application>");
+      await appendBeforeMarkerInFile(
+        manifestPath,
+        serviceBlock,
+        "(\\s*)</application>\\s*</manifest>"
+      );
 
       // Add permissions block below </application>
-      await appendAfterMarkerInFile(manifestPath, permissionsBlock, "</application>");
+      await appendAfterMarkerInFile(
+        manifestPath,
+        permissionsBlock,
+      `<uses-permission android:name="android.permission.INTERNET"/>`
+      );
 
       // Add showWhenLockedAndTurnScreenOn attributes
-      await appendBeforeMarkerInFile(manifestPath, showWhenLockedAndTurnScreenOn, 'android:windowSoftInputMode="adjustResize">');
+      await appendAfterMarkerInFile(
+        manifestPath,
+        showWhenLockedAndTurnScreenOn,
+        'android:windowSoftInputMode="adjustResize"'
+      );
 
       vscode.window.showInformationMessage(
         "Permissions and additional code added to AndroidManifest.xml"
@@ -248,9 +263,10 @@ async function updateAndroidManifest() {
   }
 }
 
-
 async function updateStringsXml() {
-  const stringsXmlPath = getFilePath("android/app/src/main/res/values/strings.xml");
+  const stringsXmlPath = getFilePath(
+    "android/app/src/main/res/values/strings.xml"
+  );
   const stringsToAdd = `
     <string name="local_notification_channel_id">local_notifications</string>
     <string name="push_notification_channel_id">push_notifications</string>
@@ -269,7 +285,8 @@ async function updateStringsXml() {
 
     if (currentContent.trim() === "") {
       // File is empty, add XML declaration
-      currentContent = '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n</resources>';
+      currentContent =
+        '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n</resources>';
     }
 
     // Find the insertion point, which is after <resources>
