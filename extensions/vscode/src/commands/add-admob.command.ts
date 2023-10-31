@@ -6,7 +6,7 @@ import {
 } from "../utils/get-target-directory";
 import * as fs from "fs";
 import { appendBeforeMarkerInFile } from "../utils/append_files";
-
+import { addFlutterPackage } from "../utils/add_flutter_package";
 
 export const addAdmob = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
@@ -103,26 +103,26 @@ export const addAdmob = async (args: Uri) => {
 
         const admobPath =
           "/Users/davidkisbey-green/Desktop/Digital_Oasis/admob/";
-        const cmd = `flutter pub add admob --path=${admobPath}`;
+        addFlutterPackage("admob", admobPath, targetDir);
+        // const cmd = `flutter pub add admob --path=${admobPath}`;
 
-        exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
-          if (error) {
-            console.error(`Error: ${error.message}`);
-            window.showErrorMessage(`Error: ${error.message}`);
-            return;
-          }
-          if (stderr) {
-            console.error(`stderr: ${stderr}`);
-            window.showErrorMessage(`stderr: ${stderr}`);
-            return;
-          }
-          console.log(`stdout: ${stdout}`);
-          window.showInformationMessage("AdMob package added to dependencies");
-        });
+        // exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
+        //   if (error) {
+        //     console.error(`Error: ${error.message}`);
+        //     window.showErrorMessage(`Error: ${error.message}`);
+        //     return;
+        //   }
+        //   if (stderr) {
+        //     console.error(`stderr: ${stderr}`);
+        //     window.showErrorMessage(`stderr: ${stderr}`);
+        //     return;
+        //   }
+        //   console.log(`stdout: ${stdout}`);
+        //   window.showInformationMessage("AdMob package added to dependencies");
+        // });
       }
     }
   } catch (error) {
     window.showErrorMessage(`An error occurred: ${error}`);
   }
 };
-

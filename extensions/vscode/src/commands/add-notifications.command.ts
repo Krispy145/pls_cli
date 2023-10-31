@@ -10,6 +10,7 @@ import {
   appendAfterMarkerInFile,
   appendBeforeMarkerInFile,
 } from "../utils/append_files";
+import { addFlutterPackage } from "../utils/add_flutter_package";
 
 export const addNotifications = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
@@ -17,25 +18,27 @@ export const addNotifications = async (args: Uri) => {
   updateBuildGradle();
   updateAndroidManifest();
   updateStringsXml();
+
   const notificationsPath =
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
-  const cmd = `flutter pub add notifications --path=${notificationsPath}`;
-  exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error: ${error.message}`);
-      window.showErrorMessage(`Error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.error(`stderr: ${stderr}`);
-      window.showErrorMessage(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    window.showInformationMessage(
-      "Notifications package added to dependencies"
-    );
-  });
+  addFlutterPackage("notifications", notificationsPath, targetDir);
+  // const cmd = `flutter pub add notifications --path=${notificationsPath}`;
+  // exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
+  //   if (error) {
+  //     console.error(`Error: ${error.message}`);
+  //     window.showErrorMessage(`Error: ${error.message}`);
+  //     return;
+  //   }
+  //   if (stderr) {
+  //     console.error(`stderr: ${stderr}`);
+  //     window.showErrorMessage(`stderr: ${stderr}`);
+  //     return;
+  //   }
+  //   console.log(`stdout: ${stdout}`);
+  //   window.showInformationMessage(
+  //     "Notifications package added to dependencies"
+  //   );
+  // });
 };
 
 async function updateAppDelegate() {
@@ -56,7 +59,7 @@ async function updateAppDelegate() {
       if #available(iOS 10.0, *) {
       UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
       }
-      `,
+          `,
     ];
 
     for (const snippet of requiredCodeSnippets) {
@@ -64,7 +67,8 @@ async function updateAppDelegate() {
       if (!currentContent.includes(snippet)) {
         // Find the markers for insertion points
         const importMarker = "import Flutter";
-        const codeMarker = "GeneratedPluginRegistrant\\.register\\(with: self\\)\\s*return super.application\\(application, didFinishLaunchingWithOptions: launchOptions\\)";
+        const codeMarker =
+          "GeneratedPluginRegistrant\\.register\\(with: self\\)\\s*return super.application\\(application, didFinishLaunchingWithOptions: launchOptions\\)";
 
         // Use appendAfterMarkerInFile and appendBeforeMarkerInFile as needed
         if (snippet === "import flutter_local_notifications") {
@@ -78,7 +82,7 @@ async function updateAppDelegate() {
             `Notifications GeneratedPluginRegistrant code added to AppDelegate.swift`
           );
         }
-      }else{
+      } else {
         vscode.window.showInformationMessage(
           `Notifications code in AppDelegate.swift include: ${snippet}`
         );
@@ -102,16 +106,13 @@ function updateBuildGradle() {
 
     // Define the code snippets to be added
     const codeToAddDefaultConfig = `
-          multiDexEnabled true
-`;
+        multiDexEnabled true`;
 
     const codeToAddDependencies = `
-      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
-`;
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'`;
 
-const codeToAddToCompileOptions =`
-        coreLibraryDesugaringEnabled true
-`;
+    const codeToAddToCompileOptions = `
+        coreLibraryDesugaringEnabled true`;
 
     // Define regular expression patterns to find the defaultConfig and dependencies blocks
     const defaultConfigPattern = "defaultConfig {";
@@ -119,11 +120,15 @@ const codeToAddToCompileOptions =`
     const compileOptionsPattern = "compileOptions {";
 
     // Use regex to search for the defaultConfig block
-    const defaultConfigIncludes = currentContent.includes(codeToAddDefaultConfig);
+    const defaultConfigIncludes = currentContent.includes(
+      codeToAddDefaultConfig
+    );
     const dependenciesIncludes = currentContent.includes(codeToAddDependencies);
-    const compileOptionsIncludes = currentContent.includes(codeToAddToCompileOptions);
+    const compileOptionsIncludes = currentContent.includes(
+      codeToAddToCompileOptions
+    );
 
-    if (!defaultConfigIncludes) {     
+    if (!defaultConfigIncludes) {
       // Check the minSdkVersion
       const minSdkVersionMatch = currentContent.match(/minSdkVersion\s+(\d+)/);
       if (minSdkVersionMatch) {
@@ -137,11 +142,11 @@ const codeToAddToCompileOptions =`
           fs.writeFileSync(buildGradlePath, currentContent);
         }
       }
-       // Add the specified line to the defaultConfig block
-       appendAfterMarkerInFile(
+      // Add the specified line to the defaultConfig block
+      appendAfterMarkerInFile(
         buildGradlePath,
         codeToAddDefaultConfig,
-        defaultConfigPattern,
+        defaultConfigPattern
       );
     } else {
       vscode.window.showErrorMessage(
@@ -154,7 +159,7 @@ const codeToAddToCompileOptions =`
       appendAfterMarkerInFile(
         buildGradlePath,
         codeToAddDependencies,
-        dependenciesPattern,
+        dependenciesPattern
       );
     } else {
       vscode.window.showErrorMessage(
@@ -167,7 +172,7 @@ const codeToAddToCompileOptions =`
       appendAfterMarkerInFile(
         buildGradlePath,
         codeToAddToCompileOptions,
-        compileOptionsPattern,
+        compileOptionsPattern
       );
     } else {
       vscode.window.showErrorMessage(
@@ -251,7 +256,7 @@ async function updateAndroidManifest() {
       await appendAfterMarkerInFile(
         manifestPath,
         permissionsBlock,
-      `<uses-permission android:name="android.permission.INTERNET"/>`
+        `<uses-permission android:name="android.permission.INTERNET"/>`
       );
 
       // Add showWhenLockedAndTurnScreenOn attributes
