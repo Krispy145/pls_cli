@@ -65,7 +65,7 @@ async function updateAppDelegate() {
       if (!currentContent.includes(snippet)) {
         // Find the markers for insertion points
         const importMarker = "import Flutter";
-        const codeMarker = `(\\s*)GeneratedPluginRegistrant.register(with: self)\\s*return super.application(application, didFinishLaunchingWithOptions: launchOptions)`;
+        const codeMarker = "/GeneratedPluginRegistrant\.register\(with: self\)\s*return super.application\(application, didFinishLaunchingWithOptions: launchOptions\)/";
 
         // Use appendAfterMarkerInFile and appendBeforeMarkerInFile as needed
         if (snippet === "import flutter_local_notifications") {
