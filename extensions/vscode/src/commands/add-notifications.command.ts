@@ -76,7 +76,7 @@ async function updateAppDelegate() {
         } else {
           await appendBeforeMarkerInFile(appDelegatePath, snippet, codeMarker);
           vscode.window.showInformationMessage(
-            "Notifications GeneratedPluginRegistrant code added to AppDelegate.swift"
+            `Notifications ${snippet} code added to AppDelegate.swift`
           );
         }
       }else{
