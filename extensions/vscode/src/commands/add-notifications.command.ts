@@ -49,7 +49,8 @@ async function updateAppDelegate() {
     // Code snippets to be added
     const requiredCodeSnippets = [
       "import flutter_local_notifications",
-      `FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { (registry) in
+      `
+      FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { (registry) in
       GeneratedPluginRegistrant.register(with: registry)
       }
       if #available(iOS 10.0, *) {
@@ -78,6 +79,10 @@ async function updateAppDelegate() {
             "Notifications GeneratedPluginRegistrant code added to AppDelegate.swift"
           );
         }
+      }else{
+        vscode.window.showInformationMessage(
+          `Notifications code in AppDelegate.swift include: ${snippet}`
+        );
       }
     }
 
