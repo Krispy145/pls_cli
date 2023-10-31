@@ -56,8 +56,7 @@ async function updateAppDelegate() {
       if #available(iOS 10.0, *) {
       UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
       }
-      
-      <-- WORKING!!! -->`,
+      `,
     ];
 
     for (const snippet of requiredCodeSnippets) {
