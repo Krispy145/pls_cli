@@ -54,7 +54,9 @@ async function updateAppDelegate() {
       }
       if #available(iOS 10.0, *) {
       UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
-      }`,
+      }
+      
+      <-- WORKING!!! -->`,
     ];
 
     for (const snippet of requiredCodeSnippets) {
@@ -67,8 +69,14 @@ async function updateAppDelegate() {
         // Use appendAfterMarkerInFile and appendBeforeMarkerInFile as needed
         if (snippet === "import flutter_local_notifications") {
           await appendAfterMarkerInFile(appDelegatePath, snippet, importMarker);
+          vscode.window.showInformationMessage(
+            "Notifications import code added to AppDelegate.swift"
+          );
         } else {
           await appendBeforeMarkerInFile(appDelegatePath, snippet, codeMarker);
+          vscode.window.showInformationMessage(
+            "Notifications GeneratedPluginRegistrant code added to AppDelegate.swift"
+          );
         }
       }
     }
