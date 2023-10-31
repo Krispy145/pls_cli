@@ -61,8 +61,8 @@ async function updateAppDelegate() {
       // Check if the snippet already exists in the file
       if (!currentContent.includes(snippet)) {
         // Find the markers for insertion points
-        const importMarker = "import UIKit";
-        const codeMarker = "GeneratedPluginRegistrant.register(with: self)";
+        const importMarker = "import Flutter";
+        const codeMarker = "(\\s*)GeneratedPluginRegistrant.register(with: self)";
 
         // Use appendAfterMarkerInFile and appendBeforeMarkerInFile as needed
         if (snippet === "import flutter_local_notifications") {
@@ -94,7 +94,7 @@ function updateBuildGradle() {
 `;
 
     const codeToAddDependencies = `
-          coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
 `;
 
 const codeToAddToCompileOptions =`
@@ -111,14 +111,7 @@ const codeToAddToCompileOptions =`
     const dependenciesIncludes = currentContent.includes(codeToAddDependencies);
     const compileOptionsIncludes = currentContent.includes(codeToAddToCompileOptions);
 
-    if (!defaultConfigIncludes) {
-      // Add the specified line to the defaultConfig block
-      appendAfterMarkerInFile(
-        buildGradlePath,
-        codeToAddDefaultConfig,
-        defaultConfigPattern,
-      );
-
+    if (!defaultConfigIncludes) {     
       // Check the minSdkVersion
       const minSdkVersionMatch = currentContent.match(/minSdkVersion\s+(\d+)/);
       if (minSdkVersionMatch) {
@@ -132,6 +125,12 @@ const codeToAddToCompileOptions =`
           fs.writeFileSync(buildGradlePath, currentContent);
         }
       }
+       // Add the specified line to the defaultConfig block
+       appendAfterMarkerInFile(
+        buildGradlePath,
+        codeToAddDefaultConfig,
+        defaultConfigPattern,
+      );
     } else {
       vscode.window.showErrorMessage(
         "Failed to locate the defaultConfig block in build.gradle."
@@ -204,19 +203,19 @@ async function updateAndroidManifest() {
   `;
 
   const showWhenLockedAndTurnScreenOn = `
-      android:showWhenLocked="true"
-      android:turnScreenOn="true">
-      <!-- Local Notification Channel -->
-    <meta-data
-        android:name="com.dexterous.flutterlocalnotifications.notification_channel"
-        android:resource="@string/local_notification_channel_id"
-    />
+          android:showWhenLocked="true"
+          android:turnScreenOn="true">
+          <!-- Local Notification Channel -->
+          <meta-data
+              android:name="com.dexterous.flutterlocalnotifications.notification_channel"
+              android:resource="@string/local_notification_channel_id"
+          />
 
-    <!-- Push Notification Channel -->
-    <meta-data
-        android:name="com.dexterous.flutterlocalnotifications.notification_channel"
-        android:resource="@string/push_notification_channel_id"
-    />
+          <!-- Push Notification Channel -->
+          <meta-data
+              android:name="com.dexterous.flutterlocalnotifications.notification_channel"
+              android:resource="@string/push_notification_channel_id"
+          />
   `;
 
   try {
