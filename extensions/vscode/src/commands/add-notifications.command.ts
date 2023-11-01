@@ -203,8 +203,11 @@ async function updateAndroidManifest() {
 
   const showWhenLockedAndTurnScreenOn = `
           android:showWhenLocked="true"
-          android:turnScreenOn="true">
-          <!-- Local Notification Channel -->
+          android:turnScreenOn="true"
+  `;
+
+const channelMetadata =`
+<!-- Local Notification Channel -->
           <meta-data
               android:name="com.dexterous.flutterlocalnotifications.notification_channel"
               android:resource="@string/local_notification_channel_id"
@@ -214,8 +217,7 @@ async function updateAndroidManifest() {
           <meta-data
               android:name="com.google.firebase.messaging.default_notification_channel_id"
               android:resource="@string/push_notification_channel_id"
-          />
-  `;
+          />`;
 
   try {
     // Read the current content of AndroidManifest.xml
@@ -246,6 +248,17 @@ async function updateAndroidManifest() {
         manifestPath,
         showWhenLockedAndTurnScreenOn,
         'android:windowSoftInputMode="adjustResize"'
+      );
+
+      vscode.window.showInformationMessage(
+        "Permissions and additional code added to AndroidManifest.xml"
+      );
+
+      // Add channelMetadata attributes
+      await appendBeforeMarkerInFile(
+        manifestPath,
+        channelMetadata,
+        "(\\s*)</activity>"
       );
 
       vscode.window.showInformationMessage(
