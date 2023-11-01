@@ -11,11 +11,13 @@ import {
   appendBeforeMarkerInFile,
 } from "../utils/append_files";
 import { addFlutterPackage } from "../utils/add_flutter_package";
+import { compareGradleVersions } from "../utils/compare_gradle_versions";
 
 export const addNotifications = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
   updateAppDelegate();
   updateBuildGradle();
+  updateAppBuildGradle();
   updateAndroidManifest();
   updateStringsXml();
 
@@ -80,6 +82,47 @@ async function updateAppDelegate() {
 }
 
 function updateBuildGradle() {
+  const buildGradlePath = getFilePath("android/build.gradle");
+
+  try {
+    // Read the current content of build.gradle
+    let currentContent = fs.readFileSync(buildGradlePath, "utf-8");
+
+    // Define the target Gradle version
+    const targetGradleVersion = "7.3.1";
+
+    // Create a regular expression to find the classpath in the dependencies block
+    const classpathPattern = /classpath ['"](com.android.tools.build:gradle:([\d.]+))['"]/;
+
+    // Use a regular expression to match and extract the existing classpath version
+    const match = currentContent.match(classpathPattern);
+
+    if (match) {
+      const currentGradleVersion = match[2];
+      if (compareGradleVersions(currentGradleVersion, targetGradleVersion) < 0) {
+        // Replace the Gradle version with the target version
+        const updatedContent = currentContent.replace(
+          classpathPattern,
+          `classpath 'com.android.tools.build:gradle:${targetGradleVersion}'`
+        );
+
+        // Write the updated content back to the file
+        fs.writeFileSync(buildGradlePath, updatedContent);
+
+        console.log(`build.gradle updated to Gradle ${targetGradleVersion}`);
+      } else {
+        console.log(`Gradle version is already ${targetGradleVersion}`);
+      }
+    } else {
+      console.error("Failed to locate the Gradle classpath in build.gradle");
+    }
+  } catch (error) {
+    console.error(`An error occurred updating build.gradle: ${error}`);
+  }
+}
+
+
+function updateAppBuildGradle() {
   const buildGradlePath = getFilePath("android/app/build.gradle");
 
   try {
