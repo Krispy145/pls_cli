@@ -10,7 +10,7 @@ import {
   appendAfterMarkerInFile,
   appendBeforeMarkerInFile,
 } from "../utils/append_files";
-import { addFlutterPackage } from "../utils/add_flutter_package";
+import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 import { compareGradleVersions } from "../utils/compare_gradle_versions";
 
 export const addNotifications = async (args: Uri) => {
@@ -23,7 +23,7 @@ export const addNotifications = async (args: Uri) => {
 
   const notificationsPath =
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
-  addFlutterPackage("notifications", notificationsPath, targetDir);  
+  addFlutterPackageFromPath("notifications", notificationsPath, targetDir);  
 };
 
 async function updateAppDelegate() {
@@ -219,12 +219,12 @@ async function updateAndroidManifest() {
   const manifestPath = getFilePath("android/app/src/main/AndroidManifest.xml");
 
   const permissionsBlock = `
-      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-      <uses-permission android:name="android.permission.VIBRATE"/>
-      <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
-      <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
-      <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-      <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   `;
 
   const serviceBlock = `
@@ -245,8 +245,8 @@ async function updateAndroidManifest() {
   `;
 
   const showWhenLockedAndTurnScreenOn = `
-          android:showWhenLocked="true"
-          android:turnScreenOn="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
   `;
 
 const channelMetadata =`

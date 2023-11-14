@@ -6,7 +6,7 @@ import {
 } from "../utils/get-target-directory";
 import * as fs from "fs";
 import { appendBeforeMarkerInFile } from "../utils/append_files";
-import { addFlutterPackage } from "../utils/add_flutter_package";
+import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 
 export const addAdmob = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
@@ -65,7 +65,6 @@ export const addAdmob = async (args: Uri) => {
       bannerAdUnitId = "" ? undefined : bannerAdUnitId;
       interstitialAdUnitId = "" ? undefined : interstitialAdUnitId;
       rewardAdUnitId = "" ? undefined : rewardAdUnitId;
-
       if (bannerAdUnitId || interstitialAdUnitId || rewardAdUnitId) {
         // Import statement to be added
         const importCode = "import 'package:admob/ads/store.dart';";
@@ -115,7 +114,7 @@ export const addAdmob = async (args: Uri) => {
 
         const admobPath =
           "/Users/davidkisbey-green/Desktop/Digital_Oasis/admob/";
-        addFlutterPackage("admob", admobPath, targetDir);
+        addFlutterPackageFromPath("admob", admobPath, targetDir);
         // const cmd = `flutter pub add admob --path=${admobPath}`;
 
         // exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {

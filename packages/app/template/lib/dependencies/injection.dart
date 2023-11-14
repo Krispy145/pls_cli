@@ -33,23 +33,48 @@ class ManagerInjector {
   static final ManagerInjector instance = ManagerInjector();
   final GetIt _serviceLocator = GetIt.instance;
 
-  /// Method responsible for initialising all service locator registrations.
+  /// [init] is responsible for initialising all service locator registrations.
   void init({required FlavorConfig flavorConfig}) {
     AppLogger.print("Initializing ManagerInjector...", [LoggerFeatures.dependancyInjection]);
-
-    // Core
-    initCore(flavorConfig: flavorConfig);
-
-    // App
-    initApp();
-
-    // External
-    initExternal();
+    _initCore(flavorConfig: flavorConfig);
+    _initApp();
+    _initExternal();
     AppLogger.print("ManagerInjector initialization complete.", [LoggerFeatures.dependancyInjection], type: LoggerType.confirmation);
   }
 
+
+  /// [add] is responsible for adding a service locator registration.
+  void add<T extends Object>(T instance) {
+    _serviceLocator.registerSingleton<T>(instance);
+  }
+
+  /// [addLazy] is responsible for adding a lazy service locator registration.
+  void addLazy<T extends Object>(T instance) {
+    _serviceLocator.registerLazySingleton<T>(() => instance);
+  }
+
+  /// [addAsync] is responsible for adding an async service locator registration.
+  Future<void> addAsync<T extends Object>(T instance) async {
+    _serviceLocator.registerSingletonAsync<T>(() async => instance);
+  }
+
+  /// [addLazyAsync] is responsible for adding a lazy async service locator registration.
+  Future<void> addLazyAsync<T extends Object>(T instance) async {
+    _serviceLocator.registerLazySingletonAsync<T>(() async => instance);
+  }
+
+  /// [resetLazy] is responsible for resetting a lazy service locator registration.
+  Future<void> resetLazy<T extends Object>() async {
+    await _serviceLocator.resetLazySingleton<T>();
+  }
+
+  /// [resetAll] is responsible for resetting all service locator registrations.
+  Future<void> resetAll() async {
+    await _serviceLocator.reset();
+  }
+
   /// Method responsible for handling all service locator registrations for core classes used in multiple features.
-  void initCore({required FlavorConfig flavorConfig}) {
+  void _initCore({required FlavorConfig flavorConfig}) {
     AppLogger.print("Initializing core services...", [LoggerFeatures.dependancyInjection]);
     _serviceLocator
       ..registerLazySingleton<ConnectionStateStore>(ConnectionStateStore.new)
@@ -59,7 +84,7 @@ class ManagerInjector {
   }
 
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
-  void initApp() {
+  void _initApp() {
     AppLogger.print("Initializing app services...", [LoggerFeatures.dependancyInjection]);
     _serviceLocator..registerLazySingleton<ThemeStateStore>(() => ThemeStateStore(assetPath: Assets.colors.theme, useLocal: true))
 
@@ -87,7 +112,7 @@ class ManagerInjector {
   }
 
   /// Method responsible for handling all service locator registrations for external services.
-  void initExternal() {
+  void _initExternal() {
     AppLogger.print("Initializing external services...", [LoggerFeatures.dependancyInjection]);
 
     ///END OF EXTERNAL

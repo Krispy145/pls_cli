@@ -1,29 +1,48 @@
 import { exec } from "child_process";
 import * as vscode from "vscode";
 
-export function addFlutterPackage(packageName: string, packagePath: string, targetDir: string | undefined): void {
-  const cmd = `flutter pub add ${packageName} --path=${packagePath}`;
+export function addFlutterPackageFromPath(packageName: string, packagePath: string, targetDir: string | undefined): void {
+  if (packagePath) {
+    const cmd = `flutter pub add ${packageName} --path=${packagePath}`;
 
-  exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error: ${error.message}`);
-      vscode.window.showErrorMessage(`Error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.error(`stderr: ${stderr}`);
-      vscode.window.showErrorMessage(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    vscode.window.showInformationMessage(`${packageName} package added to dependencies`);
-  });
+    exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        vscode.window.showErrorMessage(`Error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        vscode.window.showErrorMessage(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      vscode.window.showInformationMessage(`${packageName} package added to dependencies`);
+    });
+  } else {
+    vscode.window.showErrorMessage("Invalid input. Provide a valid packagePath.");
+  }
 }
 
-// Example usage:
-const targetDir = "/path/to/your/flutter/project";
-const admobPath = "/Users/davidkisbey-green/Desktop/Digital_Oasis/admob/";
-const notificationsPath = "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
+export function addFlutterPackageFromGit(packageName: string, gitUrl: string, gitRef: string, targetDir: string | undefined): void {
+  if (gitUrl && gitRef) {
+    const cmd = `flutter pub add ${packageName} --git=${gitUrl} --ref=${gitRef}`;
 
-addFlutterPackage("admob", admobPath, targetDir);
-addFlutterPackage("notifications", notificationsPath, targetDir);
+    exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        vscode.window.showErrorMessage(`Error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        vscode.window.showErrorMessage(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      vscode.window.showInformationMessage(`${packageName} package added to dependencies`);
+    });
+  } else {
+    vscode.window.showErrorMessage("Invalid input. Provide gitUrl and gitRef.");
+  }
+}
