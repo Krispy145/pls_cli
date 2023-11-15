@@ -1,20 +1,32 @@
 #!/bin/bash
-
-declare -A ENV_SUFFIXES
-ENV_SUFFIXES=( ["development"]="dev" ["staging"]="stg" ["production"]="prod" )
-
 check_and_configure() {
     ENVIRONMENT=$1
-    SUFFIX=${ENV_SUFFIXES[$ENVIRONMENT]}
+
+    case $ENVIRONMENT in
+        "Dev")
+            SUFFIX="dev"
+            ;;
+        "Stage")
+            SUFFIX="stage"
+            ;;
+        "Prod")
+            SUFFIX="prod"
+            ;;
+        *)
+            echo "Invalid environment: $ENVIRONMENT"
+            return 1
+            ;;
+    esac
+
     CONFIG_FILE="lib/firebase/firebase_options_${SUFFIX}.dart"
-    
+
     if [ ! -f "$CONFIG_FILE" ]; then
         echo "Configuration file $CONFIG_FILE not found."
-        read -p "Do you want to configure Firebase for $ENVIRONMENT environment? (y/n): " -n 1 -r
+        read -p "Do you want to configure Firebase for the $ENVIRONMENT environment? (y/n): " -n 1 -r
         echo
 
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-			firebase projects:create -n "{{#titleCase}}{{project_name.paramCase()}}-$SUFFIX{{/titleCase}}" {{project_name.paramCase()}}-$SUFFIX
+            firebase projects:create -n "{{#titleCase}}{{project_name.paramCase()}}-{{/titleCase}}$ENVIRONMENT" {{project_name.paramCase()}}-$SUFFIX
             flutterfire config \
                 --yes \
                 --project="{{project_name.paramCase()}}-$SUFFIX" \

@@ -1,14 +1,8 @@
 import 'package:app_template/dependencies/injection.dart';
-
-/// FIREBASE START
-import 'package:app_template/firebase/firebase_options_staging.dart';
-
-/// FIREBASE END
 import 'package:app_template/navigation/routes.dart';
 
 /// FIREBASE START
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 

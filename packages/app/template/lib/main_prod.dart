@@ -1,7 +1,7 @@
 import 'package:app_template/app.dart';
 
 /// FIREBASE START
-import 'package:app_template/firebase/firebase_options_staging.dart';
+import 'package:app_template/firebase/firebase_options_prod.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 /// FIREBASE END
@@ -11,7 +11,7 @@ import 'package:utilities/flavors/flavor_config.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final flavorConfig = FlavorConfig(
-    environment: Environment.staging,
+    environment: Environment.production,
     apiPrefix: "",
   );
 

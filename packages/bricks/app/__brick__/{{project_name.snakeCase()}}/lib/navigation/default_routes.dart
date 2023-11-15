@@ -26,7 +26,7 @@ class AppRouter {
 
         ///MAIN ROUTES END
       ],
-    )
+    ),
   ],
 )
 class MainShellRoute extends ShellRouteData {

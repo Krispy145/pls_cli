@@ -84,7 +84,7 @@ android {
         staging {
             dimension "default"
             applicationIdSuffix ".stage"
-            manifestPlaceholders = [appName: "[STG] App Template"]
+            manifestPlaceholders = [appName: "[STAGE] App Template"]
         }
         development {
             dimension "default"
