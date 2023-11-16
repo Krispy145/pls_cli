@@ -55,7 +55,7 @@ export const buildRunner = async (commandName: string) => {
 };
 
 // Function to run a command in a specified workspace folder
-const runCommandInWorkspaceFolder = async (
+export const runCommandInWorkspaceFolder = async (
   folderPath: string,
   command: string
 ): Promise<{ error?: string }> => {

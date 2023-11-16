@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import { Uri } from "vscode";
+import { Uri, window, workspace } from "vscode";
 import {
   getFeatureFilePath,
   getFeatureFilePath as getFilePath,
@@ -13,7 +13,10 @@ import {
 } from "../utils/add_to_files";
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 import { compareGradleVersions } from "../utils/compare_gradle_versions";
-import { formatFiles } from "../utils/build_runner";
+import {
+  formatFiles,
+  runCommandInWorkspaceFolder,
+} from "../utils/build_runner";
 
 export const addNotifications = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
@@ -49,6 +52,15 @@ export const addNotifications = async (args: Uri) => {
   const notificationsPath =
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
   addFlutterPackageFromPath("notifications", notificationsPath, targetDir);
+  const workspaceFolder = workspace.workspaceFolders?.[0];
+  if (workspaceFolder && targetDir !== undefined) {
+    window.showWarningMessage("No workspace folder found.");
+
+    await runCommandInWorkspaceFolder(
+      targetDir,
+      "rn add notifications_feature --path lib/features"
+    );
+  }
   await formatFiles();
 };
 

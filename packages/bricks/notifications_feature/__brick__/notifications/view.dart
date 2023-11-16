@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:notifications/stores/base_store.dart';
 import 'package:notifications/stores/push_store.dart';
 import 'package:notifications/widgets/view/view.dart';
-import 'package:app_template/dependencies/injection.dart';
 import 'package:utilities/widgets/load_state/state_widget.dart';
+import '../../dependencies/injection.dart';
 
 /// [NotificationsView] of the app.
 class NotificationsView extends StatelessWidget {
