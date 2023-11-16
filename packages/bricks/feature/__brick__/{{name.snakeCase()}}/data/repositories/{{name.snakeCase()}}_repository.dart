@@ -1,6 +1,6 @@
-import '../../data/sources/{{name.camelCase()}}_source.dart';
-import '../../domain/models/{{name.camelCase()}}_model.dart';
-import '../../domain/repositories/{{name.camelCase()}}_repository.dart';
+import '../../data/sources/{{name.snakeCase()}}_source.dart';
+import '../../domain/models/{{name.snakeCase()}}_model.dart';
+import '../../domain/repositories/{{name.snakeCase()}}_repository.dart';
 
 /// [{{name.pascalCase()}}DataRepository] is a class that implements [{{name.pascalCase()}}Repository] interface.
 class {{name.pascalCase()}}DataRepository implements {{name.pascalCase()}}Repository {

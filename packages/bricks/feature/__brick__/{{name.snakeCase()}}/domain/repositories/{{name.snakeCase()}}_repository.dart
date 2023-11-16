@@ -1,4 +1,4 @@
-import '../../domain/models/{{name.camelCase()}}_model.dart';
+import '../../domain/models/{{name.snakeCase()}}_model.dart';
 
 /// [{{name.pascalCase()}}Repository] is an abstract class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
 abstract class {{name.pascalCase()}}Repository {

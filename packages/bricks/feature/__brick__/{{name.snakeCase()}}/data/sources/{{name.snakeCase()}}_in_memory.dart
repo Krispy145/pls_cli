@@ -1,8 +1,8 @@
 import 'package:utilities/logger/logger.dart';
 
 import '../../../../utils/logger_features.dart';
-import '../../data/sources/{{name.camelCase()}}_source.dart';
-import '../../domain/models/{{name.camelCase()}}_model.dart';
+import '../../data/sources/{{name.snakeCase()}}_source.dart';
+import '../../domain/models/{{name.snakeCase()}}_model.dart';
 
 /// [InMemory{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
 class InMemory{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSource {

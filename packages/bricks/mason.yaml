@@ -5,4 +5,6 @@ bricks:
     path: ./model    
   component:
     path: ./component
+  notifications:
+    path: ./notifications_feature
   

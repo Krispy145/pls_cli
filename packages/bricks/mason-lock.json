@@ -2,6 +2,8 @@
   "bricks": {    
     "feature": { "path": "./feature" },
     "model": { "path": "./model" },    
-    "component": { "path": "./component" }    
+    "component": { "path": "./component" },
+    "notifications_feature": { "path": "./notifications_feature" }
+
   }
 }
