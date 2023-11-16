@@ -427,7 +427,8 @@ function addLocalNotificationInjection(fileContent: string) {
   fileContent = addInjectionAndGetter({
     fileContent: fileContent,
     storeName: "Local Notifications",
-    importCode: "import 'package:notifications/stores/local_store.dart';",
+    importCode:
+      "import 'package:notifications/stores/local_store.dart';\nimport 'package:notifications/stores/base_store.dart';",
     injectionCode,
     getterCode,
     injectInto: "CORE",
@@ -475,10 +476,10 @@ function addPushNotificationInjection(fileContent: string) {
 
   const getterCode = `
   /// [NotificationsStore] getter
-  NotificationsStore get notificationsStore {
-    if (NotificationsStore is PushNotificationsStore) {
+  NotificationsStore notificationsStore<T>() {
+    if (T is PushNotificationsStore) {
       return _serviceLocator.get<PushNotificationsStore>();
-    } else if (NotificationsStore is LocalNotificationsStore) {
+    } else if (T is LocalNotificationsStore) {
       return _serviceLocator.get<LocalNotificationsStore>();
     } else {
       throw Exception("Invalid type for notificationsStore");
@@ -488,7 +489,8 @@ function addPushNotificationInjection(fileContent: string) {
   fileContent = addInjectionAndGetter({
     fileContent: fileContent,
     storeName: "Push Notifications",
-    importCode: "import 'package:notifications/stores/push_store.dart';",
+    importCode:
+      "import 'package:notifications/stores/push_store.dart';\nimport 'package:notifications/stores/base_store.dart';",
     injectionCode: injectionCode,
     getterCode: getterCode,
     injectInto: "CORE",
