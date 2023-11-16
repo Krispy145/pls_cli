@@ -7,7 +7,7 @@ import {
 import * as fs from "fs";
 import { appendBeforeMarkerInContent } from "../utils/add_to_files";
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
-import { cleanFiles } from "../utils/build_runner";
+import { formatFiles } from "../utils/build_runner";
 
 export const addAdmob = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
@@ -122,7 +122,7 @@ export const addAdmob = async (args: Uri) => {
         addFlutterPackageFromPath("admob", admobPath, targetDir);
       }
     }
-    await cleanFiles();
+    await formatFiles();
   } catch (error) {
     window.showErrorMessage(`An error occurred: ${error}`);
   }

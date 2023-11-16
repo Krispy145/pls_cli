@@ -1,22 +1,12 @@
 import { window, workspace, ProgressLocation } from "vscode";
 import { exec } from "child_process";
 
-export const cleanFiles = async () => {
+export const formatFiles = async () => {
   const workspaceFolder = workspace.workspaceFolders?.[0];
   if (!workspaceFolder) {
     window.showWarningMessage("No workspace folder found.");
     return;
   }
-
-  await runCommandInWorkspaceFolder(
-    workspaceFolder.uri.fsPath,
-    "flutter clean"
-  );
-
-  await runCommandInWorkspaceFolder(
-    workspaceFolder.uri.fsPath,
-    "flutter pub get"
-  );
 
   await runCommandInWorkspaceFolder(
     workspaceFolder.uri.fsPath,
@@ -50,7 +40,7 @@ export const buildRunner = async (commandName: string) => {
         workspaceFolder.uri.fsPath,
         buildRunnerCommand
       );
-      await cleanFiles();
+      await formatFiles();
       if (buildRunnerResult.error) {
         window.showErrorMessage(
           `Error running build runner: ${buildRunnerResult.error}`

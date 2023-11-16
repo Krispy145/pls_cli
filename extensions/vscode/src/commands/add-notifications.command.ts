@@ -13,7 +13,7 @@ import {
 } from "../utils/add_to_files";
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 import { compareGradleVersions } from "../utils/compare_gradle_versions";
-import { cleanFiles } from "../utils/build_runner";
+import { formatFiles } from "../utils/build_runner";
 
 export const addNotifications = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
@@ -49,7 +49,7 @@ export const addNotifications = async (args: Uri) => {
   const notificationsPath =
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
   addFlutterPackageFromPath("notifications", notificationsPath, targetDir);
-  await cleanFiles();
+  await formatFiles();
 };
 
 async function updateAppDelegate() {
