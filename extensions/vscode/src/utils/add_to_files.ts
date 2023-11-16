@@ -52,16 +52,20 @@ export const toPascalCase = (str: string): string => {
 export function addInjectionAndGetter({
   fileContent,
   storeName,
+  importCode,
   injectionCode,
   getterCode,
   injectInto: injectionType,
 }: {
   fileContent: string;
   storeName: string;
+  importCode: string;
   injectionCode: string;
   getterCode: string;
   injectInto: string;
 }) {
+  const importMarker = /(import .+;)(?!.*import .+;)/;
+
   var codeMarker = /(\/\/\/END OF CORE)/;
   try {
     switch (injectionType) {
@@ -81,6 +85,12 @@ export function addInjectionAndGetter({
     }
 
     const endMarker = /(})(?![\s\S]*\})/;
+
+    fileContent = appendAfterMarkerInContent(
+      fileContent,
+      importCode,
+      importMarker
+    );
 
     fileContent = appendBeforeMarkerInContent(
       fileContent,

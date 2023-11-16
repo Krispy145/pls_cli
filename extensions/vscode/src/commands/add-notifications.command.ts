@@ -420,6 +420,7 @@ function addLocalNotificationInjection(fileContent: string) {
   fileContent = addInjectionAndGetter({
     fileContent: fileContent,
     storeName: "Local Notifications",
+    importCode: "import 'package:notifications/stores/local_store.dart';",
     injectionCode,
     getterCode,
     injectInto: "CORE",
@@ -473,6 +474,7 @@ function addPushNotificationInjection(fileContent: string) {
   fileContent = addInjectionAndGetter({
     fileContent: fileContent,
     storeName: "Push Notifications",
+    importCode: "import 'package:notifications/stores/push_store.dart';",
     injectionCode: injectionCode,
     getterCode: getterCode,
     injectInto: "CORE",
