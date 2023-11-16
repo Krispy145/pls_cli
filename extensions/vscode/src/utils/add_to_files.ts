@@ -1,37 +1,26 @@
 import * as fs from "fs";
 import { getFeatureFilePath } from "./get-target-directory";
 import * as vscode from "vscode";
-
-export async function appendBeforeMarkerInFile(
-  filePath: string,
+export function appendBeforeMarkerInContent(
+  content: string,
   snippet: string,
   endMarker: string
-): Promise<void> {
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  if (fileContent.includes(snippet)) {
-    return; // Snippet already exists, no need to append
+): string {
+  if (content.includes(snippet)) {
+    return content; // Snippet already exists, no need to append
   }
-  const updatedContent = fileContent.replace(
-    new RegExp(`(${endMarker})`),
-    `${snippet}\n$1`
-  );
-  fs.writeFileSync(filePath, updatedContent);
+  return content.replace(new RegExp(`(${endMarker})`), `${snippet}\n$1`);
 }
 
-export async function appendAfterMarkerInFile(
-  filePath: string,
+export function appendAfterMarkerInContent(
+  content: string,
   snippet: string,
   startMarker: string
-): Promise<void> {
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  if (fileContent.includes(snippet)) {
-    return; // Snippet already exists, no need to append
+): string {
+  if (content.includes(snippet)) {
+    return content; // Snippet already exists, no need to append
   }
-  const updatedContent = fileContent.replace(
-    new RegExp(`(${startMarker})`),
-    `$1\n${snippet}`
-  );
-  fs.writeFileSync(filePath, updatedContent);
+  return content.replace(new RegExp(`(${startMarker})`), `$1\n${snippet}`);
 }
 
 // Function to create the logger feature string
@@ -60,33 +49,31 @@ export const toPascalCase = (str: string): string => {
   );
 };
 
-export async function addInjectionAndGetter({
+export function addInjectionAndGetter({
+  fileContent,
   storeName,
   injectionCode,
   getterCode,
   injectInto: injectionType,
 }: {
+  fileContent: string;
   storeName: string;
   injectionCode: string;
   getterCode: string;
   injectInto: string;
 }) {
-  const injectionContainerPath = getFeatureFilePath(
-    "lib/dependencies/injection.dart"
-  );
-
   try {
     const codeMarker = `;s*\ns*\ns*///END OF ${injectionType}`;
     const endMarker = "})(?![sS]*}";
 
-    await appendBeforeMarkerInFile(
-      injectionContainerPath,
+    fileContent = appendBeforeMarkerInContent(
+      fileContent,
       injectionCode,
       codeMarker
     );
 
-    await appendBeforeMarkerInFile(
-      injectionContainerPath,
+    fileContent = appendBeforeMarkerInContent(
+      fileContent,
       getterCode,
       endMarker
     );
@@ -94,9 +81,12 @@ export async function addInjectionAndGetter({
     vscode.window.showInformationMessage(
       `${storeName} injection code added to dependencies`
     );
+
+    return fileContent;
   } catch (error) {
     vscode.window.showErrorMessage(
       `An error occurred adding ${storeName} store: ${error}`
     );
+    return fileContent;
   }
 }

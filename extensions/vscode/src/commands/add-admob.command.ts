@@ -5,7 +5,7 @@ import {
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import * as fs from "fs";
-import { appendBeforeMarkerInFile } from "../utils/add_to_files";
+import { appendBeforeMarkerInContent } from "../utils/add_to_files";
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 
 export const addAdmob = async (args: Uri) => {
@@ -25,18 +25,21 @@ export const addAdmob = async (args: Uri) => {
     });
 
     if (androidAppId && iosAppId) {
+      var currentAndroidContent = fs.readFileSync(androidManifestPath, "utf-8");
       // Add AndroidManifest.xml snippet
       const androidManifestSnippet = `
         <!-- Admob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="${androidAppId}"/>`;
-      await appendBeforeMarkerInFile(
-        androidManifestPath,
+      currentAndroidContent = appendBeforeMarkerInContent(
+        currentAndroidContent,
         androidManifestSnippet,
         "(\\s*)</application>\\s*</manifest>"
       );
+      fs.writeFileSync(androidManifestPath, currentAndroidContent);
 
+      var currentIosContent = fs.readFileSync(iosInfoPlistPath, "utf-8");
       // Add iOS Info.plist snippet
       const iosInfoPlistSnippet = `
     <!-- Admob -->
@@ -46,11 +49,12 @@ export const addAdmob = async (args: Uri) => {
     <true/>
     <key>NSUserTrackingUsageDescription</key>
     <string>This identifier will be used to deliver personalized ads to you.</string>`;
-      await appendBeforeMarkerInFile(
-        iosInfoPlistPath,
+      currentIosContent = appendBeforeMarkerInContent(
+        currentIosContent,
         iosInfoPlistSnippet,
         "</dict>\n</plist>"
       );
+      fs.writeFileSync(iosInfoPlistPath, currentIosContent);
 
       var bannerAdUnitId = await window.showInputBox({
         prompt: "Enter your Banner Ad Unit ID:",

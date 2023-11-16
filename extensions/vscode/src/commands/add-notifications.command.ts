@@ -2,13 +2,14 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 import { Uri } from "vscode";
 import {
+  getFeatureFilePath,
   getFeatureFilePath as getFilePath,
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import {
   addInjectionAndGetter,
-  appendAfterMarkerInFile,
-  appendBeforeMarkerInFile,
+  appendAfterMarkerInContent,
+  appendBeforeMarkerInContent,
 } from "../utils/add_to_files";
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 import { compareGradleVersions } from "../utils/compare_gradle_versions";
@@ -26,15 +27,21 @@ export const addNotifications = async (args: Uri) => {
     ["Local", "Push", "Both"],
     { placeHolder: "Select notification package type" }
   );
+  const injectionContainerPath = getFeatureFilePath(
+    "lib/dependencies/injection.dart"
+  );
 
+  var fileContent = fs.readFileSync(injectionContainerPath, "utf-8");
   // Add the selected notification package(s)
   if (notificationType === "Local" || notificationType === "Both") {
-    await addLocalNotificationInjection();
+    fileContent = addLocalNotificationInjection(fileContent);
   }
 
   if (notificationType === "Push" || notificationType === "Both") {
-    await addPushNotificationInjection();
+    fileContent = addPushNotificationInjection(fileContent);
   }
+
+  fs.writeFileSync(injectionContainerPath, fileContent);
   //
 
   // Add notification package(s) to pubspec.yaml
@@ -49,7 +56,7 @@ async function updateAppDelegate() {
     const appDelegatePath = getFilePath("ios/Runner/AppDelegate.swift");
 
     // Read the current content of AppDelegate.swift
-    const currentContent = fs.readFileSync(appDelegatePath, "utf-8");
+    var currentContent = fs.readFileSync(appDelegatePath, "utf-8");
 
     // Code snippets to be added
     const requiredCodeSnippets = [
@@ -73,16 +80,25 @@ async function updateAppDelegate() {
 
         // Use appendAfterMarkerInFile and appendBeforeMarkerInFile as needed
         if (snippet === "import flutter_local_notifications") {
-          await appendAfterMarkerInFile(appDelegatePath, snippet, importMarker);
+          currentContent = appendAfterMarkerInContent(
+            currentContent,
+            snippet,
+            importMarker
+          );
           vscode.window.showInformationMessage(
             "Notifications import code added to AppDelegate.swift"
           );
         } else {
-          await appendBeforeMarkerInFile(appDelegatePath, snippet, codeMarker);
+          currentContent = appendBeforeMarkerInContent(
+            currentContent,
+            snippet,
+            codeMarker
+          );
           vscode.window.showInformationMessage(
             `Notifications GeneratedPluginRegistrant code added to AppDelegate.swift`
           );
         }
+        fs.writeFileSync(appDelegatePath, currentContent);
       } else {
         vscode.window.showInformationMessage(
           `Notifications code in AppDelegate.swift include: ${snippet}`
@@ -183,12 +199,11 @@ function updateAppBuildGradle() {
             /minSdkVersion\s+(\d+)/,
             "minSdkVersion 33"
           );
-          fs.writeFileSync(buildGradlePath, currentContent);
         }
       }
       // Add the specified line to the defaultConfig block
-      appendAfterMarkerInFile(
-        buildGradlePath,
+      currentContent = appendAfterMarkerInContent(
+        currentContent,
         codeToAddDefaultConfig,
         defaultConfigPattern
       );
@@ -200,8 +215,8 @@ function updateAppBuildGradle() {
 
     if (!dependenciesIncludes) {
       // Add the specified line to the dependencies block
-      appendAfterMarkerInFile(
-        buildGradlePath,
+      currentContent = appendAfterMarkerInContent(
+        currentContent,
         codeToAddDependencies,
         dependenciesPattern
       );
@@ -213,8 +228,8 @@ function updateAppBuildGradle() {
 
     if (!compileOptionsIncludes) {
       // Add the specified line to the dependencies block
-      appendAfterMarkerInFile(
-        buildGradlePath,
+      currentContent = appendAfterMarkerInContent(
+        currentContent,
         codeToAddToCompileOptions,
         compileOptionsPattern
       );
@@ -223,6 +238,7 @@ function updateAppBuildGradle() {
         "Failed to locate the compile options block in build.gradle."
       );
     }
+    fs.writeFileSync(buildGradlePath, currentContent);
 
     vscode.window.showInformationMessage(
       "build.gradle file updated successfully."
@@ -292,22 +308,22 @@ async function updateAndroidManifest() {
 
     if (insertionIndex !== -1) {
       // Add the additional block before </application>
-      await appendBeforeMarkerInFile(
-        manifestPath,
+      currentContent = appendBeforeMarkerInContent(
+        currentContent,
         serviceBlock,
         "(\\s*)</application>\\s*</manifest>"
       );
 
       // Add permissions block below </application>
-      await appendAfterMarkerInFile(
-        manifestPath,
+      currentContent = appendAfterMarkerInContent(
+        currentContent,
         permissionsBlock,
         `<uses-permission android:name="android.permission.INTERNET"/>`
       );
 
       // Add showWhenLockedAndTurnScreenOn attributes
-      await appendAfterMarkerInFile(
-        manifestPath,
+      currentContent = appendAfterMarkerInContent(
+        currentContent,
         showWhenLockedAndTurnScreenOn,
         'android:windowSoftInputMode="adjustResize"'
       );
@@ -317,12 +333,12 @@ async function updateAndroidManifest() {
       );
 
       // Add channelMetadata attributes
-      await appendBeforeMarkerInFile(
-        manifestPath,
+      currentContent = appendBeforeMarkerInContent(
+        currentContent,
         channelMetadata,
         "(\\s*)</activity>"
       );
-
+      fs.writeFileSync(manifestPath, currentContent);
       vscode.window.showInformationMessage(
         "Permissions and additional code added to AndroidManifest.xml"
       );
@@ -387,7 +403,7 @@ async function updateStringsXml() {
   }
 }
 
-async function addLocalNotificationInjection() {
+function addLocalNotificationInjection(fileContent: string) {
   const injectionCode = `
   ..registerSingleton<LocalNotificationsStore>(
     LocalNotificationsStore()..initialize(),
@@ -398,15 +414,18 @@ async function addLocalNotificationInjection() {
   LocalNotificationsStore get localNotificationsStore =>
       _serviceLocator.get<LocalNotificationsStore>();`;
 
-  await addInjectionAndGetter({
+  fileContent = addInjectionAndGetter({
+    fileContent: fileContent,
     storeName: "Local Notifications",
     injectionCode,
     getterCode,
     injectInto: "CORE",
   });
+
+  return fileContent;
 }
 
-async function addPushNotificationInjection() {
+function addPushNotificationInjection(fileContent: string) {
   const injectionCode = `
   ..registerSingleton<PushNotificationsStore>(
     PushNotificationsStore(
@@ -448,10 +467,12 @@ async function addPushNotificationInjection() {
   PushNotificationsStore get pushNotificationsStore =>
       _serviceLocator.get<PushNotificationsStore>();`;
 
-  await addInjectionAndGetter({
+  fileContent = addInjectionAndGetter({
+    fileContent: fileContent,
     storeName: "Push Notifications",
-    injectionCode,
-    getterCode,
+    injectionCode: injectionCode,
+    getterCode: getterCode,
     injectInto: "CORE",
   });
+  return fileContent;
 }
