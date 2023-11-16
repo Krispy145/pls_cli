@@ -414,10 +414,10 @@ function addLocalNotificationInjection(fileContent: string) {
 
   const getterCode = `
   /// [NotificationsStore] getter
-  NotificationsStore get notificationsStore {
-    if (NotificationsStore is PushNotificationsStore) {
+  NotificationsStore notificationsStore<T>() {
+    if (T is PushNotificationsStore) {
       return _serviceLocator.get<PushNotificationsStore>();
-    } else if (NotificationsStore is LocalNotificationsStore) {
+    } else if (T is LocalNotificationsStore) {
       return _serviceLocator.get<LocalNotificationsStore>();
     } else {
       throw Exception("Invalid type for notificationsStore");
