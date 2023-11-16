@@ -54,10 +54,8 @@ export const addNotifications = async (args: Uri) => {
   addFlutterPackageFromPath("notifications", notificationsPath, targetDir);
   const workspaceFolder = workspace.workspaceFolders?.[0];
   if (workspaceFolder && targetDir !== undefined) {
-    window.showWarningMessage("No workspace folder found.");
-
     await runCommandInWorkspaceFolder(
-      targetDir,
+      workspaceFolder.uri.fsPath,
       "rn add notifications_feature --path lib/features"
     );
   }
