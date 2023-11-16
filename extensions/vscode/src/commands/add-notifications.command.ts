@@ -74,9 +74,9 @@ async function updateAppDelegate() {
       // Check if the snippet already exists in the file
       if (!currentContent.includes(snippet)) {
         // Find the markers for insertion points
-        const importMarker = "import Flutter";
+        const importMarker = /import Flutter/;
         const codeMarker =
-          "GeneratedPluginRegistrant\\.register\\(with: self\\)\\s*return super.application\\(application, didFinishLaunchingWithOptions: launchOptions\\)";
+          /GeneratedPluginRegistrant\.register\(with: self\)\s*return super.application\(application, didFinishLaunchingWithOptions: launchOptions\)/;
 
         // Use appendAfterMarkerInFile and appendBeforeMarkerInFile as needed
         if (snippet === "import flutter_local_notifications") {
@@ -201,11 +201,12 @@ function updateAppBuildGradle() {
           );
         }
       }
+
       // Add the specified line to the defaultConfig block
       currentContent = appendAfterMarkerInContent(
         currentContent,
         codeToAddDefaultConfig,
-        defaultConfigPattern
+        new RegExp(defaultConfigPattern)
       );
     } else {
       vscode.window.showErrorMessage(
@@ -218,7 +219,7 @@ function updateAppBuildGradle() {
       currentContent = appendAfterMarkerInContent(
         currentContent,
         codeToAddDependencies,
-        dependenciesPattern
+        new RegExp(dependenciesPattern)
       );
     } else {
       vscode.window.showErrorMessage(
@@ -231,7 +232,7 @@ function updateAppBuildGradle() {
       currentContent = appendAfterMarkerInContent(
         currentContent,
         codeToAddToCompileOptions,
-        compileOptionsPattern
+        new RegExp(compileOptionsPattern)
       );
     } else {
       vscode.window.showErrorMessage(
@@ -311,21 +312,23 @@ async function updateAndroidManifest() {
       currentContent = appendBeforeMarkerInContent(
         currentContent,
         serviceBlock,
-        "(\\s*)</application>\\s*</manifest>"
+        new RegExp("(\\s*)</application>\\s*</manifest>")
       );
 
       // Add permissions block below </application>
       currentContent = appendAfterMarkerInContent(
         currentContent,
         permissionsBlock,
-        `<uses-permission android:name="android.permission.INTERNET"/>`
+        new RegExp(
+          `<uses-permission android:name="android.permission.INTERNET"/>`
+        )
       );
 
       // Add showWhenLockedAndTurnScreenOn attributes
       currentContent = appendAfterMarkerInContent(
         currentContent,
         showWhenLockedAndTurnScreenOn,
-        'android:windowSoftInputMode="adjustResize"'
+        new RegExp('android:windowSoftInputMode="adjustResize"')
       );
 
       vscode.window.showInformationMessage(
@@ -336,7 +339,7 @@ async function updateAndroidManifest() {
       currentContent = appendBeforeMarkerInContent(
         currentContent,
         channelMetadata,
-        "(\\s*)</activity>"
+        new RegExp("(\\s*)</activity>")
       );
       fs.writeFileSync(manifestPath, currentContent);
       vscode.window.showInformationMessage(

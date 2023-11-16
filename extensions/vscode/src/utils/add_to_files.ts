@@ -4,23 +4,23 @@ import * as vscode from "vscode";
 export function appendBeforeMarkerInContent(
   content: string,
   snippet: string,
-  endMarker: string
+  endMarker: RegExp
 ): string {
   if (content.includes(snippet)) {
     return content; // Snippet already exists, no need to append
   }
-  return content.replace(new RegExp(`(${endMarker})`), `${snippet}\n$1`);
+  return content.replace(endMarker, `${snippet}\n$1`);
 }
 
 export function appendAfterMarkerInContent(
   content: string,
   snippet: string,
-  startMarker: string
+  startMarker: RegExp
 ): string {
   if (content.includes(snippet)) {
     return content; // Snippet already exists, no need to append
   }
-  return content.replace(new RegExp(`(${startMarker})`), `$1\n${snippet}`);
+  return content.replace(startMarker, `$1\n${snippet}`);
 }
 
 // Function to create the logger feature string
@@ -63,8 +63,10 @@ export function addInjectionAndGetter({
   injectInto: string;
 }) {
   try {
-    const codeMarker = `;s*\ns*\ns*///END OF ${injectionType}`;
-    const endMarker = "})(?![sS]*}";
+    const codeMarker = new RegExp(
+      `(;\s*\n\s*\n\s*\/\/\/END OF ${injectionType})`
+    );
+    const endMarker = /(})(?![\s\S]*\})/;
 
     fileContent = appendBeforeMarkerInContent(
       fileContent,

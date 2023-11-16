@@ -35,7 +35,7 @@ export const addAdmob = async (args: Uri) => {
       currentAndroidContent = appendBeforeMarkerInContent(
         currentAndroidContent,
         androidManifestSnippet,
-        "(\\s*)</application>\\s*</manifest>"
+        new RegExp("(\\s*)</application>\\s*</manifest>")
       );
       fs.writeFileSync(androidManifestPath, currentAndroidContent);
 
@@ -52,7 +52,7 @@ export const addAdmob = async (args: Uri) => {
       currentIosContent = appendBeforeMarkerInContent(
         currentIosContent,
         iosInfoPlistSnippet,
-        "</dict>\n</plist>"
+        new RegExp("</dict>\n</plist>")
       );
       fs.writeFileSync(iosInfoPlistPath, currentIosContent);
 
