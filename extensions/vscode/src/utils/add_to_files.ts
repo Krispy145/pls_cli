@@ -62,10 +62,24 @@ export function addInjectionAndGetter({
   getterCode: string;
   injectInto: string;
 }) {
+  var codeMarker = /(\/\/\/END OF CORE)/;
   try {
-    const codeMarker = new RegExp(
-      `(;\s*\n\s*\n\s*\/\/\/END OF ${injectionType})`
-    );
+    switch (injectionType) {
+      case "CORE":
+        codeMarker = /(;\s*\n\s*\n\s*\/\/\/END OF CORE)/;
+        break;
+      case "APP":
+        codeMarker = /(;\s*\n\s*\n\s*\/\/\/END OF APP)/;
+        break;
+      case "EXTERNAL":
+        codeMarker = /(;\s*\n\s*\n\s*\/\/\/END OF EXTERNAL)/;
+        break;
+      default:
+        throw new Error(
+          `Invalid injection type: ${injectionType}. Must be CORE, FEATURE or FEATURE_STORE`
+        );
+    }
+
     const endMarker = /(})(?![\s\S]*\})/;
 
     fileContent = appendBeforeMarkerInContent(
