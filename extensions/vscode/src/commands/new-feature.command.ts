@@ -3,6 +3,7 @@ import { exec } from "child_process";
 import { getTargetDirectory } from "../utils/get-target-directory";
 import * as path from "path";
 import { buildRunner } from "../utils/build_runner";
+import { createLoggerFeatureString } from "../utils/add_to_files";
 
 
 export const newFeature = async (args: Uri) => {
@@ -38,29 +39,8 @@ export const newFeature = async (args: Uri) => {
   }
 };
 
-// Function to create the logger feature string
-const createLoggerFeatureString = (name: string): string => {
-  const camelCaseName = toCamelCase(name);
-  const constantCaseName = toConstantCase(name);
-  const pascalCaseName = toPascalCase(name);
 
-  return `/// ${pascalCaseName} logger feature.\n static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
-};
 
-// Function to convert a string to camelCase
-const toCamelCase = (str: string): string => {
-  return str.replace(/[-_]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""));
-};
-
-// Function to convert a string to CONSTANT_CASE
-const toConstantCase = (str: string): string => {
-  return str.replace(/[-\s]+/g, "_").toUpperCase();
-};
-
-// Function to convert a string to PascalCase
-const toPascalCase = (str: string): string => {
-  return str.replace(/[-_\s]+./g, (match) => match.charAt(match.length - 1).toUpperCase());
-};
 
 
 // Function to get the path to the logger feature file

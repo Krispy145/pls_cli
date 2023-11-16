@@ -173,15 +173,15 @@ class CreateAppCommand extends RenderCommand {
         showTiming: true,
       );
     }
-    if (_hasFirebase) {
-      logger
-        ..info(
-          "To finish firebase setup, you must have the flutterfire and the firebase cli installed.",
-        )
-        ..info("You must also be logged into the firebase cli.")
-        ..info("Then run the following command:")
-        ..info("→ bash ./tools/firebase_install.sh".green);
-    }
+    // if (_hasFirebase) {
+    //   logger
+    //     ..info(
+    //       "To finish firebase setup, you must have the flutterfire and the firebase cli installed.",
+    //     )
+    //     ..info("You must also be logged into the firebase cli.")
+    //     ..info("Then run the following command:")
+    //     ..info("→ bash ./tools/firebase_install.sh".green);
+    // }
   }
 
   Future<Structure> _handleProjectStructureSelection() async {
@@ -254,6 +254,9 @@ class CreateAppCommand extends RenderCommand {
       'flutter clean',
       'flutter pub get',
       'flutter pub run build_runner build --delete-conflicting-outputs',
+      'dart format .',
+      'dart fix --apply',
+      if (_hasFirebase) 'bash ./tools/firebase_install.sh',
     ]);
 
     // Open VS Code with the project directory

@@ -1,29 +1,46 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import { exec } from "child_process";
-import { Uri, window } from "vscode";
+import { Uri } from "vscode";
 import {
   getFeatureFilePath as getFilePath,
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import {
+  addInjectionAndGetter,
   appendAfterMarkerInFile,
   appendBeforeMarkerInFile,
-} from "../utils/append_files";
+} from "../utils/add_to_files";
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 import { compareGradleVersions } from "../utils/compare_gradle_versions";
 
 export const addNotifications = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
-  updateAppDelegate();
+  await updateAppDelegate();
   updateBuildGradle();
   updateAppBuildGradle();
-  updateAndroidManifest();
-  updateStringsXml();
+  await updateAndroidManifest();
+  await updateStringsXml();
 
+  // Prompt user to select local, push, or both notification packages
+  const notificationType = await vscode.window.showQuickPick(
+    ["Local", "Push", "Both"],
+    { placeHolder: "Select notification package type" }
+  );
+
+  // Add the selected notification package(s)
+  if (notificationType === "Local" || notificationType === "Both") {
+    await addLocalNotificationInjection();
+  }
+
+  if (notificationType === "Push" || notificationType === "Both") {
+    await addPushNotificationInjection();
+  }
+  //
+
+  // Add notification package(s) to pubspec.yaml
   const notificationsPath =
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
-  addFlutterPackageFromPath("notifications", notificationsPath, targetDir);  
+  addFlutterPackageFromPath("notifications", notificationsPath, targetDir);
 };
 
 async function updateAppDelegate() {
@@ -92,14 +109,17 @@ function updateBuildGradle() {
     const targetGradleVersion = "7.3.1";
 
     // Create a regular expression to find the classpath in the dependencies block
-    const classpathPattern = /classpath ['"](com.android.tools.build:gradle:([\d.]+))['"]/;
+    const classpathPattern =
+      /classpath ['"](com.android.tools.build:gradle:([\d.]+))['"]/;
 
     // Use a regular expression to match and extract the existing classpath version
     const match = currentContent.match(classpathPattern);
 
     if (match) {
       const currentGradleVersion = match[2];
-      if (compareGradleVersions(currentGradleVersion, targetGradleVersion) < 0) {
+      if (
+        compareGradleVersions(currentGradleVersion, targetGradleVersion) < 0
+      ) {
         // Replace the Gradle version with the target version
         const updatedContent = currentContent.replace(
           classpathPattern,
@@ -120,7 +140,6 @@ function updateBuildGradle() {
     console.error(`An error occurred updating build.gradle: ${error}`);
   }
 }
-
 
 function updateAppBuildGradle() {
   const buildGradlePath = getFilePath("android/app/build.gradle");
@@ -249,7 +268,7 @@ async function updateAndroidManifest() {
             android:turnScreenOn="true"
   `;
 
-const channelMetadata =`
+  const channelMetadata = `
 <!-- Local Notification Channel -->
           <meta-data
               android:name="com.dexterous.flutterlocalnotifications.notification_channel"
@@ -366,4 +385,73 @@ async function updateStringsXml() {
   } catch (error) {
     vscode.window.showErrorMessage(`An error occurred: ${error}`);
   }
+}
+
+async function addLocalNotificationInjection() {
+  const injectionCode = `
+  ..registerSingleton<LocalNotificationsStore>(
+    LocalNotificationsStore()..initialize(),
+  )`;
+
+  const getterCode = `
+  /// [LocalNotificationsStore] getter
+  LocalNotificationsStore get localNotificationsStore =>
+      _serviceLocator.get<LocalNotificationsStore>();`;
+
+  await addInjectionAndGetter({
+    storeName: "Local Notifications",
+    injectionCode,
+    getterCode,
+    injectInto: "CORE",
+  });
+}
+
+async function addPushNotificationInjection() {
+  const injectionCode = `
+  ..registerSingleton<PushNotificationsStore>(
+    PushNotificationsStore(
+      onClearAllNotifications: () => Future(
+        () => AppLogger.print(
+          "PushNotificationsStore.onClearAllNotifications() not implemented.",
+          [LoggerFeatures.notifications],
+          type: LoggerType.warning,
+        ),
+      ),
+      onRemoveNotification: (id) => Future(
+        () => AppLogger.print(
+          "PushNotificationsStore.onRemoveNotification() not implemented.",
+          [LoggerFeatures.notifications],
+          type: LoggerType.warning,
+        ),
+      ),
+      onRecieveNotifications: () async {
+        AppLogger.print(
+          "PushNotificationsStore.onRecieveNotifications() not implemented.",
+          [LoggerFeatures.notifications],
+          type: LoggerType.warning,
+        );
+        return Future.value([]);
+      },
+      onUpdateNotification: (notification) async {
+        AppLogger.print(
+          "PushNotificationsStore.onUpdateNotification() not implemented.",
+          [LoggerFeatures.notifications],
+          type: LoggerType.warning,
+        );
+        return Future(() => null);
+      },
+    )..initialize(),
+  )`;
+
+  const getterCode = `
+  /// [PushNotificationsStore] getter
+  PushNotificationsStore get pushNotificationsStore =>
+      _serviceLocator.get<PushNotificationsStore>();`;
+
+  await addInjectionAndGetter({
+    storeName: "Push Notifications",
+    injectionCode,
+    getterCode,
+    injectInto: "CORE",
+  });
 }

@@ -5,7 +5,7 @@ import {
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import * as fs from "fs";
-import { appendBeforeMarkerInFile } from "../utils/append_files";
+import { appendBeforeMarkerInFile } from "../utils/add_to_files";
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 
 export const addAdmob = async (args: Uri) => {
@@ -115,22 +115,6 @@ export const addAdmob = async (args: Uri) => {
         const admobPath =
           "/Users/davidkisbey-green/Desktop/Digital_Oasis/admob/";
         addFlutterPackageFromPath("admob", admobPath, targetDir);
-        // const cmd = `flutter pub add admob --path=${admobPath}`;
-
-        // exec(cmd, { cwd: targetDir }, (error, stdout, stderr) => {
-        //   if (error) {
-        //     console.error(`Error: ${error.message}`);
-        //     window.showErrorMessage(`Error: ${error.message}`);
-        //     return;
-        //   }
-        //   if (stderr) {
-        //     console.error(`stderr: ${stderr}`);
-        //     window.showErrorMessage(`stderr: ${stderr}`);
-        //     return;
-        //   }
-        //   console.log(`stdout: ${stdout}`);
-        //   window.showInformationMessage("AdMob package added to dependencies");
-        // });
       }
     }
   } catch (error) {
