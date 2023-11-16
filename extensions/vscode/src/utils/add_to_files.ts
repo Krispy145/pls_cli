@@ -1,5 +1,3 @@
-import * as fs from "fs";
-import { getFeatureFilePath } from "./get-target-directory";
 import * as vscode from "vscode";
 export function appendBeforeMarkerInContent(
   content: string,
