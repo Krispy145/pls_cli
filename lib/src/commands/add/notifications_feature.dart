@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:mason/mason.dart';
 
 import '../../../bundles/_bundles.dart';
