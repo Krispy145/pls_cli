@@ -66,12 +66,7 @@
           "group": "01_flutter",
           "submenu": "digital-oasis.submenu",
           "when": "explorerResourceIsFolder"
-        },
-        {
-          "group": "01_flutter",
-          "command": "digital-oasis.add-input",
-          "when": "!explorerResourceIsFolder && resourceFilename =~ /bloc|cubit/"
-        }
+        }       
       ],
       "commandPalette": [],
       "digital-oasis.submenu": [

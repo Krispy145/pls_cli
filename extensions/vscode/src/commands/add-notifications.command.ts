@@ -413,9 +413,16 @@ function addLocalNotificationInjection(fileContent: string) {
   )`;
 
   const getterCode = `
-  /// [LocalNotificationsStore] getter
-  LocalNotificationsStore get localNotificationsStore =>
-      _serviceLocator.get<LocalNotificationsStore>();`;
+  /// [NotificationsStore] getter
+  NotificationsStore get notificationsStore {
+    if (NotificationsStore is PushNotificationsStore) {
+      return _serviceLocator.get<PushNotificationsStore>();
+    } else if (NotificationsStore is LocalNotificationsStore) {
+      return _serviceLocator.get<LocalNotificationsStore>();
+    } else {
+      throw Exception("Invalid type for notificationsStore");
+    }
+  }`;
 
   fileContent = addInjectionAndGetter({
     fileContent: fileContent,
@@ -467,9 +474,16 @@ function addPushNotificationInjection(fileContent: string) {
   )`;
 
   const getterCode = `
-  /// [PushNotificationsStore] getter
-  PushNotificationsStore get pushNotificationsStore =>
-      _serviceLocator.get<PushNotificationsStore>();`;
+  /// [NotificationsStore] getter
+  NotificationsStore get notificationsStore {
+    if (NotificationsStore is PushNotificationsStore) {
+      return _serviceLocator.get<PushNotificationsStore>();
+    } else if (NotificationsStore is LocalNotificationsStore) {
+      return _serviceLocator.get<LocalNotificationsStore>();
+    } else {
+      throw Exception("Invalid type for notificationsStore");
+    }
+  }`;
 
   fileContent = addInjectionAndGetter({
     fileContent: fileContent,
