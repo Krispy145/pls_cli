@@ -14,6 +14,7 @@ import {
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 import { compareGradleVersions } from "../utils/compare_gradle_versions";
 import {
+  buildRunner,
   formatFiles,
   runCommandInWorkspaceFolder,
 } from "../utils/build_runner";
@@ -53,11 +54,12 @@ export const addNotifications = async (args: Uri) => {
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
   addFlutterPackageFromPath("notifications", notificationsPath, targetDir);
   const workspaceFolder = workspace.workspaceFolders?.[0];
-  if (workspaceFolder && targetDir !== undefined) {
+  if (workspaceFolder) {
     await runCommandInWorkspaceFolder(
       workspaceFolder.uri.fsPath,
       "rn add notifications_feature --path lib/features"
     );
+    await buildRunner("Notifications");
   }
   await formatFiles();
 };
