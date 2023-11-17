@@ -59,7 +59,6 @@ export const addNotifications = async (args: Uri) => {
       workspaceFolder.uri.fsPath,
       "rn add notifications_feature --path lib/features"
     );
-    await buildRunner("Notifications");
   }
   await formatFiles();
 };
@@ -428,10 +427,10 @@ function addLocalNotificationInjection(fileContent: string) {
 
   const getterCode = `
   /// [NotificationsStore] getter
-  NotificationsStore notificationsStore<T>() {
-    if (T is PushNotificationsStore) {
+  NotificationsStore notificationsStore<T extends NotificationsStore>() {
+    if (T == PushNotificationsStore) {
       return _serviceLocator.get<PushNotificationsStore>();
-    } else if (T is LocalNotificationsStore) {
+    } else if (T == LocalNotificationsStore) {
       return _serviceLocator.get<LocalNotificationsStore>();
     } else {
       throw Exception("Invalid type for notificationsStore");
@@ -490,10 +489,10 @@ function addPushNotificationInjection(fileContent: string) {
 
   const getterCode = `
   /// [NotificationsStore] getter
-  NotificationsStore notificationsStore<T>() {
-    if (T is PushNotificationsStore) {
+  NotificationsStore notificationsStore<T extends NotificationsStore>() {
+    if (T == PushNotificationsStore) {
       return _serviceLocator.get<PushNotificationsStore>();
-    } else if (T is LocalNotificationsStore) {
+    } else if (T == LocalNotificationsStore) {
       return _serviceLocator.get<LocalNotificationsStore>();
     } else {
       throw Exception("Invalid type for notificationsStore");
