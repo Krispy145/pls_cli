@@ -3,10 +3,28 @@ import 'package:mason/mason.dart';
 import '../../../bundles/_bundles.dart';
 import 'brick_command_base.dart';
 
-/// {@template featureCommand}
+/// {@template notificationsFeatureCommand
 /// Add a notifications feature to the app.
 /// {@endtemplate}
 class NotificationsFeatureCommand extends BrickCommandBase {
+  /// {@macro notificationsFeatureCommand}
+  NotificationsFeatureCommand() {
+    argParser
+      ..addOption(
+        'store',
+        abbr: 's',
+        help: 'The store of the notifications feature.',
+        valueHelp: 'local_notifications_store',
+        defaultsTo: 'local_notifications_store',
+      )
+      ..addOption(
+        'store_route',
+        abbr: 'r',
+        help: 'The store route of the notifications file.',
+        valueHelp: 'local_store',
+        defaultsTo: 'local_store',
+      );
+  }
   @override
   final MasonBundle bundle = notificationsFeatureBundle;
 
@@ -21,7 +39,6 @@ class NotificationsFeatureCommand extends BrickCommandBase {
     await super.run();
     return runScripts([
       'flutter pub run build_runner build --delete-conflicting-outputs',
-      'rn add logger --name ${argResults?['name'] as String}',
     ]);
   }
 }

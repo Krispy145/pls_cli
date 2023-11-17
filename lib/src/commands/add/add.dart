@@ -1,5 +1,6 @@
 import 'package:render_cli/src/commands/add/assets.dart';
 import 'package:render_cli/src/commands/add/fonts.dart';
+import 'package:render_cli/src/commands/add/multi_notifications_feature.dart';
 import 'package:render_cli/src/commands/add/notifications_feature.dart';
 
 import 'package:render_cli/src/commands/base.dart';
@@ -20,6 +21,7 @@ class AddCommand extends RenderCommand {
     addSubcommand(ComponentCommand());
     addSubcommand(FeatureCommand());
     addSubcommand(NotificationsFeatureCommand());
+    addSubcommand(MultiNotificationsFeatureCommand());
     addSubcommand(LoggerFeatureCommand());
     addSubcommand(ModelCommand());
     addSubcommand(AssetsCommand());

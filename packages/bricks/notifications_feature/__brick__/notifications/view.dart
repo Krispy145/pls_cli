@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notifications/stores/base_store.dart';
-import 'package:notifications/stores/push_store.dart';
-import 'package:notifications/widgets/view/view.dart';
+import 'package:notifications/stores/{{store_route.snakeCase()}}.dart';
+import 'package:notifications/widgets/view/single_store_view.dart';
 import 'package:utilities/widgets/load_state/state_widget.dart';
 import '../../dependencies/injection.dart';
 
@@ -11,7 +10,7 @@ class NotificationsView extends StatelessWidget {
   NotificationsView({super.key});
 
   /// [store] is an instance of NotificationsStore, used in the [LoadStateBuilder].
-  final NotificationsStore store = Managers.notificationsStore<PushNotificationsStore>();
+  final {{store.pascalCase()}} store = Managers.notificationsStore<{{store.pascalCase()}}>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class NotificationsView extends StatelessWidget {
       emptyBuilder: (context) => const Center(
         child: Text("Empty notifications view."),
       ),
-      loadedBuilder: (context) => NotificationList(
+      loadedBuilder: (context) => SingleStoreNotificationsView(
         store: store,
       ),
       errorBuilder: (context) => const Center(

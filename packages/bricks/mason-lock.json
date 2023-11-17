@@ -3,7 +3,8 @@
     "feature": { "path": "./feature" },
     "model": { "path": "./model" },    
     "component": { "path": "./component" },
-    "notifications_feature": { "path": "./notifications_feature" }
+    "notifications_feature": { "path": "./notifications_feature" },
+    "multi_notifications_feature": { "path": "./multi_notifications_feature" }
 
   }
 }

@@ -55,10 +55,22 @@ export const addNotifications = async (args: Uri) => {
   addFlutterPackageFromPath("notifications", notificationsPath, targetDir);
   const workspaceFolder = workspace.workspaceFolders?.[0];
   if (workspaceFolder) {
-    await runCommandInWorkspaceFolder(
-      workspaceFolder.uri.fsPath,
-      "rn add notifications_feature --path lib/features"
-    );
+    if (notificationType === "Local") {
+      await runCommandInWorkspaceFolder(
+        workspaceFolder.uri.fsPath,
+        "rn add notifications_feature --path lib/features --s local_notifications_store --r local_store"
+      );
+    } else if (notificationType === "Push")
+      await runCommandInWorkspaceFolder(
+        workspaceFolder.uri.fsPath,
+        "rn add notifications_feature --path lib/features --s push_notifications_store --r push_store"
+      );
+    else if (notificationType === "Both") {
+      await runCommandInWorkspaceFolder(
+        workspaceFolder.uri.fsPath,
+        "rn add multi_notifications_feature --path lib/features"
+      );
+    }
   }
   await formatFiles();
 };
@@ -427,11 +439,11 @@ function addLocalNotificationInjection(fileContent: string) {
 
   const getterCode = `
   /// [NotificationsStore] getter
-  NotificationsStore notificationsStore<T extends NotificationsStore>() {
+  T notificationsStore<T extends NotificationsStore>() {
     if (T == PushNotificationsStore) {
-      return _serviceLocator.get<PushNotificationsStore>();
+      return _serviceLocator.get<T>();
     } else if (T == LocalNotificationsStore) {
-      return _serviceLocator.get<LocalNotificationsStore>();
+      return _serviceLocator.get<T>();
     } else {
       throw Exception("Invalid type for notificationsStore");
     }
@@ -489,11 +501,11 @@ function addPushNotificationInjection(fileContent: string) {
 
   const getterCode = `
   /// [NotificationsStore] getter
-  NotificationsStore notificationsStore<T extends NotificationsStore>() {
+  T notificationsStore<T extends NotificationsStore>() {
     if (T == PushNotificationsStore) {
-      return _serviceLocator.get<PushNotificationsStore>();
+      return _serviceLocator.get<T>();
     } else if (T == LocalNotificationsStore) {
-      return _serviceLocator.get<LocalNotificationsStore>();
+      return _serviceLocator.get<T>();
     } else {
       throw Exception("Invalid type for notificationsStore");
     }

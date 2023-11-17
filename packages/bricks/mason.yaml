@@ -7,4 +7,6 @@ bricks:
     path: ./component
   notifications:
     path: ./notifications_feature
+  multi_notifications:
+    path: ./multi_notifications_feature
   

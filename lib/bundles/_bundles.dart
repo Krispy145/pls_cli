@@ -5,3 +5,4 @@ export 'feature_bundle.dart';
 export "font_family_bundle.dart";
 export 'model_bundle.dart';
 export "notifications_feature_bundle.dart";
+export "multi_notifications_feature_bundle.dart";

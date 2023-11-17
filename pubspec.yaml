@@ -23,6 +23,7 @@ scripts:
   bundle:component: BRICK=component rn run bundle  
   bundle:feature: BRICK=feature rn run bundle
   bundle:notifications_feature: BRICK=notifications_feature rn run bundle
+  bundle:multi_notifications_feature: BRICK=multi_notifications_feature rn run bundle
   bundle:model: BRICK=model rn run bundle
   bundle:font_family: BRICK=font_family rn run bundle  
   gen:app_brick:
