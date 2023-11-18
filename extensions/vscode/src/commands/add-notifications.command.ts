@@ -59,12 +59,12 @@ export const addNotifications = async (args: Uri) => {
     if (notificationType === "Local") {
       runCommandResult = await runCommandInWorkspaceFolder(
         workspaceFolder.uri.fsPath,
-        "rn add notifications_feature --path lib/features --s local_notifications_store --r local_store"
+        "rn add notifications_feature --path lib/features -s local_notifications_store -r local_store"
       );
     } else if (notificationType === "Push")
       runCommandResult = await runCommandInWorkspaceFolder(
         workspaceFolder.uri.fsPath,
-        "rn add notifications_feature --path lib/features --s push_notifications_store --r push_store"
+        "rn add notifications_feature --path lib/features -s push_notifications_store -r push_store"
       );
     else if (notificationType === "Both") {
       runCommandResult = await runCommandInWorkspaceFolder(
@@ -352,22 +352,18 @@ async function updateAndroidManifest() {
         /(android:windowSoftInputMode="adjustResize")/
       );
 
-      vscode.window.showInformationMessage(
-        "Permissions and additional code added to AndroidManifest.xml"
-      );
-
       // Add channelMetadata attributes
       currentContent = appendBeforeMarkerInContent(
         currentContent,
         channelMetadata,
-        /^\s*<\/activity>\s*$/
+        /\s*<\/activity>/
       );
 
       // Add the additional block before </application>
       currentContent = appendBeforeMarkerInContent(
         currentContent,
         serviceBlock,
-        /<\/application>\s*<\/manifest>/
+        /\s*<\/application>\s*<\/manifest>/
       );
 
       fs.writeFileSync(manifestPath, currentContent);
