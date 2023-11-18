@@ -14,7 +14,6 @@ import {
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 import { compareGradleVersions } from "../utils/compare_gradle_versions";
 import {
-  buildRunner,
   formatFiles,
   runCommandInWorkspaceFolder,
 } from "../utils/build_runner";
@@ -72,7 +71,7 @@ export const addNotifications = async (args: Uri) => {
         "rn add multi_notifications_feature --path lib/features"
       );
     }
-    if (runCommandResult?.error ?? true) {
+    if (runCommandResult?.error !== undefined) {
       window.showErrorMessage(
         `Error running build runner: ${runCommandResult?.error}`
       );
@@ -111,7 +110,7 @@ async function updateAppDelegate() {
         // Find the markers for insertion points
         const importMarker = /(import Flutter)/;
         const codeMarker =
-          /(GeneratedPluginRegistrant\.register\(with: self\)\s*return super.application\(application, didFinishLaunchingWithOptions: launchOptions\))/;
+          /(\s*GeneratedPluginRegistrant\.register\(with: self\)\s*return super.application\(application, didFinishLaunchingWithOptions: launchOptions\))/;
 
         // Use appendAfterMarkerInFile and appendBeforeMarkerInFile as needed
         if (snippet === "import flutter_local_notifications") {
