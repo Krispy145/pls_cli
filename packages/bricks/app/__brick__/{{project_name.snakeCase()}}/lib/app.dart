@@ -1,14 +1,8 @@
 import 'package:{{project_name.snakeCase()}}/dependencies/injection.dart';
-
-{{#has_firebase}}
-import 'package:{{project_name.snakeCase()}}/firebase/firebase_options_staging.dart';
-
-{{/has_firebase}}
 import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 
 {{#has_firebase}}
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 
