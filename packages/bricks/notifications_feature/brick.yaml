@@ -11,11 +11,15 @@ version: 0.1.0+1
 environment:
   mason: ">=0.1.0-dev <0.1.0"
 
-# Variables specify dynamic values that your brick depends on.
-# Zero or more variables can be specified for a given brick.
-# Each variable has:
-#  * a type (string, number, or boolean)
-#  * an optional short description
-#  * an optional default value
-#  * an optional prompt phrase used when asking for the variable.
+vars:
+  store:
+    type: string
+    description: the notification store
+    default: local_notification_store
+    prompt: Which notifications store are you using?
+  store_route:
+    type: string
+    description: The route path of the store import
+    default: local_store
+    prompt: What is the route path of the store?
 

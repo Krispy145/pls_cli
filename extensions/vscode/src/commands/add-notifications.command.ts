@@ -356,14 +356,14 @@ async function updateAndroidManifest() {
       currentContent = appendBeforeMarkerInContent(
         currentContent,
         channelMetadata,
-        /\s*<\/activity>/
+        /(\s*<\/activity>)/
       );
 
       // Add the additional block before </application>
       currentContent = appendBeforeMarkerInContent(
         currentContent,
         serviceBlock,
-        /\s*<\/application>\s*<\/manifest>/
+        /(\s*<\/application>\s*<\/manifest>)/
       );
 
       fs.writeFileSync(manifestPath, currentContent);
