@@ -446,7 +446,7 @@ function addLocalNotificationInjection(fileContent: string) {
     fileContent: fileContent,
     storeName: "Local Notifications",
     importCode:
-      "import 'package:notifications/stores/local_store.dart';\nimport 'package:notifications/stores/base_store.dart';",
+      "import 'package:notifications/stores/local_store.dart';\nimport 'package:notifications/stores/base_store.dart';\nimport 'package:notifications/stores/push_store.dart';",
     injectionCode,
     getterCode,
     injectInto: "CORE",
@@ -508,7 +508,7 @@ function addPushNotificationInjection(fileContent: string) {
     fileContent: fileContent,
     storeName: "Push Notifications",
     importCode:
-      "import 'package:notifications/stores/push_store.dart';\nimport 'package:notifications/stores/base_store.dart';",
+      "import 'package:notifications/stores/local_store.dart';\nimport 'package:notifications/stores/base_store.dart';\nimport 'package:notifications/stores/push_store.dart';",
     injectionCode: injectionCode,
     getterCode: getterCode,
     injectInto: "CORE",
