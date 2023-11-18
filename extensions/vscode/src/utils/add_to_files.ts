@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+
 export function appendBeforeMarkerInContent(
   content: string,
   snippet: string,

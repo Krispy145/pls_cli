@@ -99,9 +99,9 @@ async function updateAppDelegate() {
       // Check if the snippet already exists in the file
       if (!currentContent.includes(snippet)) {
         // Find the markers for insertion points
-        const importMarker = /import Flutter/;
+        const importMarker = /(import Flutter)/;
         const codeMarker =
-          /GeneratedPluginRegistrant\.register\(with: self\)\s*return super.application\(application, didFinishLaunchingWithOptions: launchOptions\)/;
+          /(GeneratedPluginRegistrant\.register\(with: self\)\s*return super.application\(application, didFinishLaunchingWithOptions: launchOptions\))/;
 
         // Use appendAfterMarkerInFile and appendBeforeMarkerInFile as needed
         if (snippet === "import flutter_local_notifications") {
@@ -199,11 +199,6 @@ function updateAppBuildGradle() {
     const codeToAddToCompileOptions = `
         coreLibraryDesugaringEnabled true`;
 
-    // Define regular expression patterns to find the defaultConfig and dependencies blocks
-    const defaultConfigPattern = "defaultConfig {";
-    const dependenciesPattern = "dependencies {";
-    const compileOptionsPattern = "compileOptions {";
-
     // Use regex to search for the defaultConfig block
     const defaultConfigIncludes = currentContent.includes(
       codeToAddDefaultConfig
@@ -231,7 +226,7 @@ function updateAppBuildGradle() {
       currentContent = appendAfterMarkerInContent(
         currentContent,
         codeToAddDefaultConfig,
-        new RegExp(defaultConfigPattern)
+        /(defaultConfig {)/
       );
     } else {
       vscode.window.showErrorMessage(
@@ -244,7 +239,7 @@ function updateAppBuildGradle() {
       currentContent = appendAfterMarkerInContent(
         currentContent,
         codeToAddDependencies,
-        new RegExp(dependenciesPattern)
+        /(dependencies {)/
       );
     } else {
       vscode.window.showErrorMessage(
@@ -257,7 +252,7 @@ function updateAppBuildGradle() {
       currentContent = appendAfterMarkerInContent(
         currentContent,
         codeToAddToCompileOptions,
-        new RegExp(compileOptionsPattern)
+        /(compileOptions {)/
       );
     } else {
       vscode.window.showErrorMessage(
@@ -311,7 +306,7 @@ async function updateAndroidManifest() {
   `;
 
   const channelMetadata = `
-<!-- Local Notification Channel -->
+          <!-- Local Notification Channel -->
           <meta-data
               android:name="com.dexterous.flutterlocalnotifications.notification_channel"
               android:resource="@string/local_notification_channel_id"
@@ -337,23 +332,21 @@ async function updateAndroidManifest() {
       currentContent = appendBeforeMarkerInContent(
         currentContent,
         serviceBlock,
-        new RegExp("(\\s*)</application>\\s*</manifest>")
+        /((\\s*)<application>\\s*<\/application>)/
       );
 
       // Add permissions block below </application>
       currentContent = appendAfterMarkerInContent(
         currentContent,
         permissionsBlock,
-        new RegExp(
-          `<uses-permission android:name="android.permission.INTERNET"/>`
-        )
+        /(<uses-permission android:name="android\.permission\.INTERNET"\/>)/
       );
 
       // Add showWhenLockedAndTurnScreenOn attributes
       currentContent = appendAfterMarkerInContent(
         currentContent,
         showWhenLockedAndTurnScreenOn,
-        new RegExp('android:windowSoftInputMode="adjustResize"')
+        /(android:windowSoftInputMode="adjustResize")/
       );
 
       vscode.window.showInformationMessage(
