@@ -10,17 +10,15 @@ export const addComponent = async (args: Uri) => {
   });
   var targetDir = await getTargetDirectory(args);
 
-  if (name&&targetDir) {
+  if (name && targetDir) {
     // Check if the targetDir ends with "components"
     if (!targetDir.endsWith("components")) {
       targetDir += "/components";
     }
 
-    let child = exec(
-      `render add component --name ${name} --path ${targetDir}`
-    );
+    let child = exec(`rn add component --name ${name} --path ${targetDir}`);
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
-    
+
     await buildRunner("Component");
   }
 };

@@ -55,20 +55,30 @@ export const addNotifications = async (args: Uri) => {
   addFlutterPackageFromPath("notifications", notificationsPath, targetDir);
   const workspaceFolder = workspace.workspaceFolders?.[0];
   if (workspaceFolder) {
+    var runCommandResult;
     if (notificationType === "Local") {
-      await runCommandInWorkspaceFolder(
+      runCommandResult = await runCommandInWorkspaceFolder(
         workspaceFolder.uri.fsPath,
         "rn add notifications_feature --path lib/features --s local_notifications_store --r local_store"
       );
     } else if (notificationType === "Push")
-      await runCommandInWorkspaceFolder(
+      runCommandResult = await runCommandInWorkspaceFolder(
         workspaceFolder.uri.fsPath,
         "rn add notifications_feature --path lib/features --s push_notifications_store --r push_store"
       );
     else if (notificationType === "Both") {
-      await runCommandInWorkspaceFolder(
+      runCommandResult = await runCommandInWorkspaceFolder(
         workspaceFolder.uri.fsPath,
         "rn add multi_notifications_feature --path lib/features"
+      );
+    }
+    if (runCommandResult?.error ?? true) {
+      window.showErrorMessage(
+        `Error running build runner: ${runCommandResult?.error}`
+      );
+    } else {
+      window.showInformationMessage(
+        `notifications feature created successfully.`
       );
     }
   }
@@ -328,13 +338,6 @@ async function updateAndroidManifest() {
     );
 
     if (insertionIndex !== -1) {
-      // Add the additional block before </application>
-      currentContent = appendBeforeMarkerInContent(
-        currentContent,
-        serviceBlock,
-        /<\/application>\s*<\/manifest>/
-      );
-
       // Add permissions block below </application>
       currentContent = appendAfterMarkerInContent(
         currentContent,
@@ -359,6 +362,14 @@ async function updateAndroidManifest() {
         channelMetadata,
         /^\s*<\/activity>\s*$/
       );
+
+      // Add the additional block before </application>
+      currentContent = appendBeforeMarkerInContent(
+        currentContent,
+        serviceBlock,
+        /<\/application>\s*<\/manifest>/
+      );
+
       fs.writeFileSync(manifestPath, currentContent);
       vscode.window.showInformationMessage(
         "Permissions and additional code added to AndroidManifest.xml"
