@@ -332,7 +332,7 @@ async function updateAndroidManifest() {
       currentContent = appendBeforeMarkerInContent(
         currentContent,
         serviceBlock,
-        /((\\s*)<application>\\s*<\/application>)/
+        /<\/application>\s*<\/manifest>/
       );
 
       // Add permissions block below </application>
@@ -357,7 +357,7 @@ async function updateAndroidManifest() {
       currentContent = appendBeforeMarkerInContent(
         currentContent,
         channelMetadata,
-        new RegExp("(\\s*)</activity>")
+        /^\s*<\/activity>\s*$/
       );
       fs.writeFileSync(manifestPath, currentContent);
       vscode.window.showInformationMessage(
