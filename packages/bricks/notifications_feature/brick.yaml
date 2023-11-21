@@ -23,7 +23,7 @@ vars:
     default: local_store
     prompt: What is the route path of the store?
   is_push:
-    type: bool
+    type: boolean
     description: Is this a push notification store?
     default: false
     prompt: Is this a push notification store?
