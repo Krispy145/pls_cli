@@ -117,6 +117,24 @@ class _$HomeModelImpl implements _HomeModel {
   @override
   final int age;
 
+  @override
+  String toString() {
+    return 'HomeModel(name: $name, age: $age)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$HomeModelImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.age, age) || other.age == age));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, age);
+
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')

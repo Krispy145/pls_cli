@@ -83,6 +83,8 @@ void main() async {
               .replaceAll('App Template', '{{project_name.titleCase()}}')
               .replaceAll('/// FIREBASE START', '{{#has_firebase}}')
               .replaceAll('/// FIREBASE END', '{{/has_firebase}}')
+              .replaceAll('# FIREBASE START', '{{#has_firebase}}')
+              .replaceAll('# FIREBASE END', '{{/has_firebase}}')
               .replaceAll('/// IS_DEFAULT START', '{{#is_default}}')
               .replaceAll('/// IS_DEFAULT END', '{{/is_default}}')
               .replaceAll('/// IS_DEFAULTMAP START', '{{#is_default_map}}')

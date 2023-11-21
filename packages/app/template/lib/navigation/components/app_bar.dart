@@ -11,11 +11,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Column(
-        children: [
-          Text("App Template"),
-        ],
-      ),
+      title: Text("App Template"),
     );
   }
 }

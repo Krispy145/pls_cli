@@ -4,7 +4,7 @@ import 'package:notifications/stores/push_store.dart';
 import 'package:notifications/widgets/view/multi_store_view.dart';
 import 'package:utilities/widgets/load_state/state_widget.dart';
 
-import '../../dependencies/injection.dart';
+import '../../../dependencies/injection.dart';
 
 /// [NotificationsView] of the app.
 class NotificationsView extends StatelessWidget {

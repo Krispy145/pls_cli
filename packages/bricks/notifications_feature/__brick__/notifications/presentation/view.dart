@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notifications/stores/{{store_route.snakeCase()}}.dart';
 import 'package:notifications/widgets/view/single_store_view.dart';
 import 'package:utilities/widgets/load_state/state_widget.dart';
-import '../../dependencies/injection.dart';
+import '../../../dependencies/injection.dart';
 
 /// [NotificationsView] of the app.
 class NotificationsView extends StatelessWidget {

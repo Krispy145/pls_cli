@@ -58,12 +58,12 @@ export const addNotifications = async (args: Uri) => {
     if (notificationType === "Local") {
       runCommandResult = await runCommandInWorkspaceFolder(
         workspaceFolder.uri.fsPath,
-        "rn add notifications_feature --path lib/features -s local_notifications_store -r local_store"
+        "rn add notifications_feature --path lib/features -s local_notifications_store -r local_store --is_push false"
       );
     } else if (notificationType === "Push")
       runCommandResult = await runCommandInWorkspaceFolder(
         workspaceFolder.uri.fsPath,
-        "rn add notifications_feature --path lib/features -s push_notifications_store -r push_store"
+        "rn add notifications_feature --path lib/features -s push_notifications_store -r push_store --is_push true"
       );
     else if (notificationType === "Both") {
       runCommandResult = await runCommandInWorkspaceFolder(
@@ -465,36 +465,9 @@ function addPushNotificationInjection(fileContent: string) {
   const injectionCode = `
   ..registerSingleton<PushNotificationsStore>(
     PushNotificationsStore(
-      onClearAllNotifications: () => Future(
-        () => AppLogger.print(
-          "PushNotificationsStore.onClearAllNotifications() not implemented.",
-          [LoggerFeatures.notifications],
-          type: LoggerType.warning,
-        ),
+      remoteDataSource: ApiNotificationsDataSource(
+        flavorConfig.apiPrefix,
       ),
-      onRemoveNotification: (id) => Future(
-        () => AppLogger.print(
-          "PushNotificationsStore.onRemoveNotification() not implemented.",
-          [LoggerFeatures.notifications],
-          type: LoggerType.warning,
-        ),
-      ),
-      onRecieveNotifications: () async {
-        AppLogger.print(
-          "PushNotificationsStore.onRecieveNotifications() not implemented.",
-          [LoggerFeatures.notifications],
-          type: LoggerType.warning,
-        );
-        return Future.value([]);
-      },
-      onUpdateNotification: (notification) async {
-        AppLogger.print(
-          "PushNotificationsStore.onUpdateNotification() not implemented.",
-          [LoggerFeatures.notifications],
-          type: LoggerType.warning,
-        );
-        return Future(() => null);
-      },
     )..initialize(),
   )`;
 
@@ -513,8 +486,11 @@ function addPushNotificationInjection(fileContent: string) {
   fileContent = addInjectionAndGetter({
     fileContent: fileContent,
     storeName: "Push Notifications",
-    importCode:
-      "import 'package:notifications/stores/local_store.dart';\nimport 'package:notifications/stores/base_store.dart';\nimport 'package:notifications/stores/push_store.dart';",
+    importCode: `
+  import 'package:notifications/stores/local_store.dart';
+  import 'package:notifications/stores/base_store.dart';
+  import 'package:notifications/stores/push_store.dart';
+  import '../features/notifications/data/sources/notifications_api.dart';`,
     injectionCode: injectionCode,
     getterCode: getterCode,
     injectInto: "CORE",

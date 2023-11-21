@@ -23,6 +23,12 @@ class NotificationsFeatureCommand extends BrickCommandBase {
         help: 'The store route of the notifications file.',
         valueHelp: 'local_store',
         defaultsTo: 'local_store',
+      )
+      ..addOption(
+        'is_push',
+        help: 'Is this a push notification store?',
+        valueHelp: 'false',
+        defaultsTo: 'false',
       );
   }
   @override
