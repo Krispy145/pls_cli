@@ -1,6 +1,6 @@
-import 'package:app_template/dependencies/injection.dart';
-import 'package:app_template/features/home/data/sources/home_api.dart';
 import 'package:mobx/mobx.dart';
+import 'package:app_template/dependencies/injection.dart';
+import 'package:app_template/features/main/data/sources/{{name.snakeCase()}}_api.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/home_repository.dart';
@@ -11,20 +11,20 @@ import '../domain/repositories/home_repository.dart';
 
 part 'store.g.dart';
 
-/// [HomeStore] is a class that uses [HomeBaseStore] to manage state of the home feature.
+/// [HomeStore] is a class that uses [HomeBaseStore] to manage state of the main feature.
 class HomeStore = HomeBaseStore with _$HomeStore;
 
-/// [HomeBaseStore] is a class that manages the state of the home feature.
+/// [HomeBaseStore] is a class that manages the state of the main feature.
 abstract class HomeBaseStore extends LoadStateStore with Store {
   /// connectionStatus is an instance of ConnectionStateStore, which is used to determine the current connection state.
   final connectionStatus = Managers.connectionStateStore;
 
   /// [dataSource] is an instance of [HomeDataSource], specifically the in memory data source.
-  // TODO: Replace "baseUrl" with the appropriate url.
+  /// TODO: Replace "baseUrl" with the appropriate url.
   @computed
-  HomeDataSource get dataSource => connectionStatus.handleConnectionState(
-        online: ApiHomeDataSource("baseUrl"),
-        offline: InMemoryHomeDataSource(),
+  HomeDataSource get dataSource => connectionStatus.handleConnectionSource(
+        source: ApiHomeDataSource("baseUrl"),
+        offlineBackup: LocalHomeDataSource(),
       );
 
   /// [repository] is an instance of [HomeRepository], which takes in the appropriate [dataSource].
@@ -32,9 +32,9 @@ abstract class HomeBaseStore extends LoadStateStore with Store {
   @computed
   HomeRepository get repository => HomeDataRepository(dataSource);
 
-  /// [homes] is an observable list of [HomeModel]s.
+  /// [mains] is an observable list of [HomeModel]s.
   @observable
-  ObservableList<HomeModel?> homes = ObservableList<HomeModel?>();
+  ObservableList<HomeModel?> mains = ObservableList<HomeModel?>();
 
   /// [loadHomeModels] loads all [HomeModel]s from the data source.
   @action
@@ -43,7 +43,7 @@ abstract class HomeBaseStore extends LoadStateStore with Store {
       setLoading();
       final loadedHomes = await repository.getAllHomeModels();
       if (loadedHomes.isNotEmpty) {
-        homes
+        mains
           ..clear()
           ..addAll(loadedHomes);
         setLoaded();

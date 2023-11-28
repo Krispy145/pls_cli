@@ -1,78 +1,39 @@
+import 'package:utilities/data_sources/local/hive.dart';
 import 'package:utilities/logger/logger.dart';
 
 import '../../../../utils/logger_features.dart';
 import '../../data/sources/main_source.dart';
 import '../../domain/models/main_model.dart';
 
-/// [InMemoryMainDataSource] is a class that implements [MainDataSource] interface.
-class InMemoryMainDataSource implements MainDataSource {
+/// [LocalMainDataSource] is a class that implements [MainDataSource] interface.
+class LocalMainDataSource extends LocalDataSource<MainModel> implements MainDataSource {
   // Simulated in-memory data store
   final Map<String, MainModel> _dataStore = {};
 
+  /// [LocalMainDataSource] constructor.
+  LocalMainDataSource()
+      : super(
+          'main',
+          typeAdapterId: 0,
+          typeAdaptor: MainModelAdapter(),
+        );
+
   @override
-  Future<List<MainModel?>> fetchMainModels() async {
+  Future<List<MainModel?>> search(Map<String, String> queries) async {
     try {
-      final mains = _dataStore.values.toList();
-      AppLogger.print("IN MEMORY RESULT: Fetched all Main models successfully", [AppLoggerFeatures.main]);
-      return Future.value(mains);
+      final homes = _dataStore.values.toList();
+      AppLogger.print(
+        "IN MEMORY RESULT: Fetched all Main models successfully",
+        [AppLoggerFeatures.home],
+      );
+      return Future.value(homes);
     } catch (e) {
-      AppLogger.print("IN MEMORY RESULT: Error fetching all Main models: $e", [AppLoggerFeatures.main], type: LoggerType.error);
+      AppLogger.print(
+        "IN MEMORY RESULT: Error fetching all Main models: $e",
+        [AppLoggerFeatures.home],
+        type: LoggerType.error,
+      );
       return [];
-    }
-  }
-
-  @override
-  Future<MainModel?> fetchMainModelById(String id) async {
-    try {
-      final main = _dataStore[id];
-      if (main != null) {
-        AppLogger.print("IN MEMORY RESULT: Fetched Main model by ID successfully: $main", [AppLoggerFeatures.main]);
-        return Future.value(main);
-      } else {
-        AppLogger.print("IN MEMORY RESULT: Failed to fetch Main model by ID: Feature not found", [AppLoggerFeatures.main], type: LoggerType.error);
-        return null;
-      }
-    } catch (e) {
-      AppLogger.print("IN MEMORY RESULT: Error fetching Main model by ID: $e", [AppLoggerFeatures.main], type: LoggerType.error);
-      return null;
-    }
-  }
-
-  @override
-  Future<void> addMainModel(MainModel main) async {
-    try {
-      _dataStore[main.name] = main;
-      AppLogger.print("IN MEMORY RESULT: Added Main model successfully: $main", [AppLoggerFeatures.main]);
-    } catch (e) {
-      AppLogger.print("IN MEMORY RESULT: Error adding Main model: $e", [AppLoggerFeatures.main], type: LoggerType.error);
-    }
-  }
-
-  @override
-  Future<void> updateMainModel(MainModel main) async {
-    try {
-      if (_dataStore.containsKey(main.name)) {
-        _dataStore[main.name] = main;
-        AppLogger.print("IN MEMORY RESULT: Updated Main model successfully: $main", [AppLoggerFeatures.main]);
-      } else {
-        AppLogger.print("Failed to update Main model: Feature not found", [AppLoggerFeatures.main], type: LoggerType.error);
-      }
-    } catch (e) {
-      AppLogger.print("IN MEMORY RESULT: Error updating Main model: $e", [AppLoggerFeatures.main], type: LoggerType.error);
-    }
-  }
-
-  @override
-  Future<void> deleteMainModel(String id) async {
-    try {
-      final removedmain = _dataStore.remove(id);
-      if (removedmain != null) {
-        AppLogger.print("IN MEMORY RESULT: Deleted Main model successfully: $removedmain", [AppLoggerFeatures.main]);
-      } else {
-        AppLogger.print("IN MEMORY RESULT: Failed to delete Main model: Feature not found", [AppLoggerFeatures.main], type: LoggerType.error);
-      }
-    } catch (e) {
-      AppLogger.print("IN MEMORY RESULT: Error deleting Main model: $e", [AppLoggerFeatures.main], type: LoggerType.error);
     }
   }
 }

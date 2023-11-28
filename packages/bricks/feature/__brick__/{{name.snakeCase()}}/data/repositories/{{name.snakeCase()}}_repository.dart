@@ -1,37 +1,13 @@
-import '../../data/sources/{{name.snakeCase()}}_source.dart';
 import '../../domain/models/{{name.snakeCase()}}_model.dart';
 import '../../domain/repositories/{{name.snakeCase()}}_repository.dart';
 
 /// [{{name.pascalCase()}}DataRepository] is a class that implements [{{name.pascalCase()}}Repository] interface.
-class {{name.pascalCase()}}DataRepository implements {{name.pascalCase()}}Repository {
-  /// [dataSource] is an instance of [{{name.pascalCase()}}DataSource].
-  final {{name.pascalCase()}}DataSource dataSource;
-
+class {{name.pascalCase()}}DataRepository extends {{name.pascalCase()}}Repository {
   /// [{{name.pascalCase()}}DataRepository] constructor.
-  {{name.pascalCase()}}DataRepository(this.dataSource);
+  {{name.pascalCase()}}DataRepository(super.dataSource);
 
   @override
   Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models() async {
-    return dataSource.fetch{{name.pascalCase()}}Models();
-  }
-
-  @override
-  Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}ModelById(String id) async {
-    return dataSource.fetch{{name.pascalCase()}}ModelById(id);
-  }
-
-  @override
-  Future<void> add{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
-    await dataSource.add{{name.pascalCase()}}Model({{name.camelCase()}});
-  }
-
-  @override
-  Future<void> update{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
-    await dataSource.update{{name.pascalCase()}}Model({{name.camelCase()}});
-  }
-
-  @override
-  Future<void> delete{{name.pascalCase()}}Model(String id) async {
-    await dataSource.delete{{name.pascalCase()}}Model(id);
+    return dataSource.getAll();
   }
 }

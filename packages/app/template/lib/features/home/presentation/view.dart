@@ -21,7 +21,7 @@ class HomeView extends StatelessWidget {
       loadedBuilder: (context) => ListView.builder(
         itemCount: store.homes.length,
         itemBuilder: (context, index) {
-          final homeModel = store.homes[index]!;
+          final homeModel = store.homes[index];
           return ListTile(
             title: Text('Name: ${homeModel.name}'),
             subtitle: Text('Age: ${homeModel.age}'),

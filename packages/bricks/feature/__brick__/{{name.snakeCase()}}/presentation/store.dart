@@ -1,52 +1,51 @@
-import 'package:app_template/dependencies/injection.dart';
-import 'package:app_template/features/{{camelCase()}}/data/sources/{{camelCase()}}_api.dart';
 import 'package:mobx/mobx.dart';
+import 'package:app_template/dependencies/injection.dart';
+import 'package:app_template/features/main/data/sources/{{name.snakeCase()}}_api.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
-import '../data/repositories/{{camelCase()}}_repository.dart';
-import '../data/sources/{{camelCase()}}_in_memory.dart';
-import '../data/sources/{{camelCase()}}_source.dart';
-import '../domain/models/{{camelCase()}}_model.dart';
-import '../domain/repositories/{{camelCase()}}_repository.dart';
+import '../data/repositories/{{name.snakeCase()}}_repository.dart';
+import '../data/sources/{{name.snakeCase()}}_in_memory.dart';
+import '../data/sources/{{name.snakeCase()}}_source.dart';
+import '../domain/models/{{name.snakeCase()}}_model.dart';
+import '../domain/repositories/{{name.snakeCase()}}_repository.dart';
 
 part 'store.g.dart';
 
-/// [{{pascalCase()}}Store] is a class that uses [{{pascalCase()}}BaseStore] to manage state of the {{camelCase()}} feature.
-class {{pascalCase()}}Store = {{pascalCase()}}BaseStore with _${{pascalCase()}}Store;
+/// [{{name.pascalCase()}}Store] is a class that uses [{{name.pascalCase()}}BaseStore] to manage state of the main feature.
+class {{name.pascalCase()}}Store = {{name.pascalCase()}}BaseStore with _${{name.pascalCase()}}Store;
 
-/// [{{pascalCase()}}BaseStore] is a class that manages the state of the {{camelCase()}} feature.
-class {{pascalCase()}}BaseStore extends LoadStateStore with Store {
+/// [{{name.pascalCase()}}BaseStore] is a class that manages the state of the main feature.
+abstract class {{name.pascalCase()}}BaseStore extends LoadStateStore with Store {
   /// connectionStatus is an instance of ConnectionStateStore, which is used to determine the current connection state.
-  @observable
   final connectionStatus = Managers.connectionStateStore;
 
-  /// [dataSource] is an instance of [{{pascalCase()}}DataSource], specifically the in memory data source.
-  // TODO: Replace "baseUrl" with the appropriate url.
+  /// [dataSource] is an instance of [{{name.pascalCase()}}DataSource], specifically the in memory data source.
+  /// TODO: Replace "baseUrl" with the appropriate url.
   @computed
-  {{pascalCase()}}DataSource get dataSource => connectionStatus.handleConnectionState(
-        online: Api{{pascalCase()}}DataSource("baseUrl"),
-        offline: InMemory{{pascalCase()}}DataSource(),
+  {{name.pascalCase()}}DataSource get dataSource => connectionStatus.handleConnectionSource(
+        source: Api{{name.pascalCase()}}DataSource("baseUrl"),
+        offlineBackup: Local{{name.pascalCase()}}DataSource(),
       );
 
-  /// [repository] is an instance of [{{pascalCase()}}Repository], which takes in the appropriate [dataSource].
+  /// [repository] is an instance of [{{name.pascalCase()}}Repository], which takes in the appropriate [dataSource].
   /// This can be in memory or an api.
   @computed
-  {{pascalCase()}}Repository get repository => {{pascalCase()}}DataRepository(dataSource);
+  {{name.pascalCase()}}Repository get repository => {{name.pascalCase()}}DataRepository(dataSource);
 
-  /// [{{camelCase()}}s] is an observable list of [{{pascalCase()}}Model]s.
+  /// [mains] is an observable list of [{{name.pascalCase()}}Model]s.
   @observable
-  ObservableList<{{pascalCase()}}Model?> {{camelCase()}}s = ObservableList<{{pascalCase()}}Model?>();
+  ObservableList<{{name.pascalCase()}}Model?> mains = ObservableList<{{name.pascalCase()}}Model?>();
 
-  /// [load{{pascalCase()}}Models] loads all [{{pascalCase()}}Model]s from the data source.
+  /// [load{{name.pascalCase()}}Models] loads all [{{name.pascalCase()}}Model]s from the data source.
   @action
-  Future<void> load{{pascalCase()}}Models() async {
+  Future<void> load{{name.pascalCase()}}Models() async {
     try {
       setLoading();
-      final loaded{{pascalCase()}}s = await repository.getAll{{pascalCase()}}Models();
-      if (loaded{{pascalCase()}}s.isNotEmpty) {
-        {{camelCase()}}s
+      final loaded{{name.pascalCase()}}s = await repository.getAll{{name.pascalCase()}}Models();
+      if (loaded{{name.pascalCase()}}s.isNotEmpty) {
+        mains
           ..clear()
-          ..addAll(loaded{{pascalCase()}}s);
+          ..addAll(loaded{{name.pascalCase()}}s);
         setLoaded();
       } else {
         setEmpty();

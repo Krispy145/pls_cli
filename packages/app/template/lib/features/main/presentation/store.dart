@@ -1,6 +1,6 @@
+import 'package:mobx/mobx.dart';
 import 'package:app_template/dependencies/injection.dart';
 import 'package:app_template/features/main/data/sources/main_api.dart';
-import 'package:mobx/mobx.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/main_repository.dart';
@@ -22,9 +22,9 @@ abstract class MainBaseStore extends LoadStateStore with Store {
   /// [dataSource] is an instance of [MainDataSource], specifically the in memory data source.
   /// TODO: Replace "baseUrl" with the appropriate url.
   @computed
-  MainDataSource get dataSource => connectionStatus.handleConnectionState(
-        online: ApiMainDataSource("baseUrl"),
-        offline: InMemoryMainDataSource(),
+  MainDataSource get dataSource => connectionStatus.handleConnectionSource(
+        source: ApiMainDataSource("baseUrl"),
+        offlineBackup: LocalMainDataSource(),
       );
 
   /// [repository] is an instance of [MainRepository], which takes in the appropriate [dataSource].

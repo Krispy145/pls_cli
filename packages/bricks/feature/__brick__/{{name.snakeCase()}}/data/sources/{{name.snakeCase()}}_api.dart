@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:utilities/data_sources/remote/api.dart';
 import 'package:utilities/logger/logger.dart';
 
 import '../../../../utils/logger_features.dart';
@@ -6,85 +6,22 @@ import '../../data/sources/{{name.snakeCase()}}_source.dart';
 import '../../domain/models/{{name.snakeCase()}}_model.dart';
 
 /// [Api{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
-class Api{{name.pascalCase()}}DataSource implements {{name.pascalCase()}}DataSource {
-  /// [dio] is an instance of [Dio],used for http requests.
-  final Dio dio;
-
-  /// [baseUrl] is a [String] that represents the base url of the API.
-  final String baseUrl;
-
+class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase()}}Model> implements {{name.pascalCase()}}DataSource {
   /// [Api{{name.pascalCase()}}DataSource] constructor.
-  Api{{name.pascalCase()}}DataSource(this.baseUrl) : dio = Dio();
+  Api{{name.pascalCase()}}DataSource(super.baseUrl) : super(sourceSuffix: baseUrl);
 
-  @override
-  Future<List<{{name.pascalCase()}}Model?>> fetch{{name.pascalCase()}}Models() async {
+  /// [_handleError] is an optional helper method that handles errors when calling the API.
+  // ignore: unused_element
+  Future<T?> _handleError<T>(Future<T?> Function() apiCall) async {
     try {
-      final response = await dio.get<List<Map<String, dynamic>>>(
-        '$baseUrl/{{name.camelCase()}}',
+      return await apiCall();
+    } catch (e) {
+      AppLogger.print(
+        "API RESULT: Failed request: $e",
+        [AppLoggerFeatures.{{name.camelCase()}}],
+        type: LoggerType.error,
       );
-      final {{name.camelCase()}}DataList = response.data;
-      final {{name.camelCase()}}s = {{name.camelCase()}}DataList?.map({{name.pascalCase()}}Model.fromJson).toList() ?? [];
-
-      AppLogger.print("API RESULT: {{name.pascalCase()}}s fetched: ${{{name.camelCase()}}s.map((e) => e.toString())}", [AppLoggerFeatures.{{name.camelCase()}}]);
-      return {{name.camelCase()}}s;
-    } catch (e) {
-      AppLogger.print("API RESULT: Failed to fetch {{name.pascalCase()}}s: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
-      return [];
-    }
-  }
-
-  @override
-  Future<{{name.pascalCase()}}Model?> fetch{{name.pascalCase()}}ModelById(String id) async {
-    try {
-      final response = await dio.get<Map<String, dynamic>>('$baseUrl/{{name.camelCase()}}/$id');
-      final responseData = response.data;
-      if (responseData != null) {
-        final {{name.camelCase()}} = {{name.pascalCase()}}Model.fromJson(responseData);
-        AppLogger.print("API RESULT: {{name.pascalCase()}} fetched by ID: ${{name.camelCase()}}", [AppLoggerFeatures.{{name.camelCase()}}]);
-        return {{name.camelCase()}};
-      } else {
-        AppLogger.print("API RESULT: Response data is null", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
-        return null;
-      }
-    } catch (e) {
-      AppLogger.print("API RESULT: Failed to fetch {{name.pascalCase()}} by ID: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
       return null;
-    }
-  }
-
-  @override
-  Future<void> add{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
-    try {
-      await dio.post<bool>(
-        '$baseUrl/{{name.camelCase()}}',
-        data: {{name.camelCase()}}.toJson(),
-      );
-      AppLogger.print("API RESULT: {{name.pascalCase()}} added successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
-    } catch (e) {
-      AppLogger.print("API RESULT: Failed to add {{name.pascalCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
-    }
-  }
-
-  @override
-  Future<void> update{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}) async {
-    try {
-      await dio.put<bool>(
-        '$baseUrl/{{name.camelCase()}}/${{{name.camelCase()}}.name}',
-        data: {{name.camelCase()}}.toJson(),
-      );
-      AppLogger.print("API RESULT: {{name.pascalCase()}} updated successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
-    } catch (e) {
-      AppLogger.print("API RESULT: Failed to update {{name.pascalCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
-    }
-  }
-
-  @override
-  Future<void> delete{{name.pascalCase()}}Model(String id) async {
-    try {
-      await dio.delete<bool>('$baseUrl/{{name.camelCase()}}/$id');
-      AppLogger.print("API RESULT: {{name.pascalCase()}} deleted successfully", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.confirmation);
-    } catch (e) {
-      AppLogger.print("API RESULT: Failed to delete {{name.pascalCase()}}: $e", [AppLoggerFeatures.{{name.camelCase()}}], type: LoggerType.error);
     }
   }
 }
