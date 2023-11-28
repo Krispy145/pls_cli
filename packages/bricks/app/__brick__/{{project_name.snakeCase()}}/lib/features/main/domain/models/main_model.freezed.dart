@@ -20,7 +20,9 @@ MainModel _$MainModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MainModel {
+  @HiveField(0)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(1)
   int get age => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +36,7 @@ abstract class $MainModelCopyWith<$Res> {
   factory $MainModelCopyWith(MainModel value, $Res Function(MainModel) then) =
       _$MainModelCopyWithImpl<$Res, MainModel>;
   @useResult
-  $Res call({String name, int age});
+  $Res call({@HiveField(0) String name, @HiveField(1) int age});
 }
 
 /// @nodoc
@@ -74,7 +76,7 @@ abstract class _$$MainModelImplCopyWith<$Res>
       __$$MainModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, int age});
+  $Res call({@HiveField(0) String name, @HiveField(1) int age});
 }
 
 /// @nodoc
@@ -107,15 +109,36 @@ class __$$MainModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MainModelImpl implements _MainModel {
-  const _$MainModelImpl({required this.name, required this.age});
+  const _$MainModelImpl(
+      {@HiveField(0) required this.name, @HiveField(1) required this.age});
 
   factory _$MainModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MainModelImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String name;
   @override
+  @HiveField(1)
   final int age;
+
+  @override
+  String toString() {
+    return 'MainModel(name: $name, age: $age)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MainModelImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.age, age) || other.age == age));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, age);
 
   @JsonKey(ignore: true)
   @override
@@ -133,14 +156,17 @@ class _$MainModelImpl implements _MainModel {
 
 abstract class _MainModel implements MainModel {
   const factory _MainModel(
-      {required final String name, required final int age}) = _$MainModelImpl;
+      {@HiveField(0) required final String name,
+      @HiveField(1) required final int age}) = _$MainModelImpl;
 
   factory _MainModel.fromJson(Map<String, dynamic> json) =
       _$MainModelImpl.fromJson;
 
   @override
+  @HiveField(0)
   String get name;
   @override
+  @HiveField(1)
   int get age;
   @override
   @JsonKey(ignore: true)
