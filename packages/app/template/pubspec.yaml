@@ -30,8 +30,7 @@ dependencies:
     #   ref: utilities_package
   flutter_gen: ^5.3.2
   get_it: ^7.6.4
-  internet_connection_checker: ^1.0.0+1
-  chopper: ^7.0.9
+  internet_connection_checker: ^1.0.0+1 
   # FIREBASE START
   firebase_core: ^2.22.0
   firebase_analytics: ^10.7.0

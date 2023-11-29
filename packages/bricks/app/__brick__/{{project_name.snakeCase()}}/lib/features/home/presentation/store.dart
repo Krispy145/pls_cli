@@ -5,7 +5,6 @@ import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/home_repository.dart';
 import '../data/sources/home_local.dart';
-import '../data/sources/home_source.dart';
 import '../domain/models/home_model.dart';
 import '../domain/repositories/home_repository.dart';
 
@@ -19,18 +18,14 @@ abstract class HomeBaseStore extends LoadStateStore with Store {
   /// connectionStatus is an instance of ConnectionStateStore, which is used to determine the current connection state.
   final connectionStatus = Managers.connectionStateStore;
 
-  /// [dataSource] is an instance of [HomeDataSource], specifically the in memory data source.
+  /// [repository] is an instance of [HomeRepository], which takes in the appropriate DataSource.
+  /// This can be in memory or an api.
   /// TODO: Replace "baseUrl" with the appropriate url.
   @computed
-  HomeDataSource get dataSource => connectionStatus.handleConnectionSource(
-        source: ApiHomeDataSource("baseUrl"),
-        offlineBackup: LocalHomeDataSource(),
+  HomeRepository get repository => connectionStatus.handleConnectionSource(
+        source: HomeDataRepository.api(apiDataSource: ApiHomeDataSource("baseUrl")),
+        offlineBackup: HomeDataRepository.local(localDataSource: LocalHomeDataSource()),
       );
-
-  /// [repository] is an instance of [HomeRepository], which takes in the appropriate [dataSource].
-  /// This can be in memory or an api.
-  @computed
-  HomeRepository get repository => HomeDataRepository(dataSource);
 
   /// [homes] is an observable list of [HomeModel]s.
   @observable

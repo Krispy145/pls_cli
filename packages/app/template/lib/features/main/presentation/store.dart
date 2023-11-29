@@ -5,7 +5,6 @@ import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/main_repository.dart';
 import '../data/sources/main_local.dart';
-import '../data/sources/main_source.dart';
 import '../domain/models/main_model.dart';
 import '../domain/repositories/main_repository.dart';
 
@@ -19,18 +18,14 @@ abstract class MainBaseStore extends LoadStateStore with Store {
   /// connectionStatus is an instance of ConnectionStateStore, which is used to determine the current connection state.
   final connectionStatus = Managers.connectionStateStore;
 
-  /// [dataSource] is an instance of [MainDataSource], specifically the in memory data source.
+  /// [repository] is an instance of [MainRepository], which takes in the appropriate DataSource.
+  /// This can be in memory or an api.
   /// TODO: Replace "baseUrl" with the appropriate url.
   @computed
-  MainDataSource get dataSource => connectionStatus.handleConnectionSource(
-        source: ApiMainDataSource("baseUrl"),
-        offlineBackup: LocalMainDataSource(),
+  MainRepository get repository => connectionStatus.handleConnectionSource(
+        source: MainDataRepository.api(apiDataSource: ApiMainDataSource("baseUrl")),
+        offlineBackup: MainDataRepository.local(localDataSource: LocalMainDataSource()),
       );
-
-  /// [repository] is an instance of [MainRepository], which takes in the appropriate [dataSource].
-  /// This can be in memory or an api.
-  @computed
-  MainRepository get repository => MainDataRepository(dataSource);
 
   /// [mains] is an observable list of [MainModel]s.
   @observable
