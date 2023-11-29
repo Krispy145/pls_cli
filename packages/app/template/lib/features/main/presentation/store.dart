@@ -1,6 +1,6 @@
-import 'package:mobx/mobx.dart';
 import 'package:app_template/dependencies/injection.dart';
 import 'package:app_template/features/main/data/sources/main_api.dart';
+import 'package:mobx/mobx.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/main_repository.dart';
@@ -30,7 +30,7 @@ abstract class MainBaseStore extends LoadStateStore with Store {
   /// [repository] is an instance of [MainRepository], which takes in the appropriate [dataSource].
   /// This can be in memory or an api.
   @computed
-  MainRepository get repository => MainRepository(dataSource);
+  MainRepository get repository => MainDataRepository(dataSource);
 
   /// [mains] is an observable list of [MainModel]s.
   @observable

@@ -30,7 +30,7 @@ abstract class HomeBaseStore extends LoadStateStore with Store {
   /// [repository] is an instance of [HomeRepository], which takes in the appropriate [dataSource].
   /// This can be in memory or an api.
   @computed
-  HomeRepository get repository => HomeRepository(dataSource);
+  HomeRepository get repository => HomeDataRepository(dataSource);
 
   /// [homes] is an observable list of [HomeModel]s.
   @observable
