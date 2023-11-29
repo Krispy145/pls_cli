@@ -23,8 +23,8 @@ class HomeView extends StatelessWidget {
         itemBuilder: (context, index) {
           final homeModel = store.homes[index];
           return ListTile(
-            title: Text('Name: ${homeModel.name}'),
-            subtitle: Text('Age: ${homeModel.age}'),
+            title: Text('Name: ${homeModel?.name}'),
+            subtitle: Text('Age: ${homeModel?.age}'),
           );
         },
       ),

@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:app_template/dependencies/injection.dart';
-import 'package:app_template/features/main/data/sources/{{name.snakeCase()}}_api.dart';
+import 'package:app_template/features/{{name.snakeCase()}}/data/sources/{{name.snakeCase()}}_api.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/{{name.snakeCase()}}_repository.dart';
@@ -32,9 +32,9 @@ abstract class {{name.pascalCase()}}BaseStore extends LoadStateStore with Store 
   @computed
   {{name.pascalCase()}}Repository get repository => {{name.pascalCase()}}DataRepository(dataSource);
 
-  /// [mains] is an observable list of [{{name.pascalCase()}}Model]s.
+  /// [{{name.camelCase()}}s] is an observable list of [{{name.pascalCase()}}Model]s.
   @observable
-  ObservableList<{{name.pascalCase()}}Model?> mains = ObservableList<{{name.pascalCase()}}Model?>();
+  ObservableList<{{name.pascalCase()}}Model?> {{name.camelCase()}}s = ObservableList<{{name.pascalCase()}}Model?>();
 
   /// [load{{name.pascalCase()}}Models] loads all [{{name.pascalCase()}}Model]s from the data source.
   @action
@@ -43,7 +43,7 @@ abstract class {{name.pascalCase()}}BaseStore extends LoadStateStore with Store 
       setLoading();
       final loaded{{name.pascalCase()}}s = await repository.getAll{{name.pascalCase()}}Models();
       if (loaded{{name.pascalCase()}}s.isNotEmpty) {
-        mains
+        {{name.camelCase()}}s
           ..clear()
           ..addAll(loaded{{name.pascalCase()}}s);
         setLoaded();

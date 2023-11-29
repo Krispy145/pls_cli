@@ -23,8 +23,8 @@ class {{name.pascalCase()}}View extends StatelessWidget {
         itemBuilder: (context, index) {
           final {{name.camelCase()}}Model = store.{{name.camelCase()}}s[index]!;
           return ListTile(
-            title: Text('Name: ${{{name.camelCase()}}Model.name}'),
-            subtitle: Text('Age: ${{{name.camelCase()}}Model.age}'),
+            title: Text('Name: ${{{name.camelCase()}}Model?.name}'),
+            subtitle: Text('Age: ${{{name.camelCase()}}Model?.age}'),
           );
         },
       ),

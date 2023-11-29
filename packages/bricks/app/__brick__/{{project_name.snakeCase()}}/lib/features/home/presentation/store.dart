@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:{{project_name.snakeCase()}}/dependencies/injection.dart';
-import 'package:{{project_name.snakeCase()}}/features/main/data/sources/{{name.snakeCase()}}_api.dart';
+import 'package:{{project_name.snakeCase()}}/features/home/data/sources/home_api.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/home_repository.dart';
@@ -32,9 +32,9 @@ abstract class HomeBaseStore extends LoadStateStore with Store {
   @computed
   HomeRepository get repository => HomeDataRepository(dataSource);
 
-  /// [mains] is an observable list of [HomeModel]s.
+  /// [homes] is an observable list of [HomeModel]s.
   @observable
-  ObservableList<HomeModel?> mains = ObservableList<HomeModel?>();
+  ObservableList<HomeModel?> homes = ObservableList<HomeModel?>();
 
   /// [loadHomeModels] loads all [HomeModel]s from the data source.
   @action
@@ -43,7 +43,7 @@ abstract class HomeBaseStore extends LoadStateStore with Store {
       setLoading();
       final loadedHomes = await repository.getAllHomeModels();
       if (loadedHomes.isNotEmpty) {
-        mains
+        homes
           ..clear()
           ..addAll(loadedHomes);
         setLoaded();
