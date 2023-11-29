@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, constant_identifier_names
-
-import 'dart:html';
 import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
