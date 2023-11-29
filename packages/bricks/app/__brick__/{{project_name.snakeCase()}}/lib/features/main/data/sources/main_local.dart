@@ -21,16 +21,16 @@ class LocalMainDataSource extends LocalDataSource<MainModel> implements MainData
   @override
   Future<List<MainModel?>> search(Map<String, String> queries) async {
     try {
-      final homes = _dataStore.values.toList();
+      final mains = _dataStore.values.toList();
       AppLogger.print(
         "IN MEMORY RESULT: Fetched all Main models successfully",
-        [AppLoggerFeatures.home],
+        [AppLoggerFeatures.main],
       );
-      return Future.value(homes);
+      return Future.value(mains);
     } catch (e) {
       AppLogger.print(
         "IN MEMORY RESULT: Error fetching all Main models: $e",
-        [AppLoggerFeatures.home],
+        [AppLoggerFeatures.main],
         type: LoggerType.error,
       );
       return [];

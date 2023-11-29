@@ -18,7 +18,7 @@ class ApiMainDataSource extends ApiDataSource<MainModel> implements MainDataSour
     } catch (e) {
       AppLogger.print(
         "API RESULT: Failed request: $e",
-        [AppLoggerFeatures.home],
+        [AppLoggerFeatures.main],
         type: LoggerType.error,
       );
       return null;
