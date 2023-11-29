@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, constant_identifier_names
 
+import 'dart:html';
 import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
@@ -247,11 +248,10 @@ class CreateAppCommand extends RenderCommand {
       'flutter pub run build_runner build --delete-conflicting-outputs',
       'dart format .',
       'dart fix --apply',
-      if (_hasFirebase) 'bash ./tools/firebase_install.sh',
     ]);
 
     // Open VS Code with the project directory
-    await Process.start('code', ['.']);
+    await Process.start('code', ['.', './README.md']);
   }
 
   bool _isValidPackageName(String name) {

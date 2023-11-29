@@ -4,7 +4,7 @@ import 'package:app_template/features/main/data/sources/main_api.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/main_repository.dart';
-import '../data/sources/main_in_memory.dart';
+import '../data/sources/main_local.dart';
 import '../data/sources/main_source.dart';
 import '../domain/models/main_model.dart';
 import '../domain/repositories/main_repository.dart';
@@ -30,7 +30,7 @@ abstract class MainBaseStore extends LoadStateStore with Store {
   /// [repository] is an instance of [MainRepository], which takes in the appropriate [dataSource].
   /// This can be in memory or an api.
   @computed
-  MainRepository get repository => MainDataRepository(dataSource);
+  MainRepository get repository => MainRepository(dataSource);
 
   /// [mains] is an observable list of [MainModel]s.
   @observable

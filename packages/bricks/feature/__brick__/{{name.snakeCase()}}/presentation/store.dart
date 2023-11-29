@@ -4,7 +4,7 @@ import 'package:app_template/features/{{name.snakeCase()}}/data/sources/{{name.s
 import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/{{name.snakeCase()}}_repository.dart';
-import '../data/sources/{{name.snakeCase()}}_in_memory.dart';
+import '../data/sources/{{name.snakeCase()}}_local.dart';
 import '../data/sources/{{name.snakeCase()}}_source.dart';
 import '../domain/models/{{name.snakeCase()}}_model.dart';
 import '../domain/repositories/{{name.snakeCase()}}_repository.dart';

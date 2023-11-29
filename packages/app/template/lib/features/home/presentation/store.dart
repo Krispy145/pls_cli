@@ -4,7 +4,7 @@ import 'package:app_template/features/home/data/sources/home_api.dart';
 import 'package:utilities/widgets/load_state/base_store.dart';
 
 import '../data/repositories/home_repository.dart';
-import '../data/sources/home_in_memory.dart';
+import '../data/sources/home_local.dart';
 import '../data/sources/home_source.dart';
 import '../domain/models/home_model.dart';
 import '../domain/repositories/home_repository.dart';
@@ -30,7 +30,7 @@ abstract class HomeBaseStore extends LoadStateStore with Store {
   /// [repository] is an instance of [HomeRepository], which takes in the appropriate [dataSource].
   /// This can be in memory or an api.
   @computed
-  HomeRepository get repository => HomeDataRepository(dataSource);
+  HomeRepository get repository => HomeRepository(dataSource);
 
   /// [homes] is an observable list of [HomeModel]s.
   @observable
