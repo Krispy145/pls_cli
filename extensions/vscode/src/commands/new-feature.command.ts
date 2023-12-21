@@ -2,7 +2,10 @@ import { Uri, window, workspace } from "vscode";
 import { exec } from "child_process";
 import { getTargetDirectory } from "../utils/get-target-directory";
 import * as path from "path";
-import { buildRunner } from "../utils/build_runner";
+import {
+  buildRunner,
+  runCommandInWorkspaceFolder,
+} from "../utils/build_runner";
 // import { createLoggerFeatureString } from "../utils/add_to_files";
 
 export const newFeature = async (args: Uri) => {
@@ -11,9 +14,9 @@ export const newFeature = async (args: Uri) => {
       prompt: "Name of the feature",
       placeHolder: "Feature name",
     });
-    const targetDir = await getTargetDirectory(args);
+    const workspaceFolder = workspace.workspaceFolders?.[0];
 
-    if (name) {
+    if (name && workspaceFolder) {
       //  // Create a logger feature string using the provided name
       //  const loggerFeatureString = createLoggerFeatureString(name);
 
@@ -22,16 +25,14 @@ export const newFeature = async (args: Uri) => {
 
       //  // Replace the content within the logger feature file
       //  writeFileWithReplacement(loggerFeatureFilePath, loggerFeatureString);
-      const commandNewFeature = `rn add feature --name ${name} --path ${targetDir}`;
-      exec(commandNewFeature, async (error, stdout, stderr) => {
-        if (error) {
-          // Handle the error by displaying an error message to the user
-          window.showErrorMessage(`Error creating feature: ${error.message}`);
-        }
-      });
+      const commandNewFeature = `rn add feature --name ${name}`;
+      await runCommandInWorkspaceFolder(
+        workspaceFolder.uri.fsPath,
+        commandNewFeature
+      );
 
       // Continue with running the build runner command
-      await buildRunner("Feature and Logger");
+      await buildRunner("Feature");
     }
   } catch (error) {
     window.showErrorMessage(`Error: ${error}`);

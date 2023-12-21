@@ -5,7 +5,7 @@ import 'package:render_cli/src/logger.dart';
 import 'package:render_cli/src/process_runner.dart';
 
 ///Path for the Github CLI
-const githubPath = "git@github.com:Krispy145/digital-oasis-cli.git";
+const githubPath = "git@github.com:digital-oasis-dubai/digital-oasis-cli.git";
 
 /// Consistent base for all commands
 abstract class RenderCommand extends Command<void> {
@@ -34,8 +34,10 @@ abstract class RenderCommand extends Command<void> {
   }
 
   /// Runs the function from the root lib directory
-  Future<void> runInLibDirectory(Future<void> Function() function,
-      {String? extensionPath,}) async {
+  Future<void> runInLibDirectory(
+    Future<void> Function() function, {
+    String? extensionPath,
+  }) async {
     // Get the current directory
     var currentDirectory = Directory.current;
 
@@ -47,8 +49,7 @@ abstract class RenderCommand extends Command<void> {
 
     try {
       // Loop through the parent directories until you reach the root folder
-      while (currentDirectory.path != '/' &&
-          !currentDirectory.path.endsWith(rootFolderName)) {
+      while (currentDirectory.path != '/' && !currentDirectory.path.endsWith(rootFolderName)) {
         currentDirectory = currentDirectory.parent;
       }
 
@@ -56,8 +57,7 @@ abstract class RenderCommand extends Command<void> {
       if (currentDirectory.path.endsWith(rootFolderName)) {
         if (extensionPath != null) {
           // Get the extension directory
-          final extensionDirectory =
-              Directory.fromUri(currentDirectory.uri.resolve(extensionPath));
+          final extensionDirectory = Directory.fromUri(currentDirectory.uri.resolve(extensionPath));
 
           // Check if the directory exists
           if (!extensionDirectory.existsSync()) {
@@ -69,8 +69,7 @@ abstract class RenderCommand extends Command<void> {
           Directory.current = extensionDirectory;
         } else {
           // Get the lib directory
-          final libDirectory =
-              Directory.fromUri(currentDirectory.uri.resolve('lib'));
+          final libDirectory = Directory.fromUri(currentDirectory.uri.resolve('lib'));
 
           // Change the working directory to the lib folder
           Directory.current = libDirectory;
