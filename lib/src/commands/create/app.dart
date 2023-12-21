@@ -110,11 +110,11 @@ class CreateAppCommand extends RenderCommand {
       );
     }
 
-    final selectedRoute = await _handleProjectStructureSelection();
-    final isDefault = selectedRoute == Structure.Default;
-    final isDefaultmap = selectedRoute == Structure.DefaultMap;
-    final isMap = selectedRoute == Structure.Map;
-    final isDashboard = selectedRoute == Structure.Dashboard;
+    final selectedStructure = await _handleProjectStructureSelection();
+    final isDefault = selectedStructure == Structure.Default;
+    final isDefaultmap = selectedStructure == Structure.DefaultMap;
+    final isMap = selectedStructure == Structure.Map;
+    final isDashboard = selectedStructure == Structure.Dashboard;
 
     final generateProgress = logger.progress('Creating');
 
@@ -142,11 +142,8 @@ class CreateAppCommand extends RenderCommand {
         message: 'Generated ${files.length} file(s)',
         showTiming: true,
       );
-      await runInLibDirectory(
-        () => runScripts(["rn add structure --type ${selectedRoute.name}", "rn add feature --name home"]),
-      );
-      // Run scripts defined in pubspec.yaml after project generation
-      await _runScripts(_hasFirebase);
+
+      await _runScripts(_hasFirebase, selectedStructure);
     } catch (e) {
       generateProgress.finish(
         message: 'Failed to generate files',
@@ -207,7 +204,7 @@ class CreateAppCommand extends RenderCommand {
   //   }
   // }
 
-  Future<void> _runScripts(bool _hasFirebase) async {
+  Future<void> _runScripts(bool _hasFirebase, Structure selectedStructure) async {
     final projectDirectory = Directory("./$_projectName");
     if (!projectDirectory.existsSync()) {
       logger.err('Project directory not found: $_projectName');
@@ -219,6 +216,8 @@ class CreateAppCommand extends RenderCommand {
     logger.info("Changed directory to $_projectName".green);
 
     await runScripts([
+      "rn add structure --type ${selectedStructure.name}",
+      "rn add feature --name home",
       if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
       'flutter clean',
       'flutter pub get',

@@ -46,8 +46,9 @@ dev_dependencies:
   json_serializable: ^6.7.1
   flutter_lints: ^2.0.0
   mobx_codegen: ^2.3.0
-  build_runner:
+  build_runner:  
   flutter_gen_runner:
+  auto_route_generator: ^7.3.2
   hive_generator: ^2.0.1
 
 flutter_gen:

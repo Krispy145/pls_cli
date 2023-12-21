@@ -1,5 +1,4 @@
 import 'package:{{project_name.snakeCase()}}/dependencies/injection.dart';
-import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 
 {{#has_firebase}}
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -40,19 +39,19 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ThemedMaterialApp(
       themeStore: Managers.themeStateStore,
-      materialAppBuilder: (lightTheme, darkTheme, currentThemeMode) =>
-          MaterialApp.router(
+      materialAppBuilder: (lightTheme, darkTheme, currentThemeMode) => MaterialApp.router(
         title: '{{project_name.titleCase()}}',
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: currentThemeMode,
-        routerConfig: AppRouter.router(
+        routerConfig: Managers.router.config(
           {{#has_firebase}}
           observers: !kIsWeb
               ? [
                   FirebaseAnalyticsObserver(
-                      analytics: FirebaseAnalytics.instance)
+                    analytics: FirebaseAnalytics.instance,
+                  ),
                 ]
               : null,
 
