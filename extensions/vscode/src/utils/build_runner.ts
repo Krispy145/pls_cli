@@ -60,12 +60,36 @@ export const runCommandInWorkspaceFolder = async (
   command: string
 ): Promise<{ error?: string }> => {
   return new Promise((resolve) => {
-    exec(command, { cwd: folderPath }, (error, stdout, stderr) => {
-      if (error) {
-        resolve({ error: error.message });
-      } else {
-        resolve({});
+    window.showInformationMessage(
+      `Running command in ${folderPath}: ${command}`
+    );
+
+    const childProcess = exec(
+      command,
+      { cwd: folderPath },
+      (error, stdout, stderr) => {
+        if (error) {
+          window.showErrorMessage(`Error executing command: ${error.message}`);
+          window.showErrorMessage(`Command output: ${stderr}`);
+          resolve({ error: error.message });
+        } else {
+          window.showInformationMessage(`Command output: ${stdout}`);
+          window.showInformationMessage(
+            `Command executed successfully in ${folderPath}`
+          );
+          resolve({});
+        }
       }
+    );
+
+    // Log the progress of the command
+    childProcess.stdout?.on("data", (data) => {
+      window.showInformationMessage(`Progress: ${data}`);
+    });
+
+    // Log errors, if any, during the execution
+    childProcess.stderr?.on("data", (data) => {
+      window.showErrorMessage(`Error during execution: ${data}`);
     });
   });
 };
