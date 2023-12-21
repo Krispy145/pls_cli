@@ -1,4 +1,5 @@
 import 'package:app_template/core/assets/assets.gen.dart';
+import 'package:app_template/navigation/routes.dart';
 import 'package:get_it/get_it.dart';
 
 /// IS_DASHBOARD START
@@ -77,8 +78,10 @@ class ManagerInjector {
   void _initCore({required FlavorConfig flavorConfig}) {
     AppLogger.print("Initializing core services...", [LoggerFeatures.dependancyInjection]);
     _serviceLocator
+    ..registerSingleton(AppRouter())
       ..registerLazySingleton<ConnectionStateStore>(ConnectionStateStore.new)
       ..registerLazySingleton<FlavorManager>(() => FlavorManager(flavorConfig: flavorConfig));
+      
 
     ///END OF CORE
   }
@@ -123,7 +126,14 @@ class ManagerInjector {
     ///END OF EXTERNAL
   }
 
+
+
+  
+
   /// Getters for all services
+  /// [AppRouter] getter
+  AppRouter get router => GetIt.instance.get<AppRouter>();
+  
   /// [FlavorManager] getter
   FlavorManager get _flavor => _serviceLocator.get<FlavorManager>();
 

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:render_cli/src/commands/base.dart';
 
 import 'assets.dart';
@@ -11,6 +13,7 @@ import 'model.dart';
 import 'multi_notifications_feature.dart';
 import 'notifications_feature.dart';
 import 'presentation_layer.dart';
+import 'structures.dart';
 
 /// {@template addCommand}
 /// Add various parts the app.
@@ -21,6 +24,7 @@ class AddCommand extends RenderCommand {
     addSubcommand(FontsCommand());
     addSubcommand(ComponentCommand());
     addSubcommand(FeatureCommand());
+    addSubcommand(StructuresCommand());
     addSubcommand(DataLayerCommand());
     addSubcommand(DomainLayerCommand());
     addSubcommand(PresentationLayerCommand());

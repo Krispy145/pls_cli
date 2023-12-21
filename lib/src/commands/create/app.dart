@@ -5,6 +5,7 @@ import 'package:ansi_styles/extension.dart';
 import 'package:mason/mason.dart';
 import 'package:render_cli/bundles/_bundles.dart';
 import 'package:render_cli/src/commands/base.dart';
+import 'package:render_cli/src/utils/structures.dart';
 
 // A valid Dart identifier that can be used for a package, i.e. no
 // capital letters.
@@ -20,28 +21,6 @@ typedef MasonGeneratorFromBundle = Future<MasonGenerator> Function(MasonBundle);
 
 /// A method which returns a [Future<MasonGenerator>] given a [Brick].
 typedef MasonGeneratorFromBrick = Future<MasonGenerator> Function(Brick);
-
-enum Structure {
-  Default,
-  Map,
-  DefaultMap,
-  Dashboard,
-}
-
-extension ProjectStructureExtension on Structure {
-  String get routesFileName {
-    switch (this) {
-      case Structure.Default:
-        return 'default_routes.dart';
-      case Structure.Map:
-        return 'map_routes.dart';
-      case Structure.DefaultMap:
-        return 'default_map_routes.dart';
-      case Structure.Dashboard:
-        return 'dashboard_routes.dart';
-    }
-  }
-}
 
 /// {@template modelCommand}
 /// Add a new model the app.
@@ -120,8 +99,7 @@ class CreateAppCommand extends RenderCommand {
     );
 
     final confirm = logger.confirm(
-      prompt:
-          "Create project with the following bundle id's \n 🍎 ios: $iosBundleId \n 🤖 android: $androidBundleId \n",
+      prompt: "Create project with the following bundle id's \n 🍎 ios: $iosBundleId \n 🤖 android: $androidBundleId \n",
     );
 
     if (!confirm) return;
@@ -165,7 +143,7 @@ class CreateAppCommand extends RenderCommand {
         showTiming: true,
       );
       await runInLibDirectory(
-        () => _setupStructureFiles(target.dir.path, selectedRoute),
+        () => runScripts(["rn add structure --type ${selectedRoute.name}"]),
       );
       // Run scripts defined in pubspec.yaml after project generation
       await _runScripts(_hasFirebase);
@@ -183,49 +161,51 @@ class CreateAppCommand extends RenderCommand {
       options: Structure.values.map((e) => e.name).toList(),
     );
 
-    return Structure.values
-        .firstWhere((element) => element.name == selectedStructure);
+    return Structure.values.firstWhere((element) => element.name == selectedStructure);
   }
 
-  Future<void> _setupStructureFiles(
-      String targetPath, Structure selectedStructure,) async {
-    // Create a progress indicator for adding the structure files
-    final structureProgress = logger.progress('Add Structure Files');
-    try {
-      MasonBundle structureBundle() {
-        switch (selectedStructure) {
-          case Structure.Default:
-            return defaultStructureBundle;
-          case Structure.Map:
-            return mapStructureBundle;
-          case Structure.DefaultMap:
-            return defaultMapStructureBundle;
-          case Structure.Dashboard:
-            return dashboardStructureBundle;
-        }
-      }
+  // Future<void> _setupStructureFiles(
+  //   String targetPath,
+  //   Structure selectedStructure,
+  // ) async {
+  //   // Create a progress indicator for adding the structure files
+  //   final structureProgress = logger.progress('Add Structure Files');
+  //   try {
+  //     MasonBundle structureBundle() {
+  //       switch (selectedStructure) {
+  //         case Structure.Default:
+  //           return defaultStructureBundle;
+  //         case Structure.Map:
+  //           return mapStructureBundle;
+  //         case Structure.DefaultMap:
+  //           return defaultMapStructureBundle;
+  //         case Structure.Dashboard:
+  //           return dashboardStructureBundle;
+  //       }
+  //     }
 
-      final generator = await MasonGenerator.fromBundle(structureBundle());
+  //     final generator = await MasonGenerator.fromBundle(structureBundle());
 
-      final target = DirectoryGeneratorTarget(Directory.current);
+  //     final target = DirectoryGeneratorTarget(Directory.current);
 
-      final files = await generator.generate(
-        target,
-        fileConflictResolution: FileConflictResolution.overwrite,
-        logger: Logger(),
-      );
+  //     final files = await generator.generate(
+  //       target,
+  //       fileConflictResolution: FileConflictResolution.overwrite,
+  //       logger: Logger(),
+  //     );
 
-      structureProgress.finish(
-        message:
-            ' ${selectedStructure.name} Structure Files Added: ${files.length} file(s)',
-        showTiming: true,
-      );
-    } catch (e) {
-      structureProgress.finish(
-          message: "Failed to add structure files: $e", showTiming: true,);
-      throw Exception('Failed to add structure files');
-    }
-  }
+  //     structureProgress.finish(
+  //       message: ' ${selectedStructure.name} Structure Files Added: ${files.length} file(s)',
+  //       showTiming: true,
+  //     );
+  //   } catch (e) {
+  //     structureProgress.finish(
+  //       message: "Failed to add structure files: $e",
+  //       showTiming: true,
+  //     );
+  //     throw Exception('Failed to add structure files');
+  //   }
+  // }
 
   Future<void> _runScripts(bool _hasFirebase) async {
     final projectDirectory = Directory("./$_projectName");
@@ -239,8 +219,7 @@ class CreateAppCommand extends RenderCommand {
     logger.info("Changed directory to $_projectName".green);
 
     await runScripts([
-      if (_hasFirebase)
-        'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
+      if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
       'flutter clean',
       'flutter pub get',
       'flutter pub run build_runner build --delete-conflicting-outputs',

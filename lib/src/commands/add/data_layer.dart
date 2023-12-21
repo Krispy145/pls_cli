@@ -29,14 +29,14 @@ class DataLayerCommand extends BrickCommandBase {
 
   void _addRepositoriesFile() {
     final currentDirectory = Directory.current;
-    final _featureName = argResults?['name'] as String? ??
-        logger.prompt(prompt: "What is the name of the feature?");
+    final _featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the feature?");
     if (currentDirectory.existsSync()) {
       final file = File.fromUri(
-          currentDirectory.uri.resolve('repositories/_repositories.dart'),);
+        currentDirectory.uri.resolve('repositories/_repositories.dart'),
+      );
       final fileExists = file.existsSync();
       final _repositoryString = '''
-/// [${_featureName.camelCase}] is the [${_featureName.pascalCase}DataRepository] instance.
+  /// [${_featureName.camelCase}] is the [${_featureName.pascalCase}DataRepository] instance.
   final ${_featureName.pascalCase}DataRepository ${_featureName.camelCase} = ${_featureName.pascalCase}DataRepository();
 
   ///END OF REPOSITORIES
@@ -53,8 +53,10 @@ class DataLayerCommand extends BrickCommandBase {
 
           // Modify the content and write it back
           final modifiedContent = fileContent
-              .replaceFirst('///END OF IMPORTS',
-                  "import '${_featureName.snakeCase}.repository.dart';\n///END OF IMPORTS",)
+              .replaceFirst(
+                '///END OF IMPORTS',
+                "import '${_featureName.snakeCase}.repository.dart';\n///END OF IMPORTS",
+              )
               .replaceFirst('///END OF REPOSITORIES', _repositoryString);
 
           file.writeAsString(modifiedContent);
