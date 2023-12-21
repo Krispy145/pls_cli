@@ -57,17 +57,14 @@ export const addNotifications = async (args: Uri) => {
     var runCommandResult;
     if (notificationType === "Local") {
       runCommandResult = await runCommandInWorkspaceFolder(
-        workspaceFolder.uri.fsPath,
         "rn add notifications_feature --path lib/features -s local_notifications_store -r local_store --is_push false"
       );
     } else if (notificationType === "Push")
       runCommandResult = await runCommandInWorkspaceFolder(
-        workspaceFolder.uri.fsPath,
         "rn add notifications_feature --path lib/features -s push_notifications_store -r push_store --is_push true"
       );
     else if (notificationType === "Both") {
       runCommandResult = await runCommandInWorkspaceFolder(
-        workspaceFolder.uri.fsPath,
         "rn add multi_notifications_feature --path lib/features"
       );
     }

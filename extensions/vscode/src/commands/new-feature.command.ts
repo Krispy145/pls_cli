@@ -14,9 +14,8 @@ export const newFeature = async (args: Uri) => {
       prompt: "Name of the feature",
       placeHolder: "Feature name",
     });
-    const workspaceFolder = workspace.workspaceFolders?.[0];
 
-    if (name && workspaceFolder) {
+    if (name) {
       //  // Create a logger feature string using the provided name
       //  const loggerFeatureString = createLoggerFeatureString(name);
 
@@ -26,10 +25,9 @@ export const newFeature = async (args: Uri) => {
       //  // Replace the content within the logger feature file
       //  writeFileWithReplacement(loggerFeatureFilePath, loggerFeatureString);
       const commandNewFeature = `rn add feature --name ${name}`;
-      await runCommandInWorkspaceFolder(
-        workspaceFolder.uri.fsPath,
-        commandNewFeature
-      );
+      await runCommandInWorkspaceFolder(commandNewFeature, {
+        folderPath: "lib",
+      });
 
       // Continue with running the build runner command
       await buildRunner("Feature");
