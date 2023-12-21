@@ -72,7 +72,7 @@
       "digital-oasis.submenu": [
         {
           "command": "digital-oasis.new-feature",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(features))$/"
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
         },
         {
           "command": "digital-oasis.add-component",

@@ -40,7 +40,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ThemedMaterialApp(
       themeStore: Managers.themeStateStore,
-      materialAppBuilder: (lightTheme, darkTheme, currentThemeMode) => MaterialApp.router(
+      materialAppBuilder: (lightTheme, darkTheme, currentThemeMode) =>
+          MaterialApp.router(
         title: '{{project_name.titleCase()}}',
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
@@ -48,7 +49,12 @@ class MainApp extends StatelessWidget {
         themeMode: currentThemeMode,
         routerConfig: AppRouter.router(
           {{#has_firebase}}
-          observers: !kIsWeb ? [FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)] : null,
+          observers: !kIsWeb
+              ? [
+                  FirebaseAnalyticsObserver(
+                      analytics: FirebaseAnalytics.instance)
+                ]
+              : null,
 
           {{/has_firebase}}
         ),

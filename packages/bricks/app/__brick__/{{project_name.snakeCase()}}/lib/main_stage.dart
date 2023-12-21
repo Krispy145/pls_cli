@@ -1,8 +1,8 @@
 import 'package:{{project_name.snakeCase()}}/app.dart';
 
 {{#has_firebase}}
-import 'package:{{project_name.snakeCase()}}/firebase/firebase_options_stage.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:{{project_name.snakeCase()}}/firebase/firebase_options_stage.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 {{/has_firebase}}
 import 'package:flutter/widgets.dart';
@@ -17,10 +17,10 @@ void main() async {
 
   {{#has_firebase}}
   // Initialise firebase project
-  await Firebase.initializeApp(
-    name: flavorConfig.environment.name,
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   name: flavorConfig.environment.name,
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   {{/has_firebase}}
   appMain(flavorConfig: flavorConfig);

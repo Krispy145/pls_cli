@@ -3,8 +3,7 @@ import { exec } from "child_process";
 import { getTargetDirectory } from "../utils/get-target-directory";
 import * as path from "path";
 import { buildRunner } from "../utils/build_runner";
-import { createLoggerFeatureString } from "../utils/add_to_files";
-
+// import { createLoggerFeatureString } from "../utils/add_to_files";
 
 export const newFeature = async (args: Uri) => {
   try {
@@ -15,14 +14,14 @@ export const newFeature = async (args: Uri) => {
     const targetDir = await getTargetDirectory(args);
 
     if (name) {
-       // Create a logger feature string using the provided name
-       const loggerFeatureString = createLoggerFeatureString(name);
+      //  // Create a logger feature string using the provided name
+      //  const loggerFeatureString = createLoggerFeatureString(name);
 
-       // Get the path to the logger feature file
-       const loggerFeatureFilePath = getLoggerFeatureFilePath();
+      //  // Get the path to the logger feature file
+      //  const loggerFeatureFilePath = getLoggerFeatureFilePath();
 
-       // Replace the content within the logger feature file
-       writeFileWithReplacement(loggerFeatureFilePath, loggerFeatureString);
+      //  // Replace the content within the logger feature file
+      //  writeFileWithReplacement(loggerFeatureFilePath, loggerFeatureString);
       const commandNewFeature = `rn add feature --name ${name} --path ${targetDir}`;
       exec(commandNewFeature, async (error, stdout, stderr) => {
         if (error) {
@@ -32,16 +31,12 @@ export const newFeature = async (args: Uri) => {
       });
 
       // Continue with running the build runner command
-      await buildRunner('Feature and Logger');     
+      await buildRunner("Feature and Logger");
     }
-  } catch (error) {    
+  } catch (error) {
     window.showErrorMessage(`Error: ${error}`);
   }
 };
-
-
-
-
 
 // Function to get the path to the logger feature file
 const getLoggerFeatureFilePath = (): string => {
@@ -57,7 +52,6 @@ const getLoggerFeatureFilePath = (): string => {
     throw new Error("No workspace folder found.");
   }
 };
-
 
 // Function to write content to a file, replacing a specific text
 const writeFileWithReplacement = (
@@ -76,5 +70,3 @@ const writeFileWithReplacement = (
     throw new Error(`Error writing to file: ${error}`);
   }
 };
-
-
