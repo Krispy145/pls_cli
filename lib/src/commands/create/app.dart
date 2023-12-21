@@ -143,7 +143,7 @@ class CreateAppCommand extends RenderCommand {
         showTiming: true,
       );
       await runInLibDirectory(
-        () => runScripts(["rn add structure --type ${selectedRoute.name}"]),
+        () => runScripts(["rn add structure --type ${selectedRoute.name}", "rn add feature --name home"]),
       );
       // Run scripts defined in pubspec.yaml after project generation
       await _runScripts(_hasFirebase);
