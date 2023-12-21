@@ -161,49 +161,6 @@ class CreateAppCommand extends RenderCommand {
     return Structure.values.firstWhere((element) => element.name == selectedStructure);
   }
 
-  // Future<void> _setupStructureFiles(
-  //   String targetPath,
-  //   Structure selectedStructure,
-  // ) async {
-  //   // Create a progress indicator for adding the structure files
-  //   final structureProgress = logger.progress('Add Structure Files');
-  //   try {
-  //     MasonBundle structureBundle() {
-  //       switch (selectedStructure) {
-  //         case Structure.Default:
-  //           return defaultStructureBundle;
-  //         case Structure.Map:
-  //           return mapStructureBundle;
-  //         case Structure.DefaultMap:
-  //           return defaultMapStructureBundle;
-  //         case Structure.Dashboard:
-  //           return dashboardStructureBundle;
-  //       }
-  //     }
-
-  //     final generator = await MasonGenerator.fromBundle(structureBundle());
-
-  //     final target = DirectoryGeneratorTarget(Directory.current);
-
-  //     final files = await generator.generate(
-  //       target,
-  //       fileConflictResolution: FileConflictResolution.overwrite,
-  //       logger: Logger(),
-  //     );
-
-  //     structureProgress.finish(
-  //       message: ' ${selectedStructure.name} Structure Files Added: ${files.length} file(s)',
-  //       showTiming: true,
-  //     );
-  //   } catch (e) {
-  //     structureProgress.finish(
-  //       message: "Failed to add structure files: $e",
-  //       showTiming: true,
-  //     );
-  //     throw Exception('Failed to add structure files');
-  //   }
-  // }
-
   Future<void> _runScripts(bool _hasFirebase, Structure selectedStructure) async {
     final projectDirectory = Directory("./$_projectName");
     if (!projectDirectory.existsSync()) {
@@ -211,20 +168,35 @@ class CreateAppCommand extends RenderCommand {
       return;
     }
 
+    // Save the current working directory
+    final currentDirectory = Directory.current;
+
     // Change the current working directory to the project directory
     Directory.current = projectDirectory;
-    logger.info("Changed directory to $_projectName".green);
+    logger.info("Changed directory to $_projectName".blue);
+
+    // Now, change into the lib directory
+    final libDirectory = Directory('./lib');
+    if (!libDirectory.existsSync()) {
+      logger.err('lib directory not found in the project.');
+      return;
+    }
+
+    Directory.current = libDirectory;
+    logger.info("Changed directory to lib".blue);
 
     await runScripts([
+      if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
       "rn add structure --type ${selectedStructure.name}",
       "rn add feature --name home",
-      if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
       'flutter clean',
       'flutter pub get',
-      'flutter pub run build_runner build --delete-conflicting-outputs',
-      'dart format .',
-      'dart fix --apply',
     ]);
+
+    // Change the current working directory back to the original project directory
+    Directory.current = currentDirectory;
+    Directory.current = projectDirectory;
+    logger.info("Changed directory back to original project directory".blue);
 
     // Open VS Code with the project directory
     await Process.start('code', ['.', './README.md']);

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:render_cli/src/commands/base.dart';
 
 import 'assets.dart';
@@ -16,7 +14,7 @@ import 'presentation_layer.dart';
 import 'structures.dart';
 
 /// {@template addCommand}
-/// Add various parts the app.
+/// Add various parts of the app.
 /// {@endtemplate}
 class AddCommand extends RenderCommand {
   /// {@macro addCommand}

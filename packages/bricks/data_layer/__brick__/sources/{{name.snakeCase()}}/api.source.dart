@@ -8,9 +8,10 @@ import '_source.dart';
 /// [Api{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
 class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase()}}Model> implements {{name.pascalCase()}}DataSource {
   /// [Api{{name.pascalCase()}}DataSource] constructor.
-  Api{{name.pascalCase()}}DataSource(super.baseUrl)
+  Api{{name.pascalCase()}}DataSource()
       : super(
-          sourceSuffix: baseUrl,
+          Managers.flavor.apiPrefix,
+          sourceSuffix: "{{name.snakeCase()}}",
           convertDataTypeFromMap: {{name.pascalCase()}}Model.fromJson,
           convertDataTypeToMap: (data) => data.toJson(),
         );

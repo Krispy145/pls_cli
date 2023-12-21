@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final flavorConfig = FlavorConfig(
     environment: Environment.development,
-    apiPrefix: "",
+    apiPrefix: "dev_base_url",
   );
 
   /// FIREBASE START

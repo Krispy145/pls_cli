@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:mason/mason.dart';
 import 'package:render_cli/src/commands/base.dart';
 import 'package:render_cli/src/utils/structures.dart';
+
+import '../../../bundles/_bundles.dart';
 
 /// {@template structureCommand}
 /// Add a structure to the app.
@@ -30,36 +34,53 @@ class StructuresCommand extends RenderCommand {
         );
     final structureType = Structure.values.firstWhere((e) => e.name == structureArg.pascalCase, orElse: () => Structure.Default);
 
-    switch (structureType) {
-      case Structure.Default:
-        await runInLibDirectory(
-          () => runScripts(["rn add default_structure"]),
-          extensionPath: 'navigation',
-        );
-        break;
-      case Structure.DefaultMap:
-        await runInLibDirectory(
-          () => runScripts(["rn add default_map_structure"]),
-          extensionPath: 'navigation',
-        );
-        break;
-      case Structure.Map:
-        await runInLibDirectory(
-          () => runScripts(["rn add map_structure"]),
-          extensionPath: 'navigation',
-        );
-        break;
-      case Structure.Dashboard:
-        await runInLibDirectory(
-          () => runScripts(["rn add dashboard_structure"]),
-          extensionPath: 'navigation',
-        );
-        break;
-    }
+    await runInLibDirectory(() => _setupStructureFiles(structureType), extensionPath: 'navigation');
 
     return runScripts([
       'dart format .',
       'dart fix --apply',
     ]);
+  }
+
+  Future<void> _setupStructureFiles(
+    Structure selectedStructure,
+  ) async {
+    // Create a progress indicator for adding the structure files
+    final structureProgress = logger.progress('Add Structure Files');
+    try {
+      MasonBundle structureBundle() {
+        switch (selectedStructure) {
+          case Structure.Default:
+            return defaultStructureBundle;
+          case Structure.Map:
+            return mapStructureBundle;
+          case Structure.DefaultMap:
+            return defaultMapStructureBundle;
+          case Structure.Dashboard:
+            return dashboardStructureBundle;
+        }
+      }
+
+      final generator = await MasonGenerator.fromBundle(structureBundle());
+
+      final target = DirectoryGeneratorTarget(Directory.current);
+
+      final files = await generator.generate(
+        target,
+        fileConflictResolution: FileConflictResolution.overwrite,
+        logger: Logger(),
+      );
+
+      structureProgress.finish(
+        message: ' ${selectedStructure.name} Structure Files Added: ${files.length} file(s)',
+        showTiming: true,
+      );
+    } catch (e) {
+      structureProgress.finish(
+        message: "Failed to add structure files: $e",
+        showTiming: true,
+      );
+      throw Exception('Failed to add structure files');
+    }
   }
 }

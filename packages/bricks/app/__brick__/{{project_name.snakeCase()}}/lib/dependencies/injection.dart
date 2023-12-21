@@ -132,7 +132,7 @@ class ManagerInjector {
 
   /// Getters for all services
   /// [AppRouter] getter
-  AppRouter get router => GetIt.instance.get<AppRouter>();
+  AppRouter get router => _serviceLocator.get<AppRouter>();
   
   /// [FlavorManager] getter
   FlavorManager get _flavor => _serviceLocator.get<FlavorManager>();

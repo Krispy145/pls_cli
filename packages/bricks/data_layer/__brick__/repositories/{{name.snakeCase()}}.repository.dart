@@ -24,7 +24,7 @@ class {{name.pascalCase()}}DataRepository {
   {{name.pascalCase()}}DataSource _dataSourceByType(SourceTypes type) {
     switch (type) {
       case SourceTypes.api:
-        return Api{{name.pascalCase()}}DataSource('/{{name.snakeCase()}}s');
+        return Api{{name.pascalCase()}}DataSource();
       case SourceTypes.local:
         return Local{{name.pascalCase()}}DataSource();
       case SourceTypes.firestore:

@@ -16,6 +16,7 @@
   "activationEvents": [
     "onCommand:digital-oasis.create-app",
     "onCommand:digital-oasis.new-feature",
+    "onCommand:digital-oasis.new-structure",
     "onCommand:digital-oasis.add-component",
     "onCommand:digital-oasis.add-model",
     "onCommand:digital-oasis.add-admob",
@@ -38,6 +39,11 @@
         "command": "digital-oasis.new-feature",
         "title": "Feature",
         "shortTitle": "New Feature"
+      },
+      {
+        "command": "digital-oasis.new-structure",
+        "title": "Structure",
+        "shortTitle": "New Structure"
       },
       {
         "command": "digital-oasis.add-component",
@@ -73,6 +79,10 @@
         {
           "command": "digital-oasis.new-feature",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
+        },
+        {
+          "command": "digital-oasis.new-structure",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|navigation))$/"
         },
         {
           "command": "digital-oasis.add-component",
