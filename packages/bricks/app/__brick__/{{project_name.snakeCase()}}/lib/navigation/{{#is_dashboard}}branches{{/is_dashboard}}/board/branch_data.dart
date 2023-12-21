@@ -10,7 +10,8 @@ class BoardShellRoute extends ShellRouteData {
   const BoardShellRoute();
 
   @override
-  Widget builder(BuildContext context, GoRouterState state, Widget navigator) => BoardShell(navigator: navigator);
+  Widget builder(BuildContext context, GoRouterState state, Widget navigator) =>
+      BoardShell(navigator: navigator);
 }
 
 /// Board Shell

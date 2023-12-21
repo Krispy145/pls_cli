@@ -120,7 +120,8 @@ class CreateAppCommand extends RenderCommand {
     );
 
     final confirm = logger.confirm(
-      prompt: "Create project with the following bundle id's \n 🍎 ios: $iosBundleId \n 🤖 android: $androidBundleId \n",
+      prompt:
+          "Create project with the following bundle id's \n 🍎 ios: $iosBundleId \n 🤖 android: $androidBundleId \n",
     );
 
     if (!confirm) return;
@@ -163,7 +164,9 @@ class CreateAppCommand extends RenderCommand {
         message: 'Generated ${files.length} file(s)',
         showTiming: true,
       );
-      await _setupStructureFiles(target.dir.path, selectedRoute);
+      await runInLibDirectory(
+        () => _setupStructureFiles(target.dir.path, selectedRoute),
+      );
       // Run scripts defined in pubspec.yaml after project generation
       await _runScripts(_hasFirebase);
     } catch (e) {
@@ -180,51 +183,47 @@ class CreateAppCommand extends RenderCommand {
       options: Structure.values.map((e) => e.name).toList(),
     );
 
-    return Structure.values.firstWhere((element) => element.name == selectedStructure);
+    return Structure.values
+        .firstWhere((element) => element.name == selectedStructure);
   }
 
-  Future<void> _setupStructureFiles(String targetPath, Structure selectedStructure) async {
-// Create a progress indicator for deleting unselected route files
-    final deleteProgress = logger.progress('Deleting unselected structure files');
-// Get the current working directory
-    final currentDirectory = Directory.current;
-
-    // Change the working directory to "utils"
-    final navigationDirectory = Directory.fromUri(currentDirectory.uri.resolve('${getTemplateVars({})['project_name']}/lib/navigation'));
+  Future<void> _setupStructureFiles(
+      String targetPath, Structure selectedStructure,) async {
+    // Create a progress indicator for adding the structure files
+    final structureProgress = logger.progress('Add Structure Files');
     try {
-      // Delete the unselected route files
-      for (final fileName in Structure.values) {
-        if (fileName != selectedStructure) {
-          final routesFile = File.fromUri(navigationDirectory.uri.resolve(fileName.routesFileName));
-          if (routesFile.existsSync()) {
-            await routesFile.delete();
-          } else {
-            logger.stderr("Couldn't find ${routesFile.path}");
-          }
+      MasonBundle structureBundle() {
+        switch (selectedStructure) {
+          case Structure.Default:
+            return defaultStructureBundle;
+          case Structure.Map:
+            return mapStructureBundle;
+          case Structure.DefaultMap:
+            return defaultMapStructureBundle;
+          case Structure.Dashboard:
+            return dashboardStructureBundle;
         }
       }
 
-      deleteProgress.finish();
-    } catch (e) {
-      deleteProgress.finish(message: "Failed to delete unselected structure files: $e", showTiming: true);
-      throw Exception('Failed to delete unselected route files');
-    }
+      final generator = await MasonGenerator.fromBundle(structureBundle());
 
-    // Create a progress indicator for renaming the selected route file
-    final renameProgress = logger.progress('Renaming selected route file');
+      final target = DirectoryGeneratorTarget(Directory.current);
 
-    try {
-      // Rename the selected route file to "routes.dart"
-      final selectedRoutesFile = File.fromUri(navigationDirectory.uri.resolve(selectedStructure.routesFileName));
-      if (selectedRoutesFile.existsSync()) {
-        await selectedRoutesFile.rename('${navigationDirectory.path}/routes.dart');
-      } else {
-        logger.stderr("Could not find file ${selectedRoutesFile.path}");
-      }
-      renameProgress.finish();
+      final files = await generator.generate(
+        target,
+        fileConflictResolution: FileConflictResolution.overwrite,
+        logger: Logger(),
+      );
+
+      structureProgress.finish(
+        message:
+            ' ${selectedStructure.name} Structure Files Added: ${files.length} file(s)',
+        showTiming: true,
+      );
     } catch (e) {
-      renameProgress.finish(message: "Failed to rename selected route file: $e", showTiming: true);
-      throw Exception('Failed to rename selected route file');
+      structureProgress.finish(
+          message: "Failed to add structure files: $e", showTiming: true,);
+      throw Exception('Failed to add structure files');
     }
   }
 
@@ -240,7 +239,8 @@ class CreateAppCommand extends RenderCommand {
     logger.info("Changed directory to $_projectName".green);
 
     await runScripts([
-      if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
+      if (_hasFirebase)
+        'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
       'flutter clean',
       'flutter pub get',
       'flutter pub run build_runner build --delete-conflicting-outputs',

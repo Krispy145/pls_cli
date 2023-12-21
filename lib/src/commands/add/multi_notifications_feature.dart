@@ -3,7 +3,7 @@ import 'package:mason/mason.dart';
 import '../../../bundles/_bundles.dart';
 import 'brick_command_base.dart';
 
-/// {@template multiNotificationsFeatureCommand
+/// {@template multiNotificationsFeatureCommand}
 /// Add multiple notification store features to the app.
 /// {@endtemplate}
 class MultiNotificationsFeatureCommand extends BrickCommandBase {

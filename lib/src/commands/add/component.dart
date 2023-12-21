@@ -32,8 +32,10 @@ class ComponentCommand extends BrickCommandBase {
         await super.run();
       } else {
         // Create a directory using the current directory path and change to that directory
-        const componentName = 'components'; // Change this to your desired component name
-        final componentDirectory = Directory('${currentDirectory.path}/$componentName');
+        const componentName =
+            'components'; // Change this to your desired component name
+        final componentDirectory =
+            Directory('${currentDirectory.path}/$componentName');
 
         // Check if the directory already exists
         if (!componentDirectory.existsSync()) {
@@ -46,7 +48,8 @@ class ComponentCommand extends BrickCommandBase {
         // Run the brick in the new component directory
         await super.run();
       }
-      return runScripts(['flutter pub run build_runner build --delete-conflicting-outputs']);
+      return runScripts(
+          ['flutter pub run build_runner build --delete-conflicting-outputs'],);
     } else {
       await super.run();
     }

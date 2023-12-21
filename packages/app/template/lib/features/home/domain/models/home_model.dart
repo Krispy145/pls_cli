@@ -15,5 +15,6 @@ class HomeModel with _$HomeModel {
   }) = _HomeModel;
 
   /// [HomeModel] factory constructor.
-  factory HomeModel.fromJson(Map<String, dynamic> json) => _$HomeModelFromJson(json);
+  factory HomeModel.fromJson(Map<String, dynamic> json) =>
+      _$HomeModelFromJson(json);
 }

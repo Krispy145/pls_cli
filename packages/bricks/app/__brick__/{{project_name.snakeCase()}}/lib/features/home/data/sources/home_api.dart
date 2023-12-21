@@ -6,7 +6,8 @@ import 'home_source.dart';
 import '../../domain/models/home_model.dart';
 
 /// [ApiHomeDataSource] is a class that implements [HomeDataSource] interface.
-class ApiHomeDataSource extends ApiDataSource<HomeModel> implements HomeDataSource {
+class ApiHomeDataSource extends ApiDataSource<HomeModel>
+    implements HomeDataSource {
   /// [ApiHomeDataSource] constructor.
   ApiHomeDataSource(super.baseUrl) : super(sourceSuffix: baseUrl);
 

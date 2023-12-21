@@ -6,7 +6,8 @@ import '../../data/sources/main_source.dart';
 import '../../domain/models/main_model.dart';
 
 /// [ApiMainDataSource] is a class that implements [MainDataSource] interface.
-class ApiMainDataSource extends ApiDataSource<MainModel> implements MainDataSource {
+class ApiMainDataSource extends ApiDataSource<MainModel>
+    implements MainDataSource {
   /// [ApiMainDataSource] constructor.
   ApiMainDataSource(super.baseUrl) : super(sourceSuffix: baseUrl);
 

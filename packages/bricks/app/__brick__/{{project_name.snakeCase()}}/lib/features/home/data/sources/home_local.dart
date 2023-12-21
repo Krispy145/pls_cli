@@ -6,7 +6,8 @@ import 'home_source.dart';
 import '../../domain/models/home_model.dart';
 
 /// [LocalHomeDataSource] is a class that implements [HomeDataSource] interface.
-class LocalHomeDataSource extends LocalDataSource<HomeModel> implements HomeDataSource {
+class LocalHomeDataSource extends LocalDataSource<HomeModel>
+    implements HomeDataSource {
   // Simulated in-memory data store
   final Map<String, HomeModel> _dataStore = {};
 

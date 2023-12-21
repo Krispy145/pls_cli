@@ -1,6 +1,10 @@
 bricks:
-  feature:
-    path: ./feature
+  data_layer:
+    path: ./data_layer
+  domain_layer:
+    path: ./domain_layer
+  presentation_layer:
+    path: ./presentation_layer
   model:
     path: ./model    
   component:
@@ -9,4 +13,12 @@ bricks:
     path: ./notifications_feature
   multi_notifications:
     path: ./multi_notifications_feature
+  dashboard_structure:
+    path: ./dashboard_structure
+  default_structure:
+    path: ./default_structure
+  map_structure:
+    path: ./map_structure
+  default_map_structure:
+    path: ./default_map_structure
   

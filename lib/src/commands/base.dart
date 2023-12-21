@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:ansi_styles/extension.dart';
 import 'package:args/command_runner.dart';
 import 'package:render_cli/src/logger.dart';
@@ -35,7 +34,8 @@ abstract class RenderCommand extends Command<void> {
   }
 
   /// Runs the function from the root lib directory
-  void runInLibDirectory(void Function() function) {
+  Future<void> runInLibDirectory(Future<void> Function() function,
+      {String? extensionPath,}) async {
     // Get the current directory
     var currentDirectory = Directory.current;
 
@@ -47,17 +47,37 @@ abstract class RenderCommand extends Command<void> {
 
     try {
       // Loop through the parent directories until you reach the root folder
-      while (currentDirectory.path != '/' && !currentDirectory.path.endsWith(rootFolderName)) {
+      while (currentDirectory.path != '/' &&
+          !currentDirectory.path.endsWith(rootFolderName)) {
         currentDirectory = currentDirectory.parent;
       }
 
       // Check if you've reached the root folder
       if (currentDirectory.path.endsWith(rootFolderName)) {
-        // Change the working directory to the root folder
-        Directory.current = currentDirectory;
+        if (extensionPath != null) {
+          // Get the extension directory
+          final extensionDirectory =
+              Directory.fromUri(currentDirectory.uri.resolve(extensionPath));
+
+          // Check if the directory exists
+          if (!extensionDirectory.existsSync()) {
+            // If it doesn't exist, create it
+            extensionDirectory.createSync(recursive: true);
+          }
+
+          // Change the working directory to the extension folder
+          Directory.current = extensionDirectory;
+        } else {
+          // Get the lib directory
+          final libDirectory =
+              Directory.fromUri(currentDirectory.uri.resolve('lib'));
+
+          // Change the working directory to the lib folder
+          Directory.current = libDirectory;
+        }
 
         // Run the provided function
-        function();
+        await function();
       } else {
         // The root folder was not found
         logger.err('Root "$rootFolderName" folder not found.');

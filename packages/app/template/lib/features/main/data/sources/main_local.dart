@@ -6,7 +6,8 @@ import '../../data/sources/main_source.dart';
 import '../../domain/models/main_model.dart';
 
 /// [LocalMainDataSource] is a class that implements [MainDataSource] interface.
-class LocalMainDataSource extends LocalDataSource<MainModel> implements MainDataSource {
+class LocalMainDataSource extends LocalDataSource<MainModel>
+    implements MainDataSource {
   // Simulated in-memory data store
   final Map<String, MainModel> _dataStore = {};
 

@@ -23,10 +23,12 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/skate-oasis-circle.png
-  AssetGenImage get skateOasisCircle => const AssetGenImage('assets/images/skate-oasis-circle.png');
+  AssetGenImage get skateOasisCircle =>
+      const AssetGenImage('assets/images/skate-oasis-circle.png');
 
   /// File path: assets/images/skate-oasis-square.png
-  AssetGenImage get skateOasisSquare => const AssetGenImage('assets/images/skate-oasis-square.png');
+  AssetGenImage get skateOasisSquare =>
+      const AssetGenImage('assets/images/skate-oasis-square.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [skateOasisCircle, skateOasisSquare];

@@ -55,7 +55,8 @@ class ProcessRunner {
     bool logStderrAsError = false,
     String? workingDirectory,
   }) async {
-    final process = await Process.start(exec, args, workingDirectory: workingDirectory);
+    final process =
+        await Process.start(exec, args, workingDirectory: workingDirectory);
     final errLog = logStderrAsError ? _logger.warn : _logger.info;
     await Future.wait<void>([
       process.stdout.transform(utf8.decoder).forEach(_logger.info),

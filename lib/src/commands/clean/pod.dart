@@ -8,8 +8,7 @@ import 'package:render_cli/src/utils/find_project_root.dart';
 /// Clean the pod files. Deletes pods, podfile.lock and reinstalls
 /// {@endtemplate}
 class PodCleanCommand extends RenderCommand {
-  /// {@template podclean}
-
+  /// {@macro podclean}
   PodCleanCommand() {
     argParser.addFlag("repo-update", abbr: "u");
   }
@@ -46,15 +45,13 @@ class PodCleanCommand extends RenderCommand {
     Directory.current = podsDir.parent;
 
     var spinner = logger.spinner(
-      rightPrompt: (complete) =>
-          complete ? "Finished deleting Pods folder" : "Deleting Pods folder.",
+      rightPrompt: (complete) => complete ? "Finished deleting Pods folder" : "Deleting Pods folder.",
     );
     podsDir.deleteSync(recursive: true);
     spinner.done();
 
     spinner = logger.spinner(
-      rightPrompt: (complete) =>
-          complete ? "Deleted Podfile.lock" : "Deleting Podfile.lock.",
+      rightPrompt: (complete) => complete ? "Deleted Podfile.lock" : "Deleting Podfile.lock.",
     );
     podfileLock.deleteSync();
     spinner.done();

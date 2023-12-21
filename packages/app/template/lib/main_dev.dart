@@ -1,8 +1,8 @@
 import 'package:app_template/app.dart';
 
 /// FIREBASE START
-import 'package:app_template/firebase/firebase_options_dev.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:app_template/firebase/firebase_options_dev.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 /// FIREBASE END
 import 'package:flutter/widgets.dart';
@@ -17,10 +17,10 @@ void main() async {
 
   /// FIREBASE START
   // Initialise firebase project
-  await Firebase.initializeApp(
-    name: flavorConfig.environment.name,
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   name: flavorConfig.environment.name,
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   /// FIREBASE END
   appMain(flavorConfig: flavorConfig);

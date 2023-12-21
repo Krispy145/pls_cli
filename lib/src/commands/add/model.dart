@@ -53,7 +53,8 @@ class ModelCommand extends BrickCommandBase {
         // Run the brick in the new model directory
         await super.run();
       }
-      return runScripts(['flutter pub run build_runner build --delete-conflicting-outputs']);
+      return runScripts(
+          ['flutter pub run build_runner build --delete-conflicting-outputs'],);
     } else {
       await super.run();
     }

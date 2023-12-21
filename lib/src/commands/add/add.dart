@@ -1,15 +1,16 @@
-import 'package:render_cli/src/commands/add/assets.dart';
-import 'package:render_cli/src/commands/add/fonts.dart';
-import 'package:render_cli/src/commands/add/multi_notifications_feature.dart';
-import 'package:render_cli/src/commands/add/notifications_feature.dart';
-
 import 'package:render_cli/src/commands/base.dart';
 
+import 'assets.dart';
 import 'component.dart';
-
+import 'data_layer.dart';
+import 'domain_layer.dart';
 import 'feature.dart';
-
+import 'fonts.dart';
+import 'logger.dart';
 import 'model.dart';
+import 'multi_notifications_feature.dart';
+import 'notifications_feature.dart';
+import 'presentation_layer.dart';
 
 /// {@template addCommand}
 /// Add various parts the app.
@@ -20,6 +21,9 @@ class AddCommand extends RenderCommand {
     addSubcommand(FontsCommand());
     addSubcommand(ComponentCommand());
     addSubcommand(FeatureCommand());
+    addSubcommand(DataLayerCommand());
+    addSubcommand(DomainLayerCommand());
+    addSubcommand(PresentationLayerCommand());
     addSubcommand(NotificationsFeatureCommand());
     addSubcommand(MultiNotificationsFeatureCommand());
     addSubcommand(LoggerFeatureCommand());

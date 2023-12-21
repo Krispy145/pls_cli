@@ -23,8 +23,10 @@ abstract class MainBaseStore extends LoadStateStore with Store {
   /// TODO: Replace "baseUrl" with the appropriate url.
   @computed
   MainRepository get repository => connectionStatus.handleConnectionSource(
-        source: MainDataRepository.api(apiDataSource: ApiMainDataSource("baseUrl")),
-        offlineBackup: MainDataRepository.local(localDataSource: LocalMainDataSource()),
+        source:
+            MainDataRepository.api(apiDataSource: ApiMainDataSource("baseUrl")),
+        offlineBackup:
+            MainDataRepository.local(localDataSource: LocalMainDataSource()),
       );
 
   /// [mains] is an observable list of [MainModel]s.

@@ -14,7 +14,8 @@ part 'routes.g.dart';
 /// Router class responsible for specifying routes and configuring router.
 class AppRouter {
   /// [AppRouter] constructor.
-  static GoRouter router({List<NavigatorObserver>? observers}) => GoRouter(routes: $appRoutes, observers: observers);
+  static GoRouter router({List<NavigatorObserver>? observers}) =>
+      GoRouter(routes: $appRoutes, observers: observers);
 }
 
 /// Main Tree of App LifeCycle (To be updated to include all routes and nested routes within the app)
@@ -35,7 +36,8 @@ class MainShellRoute extends ShellRouteData {
   const MainShellRoute();
 
   @override
-  Widget builder(BuildContext context, GoRouterState state, Widget navigator) => MainShell(navigator: navigator);
+  Widget builder(BuildContext context, GoRouterState state, Widget navigator) =>
+      MainShell(navigator: navigator);
 }
 
 /// [MainShell] is a class that defines the main shell of the app.

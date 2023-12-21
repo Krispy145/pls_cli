@@ -3,17 +3,6 @@ import "package:path/path.dart" as path;
 
 import 'package:render_cli/src/utils/find_project_root.dart';
 
-/// Find the feature directory by name
-Directory findFeaturePath(String feature) {
-  final projectRoot = findProjectRoot(Directory.current);
-  final featureList = feature.split("/");
-  var featureDir = Directory(path.join(projectRoot.path, "lib"));
-  for (final featPath in featureList) {
-    featureDir = Directory(path.join(featureDir.path, featPath));
-  }
-  return featureDir;
-}
-
 /// A representation of a feature
 class Feature {
   /// Name of the feature

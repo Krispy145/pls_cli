@@ -23,8 +23,10 @@ abstract class HomeBaseStore extends LoadStateStore with Store {
   /// TODO: Replace "baseUrl" with the appropriate url.
   @computed
   HomeRepository get repository => connectionStatus.handleConnectionSource(
-        source: HomeDataRepository.api(apiDataSource: ApiHomeDataSource("baseUrl")),
-        offlineBackup: HomeDataRepository.local(localDataSource: LocalHomeDataSource()),
+        source:
+            HomeDataRepository.api(apiDataSource: ApiHomeDataSource("baseUrl")),
+        offlineBackup:
+            HomeDataRepository.local(localDataSource: LocalHomeDataSource()),
       );
 
   /// [homes] is an observable list of [HomeModel]s.

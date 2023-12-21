@@ -3,7 +3,7 @@ import 'package:mason/mason.dart';
 import '../../../bundles/_bundles.dart';
 import 'brick_command_base.dart';
 
-/// {@template notificationsFeatureCommand
+/// {@template notificationsFeatureCommand}
 /// Add a notifications feature to the app.
 /// {@endtemplate}
 class NotificationsFeatureCommand extends BrickCommandBase {

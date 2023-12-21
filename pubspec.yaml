@@ -21,9 +21,15 @@ scripts:
   bundle:app: BRICK=app rn run bundle
   bundle:assets: BRICK=assets rn run bundle  
   bundle:component: BRICK=component rn run bundle  
-  bundle:feature: BRICK=feature rn run bundle
+  bundle:data_layer: BRICK=data_layer rn run bundle
+  bundle:domain_layer: BRICK=domain_layer rn run bundle
+  bundle:presentation_layer: BRICK=presentation_layer rn run bundle
   bundle:notifications_feature: BRICK=notifications_feature rn run bundle
   bundle:multi_notifications_feature: BRICK=multi_notifications_feature rn run bundle
+  bundle:dashboard_structure: BRICK=dashboard_structure rn run bundle
+  bundle:default_structure: BRICK=default_structure rn run bundle
+  bundle:map_structure: BRICK=map_structure rn run bundle
+  bundle:default_map_structure: BRICK=default_map_structure rn run bundle
   bundle:model: BRICK=model rn run bundle
   bundle:font_family: BRICK=font_family rn run bundle  
   gen:app_brick:

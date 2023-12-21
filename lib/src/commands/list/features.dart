@@ -30,6 +30,5 @@ class ListFeaturesCommand extends RenderCommand {
         }
       }
     }
-
   }
 }

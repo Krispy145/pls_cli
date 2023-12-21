@@ -41,15 +41,14 @@ class RunCommand extends RenderCommand {
       return;
     }
 
-    final scriptName =
-        argResults?.rest.isNotEmpty ?? false ? argResults?.rest[0] : null;
+    final scriptName = argResults?.rest.isNotEmpty ?? false ? argResults?.rest[0] : null;
     if (scriptName == null) {
       logger.err("No script specified, please run 'rn run <script name>'");
       _displayHelp(scripts);
       return;
     }
     if (!scripts.containsKey(scriptName)) {
-      logger.err("Failed to fid any scripts named $scriptName");
+      logger.err("Failed to find any scripts named $scriptName");
       _displayHelp(scripts);
       return;
     }
