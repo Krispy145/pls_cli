@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final flavorConfig = FlavorConfig(
     environment: Environment.production,
-    apiPrefix: "",
+    apiPrefix: "prod_base_url",
   );
 
   {{#has_firebase}}
