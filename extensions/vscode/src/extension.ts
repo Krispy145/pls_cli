@@ -9,6 +9,9 @@ import { addModel } from "./commands/add-model.command";
 import { addAdmob } from "./commands/add-admob.command";
 import { addNotifications } from "./commands/add-notifications.command";
 import { createApp } from "./commands/create-app.command";
+import { newDataLayer } from "./commands/new-data-layer.command";
+import { newDomainLayer } from "./commands/new-domain-layer.command";
+import { newPresentationLayer } from "./commands/new-presentation-layer.command";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -17,6 +20,21 @@ export function activate(context: ExtensionContext) {
   let feature = commands.registerCommand(
     "digital-oasis.new-feature",
     newFeature
+  );
+
+  let data_layer = commands.registerCommand(
+    "digital-oasis.new-data-layer",
+    newDataLayer
+  );
+
+  let domain_layer = commands.registerCommand(
+    "digital-oasis.new-domain-layer",
+    newDomainLayer
+  );
+
+  let presentation_layer = commands.registerCommand(
+    "digital-oasis.new-presentation-layer",
+    newPresentationLayer
   );
 
   let structure = commands.registerCommand(
@@ -39,6 +57,9 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(
     app,
     feature,
+    data_layer,
+    domain_layer,
+    presentation_layer,
     structure,
     component,
     model,

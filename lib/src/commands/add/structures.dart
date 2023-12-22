@@ -37,6 +37,7 @@ class StructuresCommand extends RenderCommand {
     await runInLibDirectory(() => _setupStructureFiles(structureType), extensionPath: 'navigation');
 
     return runScripts([
+      'flutter pub run build_runner build --delete-conflicting-outputs',
       'dart format .',
       'dart fix --apply',
     ]);

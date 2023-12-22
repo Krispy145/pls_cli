@@ -1,0 +1,20 @@
+import { Uri, window } from "vscode";
+import { runCommandInWorkspaceFolder } from "../utils/build_runner";
+
+export const newDataLayer = async (args: Uri) => {
+  try {
+    const name = await window.showInputBox({
+      prompt: "Name of the Data layer",
+      placeHolder: "Data layer name",
+    });
+
+    if (name) {
+      const commandNewDataLayer = `rn add data_layer --name ${name}`;
+      await runCommandInWorkspaceFolder(commandNewDataLayer, {
+        folderPath: "lib",
+      });
+    }
+  } catch (error) {
+    window.showErrorMessage(`Error: ${error}`);
+  }
+};

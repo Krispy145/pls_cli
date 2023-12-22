@@ -16,6 +16,9 @@
   "activationEvents": [
     "onCommand:digital-oasis.create-app",
     "onCommand:digital-oasis.new-feature",
+    "onCommand:digital-oasis.new-data-layer",
+    "onCommand:digital-oasis.new-domain-layer",
+    "onCommand:digital-oasis.new-presentation-layer",
     "onCommand:digital-oasis.new-structure",
     "onCommand:digital-oasis.add-component",
     "onCommand:digital-oasis.add-model",
@@ -39,6 +42,21 @@
         "command": "digital-oasis.new-feature",
         "title": "Feature",
         "shortTitle": "New Feature"
+      },
+      {
+        "command": "digital-oasis.new-data-layer",
+        "title": "Data Layer",
+        "shortTitle": "New Data Layer"
+      },
+      {
+        "command": "digital-oasis.new-domain-layer",
+        "title": "Domain Layer",
+        "shortTitle": "New Domain Layer"
+      },
+      {
+        "command": "digital-oasis.new-presentation-layer",
+        "title": "Presentation Layer",
+        "shortTitle": "New Presentation Layer"
       },
       {
         "command": "digital-oasis.new-structure",
@@ -78,6 +96,18 @@
       "digital-oasis.submenu": [
         {
           "command": "digital-oasis.new-feature",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
+        },
+        {
+          "command": "digital-oasis.new-data-layer",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
+        },
+        {
+          "command": "digital-oasis.new-domain-layer",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
+        },
+        {
+          "command": "digital-oasis.new-presentation-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
         },
         {
