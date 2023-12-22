@@ -15,7 +15,7 @@ class DefaultWrapperView extends StatelessWidget {
   /// [DefaultWrapperView] constructor.
   DefaultWrapperView({super.key});
 
-  final _defaultShellStore = Managers.defaultShellStore.defaultShellStructureStore;
+  final _defaultShellStore = Managers.defaultShellStore;
 
   @override
   Widget build(BuildContext context) {

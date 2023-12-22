@@ -11,7 +11,7 @@ import '/dependencies/injection.dart';
 class MapWrapperView extends StatelessWidget {
   /// [MapWrapperView] constructor.
   MapWrapperView({super.key});
-  final _mapShellStore = Managers.defaultShellStore.mapShellStructureStore;
+  final _mapShellStore = Managers.mapShellStore;
 
   @override
   Widget build(BuildContext context) {
