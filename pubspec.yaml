@@ -27,6 +27,7 @@ scripts:
   bundle:notifications_feature: BRICK=notifications_feature rn run bundle
   bundle:multi_notifications_feature: BRICK=multi_notifications_feature rn run bundle
   bundle:dashboard_structure: BRICK=dashboard_structure rn run bundle
+  bundle:default_dashboard_structure: BRICK=default_dashboard_structure rn run bundle
   bundle:default_structure: BRICK=default_structure rn run bundle
   bundle:map_structure: BRICK=map_structure rn run bundle
   bundle:default_map_structure: BRICK=default_map_structure rn run bundle

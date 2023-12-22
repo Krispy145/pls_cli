@@ -7,6 +7,12 @@ import 'routes.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(initial: true, page: MapWrapperRoute.page, children: const []),
+        AutoRoute(initial: true, page: DefaultWrapperRoute.page, children: [
+          AutoRoute(
+            initial: true,
+            page: DashboardWrapperRoute.page,
+            children: const [],
+          ),
+        ]),
       ];
 }

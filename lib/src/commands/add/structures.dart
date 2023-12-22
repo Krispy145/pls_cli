@@ -58,6 +58,8 @@ class StructuresCommand extends RenderCommand {
             return defaultMapStructureBundle;
           case Structure.Dashboard:
             return dashboardStructureBundle;
+          case Structure.DefaultDashboard:
+            return defaultDashboardStructureBundle;
         }
       }
 

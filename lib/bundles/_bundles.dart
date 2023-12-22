@@ -3,6 +3,7 @@ export 'assets_bundle.dart';
 export 'component_bundle.dart';
 export 'dashboard_structure_bundle.dart';
 export 'data_layer_bundle.dart';
+export 'default_dashboard_structure_bundle.dart';
 export 'default_map_structure_bundle.dart';
 export 'default_structure_bundle.dart';
 export 'domain_layer_bundle.dart';

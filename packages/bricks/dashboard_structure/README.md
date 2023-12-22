@@ -1,4 +1,4 @@
-# component
+# structure
 
 Dashboard Structure template
 

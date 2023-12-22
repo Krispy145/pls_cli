@@ -1,4 +1,4 @@
-# component
+# structure
 
 Default Structure template
 

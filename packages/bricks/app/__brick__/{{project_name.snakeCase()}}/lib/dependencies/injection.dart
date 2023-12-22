@@ -3,19 +3,19 @@ import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 import 'package:get_it/get_it.dart';
 
 {{#is_dashboard}}
-import 'package:navigation/structures/dashboard_shell_structure/shell/store.dart';
+import 'package:navigation/structures/dashboard/shell/store.dart';
 
 {{/is_dashboard}}
 {{#is_default_map}}
-import 'package:navigation/structures/default_map_shell_structure/store.dart';
+import 'package:navigation/structures/default_map/store.dart';
 
 {{/is_default_map}}
 {{#is_default}}
-import 'package:navigation/structures/default_shell_structure/store.dart';
+import 'package:navigation/structures/default/store.dart';
 
 {{/is_default}}
 {{#is_map}}
-import 'package:navigation/structures/map_shell_structure/store.dart';
+import 'package:navigation/structures/map/store.dart';
 
 {{/is_map}}
 import 'package:utilities/flavors/flavor_config.dart';

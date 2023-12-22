@@ -3,19 +3,19 @@ import 'package:app_template/navigation/routes.dart';
 import 'package:get_it/get_it.dart';
 
 /// IS_DASHBOARD START
-import 'package:navigation/structures/dashboard_shell_structure/shell/store.dart';
+import 'package:navigation/structures/dashboard/shell/store.dart';
 
 /// IS_DASHBOARD END
 /// IS_DEFAULTMAP START
-import 'package:navigation/structures/default_map_shell_structure/store.dart';
+import 'package:navigation/structures/default_map/store.dart';
 
 /// IS_DEFAULTMAP END
 /// IS_DEFAULT START
-import 'package:navigation/structures/default_shell_structure/store.dart';
+import 'package:navigation/structures/default/store.dart';
 
 /// IS_DEFAULT END
 /// IS_MAP START
-import 'package:navigation/structures/map_shell_structure/store.dart';
+import 'package:navigation/structures/map/store.dart';
 
 /// IS_MAP END
 import 'package:utilities/flavors/flavor_config.dart';

@@ -1,4 +1,4 @@
-# component
+# structure
 
 Map Structure template
 

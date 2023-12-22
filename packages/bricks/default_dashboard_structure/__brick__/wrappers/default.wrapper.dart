@@ -13,16 +13,19 @@ import '/navigation/components/bottom_nav_bar.dart';
 @RoutePage()
 class DefaultWrapperView extends StatelessWidget {
   /// [DefaultWrapperView] constructor.
-  const DefaultWrapperView({super.key});
+  DefaultWrapperView({super.key});
+
+  final _defaultShellStore = Managers.defaultShellStore.defaultShellStructureStore;
 
   @override
   Widget build(BuildContext context) {
     return DefaultShellStructure(
-      store: Managers.defaultShellStore,
+      store: _defaultShellStore,
       appBar: const MainAppBar(),
       bottomNavigationBar: MainBottomNavBar(
         iconButtons: [
           Pair(Icons.home, () => context.navigateTo(HomeRoute())),
+          Pair(Icons.settings, () => context.navigateTo(SettingsRoute())),
         ],
       ),
     );

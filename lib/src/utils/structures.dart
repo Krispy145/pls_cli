@@ -13,22 +13,7 @@ enum Structure {
 
   /// [Dashboard] structure.
   Dashboard,
+
+  /// [DefaultDashboard] structure.
+  DefaultDashboard,
 }
-
-// /// [Structure] extension methods.
-// extension ProjectStructureExtension on Structure {
-
-
-//   String get routesFileName {
-//     switch (this) {
-//       case Structure.Default:
-//         return 'default_routes.dart';
-//       case Structure.Map:
-//         return 'map_routes.dart';
-//       case Structure.DefaultMap:
-//         return 'default_map_routes.dart';
-//       case Structure.Dashboard:
-//         return 'dashboard_routes.dart';
-//     }
-//   }
-// }
