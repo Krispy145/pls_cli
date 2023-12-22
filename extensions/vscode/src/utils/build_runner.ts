@@ -1,3 +1,4 @@
+import * as mkdirp from "mkdirp";
 import { window, workspace, ProgressLocation } from "vscode";
 import { exec } from "child_process";
 
@@ -52,6 +53,18 @@ export const runCommandInWorkspaceFolder = async (
   const fullPath = folderPath
     ? `${rootProjectPath}/${folderPath}`
     : rootProjectPath;
+
+  // Create directories if folderPath is specified
+  if (folderPath) {
+    try {
+      mkdirp.sync(`${rootProjectPath}/${folderPath}`);
+    } catch (mkdirpError: any) {
+      window.showErrorMessage(
+        `Error creating directories: ${mkdirpError.message}`
+      );
+      return { error: mkdirpError.message };
+    }
+  }
 
   return new Promise((resolve) => {
     window.showInformationMessage(`Running command in ${fullPath}: ${command}`);
