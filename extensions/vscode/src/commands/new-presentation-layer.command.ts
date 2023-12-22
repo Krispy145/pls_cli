@@ -11,7 +11,7 @@ export const newPresentationLayer = async (args: Uri) => {
     if (name) {
       const commandNewPresentationLayer = `rn add presentation_layer --name ${name}`;
       await runCommandInWorkspaceFolder(commandNewPresentationLayer, {
-        folderPath: "lib",
+        folderPath: "lib/presentation",
       });
     }
   } catch (error) {

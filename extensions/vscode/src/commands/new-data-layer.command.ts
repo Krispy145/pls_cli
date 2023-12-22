@@ -11,7 +11,7 @@ export const newDataLayer = async (args: Uri) => {
     if (name) {
       const commandNewDataLayer = `rn add data_layer --name ${name}`;
       await runCommandInWorkspaceFolder(commandNewDataLayer, {
-        folderPath: "lib",
+        folderPath: "lib/data",
       });
     }
   } catch (error) {
