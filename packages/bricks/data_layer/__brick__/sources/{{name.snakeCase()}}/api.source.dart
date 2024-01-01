@@ -1,7 +1,9 @@
+
 import 'package:utilities/data_sources/remote/api.dart';
 import 'package:utilities/logger/logger.dart';
 
 import '../../models/{{name.snakeCase()}}_model.dart';
+import '../../../dependencies/injection.dart';
 import '../../../utils/logger_features.dart';
 import '_source.dart';
 

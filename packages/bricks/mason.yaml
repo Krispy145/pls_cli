@@ -7,6 +7,8 @@ bricks:
     path: ./presentation_layer
   model:
     path: ./model    
+  auth:
+    path: ./auth
   component:
     path: ./component
   notifications:

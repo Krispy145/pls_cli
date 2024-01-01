@@ -16,6 +16,7 @@
   "activationEvents": [
     "onCommand:digital-oasis.create-app",
     "onCommand:digital-oasis.new-feature",
+    "onCommand:digital-oasis.new-auth",
     "onCommand:digital-oasis.new-data-layer",
     "onCommand:digital-oasis.new-domain-layer",
     "onCommand:digital-oasis.new-presentation-layer",
@@ -42,6 +43,11 @@
         "command": "digital-oasis.new-feature",
         "title": "Feature",
         "shortTitle": "New Feature"
+      },
+      {
+        "command": "digital-oasis.new-auth",
+        "title": "Authentication",
+        "shortTitle": "Add Authentication"
       },
       {
         "command": "digital-oasis.new-data-layer",
@@ -97,6 +103,10 @@
         {
           "command": "digital-oasis.new-feature",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
+        },
+        {
+          "command": "digital-oasis.new-auth",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|presentation))$/"
         },
         {
           "command": "digital-oasis.new-data-layer",

@@ -13,3 +13,4 @@ export 'model_bundle.dart';
 export 'multi_notifications_feature_bundle.dart';
 export 'notifications_feature_bundle.dart';
 export 'presentation_layer_bundle.dart';
+export "auth_bundle.dart";

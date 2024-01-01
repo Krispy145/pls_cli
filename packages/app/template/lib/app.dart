@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 /// FIREBASE END
 import 'package:flutter/material.dart';
 import 'package:utilities/flavors/flavor_config.dart';
-import 'package:utilities/theme/wrapper/wrapper.dart';
+import 'package:theme/wrapper/wrapper.dart';
 
 /// Main App Function
 void appMain({required FlavorConfig flavorConfig}) {
@@ -45,18 +45,7 @@ class MainApp extends StatelessWidget {
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: currentThemeMode,
-        routerConfig: Managers.router.config(
-          /// FIREBASE START
-          observers: !kIsWeb
-              ? [
-                  FirebaseAnalyticsObserver(
-                    analytics: FirebaseAnalytics.instance,
-                  ),
-                ]
-              : null,
-
-          /// FIREBASE END
-        ),
+        routerConfig: Managers.router.config(),
       ),
     );
   }

@@ -12,6 +12,7 @@ import { createApp } from "./commands/create-app.command";
 import { newDataLayer } from "./commands/new-data-layer.command";
 import { newDomainLayer } from "./commands/new-domain-layer.command";
 import { newPresentationLayer } from "./commands/new-presentation-layer.command";
+import { newAuth } from "./commands/add-auth.command";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -21,6 +22,8 @@ export function activate(context: ExtensionContext) {
     "digital-oasis.new-feature",
     newFeature
   );
+
+  let auth = commands.registerCommand("digital-oasis.new-auth", newAuth);
 
   let data_layer = commands.registerCommand(
     "digital-oasis.new-data-layer",
@@ -57,6 +60,7 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(
     app,
     feature,
+    auth,
     data_layer,
     domain_layer,
     presentation_layer,

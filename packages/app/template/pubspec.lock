@@ -1125,7 +1125,7 @@ packages:
     source: hosted
     version: "0.6.1"
   theme:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "/Users/davidkisbey-green/Desktop/Digital_Oasis/theme"
       relative: false

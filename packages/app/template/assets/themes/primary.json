@@ -1,0 +1,835 @@
+{
+  "schemes": {
+    "light": {
+      "primary": "[0, 107, 89, 1.0]",
+      "onPrimary": "[255, 255, 255, 1.0]",
+      "primaryContainer": "[123, 248, 217, 1.0]",
+      "onPrimaryContainer": "[0, 32, 25, 1.0]",
+      "secondary": "[75, 99, 92, 1.0]",
+      "onSecondary": "[255, 255, 255, 1.0]",
+      "secondaryContainer": "[205, 233, 223, 1.0]",
+      "onSecondaryContainer": "[7, 32, 26, 1.0]",
+      "tertiary": "[66, 98, 119, 1.0]",
+      "onTertiary": "[255, 255, 255, 1.0]",
+      "tertiaryContainer": "[198, 231, 255, 1.0]",
+      "onTertiaryContainer": "[0, 30, 45, 1.0]",
+      "error": "[186, 26, 26, 1.0]",
+      "onError": "[255, 255, 255, 1.0]",
+      "confirmation": "[76, 175, 80, 1.0]",
+      "onConfirmation": "[255, 255, 255, 1.0]",
+      "information": "[33, 150, 243, 1.0]",
+      "onInformation": "[255, 255, 255, 1.0]",
+      "warning": "[255, 152, 0, 1.0]",
+      "onWarning": "[255, 255, 255, 1.0]",
+      "errorContainer": "[255, 218, 214, 1.0]",
+      "onErrorContainer": "[65, 0, 2, 1.0]",
+      "outline": "[111, 121, 117, 1.0]",
+      "background": "[250, 253, 250, 1.0]",
+      "onBackground": "[25, 28, 27, 1.0]",
+      "surface": "[248, 250, 247, 1.0]",
+      "onSurface": "[25, 28, 27, 1.0]",
+      "surfaceVariant": "[219, 229, 224, 1.0]",
+      "onSurfaceVariant": "[63, 73, 69, 1.0]",
+      "inverseSurface": "[46, 49, 48, 1.0]",
+      "onInverseSurface": null,
+      "inversePrimary": "[92, 219, 189, 1.0]",
+      "shadow": "[0, 0, 0, 1.0]",
+      "surfaceTint": "[0, 107, 89, 1.0]",
+      "outlineVariant": "[191, 201, 196, 1.0]",
+      "scrim": "[0, 0, 0, 1.0]"
+    },
+    "dark": {
+      "primary": "[92, 219, 189, 1.0]",
+      "onPrimary": "[0, 56, 45, 1.0]",
+      "primaryContainer": "[0, 81, 66, 1.0]",
+      "onPrimaryContainer": "[123, 248, 217, 1.0]",
+      "secondary": "[177, 204, 195, 1.0]",
+      "onSecondary": "[29, 53, 46, 1.0]",
+      "secondaryContainer": "[51, 76, 68, 1.0]",
+      "onSecondaryContainer": "[205, 233, 223, 1.0]",
+      "tertiary": "[169, 203, 227, 1.0]",
+      "onTertiary": "[15, 52, 71, 1.0]",
+      "tertiaryContainer": "[41, 74, 94, 1.0]",
+      "onTertiaryContainer": "[198, 231, 255, 1.0]",
+      "error": "[255, 180, 171, 1.0]",
+      "onError": "[105, 0, 5, 1.0]",
+      "confirmation": "[76, 175, 80, 1.0]",
+      "onConfirmation": "[255, 255, 255, 1.0]",
+      "information": "[33, 150, 243, 1.0]",
+      "onInformation": "[255, 255, 255, 1.0]",
+      "warning": "[255, 152, 0, 1.0]",
+      "onWarning": "[255, 255, 255, 1.0]",
+      "errorContainer": "[147, 0, 10, 1.0]",
+      "onErrorContainer": "[255, 218, 214, 1.0]",
+      "outline": "[137, 147, 143, 1.0]",
+      "background": "[25, 28, 27, 1.0]",
+      "onBackground": "[225, 227, 224, 1.0]",
+      "surface": "[17, 20, 19, 1.0]",
+      "onSurface": "[196, 199, 197, 1.0]",
+      "surfaceVariant": "[63, 73, 69, 1.0]",
+      "onSurfaceVariant": "[191, 201, 196, 1.0]",
+      "inverseSurface": "[225, 227, 224, 1.0]",
+      "onInverseSurface": null,
+      "inversePrimary": "[0, 107, 89, 1.0]",
+      "shadow": "[0, 0, 0, 1.0]",
+      "surfaceTint": "[92, 219, 189, 1.0]",
+      "outlineVariant": "[63, 73, 69, 1.0]",
+      "scrim": "[0, 0, 0, 1.0]"
+    }
+  },
+  "styles": {
+    "display": {
+      "large": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 57.0,
+        "lineHeight": 64.0,
+        "letterSpacing": -0.25
+      },
+      "medium": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 45.0,
+        "lineHeight": 52.0,
+        "letterSpacing": 0.0
+      },
+      "small": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 36.0,
+        "lineHeight": 44.0,
+        "letterSpacing": 0.0
+      }
+    },
+    "headline": {
+      "large": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 32.0,
+        "lineHeight": 40.0,
+        "letterSpacing": 0.0
+      },
+      "medium": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 28.0,
+        "lineHeight": 36.0,
+        "letterSpacing": 0.0
+      },
+      "small": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 24.0,
+        "lineHeight": 32.0,
+        "letterSpacing": 0.0
+      }
+    },
+    "title": {
+      "large": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 22.0,
+        "lineHeight": 28.0,
+        "letterSpacing": 0.0
+      },
+      "medium": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Medium",
+        "fontWeight": 500.0,
+        "fontSize": 16.0,
+        "lineHeight": 24.0,
+        "letterSpacing": 0.15000000596046448
+      },
+      "small": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Medium",
+        "fontWeight": 500.0,
+        "fontSize": 14.0,
+        "lineHeight": 20.0,
+        "letterSpacing": 0.10000000149011612
+      }
+    },
+    "body": {
+      "large": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 16.0,
+        "lineHeight": 24.0,
+        "letterSpacing": 0.5
+      },
+      "medium": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 20.0,
+        "letterSpacing": 0.25
+      },
+      "small": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 12.0,
+        "lineHeight": 16.0,
+        "letterSpacing": 0.4000000059604645
+      }
+    },
+    "label": {
+      "large": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Medium",
+        "fontWeight": 500.0,
+        "fontSize": 14.0,
+        "lineHeight": 20.0,
+        "letterSpacing": 0.10000000149011612
+      },
+      "medium": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Medium",
+        "fontWeight": 500.0,
+        "fontSize": 12.0,
+        "lineHeight": 16.0,
+        "letterSpacing": 0.5
+      },
+      "small": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Medium",
+        "fontWeight": 500.0,
+        "fontSize": 11.0,
+        "lineHeight": 16.0,
+        "letterSpacing": 0.5
+      }
+    }
+  },
+  "buttons": null,
+  "inputDecorations": {
+    "primary": {
+      "labelStyle": null,
+      "floatingLabelStyle": null,
+      "helperStyle": null,
+      "helperMaxLines": null,
+      "hintStyle": null,
+      "hintFadeDuration": null,
+      "errorStyle": null,
+      "errorMaxLines": null,
+      "isDense": false,
+      "contentPadding": null,
+      "isCollapsed": false,
+      "iconColor": null,
+      "prefixStyle": null,
+      "prefixIconColor": null,
+      "suffixStyle": null,
+      "suffixIconColor": null,
+      "counterStyle": null,
+      "filled": true,
+      "fillColor": "[224, 64, 251, 1.0]",
+      "activeIndicatorBorder": null,
+      "outlineBorder": null,
+      "focusColor": null,
+      "hoverColor": null,
+      "errorBorder": {
+        "type": "outline",
+        "value": {
+          "borderRadius": { "type": "circular", "value": null },
+          "borderSide": { "color": "[0, 0, 0, 1.0]" },
+          "gapPadding": 4.0
+        }
+      },
+      "focusedBorder": {
+        "type": "outline",
+        "value": {
+          "borderRadius": { "type": "circular", "value": null },
+          "borderSide": { "color": "[0, 0, 0, 1.0]" },
+          "gapPadding": 4.0
+        }
+      },
+      "focusedErrorBorder": {
+        "type": "outline",
+        "value": {
+          "borderRadius": { "type": "circular", "value": null },
+          "borderSide": { "color": "[0, 0, 0, 1.0]" },
+          "gapPadding": 4.0
+        }
+      },
+      "disabledBorder": {
+        "type": "outline",
+        "value": {
+          "borderRadius": { "type": "circular", "value": null },
+          "borderSide": { "color": "[0, 0, 0, 1.0]" },
+          "gapPadding": 4.0
+        }
+      },
+      "enabledBorder": {
+        "type": "outline",
+        "value": {
+          "borderRadius": {
+            "type": "circular",
+            "value": { "radius": { "radius": 16.0 } }
+          },
+          "borderSide": { "color": "[0, 0, 0, 1.0]" },
+          "gapPadding": 4.0
+        }
+      },
+      "border": {
+        "type": "outline",
+        "value": {
+          "borderRadius": {
+            "type": "circular",
+            "value": { "radius": { "radius": 16.0 } }
+          },
+          "borderSide": { "color": "[0, 0, 0, 1.0]" },
+          "gapPadding": 4.0
+        }
+      },
+      "alignLabelWithHint": false,
+      "constraints": null
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "boxDecorations": null,
+  "cards": {
+    "primary": {
+      "color": "[224, 64, 251, 1.0]",
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "surfaceTintColor": "[255, 255, 255, 1.0]",
+      "elevation": 1.0,
+      "margin": { "type": "all", "value": 0.0 },
+      "shape": { "type": "rounded", "value": null }
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "snackbars": {
+    "primary": {
+      "backgroundColor": "[224, 64, 251, 1.0]",
+      "actionTextColor": "[0, 0, 0, 1.0]",
+      "disabledActionTextColor": "[0, 0, 0, 1.0]",
+      "contentTextStyle": null,
+      "elevation": 1.0,
+      "shape": { "type": "rounded", "value": null },
+      "behavior": "floating",
+      "width": null,
+      "insetPadding": null,
+      "showCloseIcon": null,
+      "closeIconColor": null,
+      "actionOverflowThreshold": null,
+      "actionBackgroundColor": "[0, 0, 0, 1.0]",
+      "disabledActionBackgroundColor": "[0, 0, 0, 1.0]"
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "badge": {
+    "primary": {
+      "backgroundColor": "[0, 150, 136, 1.0]",
+      "textColor": "[0, 0, 0, 1.0]",
+      "smallSize": 12.0,
+      "largeSize": 16.0,
+      "textStyle": null,
+      "padding": { "type": "all", "value": 4.0 },
+      "alignment": "topRight",
+      "offset": null
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "appbars": {
+    "primary": {
+      "color": null,
+      "backgroundColor": "[0, 150, 136, 1.0]",
+      "foregroundColor": "[0, 0, 0, 1.0]",
+      "elevation": 4.0,
+      "scrolledUnderElevation": 0.0,
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "surfaceTintColor": "[0, 0, 0, 1.0]",
+      "shape": null,
+      "centerTitle": null,
+      "titleSpacing": 16.0,
+      "toolbarHeight": 16.0,
+      "toolbarTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "titleTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      }
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "bottomAppbars": {
+    "primary": {
+      "color": "[0, 150, 136, 1.0]",
+      "elevation": 4.0,
+      "height": 56.0,
+      "surfaceTintColor": "[0, 0, 0, 1.0]",
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "padding": { "type": "all", "value": 0.0 }
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "chips": {
+    "primary": {
+      "color": "[0, 150, 136, 1.0]",
+      "backgroundColor": "[255, 255, 255, 1.0]",
+      "deleteIconColor": "[255, 255, 255, 1.0]",
+      "disabledColor": "[0, 0, 0, 1.0]",
+      "selectedColor": "[0, 0, 0, 1.0]",
+      "secondarySelectedColor": "[0, 0, 0, 1.0]",
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "surfaceTintColor": "[0, 0, 0, 1.0]",
+      "selectedShadowColor": "[0, 0, 0, 1.0]",
+      "showCheckmark": false,
+      "checkmarkColor": "[0, 0, 0, 1.0]",
+      "labelPadding": { "type": "all", "value": 0.0 },
+      "padding": { "type": "all", "value": 0.0 },
+      "side": { "color": "[0, 0, 0, 1.0]", "width": 0.0 },
+      "shape": { "type": "circle", "value": null },
+      "labelStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "secondaryLabelStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "elevation": 0.0,
+      "pressElevation": 0.0
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "dialogs": {
+    "primary": {
+      "backgroundColor": "[255, 255, 255, 1.0]",
+      "elevation": 0.0,
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "surfaceTintColor": "[0, 0, 0, 1.0]",
+      "shape": {
+        "type": "rounded",
+        "value": {
+          "borderRadius": {
+            "type": "circular",
+            "value": { "radius": { "radius": 10.0 } }
+          }
+        }
+      },
+      "alignment": "center",
+      "iconColor": "[0, 0, 0, 1.0]",
+      "titleTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "contentTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "actionsPadding": { "type": "all", "value": 0.0 }
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "popupMenus": {
+    "primary": {
+      "color": "[255, 255, 255, 1.0]",
+      "shape": { "type": "circle", "value": null },
+      "elevation": 0.0,
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "surfaceTintColor": "[0, 0, 0, 1.0]",
+      "textStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "labelTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "enableFeedback": true,
+      "position": "under",
+      "iconColor": "[0, 0, 0, 1.0]",
+      "iconSize": 24.0
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "sliders": {
+    "primary": {
+      "trackHeight": 4.0,
+      "activeTrackColor": "[33, 150, 243, 1.0]",
+      "inactiveTrackColor": "[158, 158, 158, 1.0]",
+      "secondaryActiveTrackColor": "[33, 150, 243, 1.0]",
+      "disabledActiveTrackColor": "[158, 158, 158, 1.0]",
+      "disabledInactiveTrackColor": "[158, 158, 158, 1.0]",
+      "disabledSecondaryActiveTrackColor": "[158, 158, 158, 1.0]",
+      "activeTickMarkColor": "[33, 150, 243, 1.0]",
+      "inactiveTickMarkColor": "[158, 158, 158, 1.0]",
+      "disabledActiveTickMarkColor": "[158, 158, 158, 1.0]",
+      "disabledInactiveTickMarkColor": "[158, 158, 158, 1.0]",
+      "thumbColor": "[33, 150, 243, 1.0]",
+      "overlappingShapeStrokeColor": "[33, 150, 243, 1.0]",
+      "disabledThumbColor": "[158, 158, 158, 1.0]",
+      "overlayColor": "[33, 150, 243, 1.0]",
+      "valueIndicatorColor": "[33, 150, 243, 1.0]",
+      "valueIndicatorTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "minThumbSeparation": 8.0
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "scrollbars": {
+    "primary": {
+      "thumbVisibility": true,
+      "thickness": 6.0,
+      "trackVisibility": true,
+      "radius": { "type": "circular", "value": { "radius": 8.0 } },
+      "thumbColor": "[158, 158, 158, 1.0]",
+      "trackColor": "[158, 158, 158, 1.0]",
+      "trackBorderColor": "[158, 158, 158, 1.0]",
+      "crossAxisMargin": 0.0,
+      "mainAxisMargin": 0.0,
+      "minThumbLength": 18.0,
+      "interactive": true
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "tooltips": {
+    "primary": {
+      "height": 32.0,
+      "padding": {
+        "type": "symmetric",
+        "value": { "vertical": 0.0, "horizontal": 8.0 }
+      },
+      "margin": { "type": "all", "value": 0.0 },
+      "verticalOffset": 0.0,
+      "preferBelow": true,
+      "excludeFromSemantics": false,
+      "decoration": {
+        "all": {
+          "color": "[158, 158, 158, 1.0]",
+          "borderRadius": {
+            "type": "circular",
+            "value": { "radius": { "radius": 4.0 } }
+          },
+          "shape": "rectangle"
+        }
+      },
+      "textStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "enableFeedback": true
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "navigationRails": {
+    "primary": {
+      "backgroundColor": "[158, 158, 158, 1.0]",
+      "elevation": 0.0,
+      "unselectedLabelTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "selectedLabelTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "groupAlignment": 0.0,
+      "useIndicator": true,
+      "indicatorColor": "[33, 150, 243, 1.0]",
+      "indicatorShape": { "type": "circle", "value": null },
+      "minWidth": 72.0,
+      "minExtendedWidth": 256.0
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "checkboxes": {
+    "primary": {
+      "fillColor": "[33, 150, 243, 1.0]",
+      "checkColor": "[255, 255, 255, 1.0]",
+      "overlayColor": "[33, 150, 243, 1.0]",
+      "splashRadius": 1.0,
+      "shape": { "type": "circle", "value": null },
+      "side": { "color": "[0, 0, 0, 1.0]" }
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "radios": {
+    "primary": {
+      "fillColor": "[33, 150, 243, 1.0]",
+      "overlayColor": "[33, 150, 243, 1.0]",
+      "splashRadius": 1.0
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "switches": {
+    "primary": {
+      "thumbColor": "[255, 152, 0, 1.0]",
+      "trackColor": "[76, 175, 80, 1.0]",
+      "trackOutlineColor": "[33, 150, 243, 1.0]",
+      "trackOutlineWidth": 1.0,
+      "overlayColor": "[33, 150, 243, 1.0]",
+      "splashRadius": 1.0
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "drawers": {
+    "primary": {
+      "backgroundColor": "[255, 255, 255, 1.0]",
+      "scrimColor": "[0, 0, 0, 1.0]",
+      "elevation": 0.0,
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "surfaceTintColor": "[0, 0, 0, 1.0]",
+      "shape": { "type": "circle", "value": null },
+      "endShape": { "type": "circle", "value": null },
+      "width": 0.0
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "listTiles": {
+    "primary": {
+      "dense": false,
+      "shape": { "type": "circle", "value": null },
+      "selectedColor": "[0, 0, 0, 1.0]",
+      "iconColor": "[0, 0, 0, 1.0]",
+      "textColor": "[0, 0, 0, 1.0]",
+      "titleTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "subtitleTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "leadingAndTrailingTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "contentPadding": { "type": "all", "value": 0.0 },
+      "tileColor": "[255, 255, 255, 1.0]",
+      "selectedTileColor": "[255, 255, 255, 1.0]",
+      "horizontalTitleGap": 0.0,
+      "minVerticalPadding": 0.0,
+      "minLeadingWidth": 0.0,
+      "enableFeedback": true
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "menusStyles": {
+    "primary": {
+      "backgroundColor": "[255, 255, 255, 1.0]",
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "surfaceTintColor": "[0, 0, 0, 1.0]",
+      "elevation": 0.0,
+      "padding": { "type": "all", "value": 0.0 },
+      "minimumSize": null,
+      "fixedSize": null,
+      "maximumSize": null,
+      "side": { "color": "[0, 0, 0, 1.0]", "width": 0.0 },
+      "shape": { "type": "circle", "value": null },
+      "alignment": "center"
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "menuBars": {
+    "primary": {
+      "style": {
+        "backgroundColor": "[255, 255, 255, 1.0]",
+        "shadowColor": "[0, 0, 0, 1.0]",
+        "surfaceTintColor": "[0, 0, 0, 1.0]",
+        "elevation": 0.0,
+        "padding": { "type": "all", "value": 0.0 },
+        "minimumSize": null,
+        "fixedSize": null,
+        "maximumSize": null,
+        "side": { "color": "[0, 0, 0, 1.0]", "width": 0.0 },
+        "shape": { "type": "circle", "value": null },
+        "alignment": "center"
+      }
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "navigationBars": {
+    "primary": {
+      "height": 0.0,
+      "backgroundColor": "[255, 255, 255, 1.0]",
+      "elevation": 0.0,
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "surfaceTintColor": "[0, 0, 0, 1.0]",
+      "indicatorColor": "[0, 0, 0, 1.0]",
+      "indicatorShape": { "type": "circle", "value": null },
+      "labelTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      }
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "navigationDrawers": {
+    "primary": {
+      "tileHeight": 0.0,
+      "backgroundColor": "[255, 255, 255, 1.0]",
+      "elevation": 0.0,
+      "shadowColor": "[0, 0, 0, 1.0]",
+      "surfaceTintColor": "[0, 0, 0, 1.0]",
+      "indicatorColor": "[0, 0, 0, 1.0]",
+      "indicatorShape": { "type": "circle", "value": null },
+      "indicatorSize": null,
+      "labelTextStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      }
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "progressIndicators": {
+    "primary": {
+      "color": "[0, 150, 136, 1.0]",
+      "linearTrackColor": "[0, 150, 136, 1.0]",
+      "linearMinHeight": 6.0,
+      "circularTrackColor": "[0, 150, 136, 1.0]",
+      "refreshBackgroundColor": "[0, 150, 136, 1.0]"
+    },
+    "secondary": null,
+    "tertiary": null
+  },
+  "searchBars": null,
+  "searchViews": null,
+  "tabBars": {
+    "primary": {
+      "indicator": {
+        "all": {
+          "color": "[0, 0, 0, 1.0]",
+          "borderRadius": { "type": "circular", "value": null },
+          "boxShadow": [
+            {
+              "color": "[0, 0, 0, 1.0]",
+              "blurRadius": 1.0,
+              "spreadRadius": 1.0,
+              "offset": null
+            }
+          ],
+          "shape": "rectangle"
+        }
+      },
+      "indicatorColor": "[0, 0, 0, 1.0]",
+      "dividerColor": "[0, 0, 0, 1.0]",
+      "dividerHeight": 1.0,
+      "labelColor": "[0, 0, 0, 1.0]",
+      "labelPadding": { "type": "all", "value": 0.0 },
+      "labelStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "unselectedLabelColor": "[0, 0, 0, 1.0]",
+      "unselectedLabelStyle": {
+        "fontFamilyName": "Roboto",
+        "fontFamilyStyle": "Regular",
+        "fontWeight": 400.0,
+        "fontSize": 14.0,
+        "lineHeight": 1.5,
+        "letterSpacing": 0.15
+      },
+      "overlayColor": "[0, 0, 0, 1.0]"
+    },
+    "secondary": null,
+    "tertiary": null
+  }
+}
