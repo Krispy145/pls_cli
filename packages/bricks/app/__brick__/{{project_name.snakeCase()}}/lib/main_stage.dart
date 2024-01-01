@@ -23,5 +23,5 @@ void main() async {
   // );
 
   {{/has_firebase}}
-  appMain(flavorConfig: flavorConfig);
+  await appMain(flavorConfig: flavorConfig);
 }
