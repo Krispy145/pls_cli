@@ -23,5 +23,5 @@ void main() async {
   // );
 
   /// FIREBASE END
-  appMain(flavorConfig: flavorConfig);
+  await appMain(flavorConfig: flavorConfig);
 }

@@ -1,4 +1,4 @@
-import 'package:utilities/data_sources/remote/Firestore.dart';
+import 'package:utilities/data_sources/remote/firestore.dart';
 import 'package:utilities/logger/logger.dart';
 
 import '../../models/{{name.snakeCase()}}_model.dart';
@@ -10,7 +10,7 @@ class Firestore{{name.pascalCase()}}DataSource extends FirestoreDataSource<{{nam
   /// [Firestore{{name.pascalCase()}}DataSource] constructor.
   Firestore{{name.pascalCase()}}DataSource()
       : super(
-          'adventItems',
+          '{{name.camelCase()}}',
           convertDataTypeFromMap: {{name.pascalCase()}}Model.fromJson,
           convertDataTypeToMap: (data) => data.toJson(),
         );
