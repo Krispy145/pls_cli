@@ -1,3 +1,4 @@
+import 'package:render_cli/src/commands/add/auth.dart';
 import 'package:render_cli/src/commands/base.dart';
 
 import 'assets.dart';
@@ -22,6 +23,7 @@ class AddCommand extends RenderCommand {
     addSubcommand(FontsCommand());
     addSubcommand(ComponentCommand());
     addSubcommand(FeatureCommand());
+    addSubcommand(AuthCommand());
     addSubcommand(StructuresCommand());
     addSubcommand(DataLayerCommand());
     addSubcommand(DomainLayerCommand());
