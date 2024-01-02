@@ -51,7 +51,7 @@ export const addNotifications = async (args: Uri) => {
   // Add notification package(s) to pubspec.yaml
   const notificationsPath =
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/notifications/";
-  addFlutterPackageFromPath("notifications", notificationsPath, targetDir);
+  addFlutterPackageFromPath("notifications", notificationsPath);
   const workspaceFolder = workspace.workspaceFolders?.[0];
   if (workspaceFolder) {
     var runCommandResult;

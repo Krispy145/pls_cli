@@ -93,7 +93,7 @@ class ManagerInjector {
      _serviceLocator
       ..registerLazySingleton<ThemeStateStore>(
         () => ThemeStateStore.assets(
-          assetPath: Assets.colors.theme,
+          assetPath: Assets.themes.primary,
         ),
       )
 
