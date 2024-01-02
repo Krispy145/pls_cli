@@ -110,15 +110,15 @@
         },
         {
           "command": "digital-oasis.new-data-layer",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|data))$/"
         },
         {
           "command": "digital-oasis.new-domain-layer",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|domain))$/"
         },
         {
           "command": "digital-oasis.new-presentation-layer",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|presentation))$/"
         },
         {
           "command": "digital-oasis.new-structure",
