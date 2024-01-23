@@ -119,7 +119,7 @@ export const addAdmob = async (args: Uri) => {
 
         const admobPath =
           "/Users/davidkisbey-green/Desktop/Digital_Oasis/admob/";
-        addFlutterPackageFromPath("admob", admobPath, targetDir);
+        addFlutterPackageFromPath("admob", admobPath);
       }
     }
     await formatFiles();
