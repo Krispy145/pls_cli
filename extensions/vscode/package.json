@@ -4,7 +4,7 @@
   "publisher": "skate-oasis",
   "description": "vscode extension to streamline dev",
   "version": "0.7.1",
-  "repository": "https://github.com/Krispy145/digital-oasis-cli",
+  "repository": "https://github.com/digital-oasis-llc-fz/digital-oasis-cli",
   "private": true,
   "icon": "assets/digital-oasis.jpeg",
   "engines": {

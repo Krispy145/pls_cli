@@ -5,7 +5,7 @@ import 'package:render_cli/src/logger.dart';
 import 'package:render_cli/src/process_runner.dart';
 
 ///Path for the Github CLI
-const githubPath = "git@github.com:digital-oasis-dubai/digital-oasis-cli.git";
+const githubPath = "git@github.com:digital-oasis-llc-fz/digital-oasis-cli.git";
 
 /// Consistent base for all commands
 abstract class RenderCommand extends Command<void> {

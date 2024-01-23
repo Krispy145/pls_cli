@@ -292,7 +292,7 @@
       "disabledActionBackgroundColor": "[0, 0, 0, 1.0]"
     }
   },
-  "badge": {
+  "badges": {
     "primary": {
       "backgroundColor": "[0, 150, 136, 1.0]",
       "textColor": "[0, 0, 0, 1.0]",
