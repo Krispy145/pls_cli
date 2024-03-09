@@ -45,7 +45,17 @@ class MainApp extends StatelessWidget {
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: currentThemeMode,
-        routerConfig: Managers.router.config(),
+        routerConfig: Managers.router.config(
+          /// FIREBASE START
+            navigatorObservers: () => !kIsWeb
+              ? [
+                  FirebaseAnalyticsObserver(
+                    analytics: FirebaseAnalytics.instance,
+                  ),
+                ]
+              : [],
+          /// FIREBASE END
+        ),
       ),
     );
   }

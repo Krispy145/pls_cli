@@ -1,5 +1,29 @@
 import * as vscode from "vscode";
 
+export function upsertFileToPathAndGetContents(
+  path: string,
+  fileName: string,
+  fileContent: string,
+  startMarker?: RegExp
+): string | boolean {
+  const fs = require("fs");
+  const filePath = `${path}/${fileName}`;
+  try {
+    if (!fs.existsSync(filePath)) {
+      fs.writeFileSync(filePath, fileContent);
+      vscode.window.showInformationMessage(`${fileName} created successfully.`);
+      return fileContent;
+    }
+    vscode.window.showInformationMessage(`${fileName} already exists.`);
+    if (startMarker)
+      appendAfterMarkerInContent(filePath, fileContent, startMarker);
+    return fs.readFileSync(filePath, "utf-8");
+  } catch (error) {
+    vscode.window.showErrorMessage(`Error: ${error}`);
+    return false;
+  }
+}
+
 export function appendBeforeMarkerInContent(
   content: string,
   snippet: string,

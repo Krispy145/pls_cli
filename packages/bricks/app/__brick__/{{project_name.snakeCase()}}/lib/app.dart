@@ -47,14 +47,13 @@ class MainApp extends StatelessWidget {
         themeMode: currentThemeMode,
         routerConfig: Managers.router.config(
           {{#has_firebase}}
-          observers: !kIsWeb
+            navigatorObservers: () => !kIsWeb
               ? [
                   FirebaseAnalyticsObserver(
                     analytics: FirebaseAnalytics.instance,
                   ),
                 ]
-              : null,
-
+              : [],
           {{/has_firebase}}
         ),
       ),

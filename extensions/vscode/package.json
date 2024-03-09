@@ -24,7 +24,8 @@
     "onCommand:digital-oasis.add-component",
     "onCommand:digital-oasis.add-model",
     "onCommand:digital-oasis.add-admob",
-    "onCommand:digital-oasis.add-notifications"
+    "onCommand:digital-oasis.add-notifications",
+    "onCommand:digital-oasis.add-deeplinks"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -88,6 +89,11 @@
         "command": "digital-oasis.add-notifications",
         "title": "Add Notifications",
         "shortTitle": "Add Notifications"
+      },
+      {
+        "command": "digital-oasis.add-deeplinks",
+        "title": "Add Deeplinks",
+        "shortTitle": "Add Deeplinks"
       }
     ],
     "menus": {
@@ -138,6 +144,10 @@
         },
         {
           "command": "digital-oasis.add-notifications",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
+        },
+        {
+          "command": "digital-oasis.add-deeplinks",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
         }
       ]

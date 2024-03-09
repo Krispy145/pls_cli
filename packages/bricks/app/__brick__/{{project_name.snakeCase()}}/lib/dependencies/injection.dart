@@ -1,6 +1,7 @@
 import 'package:{{project_name.snakeCase()}}/core/assets/assets.gen.dart';
 import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 import 'package:get_it/get_it.dart';
+import 'package:theme/wrapper/store.dart';
 
 {{#is_dashboard}}
 import 'package:navigation/structures/dashboard/shell/store.dart';
@@ -36,11 +37,11 @@ class ManagerInjector {
 
   /// [init] is responsible for initialising all service locator registrations.
   void init({required FlavorConfig flavorConfig}) {
-    AppLogger.print("Initializing ManagerInjector...", [LoggerFeatures.dependancyInjection]);
+    AppLogger.print("Initializing ManagerInjector...", [LoggerFeatures.dependencyInjection]);
     _initCore(flavorConfig: flavorConfig);
     _initApp();
     _initExternal();
-    AppLogger.print("ManagerInjector initialization complete.", [LoggerFeatures.dependancyInjection], type: LoggerType.confirmation);
+    AppLogger.print("ManagerInjector initialization complete.", [LoggerFeatures.dependencyInjection], type: LoggerType.confirmation);
   }
 
 
@@ -76,7 +77,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for core classes used in multiple features.
   void _initCore({required FlavorConfig flavorConfig}) {
-    AppLogger.print("Initializing core services...", [LoggerFeatures.dependancyInjection]);
+    AppLogger.print("Initializing core services...", [LoggerFeatures.dependencyInjection]);
     _serviceLocator
     ..registerSingleton(AppRouter())
       ..registerLazySingleton<ConnectionStateStore>(ConnectionStateStore.new)
@@ -88,11 +89,12 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
   void _initApp() {
-    AppLogger.print("Initializing app services...", [LoggerFeatures.dependancyInjection]);
+    AppLogger.print("Initializing app services...", [LoggerFeatures.dependencyInjection]);
      _serviceLocator
       ..registerLazySingleton<ThemeStateStore>(
         () => ThemeStateStore.assets(
-          assetPath: Assets.colors.theme,
+          baseThemeAssetPath: Assets.themes.baseTheme,
+          componentThemesAssetPath: Assets.themes.componentsThemes,
         ),
       )
 
@@ -121,7 +123,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for external services.
   void _initExternal() {
-    AppLogger.print("Initializing external services...", [LoggerFeatures.dependancyInjection]);
+    AppLogger.print("Initializing external services...", [LoggerFeatures.dependencyInjection]);
 
     ///END OF EXTERNAL
   }

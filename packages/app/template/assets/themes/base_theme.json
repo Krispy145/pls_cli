@@ -1,0 +1,212 @@
+{
+  "colors": {
+    "primary": {
+      "light": {
+        "primary": "[0, 51, 153, 1]",
+        "onPrimary": "[255, 255, 255, 1]",
+        "primaryContainer": "[220, 225, 255, 1]",
+        "onPrimaryContainer": "[0, 22, 78, 1]",
+        "secondary": "[89, 94, 114, 1]",
+        "onSecondary": "[255, 255, 255, 1]",
+        "secondaryContainer": "[1, 31, 55, 1]",
+        "onSecondaryContainer": "[255, 255, 255, 1]",
+        "tertiary": "[116, 84, 112, 1]",
+        "onTertiary": "[255, 255, 255, 1]",
+        "tertiaryContainer": "[255, 215, 246, 1]",
+        "onTertiaryContainer": "[44, 18, 42, 1]",
+        "error": "[186, 26, 26, 1]",
+        "onError": "[255, 255, 255, 1]",
+        "errorContainer": "[255, 218, 214, 1]",
+        "onErrorContainer": "[65, 0, 2, 1]",
+        "confirmation": "[76, 175, 80, 1]",
+        "onConfirmation": "[255, 255, 255, 1]",
+        "confirmationContainer": "[196, 255, 199, 1]",
+        "onConfirmationContainer": "[0, 66, 3, 1]",
+        "information": "[33, 150, 243, 1]",
+        "onInformation": "[255, 255, 255, 1]",
+        "informationContainer": "[188, 225, 255, 1]",
+        "onInformationContainer": "[1, 37, 66, 1]",
+        "warning": "[255, 152, 0, 1]",
+        "onWarning": "[255, 255, 255, 1]",
+        "warningContainer": "[255, 224, 179, 1]",
+        "onWarningContainer": "[76, 46, 1, 1]",
+        "outline": "[118, 118, 128, 1]",
+        "background": "[255, 255, 255, 1]",
+        "onBackground": "[0, 0, 0, 1]",
+        "surface": "[254, 251, 255, 1]",
+        "onSurface": "[27, 27, 0, 1]",
+        "surfaceVariant": "[226, 225, 236, 1]",
+        "onSurfaceVariant": "[69, 70, 79, 1]",
+        "inverseSurface": "[48, 48, 52, 1]",
+        "onInverseSurface": "[242, 240, 244, 1]",
+        "inversePrimary": "[181, 196, 255, 1]",
+        "shadow": "[0, 0, 0, 1]",
+        "surfaceTint": "[53, 87, 188, 1]",
+        "outlineVariant": "[198, 198, 208, 1]",
+        "scrim": "[0, 0, 0, 1]"
+      },
+      "dark": {
+        "primary": "[0, 51, 153, 1]",
+        "onPrimary": "[255, 255, 255, 1]",
+        "primaryContainer": "[35, 91, 255, 1]",
+        "onPrimaryContainer": "[0, 22, 78, 1]",
+        "secondary": "[89, 94, 114, 1]",
+        "onSecondary": "[255, 255, 255, 1]",
+        "secondaryContainer": "[255, 255, 255, 0.8431372549019608]",
+        "onSecondaryContainer": "[17, 32, 55, 1]",
+        "tertiary": "[116, 84, 112, 1]",
+        "onTertiary": "[255, 255, 255, 1]",
+        "tertiaryContainer": "[255, 215, 246, 1]",
+        "onTertiaryContainer": "[44, 18, 42, 1]",
+        "error": "[186, 26, 26, 1]",
+        "onError": "[255, 255, 255, 1]",
+        "errorContainer": "[255, 218, 214, 1]",
+        "onErrorContainer": "[65, 0, 2, 1]",
+        "confirmation": "[76, 175, 80, 1]",
+        "onConfirmation": "[255, 255, 255, 1]",
+        "confirmationContainer": "[196, 255, 199, 1]",
+        "onConfirmationContainer": "[0, 66, 3, 1]",
+        "information": "[33, 150, 243, 1]",
+        "onInformation": "[255, 255, 255, 1]",
+        "informationContainer": "[188, 225, 255, 1]",
+        "onInformationContainer": "[1, 37, 66, 1]",
+        "warning": "[255, 152, 0, 1]",
+        "onWarning": "[255, 255, 255, 1]",
+        "warningContainer": "[255, 224, 179, 1]",
+        "onWarningContainer": "[76, 46, 1, 1]",
+        "outline": "[118, 118, 128, 1]",
+        "background": "[15, 28, 53, 1]",
+        "onBackground": "[255, 255, 255, 1]",
+        "surface": "[20, 41, 85, 0.42745098039215684]",
+        "onSurface": "[255, 255, 255, 1]",
+        "surfaceVariant": "[226, 225, 236, 1]",
+        "onSurfaceVariant": "[247, 255, 255, 0.5843137254901961]",
+        "inverseSurface": "[48, 48, 52, 1]",
+        "onInverseSurface": "[242, 240, 244, 1]",
+        "inversePrimary": "[181, 196, 255, 1]",
+        "shadow": "[0, 0, 0, 1]",
+        "surfaceTint": "[53, 87, 188, 1]",
+        "outlineVariant": "[198, 198, 208, 1]",
+        "scrim": "[0, 0, 0, 1]"
+      }
+    }
+  },
+  "textStyles": {
+    "primary": {
+      "display": {
+        "large": {
+          "fontFamilyName": "Roboto",
+          "fontWeight": 400,
+          "fontSize": 57,
+          "letterSpacing": -0.25
+        },
+        "medium": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "italic",
+          "fontWeight": 400,
+          "fontSize": 45,
+          "letterSpacing": 0
+        },
+        "small": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "italic",
+          "fontWeight": 400,
+          "fontSize": 36,
+          "letterSpacing": 0
+        }
+      },
+      "headline": {
+        "large": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "italic",
+          "fontWeight": 400,
+          "fontSize": 32,
+          "letterSpacing": 0
+        },
+        "medium": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "italic",
+          "fontWeight": 400,
+          "fontSize": 28,
+          "letterSpacing": 0
+        },
+        "small": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "italic",
+          "fontWeight": 400,
+          "fontSize": 24,
+          "letterSpacing": 0
+        }
+      },
+      "title": {
+        "large": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "italic",
+          "fontWeight": 400,
+          "fontSize": 22,
+          "letterSpacing": 0
+        },
+        "medium": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "Medium",
+          "fontWeight": 500,
+          "fontSize": 16,
+          "letterSpacing": 0.15000000596046448
+        },
+        "small": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "Medium",
+          "fontWeight": 500,
+          "fontSize": 14,
+          "letterSpacing": 0.10000000149011612
+        }
+      },
+      "body": {
+        "large": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "italic",
+          "fontWeight": 400,
+          "fontSize": 16,
+          "letterSpacing": 0.5
+        },
+        "medium": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "italic",
+          "fontWeight": 400,
+          "fontSize": 14,
+          "letterSpacing": 0.25
+        },
+        "small": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "italic",
+          "fontWeight": 400,
+          "fontSize": 12,
+          "letterSpacing": 0.4000000059604645
+        }
+      },
+      "label": {
+        "large": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "Medium",
+          "fontWeight": 500,
+          "fontSize": 14,
+          "letterSpacing": 0.10000000149011612
+        },
+        "medium": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "Medium",
+          "fontWeight": 500,
+          "fontSize": 12,
+          "letterSpacing": 0.5
+        },
+        "small": {
+          "fontFamilyName": "Roboto",
+          "fontFamilyStyle": "Medium",
+          "fontWeight": 500,
+          "fontSize": 11,
+          "letterSpacing": 0.5
+        }
+      }
+    }
+  }
+}

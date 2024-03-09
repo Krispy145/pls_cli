@@ -13,6 +13,7 @@ import { newDataLayer } from "./commands/new-data-layer.command";
 import { newDomainLayer } from "./commands/new-domain-layer.command";
 import { newPresentationLayer } from "./commands/new-presentation-layer.command";
 import { newAuth } from "./commands/add-auth.command";
+import { addDeepLinks } from "./commands/add-deeplinks.command";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -57,6 +58,11 @@ export function activate(context: ExtensionContext) {
 
   let model = commands.registerCommand("digital-oasis.add-model", addModel);
 
+  let deepLinks = commands.registerCommand(
+    "digital-oasis.add-deeplinks",
+    addDeepLinks
+  );
+
   context.subscriptions.push(
     app,
     feature,
@@ -68,7 +74,8 @@ export function activate(context: ExtensionContext) {
     component,
     model,
     admob,
-    notifications
+    notifications,
+    deepLinks
   );
 }
 

@@ -3,7 +3,6 @@ import * as fs from "fs";
 import { Uri, window, workspace } from "vscode";
 import {
   getFeatureFilePath,
-  getFeatureFilePath as getFilePath,
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import {
@@ -19,7 +18,6 @@ import {
 } from "../utils/build_runner";
 
 export const addNotifications = async (args: Uri) => {
-  var targetDir = await getTargetDirectory(args);
   await updateAppDelegate();
   updateBuildGradle();
   updateAppBuildGradle();
@@ -84,7 +82,7 @@ export const addNotifications = async (args: Uri) => {
 async function updateAppDelegate() {
   try {
     // File path for AppDelegate.swift
-    const appDelegatePath = getFilePath("ios/Runner/AppDelegate.swift");
+    const appDelegatePath = getFeatureFilePath("ios/Runner/AppDelegate.swift");
 
     // Read the current content of AppDelegate.swift
     var currentContent = fs.readFileSync(appDelegatePath, "utf-8");
@@ -146,7 +144,7 @@ async function updateAppDelegate() {
 }
 
 function updateBuildGradle() {
-  const buildGradlePath = getFilePath("android/build.gradle");
+  const buildGradlePath = getFeatureFilePath("android/build.gradle");
 
   try {
     // Read the current content of build.gradle
@@ -156,11 +154,11 @@ function updateBuildGradle() {
     const targetGradleVersion = "7.3.1";
 
     // Create a regular expression to find the classpath in the dependencies block
-    const classpathPattern =
+    const classPathPattern =
       /classpath ['"](com.android.tools.build:gradle:([\d.]+))['"]/;
 
     // Use a regular expression to match and extract the existing classpath version
-    const match = currentContent.match(classpathPattern);
+    const match = currentContent.match(classPathPattern);
 
     if (match) {
       const currentGradleVersion = match[2];
@@ -169,7 +167,7 @@ function updateBuildGradle() {
       ) {
         // Replace the Gradle version with the target version
         const updatedContent = currentContent.replace(
-          classpathPattern,
+          classPathPattern,
           `classpath 'com.android.tools.build:gradle:${targetGradleVersion}'`
         );
 
@@ -189,7 +187,7 @@ function updateBuildGradle() {
 }
 
 function updateAppBuildGradle() {
-  const buildGradlePath = getFilePath("android/app/build.gradle");
+  const buildGradlePath = getFeatureFilePath("android/app/build.gradle");
 
   try {
     // Read the current content of build.gradle
@@ -278,7 +276,9 @@ function updateAppBuildGradle() {
 }
 
 async function updateAndroidManifest() {
-  const manifestPath = getFilePath("android/app/src/main/AndroidManifest.xml");
+  const manifestPath = getFeatureFilePath(
+    "android/app/src/main/AndroidManifest.xml"
+  );
 
   const permissionsBlock = `
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -377,7 +377,7 @@ async function updateAndroidManifest() {
 }
 
 async function updateStringsXml() {
-  const stringsXmlPath = getFilePath(
+  const stringsXmlPath = getFeatureFilePath(
     "android/app/src/main/res/values/strings.xml"
   );
   const stringsToAdd = `
@@ -452,7 +452,7 @@ function addLocalNotificationInjection(fileContent: string) {
       "import 'package:notifications/stores/local_store.dart';\nimport 'package:notifications/stores/base_store.dart';\nimport 'package:notifications/stores/push_store.dart';",
     injectionCode,
     getterCode,
-    injectInto: "CORE",
+    injectInto: "CORE", //change to EXTERNAL when changed logic to either add ..register... or add _serviceLocator..register...
   });
 
   return fileContent;
@@ -490,7 +490,7 @@ function addPushNotificationInjection(fileContent: string) {
   import '../features/notifications/data/sources/notifications_api.dart';`,
     injectionCode: injectionCode,
     getterCode: getterCode,
-    injectInto: "CORE",
+    injectInto: "CORE", //change to EXTERNAL when changed logic to either add ..register... or add _serviceLocator..register...
   });
   return fileContent;
 }

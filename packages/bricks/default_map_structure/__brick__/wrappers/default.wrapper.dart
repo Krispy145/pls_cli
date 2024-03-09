@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:navigation/structures/default/widget.dart';
 import 'package:new_setup/navigation/routes.gr.dart';
 import 'package:utilities/helpers/tuples.dart';
-
+import '../routes.gr.dart';
 import '/dependencies/injection.dart';
 import '/navigation/components/app_bar.dart';
 import '/navigation/components/bottom_nav_bar.dart';
@@ -25,7 +25,6 @@ class DefaultWrapperView extends StatelessWidget {
       bottomNavigationBar: MainBottomNavBar(
         iconButtons: [
           Pair(Icons.home, () => context.navigateTo(HomeRoute())),
-          Pair(Icons.settings, () => context.navigateTo(SettingsRoute())),
         ],
       ),
     );
