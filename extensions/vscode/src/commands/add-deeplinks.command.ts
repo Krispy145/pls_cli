@@ -80,15 +80,24 @@ export const addDeepLinks = async (args: Uri) => {
     "lib/dependencies/injection.dart"
   );
 
-  addInjectionAndGetter({
-    fileContent: fs.readFileSync(injectionContainerPath, "utf8"),
-    storeName: "DeepLinks",
-    importCode: `import 'package:deeplinks/deeplinks.dart';`,
-    injectionCode: `final DeepLinksStore deepLinksStore = DeepLinksStore();`,
-    getterCode: `get<DeepLinksStore>(() => deepLinksStore),`,
-    injectInto: "CORE", //change to EXTERNAL when changed logic to either add ..register... or add _serviceLocator..register...
-  });
+  var content = fs.readFileSync(injectionContainerPath, "utf8");
+  if (!content.includes("import 'package:deeplinks/deeplinks.dart';")) {
+    content = addInjectionAndGetter({
+      fileContent: content,
+      storeName: "DeepLinks",
+      importCode: `import 'package:deeplinks/deeplinks.dart';`,
+      injectionCode: `final DeepLinksStore deepLinksStore = DeepLinksStore();`,
+      getterCode: `get<DeepLinksStore>(() => deepLinksStore),`,
+      injectInto: "CORE", //change to EXTERNAL when changed logic to either add ..register... or add _serviceLocator..register...
+    });
 
+    fs.writeFileSync(injectionContainerPath, content);
+  }
+
+  const deeplinksPath =
+    "/Users/davidkisbey-green/Desktop/Digital_Oasis/deeplinks/";
+
+  addFlutterPackageFromPath("deeplinks", deeplinksPath);
   await formatFiles();
 };
 
@@ -113,14 +122,19 @@ async function addIosFiles(
 function addWebFiles(liveKey: string) {
   const webIndexHtmlPath = getFeatureFilePath("web/index.html");
   var webIndexHtmlContent = fs.readFileSync(webIndexHtmlPath, "utf8");
+  const newContent = `
+  <script>
+(function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;d.src="https://cdn.branch.io/branch-latest.min.js";k=r.getElementsByTagName(a)[0];k.parentNode.insertBefore(d,k);b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode autoAppIndex banner closeBanner closeJourney creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setBranchViewData setIdentity track validateCode trackCommerceEvent logEvent disableTracking".split(" "), 0);
+branch.init(${liveKey});
+</script>
+  `;
+
+  if (webIndexHtmlContent.includes(newContent)) {
+    return;
+  }
   webIndexHtmlContent = appendAfterMarkerInContent(
     "web/index.html",
-    `
-            <script>
-  (function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;d.src="https://cdn.branch.io/branch-latest.min.js";k=r.getElementsByTagName(a)[0];k.parentNode.insertBefore(d,k);b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode autoAppIndex banner closeBanner closeJourney creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setBranchViewData setIdentity track validateCode trackCommerceEvent logEvent disableTracking".split(" "), 0);
-	branch.init(${liveKey});
-</script>
-            `,
+    newContent,
     RegExp("<body>")
   );
   fs.writeFileSync(webIndexHtmlPath, webIndexHtmlContent);
