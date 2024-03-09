@@ -111,6 +111,7 @@ async function addIosFiles(
 }
 
 function addWebFiles(liveKey: string) {
+  const webIndexHtmlPath = getFeatureFilePath("web/index.html");
   appendAfterMarkerInContent(
     "web/index.html",
     `
@@ -125,8 +126,9 @@ function addWebFiles(liveKey: string) {
 
 function updateAppBuildGradle() {
   const appBuildGradlePath = getFeatureFilePath("android/app/build.gradle");
+  var content = fs.readFileSync(appBuildGradlePath, "utf8");
 
-  const content = appendAfterMarkerInContent(
+  content = appendAfterMarkerInContent(
     appBuildGradlePath,
     ", 'proguard-rules.pro'",
     RegExp("proguardFiles getDefaultProguardFile('proguard-android.txt')")
@@ -268,13 +270,13 @@ function updateInfoPlist(
   );
 
   if (testKey) {
-    infoPlistContent = appendAfterMarkerInContent(
+    infoPlistContent = appendBeforeMarkerInContent(
       infoPlistContent,
       `
             <key>test</key>
             <string>${testKey}</string>        
         `,
-      RegExp(`s*<\/dict>\s*<key>live<\/key>\s*<string>${liveKey}<\/string>`)
+      RegExp(`s*<key>live<\/key>\s*<string>${liveKey}<\/string>`)
     );
   }
   fs.writeFileSync(infoPlistPath, infoPlistContent);
