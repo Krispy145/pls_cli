@@ -112,7 +112,8 @@ async function addIosFiles(
 
 function addWebFiles(liveKey: string) {
   const webIndexHtmlPath = getFeatureFilePath("web/index.html");
-  appendAfterMarkerInContent(
+  var webIndexHtmlContent = fs.readFileSync(webIndexHtmlPath, "utf8");
+  webIndexHtmlContent = appendAfterMarkerInContent(
     "web/index.html",
     `
             <script>
@@ -122,6 +123,7 @@ function addWebFiles(liveKey: string) {
             `,
     RegExp("<body>")
   );
+  fs.writeFileSync(webIndexHtmlPath, webIndexHtmlContent);
 }
 
 function updateAppBuildGradle() {
