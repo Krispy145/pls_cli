@@ -12,18 +12,16 @@ export function upsertFileToPathAndGetContents(
     if (!fs.existsSync(filePath)) {
       fs.writeFileSync(filePath, fileContent);
       vscode.window.showInformationMessage(`${fileName} created successfully.`);
-    }
-    vscode.window.showInformationMessage(`${fileName} already exists.`);
-    if (startMarker) {
-      const content = appendAfterMarkerInContent(
-        filePath,
-        fileContent,
-        startMarker
-      );
-      fs.writeFileSync(filePath, content);
-      vscode.window.showInformationMessage(
-        `${fileName} updated with new content.`
-      );
+    } else {
+      vscode.window.showInformationMessage(`${fileName} already exists.`);
+      if (startMarker) {
+        var content = fs.readFileSync(filePath, "utf8");
+        content = appendAfterMarkerInContent(content, fileContent, startMarker);
+        fs.writeFileSync(filePath, content);
+        vscode.window.showInformationMessage(
+          `${fileName} updated with new content.`
+        );
+      }
     }
   } catch (error) {
     vscode.window.showErrorMessage(`Error: ${error}`);

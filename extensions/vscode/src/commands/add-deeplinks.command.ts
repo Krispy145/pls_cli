@@ -80,19 +80,26 @@ export const addDeepLinks = async (args: Uri) => {
     "lib/dependencies/injection.dart"
   );
 
-  var content = fs.readFileSync(injectionContainerPath, "utf8");
-  if (!content.includes("import 'package:deeplinks/deeplinks.dart';")) {
-    content = addInjectionAndGetter({
-      fileContent: content,
-      storeName: "DeepLinks",
-      importCode: `import 'package:deeplinks/deeplinks.dart';`,
-      injectionCode: `final DeepLinksStore deepLinksStore = DeepLinksStore();`,
-      getterCode: `get<DeepLinksStore>(() => deepLinksStore),`,
-      injectInto: "CORE", //change to EXTERNAL when changed logic to either add ..register... or add _serviceLocator..register...
-    });
+  var fileContent = fs.readFileSync(injectionContainerPath, "utf-8");
 
-    fs.writeFileSync(injectionContainerPath, content);
-  }
+  const injectionCode = `
+  ..registerSingleton(DeepLinksStore.new)
+  `;
+
+  const getterCode = `
+/// [DeepLinksStore] getter
+DeepLinksStore get deepLinksStore => _serviceLocator.get<DeepLinksStore>();
+`;
+  fileContent = addInjectionAndGetter({
+    fileContent: fileContent,
+    storeName: "Deep Links",
+    importCode: "import 'package:deeplinks/store.dart';",
+    injectionCode,
+    getterCode,
+    injectInto: "CORE",
+  });
+
+  fs.writeFileSync(injectionContainerPath, fileContent);
 
   const deeplinksPath =
     "/Users/davidkisbey-green/Desktop/Digital_Oasis/deeplinks/";
@@ -133,7 +140,7 @@ branch.init(${liveKey});
     return;
   }
   webIndexHtmlContent = appendAfterMarkerInContent(
-    "web/index.html",
+    webIndexHtmlContent,
     newContent,
     RegExp("<body>")
   );
@@ -145,9 +152,9 @@ function updateAppBuildGradle() {
   var content = fs.readFileSync(appBuildGradlePath, "utf8");
 
   content = appendAfterMarkerInContent(
-    appBuildGradlePath,
+    content,
     ", 'proguard-rules.pro'",
-    RegExp("proguardFiles getDefaultProguardFile('proguard-android.txt')")
+    /(\s*proguardFiles getDefaultProguardFile\('proguard-android.txt'\),)/
   );
   fs.writeFileSync(appBuildGradlePath, content);
 }

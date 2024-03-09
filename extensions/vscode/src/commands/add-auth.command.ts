@@ -31,7 +31,7 @@ export const newAuth = async (args: Uri) => {
   `;
     fileContent = addInjectionAndGetter({
       fileContent: fileContent,
-      storeName: "Local Notifications",
+      storeName: "Authentication",
       importCode:
         "import 'package:authentication/domain/repositories/authentication.repository.dart';",
       injectionCode,
