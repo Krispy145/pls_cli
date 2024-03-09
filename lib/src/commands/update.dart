@@ -10,8 +10,7 @@ class UpdateCommand extends RenderCommand {
   UpdateCommand() {
     argParser.addFlag(
       "vscode",
-      help:
-          "Update the vscode extension, requires vsce to be installed globally.",
+      help: "Update the vscode extension, requires vsce to be installed globally.",
     );
   }
   @override
@@ -45,6 +44,7 @@ class UpdateCommand extends RenderCommand {
             githubPath,
             tempDir.path,
           ],
+          logStderrAsError: true,
         );
         clonedProgress.done();
       } catch (_) {
@@ -53,8 +53,7 @@ class UpdateCommand extends RenderCommand {
         return;
       }
 
-      Directory.current =
-          Directory(path.join(tempDir.path, "extensions", "vscode"));
+      Directory.current = Directory(path.join(tempDir.path, "extensions", "vscode"));
 
       final buildingProgress = logger.spinner(
         icon: "🏗️",
@@ -73,8 +72,7 @@ class UpdateCommand extends RenderCommand {
 
       final installingProgress = logger.spinner(
         icon: "✅",
-        rightPrompt: (done) =>
-            done ? "Extension installed!" : "Installing extension",
+        rightPrompt: (done) => done ? "Extension installed!" : "Installing extension",
       );
       try {
         await processRunner.runLog(

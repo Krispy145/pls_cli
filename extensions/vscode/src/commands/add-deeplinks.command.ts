@@ -124,11 +124,14 @@ function addWebFiles(liveKey: string) {
 }
 
 function updateAppBuildGradle() {
-  appendAfterMarkerInContent(
-    "android/app/build.gradle",
+  const appBuildGradlePath = getFeatureFilePath("android/app/build.gradle");
+
+  const content = appendAfterMarkerInContent(
+    appBuildGradlePath,
     ", 'proguard-rules.pro'",
     RegExp("proguardFiles getDefaultProguardFile('proguard-android.txt')")
   );
+  fs.writeFileSync(appBuildGradlePath, content);
 }
 
 function addProGuardRules() {
@@ -176,7 +179,7 @@ function updateAndroidManifest(
 
 			<!-- Branch URI Scheme -->
 			<intent-filter>				
-				<data android:scheme="${linkDomainPrefix} android:host="open" />
+				<data android:scheme="${linkDomainPrefix}" android:host="open" />
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
@@ -235,8 +238,7 @@ function updateInfoPlist(
 
   infoPlistContent = appendBeforeMarkerInContent(
     infoPlistContent,
-    `
-    <dict>
+    `    
 		<key>branch_universal_link_domains</key>
 		<array>
 			<string>${linkDomainPrefix}.app.link</string>
@@ -261,9 +263,8 @@ function updateInfoPlist(
 			<key>live</key>
 			<string>${liveKey}</string>			
 		</dict>
-	</dict>
     `,
-    /(\s*<\/dict>)/
+    new RegExp("</dict>\n</plist>")
   );
 
   if (testKey) {
@@ -275,7 +276,6 @@ function updateInfoPlist(
         `,
       RegExp(`s*<\/dict>\s*<key>live<\/key>\s*<string>${liveKey}<\/string>`)
     );
-
-    fs.writeFileSync(infoPlistPath, infoPlistContent);
   }
+  fs.writeFileSync(infoPlistPath, infoPlistContent);
 }
