@@ -30,10 +30,12 @@ export const addDeepLinks = async (args: Uri) => {
       placeHolder: "Example: live_key_1234567890",
     });
   }
+
   const testKey = await window.showInputBox({
     prompt: "Branch Test Key",
     placeHolder: "Branch Test Key",
   });
+
   var linkDomainPrefix = await window.showInputBox({
     prompt: "Branch Link Domain Prefix",
     placeHolder: "Branch Link Domain Prefix",
@@ -61,17 +63,17 @@ export const addDeepLinks = async (args: Uri) => {
 
   switch (deepLinkConfigurationType) {
     case "Android":
-      await addAndroidFiles(liveKey, testKey, linkDomainPrefix);
+      addAndroidFiles(liveKey, testKey, linkDomainPrefix);
       break;
     case "iOS":
-      await addIosFiles(liveKey, testKey, linkDomainPrefix);
+      addIosFiles(liveKey, testKey, linkDomainPrefix);
       break;
     case "Web":
       addWebFiles(liveKey);
       break;
     default:
-      await addAndroidFiles(liveKey, testKey, linkDomainPrefix);
-      await addIosFiles(liveKey, testKey, linkDomainPrefix);
+      addAndroidFiles(liveKey, testKey, linkDomainPrefix);
+      addIosFiles(liveKey, testKey, linkDomainPrefix);
       addWebFiles(liveKey);
       break;
   }
@@ -108,7 +110,7 @@ DeepLinksStore get deepLinksStore => _serviceLocator.get<DeepLinksStore>();
   await formatFiles();
 };
 
-async function addAndroidFiles(
+function addAndroidFiles(
   liveKey: string,
   testKey: string | undefined,
   linkDomainPrefix: string
@@ -118,7 +120,7 @@ async function addAndroidFiles(
   addProGuardRules();
 }
 
-async function addIosFiles(
+function addIosFiles(
   liveKey: string,
   testKey: string | undefined,
   linkDomainPrefix: string
