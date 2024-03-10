@@ -22,36 +22,41 @@ export const addDeepLinks = async (args: Uri) => {
   var liveKey = await window.showInputBox({
     prompt: "Branch Live Key",
     placeHolder: "Branch Live Key",
+    ignoreFocusOut: true,
   });
   if (!liveKey) {
     window.showErrorMessage("Branch Live Key is required");
     liveKey = await window.showInputBox({
       prompt: "Branch Live Key",
       placeHolder: "Example: live_key_1234567890",
+      ignoreFocusOut: true,
     });
   }
 
   const testKey = await window.showInputBox({
     prompt: "Branch Test Key",
     placeHolder: "Branch Test Key",
+    ignoreFocusOut: true,
   });
 
   var linkDomainPrefix = await window.showInputBox({
     prompt: "Branch Link Domain Prefix",
     placeHolder: "Branch Link Domain Prefix",
+    ignoreFocusOut: true,
   });
   if (!linkDomainPrefix) {
     window.showErrorMessage("Branch Link Domain Prefix is required");
     linkDomainPrefix = await window.showInputBox({
       prompt: "Branch Link Domain Prefix",
       placeHolder: "Example: {PREFIX}.app.link",
+      ignoreFocusOut: true,
     });
   }
 
   // Prompt user to select local, push, or both notification packages
   const deepLinkConfigurationType = await vscode.window.showQuickPick(
     ["All", "Android", "iOS", "Web"],
-    { placeHolder: "Select Deeplinks configuration type" }
+    { placeHolder: "Select Deeplinks configuration type", ignoreFocusOut: true }
   );
 
   if (!liveKey || !linkDomainPrefix) {
@@ -85,7 +90,7 @@ export const addDeepLinks = async (args: Uri) => {
   var fileContent = fs.readFileSync(injectionContainerPath, "utf-8");
 
   const injectionCode = `
-  ..registerSingleton(DeepLinksStore.new)
+  ..registerLazySingleton(DeepLinksStore.new)
   `;
 
   const getterCode = `
@@ -134,7 +139,7 @@ function addWebFiles(liveKey: string) {
   const newContent = `
   <script>
 (function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;d.src="https://cdn.branch.io/branch-latest.min.js";k=r.getElementsByTagName(a)[0];k.parentNode.insertBefore(d,k);b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode autoAppIndex banner closeBanner closeJourney creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setBranchViewData setIdentity track validateCode trackCommerceEvent logEvent disableTracking".split(" "), 0);
-branch.init(${liveKey});
+branch.init("${liveKey}");
 </script>
   `;
 
@@ -246,7 +251,7 @@ function updateAndroidManifest(
     androidManifestContent = appendBeforeMarkerInContent(
       androidManifestContent,
       `
-      <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_XXX" />		
+      <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="${testKey}" />		
       <meta-data android:name="io.branch.sdk.TestMode" android:value="true" />
           `,
       /(\s*<\/application>)/
