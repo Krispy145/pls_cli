@@ -83,8 +83,8 @@ class DataLayerCommand extends BrickCommandBase {
 import '${_featureName.snakeCase}.repository.dart';
 ///END OF IMPORTS
 
-/// [SourceTypes] is an enum that defines the different data sources.
-enum SourceTypes {
+/// [DataSourceTypes] is an enum that defines the different data sources.
+enum DataSourceTypes {
   /// [api] is the remote data source.
   api,
 

@@ -55,15 +55,24 @@ export const addNotifications = async (args: Uri) => {
     var runCommandResult;
     if (notificationType === "Local") {
       runCommandResult = await runCommandInWorkspaceFolder(
-        "rn add notifications_feature --path lib/features -s local_notifications_store -r local_store --is_push false"
+        "rn add notifications_feature -s local_notifications_store -r local_store --is_push false",
+        {
+          folderPath: "lib",
+        }
       );
     } else if (notificationType === "Push")
       runCommandResult = await runCommandInWorkspaceFolder(
-        "rn add notifications_feature --path lib/features -s push_notifications_store -r push_store --is_push true"
+        "rn add notifications_feature -s push_notifications_store -r push_store --is_push true",
+        {
+          folderPath: "lib",
+        }
       );
     else if (notificationType === "Both") {
       runCommandResult = await runCommandInWorkspaceFolder(
-        "rn add multi_notifications_feature --path lib/features"
+        "rn add multi_notifications_feature",
+        {
+          folderPath: "lib",
+        }
       );
     }
     if (runCommandResult?.error !== undefined) {
@@ -448,8 +457,11 @@ function addLocalNotificationInjection(fileContent: string) {
   fileContent = addInjectionAndGetter({
     fileContent: fileContent,
     storeName: "Local Notifications",
-    importCode:
-      "import 'package:notifications/stores/local_store.dart';\nimport 'package:notifications/stores/base_store.dart';\nimport 'package:notifications/stores/push_store.dart';",
+    importCode: `
+      import 'package:notifications/stores/base_store.dart';
+      import 'package:notifications/stores/local_store.dart';
+      import 'package:notifications/stores/push_store.dart';
+      `,
     injectionCode,
     getterCode,
     injectInto: "CORE", //change to EXTERNAL when changed logic to either add ..register... or add _serviceLocator..register...
@@ -461,11 +473,7 @@ function addLocalNotificationInjection(fileContent: string) {
 function addPushNotificationInjection(fileContent: string) {
   const injectionCode = `
   ..registerSingleton<PushNotificationsStore>(
-    PushNotificationsStore(
-      remoteDataSource: ApiNotificationsDataSource(
-        flavorConfig.apiPrefix,
-      ),
-    )..initialize(),
+    PushNotificationsStore()..initialize(),
   )`;
 
   const getterCode = `

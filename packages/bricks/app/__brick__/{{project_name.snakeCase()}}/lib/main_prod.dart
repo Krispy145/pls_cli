@@ -16,11 +16,11 @@ void main() async {
   );
 
   {{#has_firebase}}
-  // Initialise firebase project
-  // await Firebase.initializeApp(
-  //   name: flavorConfig.environment.name,
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  // Initialize firebase project
+  await Firebase.initializeApp(
+    name: flavorConfig.environment.name,
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   {{/has_firebase}}
   await appMain(flavorConfig: flavorConfig);

@@ -31,7 +31,7 @@ check_and_configure() {
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             firebase projects:create -n "{{#titleCase}}{{project_name.paramCase()}}{{/titleCase}}-$ENVIRONMENT" {{project_name.paramCase()}}-$SUFFIX
             echo "Finalising Firebase $ENVIRONMENT project creation..."
-            sleep 5
+            sleep 20
             echo "Firebase $ENVIRONMENT project created successfully."
             echo "Configuring Firebase $ENVIRONMENT project for platforms..."
             flutterfire config \

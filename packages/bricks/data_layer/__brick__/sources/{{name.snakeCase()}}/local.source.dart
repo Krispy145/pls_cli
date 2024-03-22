@@ -19,7 +19,7 @@ class Local{{name.pascalCase()}}DataSource extends LocalDataSource<{{name.pascal
         );
 
   @override
-  Future<List<{{name.pascalCase()}}Model?>> search(Map<String, String> queries) async {
+  Future<List<{{name.pascalCase()}}Model?>> search(Map<String, dynamic> queries) async {
     try {
       final {{name.camelCase()}}s = _dataStore.values.toList();
       AppLogger.print(

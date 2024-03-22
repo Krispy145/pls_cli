@@ -9,25 +9,25 @@ import '/data/sources/{{name.snakeCase()}}/local.source.dart';
 /// [{{name.pascalCase()}}DataRepository] is a class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
 class {{name.pascalCase()}}DataRepository {
   /// [getAll{{name.pascalCase()}}Models] returns a list of [{{name.pascalCase()}}Model]s.
-  Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models({required SourceTypes source}) async {
+  Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models({required DataSourceTypes source}) async {
     return _dataSourceByType(source).getAll();    
   }
 
   /// [addAll{{name.pascalCase()}}Models] adds all [{{name.pascalCase()}}Model]s to the data source.
-  Future<void> addAll{{name.pascalCase()}}Models({required SourceTypes source, required List<{{name.pascalCase()}}Model> {{name.camelCase()}}Models}) async {
+  Future<void> addAll{{name.pascalCase()}}Models({required DataSourceTypes source, required List<{{name.pascalCase()}}Model> {{name.camelCase()}}Models}) async {
     return _dataSourceByType(source).addAll({{name.camelCase()}}Models);
   }
 
-  /// [_dataSourceByType] returns the appropriate [{{name.pascalCase()}}DataSource] based on the [SourceTypes] enum.
+  /// [_dataSourceByType] returns the appropriate [{{name.pascalCase()}}DataSource] based on the [DataSourceTypes] enum.
   /// Defaults to [Local{{name.pascalCase()}}DataSource].
   /// This can be in local, an api, or firestore.
-  {{name.pascalCase()}}DataSource _dataSourceByType(SourceTypes type) {
+  {{name.pascalCase()}}DataSource _dataSourceByType(DataSourceTypes type) {
     switch (type) {
-      case SourceTypes.api:
+      case DataSourceTypes.api:
         return Api{{name.pascalCase()}}DataSource();
-      case SourceTypes.local:
+      case DataSourceTypes.local:
         return Local{{name.pascalCase()}}DataSource();
-      case SourceTypes.firestore:
+      case DataSourceTypes.firestore:
         return Firestore{{name.pascalCase()}}DataSource();
 
       //TODO: set default accordingly

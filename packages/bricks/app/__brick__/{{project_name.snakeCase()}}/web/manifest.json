@@ -1,6 +1,6 @@
 {
-  "name": "recipe_recognition",
-  "short_name": "recipe_recognition",
+  "name": "{{project_name.snakeCase()}}",
+  "short_name": "{{project_name.snakeCase()}}",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",

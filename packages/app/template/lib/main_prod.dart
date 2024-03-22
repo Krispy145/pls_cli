@@ -1,10 +1,12 @@
 import 'package:app_template/app.dart';
 
 /// FIREBASE START
+//TODO: Uncomment this after running the firebase setup script
 // import 'package:app_template/firebase/firebase_options_prod.dart';
 // import 'package:firebase_core/firebase_core.dart';
 
 /// FIREBASE END
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:utilities/flavors/flavor_config.dart';
 
@@ -16,9 +18,10 @@ void main() async {
   );
 
   /// FIREBASE START
-  // Initialise firebase project
+  //TODO: Uncomment this after adding the firebase_options_prod.dart file
+  // Initialize firebase project
   // await Firebase.initializeApp(
-  //   name: flavorConfig.environment.name,
+  //   name: !kIsWeb ? flavorConfig.environment.name : null,
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
 
