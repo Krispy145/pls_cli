@@ -1,12 +1,12 @@
-import 'package:render_cli/src/commands/base.dart';
-import 'package:render_cli/src/commands/list/features.dart';
+import 'package:unpack_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/commands/list/features.dart';
 
 /// {@template listCommand}
 /// List various aspects of a flutter project.
 ///
 /// May not need to call this manually. Used in extensions.
 /// {@endtemplate}
-class ListCommand extends RenderCommand {
+class ListCommand extends UnpackCommand {
   /// {@macro listCommand}
   ListCommand() {
     addSubcommand(ListFeaturesCommand());

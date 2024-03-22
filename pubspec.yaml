@@ -1,12 +1,12 @@
-name: render_cli
+name: unpack_cli
 version: 2.2.0
 
 environment:
   sdk: ">=2.15.0 <4.0.0"
 
 executables:
-  render: main
-  rn: main
+  unpack: main
+  up: main
 
 scripts:
   dev:test: flutter pub global activate -spath . --overwrite
@@ -16,24 +16,24 @@ scripts:
     - command: flutter pub get
       cwd: packages/app_brick_generator
   build:vscode: "cd extensions/vscode && vsce package patch -o releases/digital-oasis.vsix"
-  # Useful for bundling all the add bricks eg `BRICK=bloc rn run bundle`
+  # Useful for bundling all the add bricks eg `BRICK=bloc up run bundle`
   bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
-  bundle:app: BRICK=app rn run bundle
-  bundle:assets: BRICK=assets rn run bundle  
-  bundle:component: BRICK=component rn run bundle
-  bundle:auth: BRICK=auth rn run bundle  
-  bundle:data_layer: BRICK=data_layer rn run bundle
-  bundle:domain_layer: BRICK=domain_layer rn run bundle
-  bundle:presentation_layer: BRICK=presentation_layer rn run bundle
-  bundle:notifications_feature: BRICK=notifications_feature rn run bundle
-  bundle:multi_notifications_feature: BRICK=multi_notifications_feature rn run bundle
-  bundle:dashboard_structure: BRICK=dashboard_structure rn run bundle
-  bundle:default_dashboard_structure: BRICK=default_dashboard_structure rn run bundle
-  bundle:default_structure: BRICK=default_structure rn run bundle
-  bundle:map_structure: BRICK=map_structure rn run bundle
-  bundle:default_map_structure: BRICK=default_map_structure rn run bundle
-  bundle:model: BRICK=model rn run bundle
-  bundle:font_family: BRICK=font_family rn run bundle  
+  bundle:app: BRICK=app up run bundle
+  bundle:assets: BRICK=assets up run bundle  
+  bundle:component: BRICK=component up run bundle
+  bundle:auth: BRICK=auth up run bundle  
+  bundle:data_layer: BRICK=data_layer up run bundle
+  bundle:domain_layer: BRICK=domain_layer up run bundle
+  bundle:presentation_layer: BRICK=presentation_layer up run bundle
+  bundle:notifications_feature: BRICK=notifications_feature up run bundle
+  bundle:multi_notifications_feature: BRICK=multi_notifications_feature up run bundle
+  bundle:dashboard_structure: BRICK=dashboard_structure up run bundle
+  bundle:default_dashboard_structure: BRICK=default_dashboard_structure up run bundle
+  bundle:default_structure: BRICK=default_structure up run bundle
+  bundle:map_structure: BRICK=map_structure up run bundle
+  bundle:default_map_structure: BRICK=default_map_structure up run bundle
+  bundle:model: BRICK=model up run bundle
+  bundle:font_family: BRICK=font_family up run bundle  
   gen:app_brick:
     - command: flutter clean
       cwd: packages/app/template

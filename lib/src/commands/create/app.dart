@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
 import 'package:mason/mason.dart';
-import 'package:render_cli/bundles/_bundles.dart';
-import 'package:render_cli/src/commands/base.dart';
-import 'package:render_cli/src/utils/structures.dart';
+import 'package:unpack_cli/bundles/_bundles.dart';
+import 'package:unpack_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/utils/structures.dart';
 
 // A valid Dart identifier that can be used for a package, i.e. no
 // capital letters.
@@ -25,7 +25,7 @@ typedef MasonGeneratorFromBrick = Future<MasonGenerator> Function(Brick);
 /// {@template modelCommand}
 /// Add a new model the app.
 /// {@endtemplate}
-class CreateAppCommand extends RenderCommand {
+class CreateAppCommand extends UnpackCommand {
   /// The [MasonBundle] used to generate the project.
   final bundle = appTemplateBundle;
 
@@ -187,8 +187,8 @@ class CreateAppCommand extends RenderCommand {
 
     await runScripts([
       if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
-      "rn add structure --type ${selectedStructure.name}",
-      "rn add feature --name home",
+      "up add structure --type ${selectedStructure.name}",
+      "up add feature --name home",
       'flutter clean',
       'flutter pub get',
     ]);

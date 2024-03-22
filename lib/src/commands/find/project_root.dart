@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:render_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/commands/base.dart';
 
 import '../../utils/find_project_root.dart';
 
 /// {@template projectRootCommand}
 /// Find and print the path to the route generator.
 /// {@endtemplate}
-class ProjectRootCommand extends RenderCommand {
+class ProjectRootCommand extends UnpackCommand {
   /// {@macro projectRootCommand}
   ProjectRootCommand() {
     argParser.addOption(
@@ -18,8 +18,7 @@ class ProjectRootCommand extends RenderCommand {
     );
   }
   @override
-  String get description =>
-      "Find and print the project root path. Looks for the closet pubspec.yaml";
+  String get description => "Find and print the project root path. Looks for the closet pubspec.yaml";
 
   @override
   String get name => "project-root";

@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:io';
 import 'package:path/path.dart' as path;
 
-import 'package:render_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/commands/base.dart';
 
 /// Update the cli or extension
-class UpdateCommand extends RenderCommand {
+class UpdateCommand extends UnpackCommand {
   /// Update the cli or extension
   UpdateCommand() {
     argParser.addFlag(

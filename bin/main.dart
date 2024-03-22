@@ -1,5 +1,5 @@
-import 'package:render_cli/render_cli.dart';
+import 'package:unpack_cli/unpack_cli.dart';
 
 void main(List<String> args) async {
-  await RenderCommandRunner().run(args);
+  await UnpackCommandRunner().run(args);
 }

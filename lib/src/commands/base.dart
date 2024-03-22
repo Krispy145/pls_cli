@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'package:ansi_styles/extension.dart';
 import 'package:args/command_runner.dart';
-import 'package:render_cli/src/logger.dart';
-import 'package:render_cli/src/process_runner.dart';
+import 'package:unpack_cli/src/logger.dart';
+import 'package:unpack_cli/src/process_runner.dart';
 
 ///Path for the Github CLI
 const githubPath = "git@github.com:digital-oasis-llc-fz/digital-oasis-cli.git";
 
 /// Consistent base for all commands
-abstract class RenderCommand extends Command<void> {
+abstract class UnpackCommand extends Command<void> {
   /// Logger for all commands
   Logger get logger => Logger();
 

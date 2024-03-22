@@ -1,5 +1,5 @@
-import 'package:render_cli/src/commands/add/auth.dart';
-import 'package:render_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/commands/add/auth.dart';
+import 'package:unpack_cli/src/commands/base.dart';
 
 import 'assets.dart';
 import 'component.dart';
@@ -17,7 +17,7 @@ import 'structures.dart';
 /// {@template addCommand}
 /// Add various parts of the app.
 /// {@endtemplate}
-class AddCommand extends RenderCommand {
+class AddCommand extends UnpackCommand {
   /// {@macro addCommand}
   AddCommand() {
     addSubcommand(FontsCommand());

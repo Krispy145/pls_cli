@@ -55,21 +55,21 @@ export const addNotifications = async (args: Uri) => {
     var runCommandResult;
     if (notificationType === "Local") {
       runCommandResult = await runCommandInWorkspaceFolder(
-        "rn add notifications_feature -s local_notifications_store -r local_store --is_push false",
+        "up add notifications_feature -s local_notifications_store -r local_store --is_push false",
         {
           folderPath: "lib",
         }
       );
     } else if (notificationType === "Push")
       runCommandResult = await runCommandInWorkspaceFolder(
-        "rn add notifications_feature -s push_notifications_store -r push_store --is_push true",
+        "up add notifications_feature -s push_notifications_store -r push_store --is_push true",
         {
           folderPath: "lib",
         }
       );
     else if (notificationType === "Both") {
       runCommandResult = await runCommandInWorkspaceFolder(
-        "rn add multi_notifications_feature",
+        "up add multi_notifications_feature",
         {
           folderPath: "lib",
         }

@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:mason/mason.dart';
 import 'package:path/path.dart' as path;
-import 'package:render_cli/bundles/_bundles.dart';
-import 'package:render_cli/src/commands/base.dart';
-import 'package:render_cli/src/utils/find_project_root.dart';
+import 'package:unpack_cli/bundles/_bundles.dart';
+import 'package:unpack_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/utils/find_project_root.dart';
 
 /// Generate a enum style static class for all assets
 /// Looks for the assets folder in the root of the project
 /// and generates a class with all the assets as static const
-class AssetsCommand extends RenderCommand {
+class AssetsCommand extends UnpackCommand {
   @override
   String get description => "Generate a enum style static class for all assets";
 
@@ -32,8 +32,7 @@ class AssetsCommand extends RenderCommand {
     final generateProgress = logger.progress('Generating dart file');
 
     final generator = await MasonGenerator.fromBundle(bundle);
-    final target =
-        Directory(path.join(projectRoot.path, "lib", "core", "models"));
+    final target = Directory(path.join(projectRoot.path, "lib", "core", "models"));
     if (!target.existsSync()) {
       target.createSync(recursive: true);
     }
@@ -69,8 +68,7 @@ List<_Asset> _findAssets({
 
       final assetPath = path.relative(entity.path, from: root.path);
       final asset = _Asset(name: name, path: Uri.decodeFull(assetPath));
-      if (!assets.any((element) => element.name == asset.name) &&
-          !current!.any((element) => element.name == asset.name)) {
+      if (!assets.any((element) => element.name == asset.name) && !current!.any((element) => element.name == asset.name)) {
         assets.add(asset);
       }
     }

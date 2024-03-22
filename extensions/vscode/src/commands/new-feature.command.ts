@@ -9,7 +9,7 @@ export const newFeature = async (args: Uri) => {
     });
 
     if (name) {
-      const commandNewFeature = `rn add feature --name ${name}`;
+      const commandNewFeature = `up add feature --name ${name}`;
       await runCommandInWorkspaceFolder(commandNewFeature, {
         folderPath: "lib",
       });

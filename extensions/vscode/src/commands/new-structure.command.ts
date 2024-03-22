@@ -15,7 +15,7 @@ export const newStructure = async (args: Uri) => {
     });
 
     if (type) {
-      const commandNewStructure = `rn add structure --type ${type}`;
+      const commandNewStructure = `up add structure --type ${type}`;
       await runCommandInWorkspaceFolder(commandNewStructure, {
         folderPath: "lib/navigation",
       });

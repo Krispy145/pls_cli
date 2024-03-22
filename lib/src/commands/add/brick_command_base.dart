@@ -6,15 +6,15 @@ import 'package:ansi_styles/extension.dart';
 import 'package:args/args.dart';
 import 'package:mason/mason.dart' as mason;
 import 'package:path/path.dart' as p;
-import 'package:render_cli/src/commands/base.dart';
-import 'package:render_cli/src/logger.dart';
+import 'package:unpack_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/logger.dart';
 
 /// {@template brickCommandBase}
 ///
 /// The base of any command which generates files from bricks
 ///
 /// {@endtemplate}
-abstract class BrickCommandBase extends RenderCommand {
+abstract class BrickCommandBase extends UnpackCommand {
   /// The bundled template
   mason.MasonBundle get bundle;
   set bundle(mason.MasonBundle b) => bundle = b;
@@ -65,7 +65,9 @@ abstract class BrickCommandBase extends RenderCommand {
 
   /// mason generator
   Future<void> generator(
-      mason.DirectoryGeneratorTarget target, Map<String, dynamic>? vars,) async {
+    mason.DirectoryGeneratorTarget target,
+    Map<String, dynamic>? vars,
+  ) async {
     final generator = await mason.MasonGenerator.fromBundle(bundle);
     final progress = logger.spinner(
       rightPrompt: (done) => done ? "" : 'Making ${generator.id}',
@@ -107,8 +109,7 @@ abstract class BrickCommandBase extends RenderCommand {
         // The argument has been passed through the command line
         vars.addAll(<String, dynamic>{variable: _maybeDecode(arg)});
       } else {
-        final prompt =
-            '''${'?'.greenBright.bold} ${properties.prompt ?? variable}''';
+        final prompt = '''${'?'.greenBright.bold} ${properties.prompt ?? variable}''';
         late final dynamic response;
         //ignore: missing_enum_constant_in_switch
         switch (properties.type) {
@@ -174,9 +175,7 @@ extension DefaultOptions on ArgParser {
 extension on Logger {
   void logFilesChanged(int fileCount) {
     if (fileCount == 0) return info('${'✅'} 0 files changed');
-    return fileCount == 1
-        ? info("🎉 $fileCount file changed")
-        : info("🎉 $fileCount files changed");
+    return fileCount == 1 ? info("🎉 $fileCount file changed") : info("🎉 $fileCount files changed");
   }
 
   void logFilesGenerated(int fileCount) {

@@ -1,10 +1,10 @@
-import 'package:render_cli/src/commands/base.dart';
-import 'package:render_cli/src/commands/clean/pod.dart';
+import 'package:unpack_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/commands/clean/pod.dart';
 
 /// {@template clean}
 /// Clean the project of various things.
 /// {@endtemplate}
-class CleanCommand extends RenderCommand {
+class CleanCommand extends UnpackCommand {
   /// {@macro clean}
   CleanCommand() {
     addSubcommand(PodCleanCommand());

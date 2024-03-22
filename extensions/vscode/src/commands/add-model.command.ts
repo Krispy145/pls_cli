@@ -10,17 +10,15 @@ export const addModel = async (args: Uri) => {
   });
   var targetDir = await getTargetDirectory(args);
 
-  if (name&&targetDir) {
+  if (name && targetDir) {
     // Check if the targetDir ends with "models"
     if (!targetDir.endsWith("models")) {
       targetDir += "/models";
     }
 
-    let child = exec(
-      `render add model --name ${name} --path ${targetDir}`
-    );
+    let child = exec(`up add model --name ${name} --path ${targetDir}`);
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
-    
+
     await buildRunner("Model");
   }
 };

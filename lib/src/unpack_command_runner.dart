@@ -12,9 +12,9 @@ import 'commands/update.dart';
 /// {@template digitalOasisCommandRunner}
 /// Command runner for the flutter cli
 /// {@endtemplate}
-class RenderCommandRunner extends CompletionCommandRunner<void> {
+class UnpackCommandRunner extends CompletionCommandRunner<void> {
   /// {@macro digitalOasisCommandRunner}
-  RenderCommandRunner() : super("rn", "Streamline working with flutter") {
+  UnpackCommandRunner() : super("up", "Streamline working with flutter") {
     addCommand(AddCommand());
     addCommand(CreateCommand());
     addCommand(FindCommand());

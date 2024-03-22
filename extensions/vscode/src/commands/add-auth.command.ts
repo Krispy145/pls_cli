@@ -7,7 +7,7 @@ import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 
 export const newAuth = async (args: Uri) => {
   try {
-    const commandNewAuth = `rn add auth`;
+    const commandNewAuth = `up add auth`;
     await runCommandInWorkspaceFolder(commandNewAuth, {
       folderPath: "lib",
     });

@@ -2,10 +2,10 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:mason/mason.dart';
 import 'package:path/path.dart' as path;
-import 'package:render_cli/bundles/_bundles.dart';
+import 'package:unpack_cli/bundles/_bundles.dart';
 
-import 'package:render_cli/src/commands/base.dart';
-import 'package:render_cli/src/utils/find_project_root.dart';
+import 'package:unpack_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/utils/find_project_root.dart';
 import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
@@ -13,10 +13,9 @@ import 'package:yaml_edit/yaml_edit.dart';
 /// generates the required code in the pubspec
 ///
 /// The file must be in the format <font-family>-<weight>-<style>
-class FontsCommand extends RenderCommand {
+class FontsCommand extends UnpackCommand {
   @override
-  String get description =>
-      "Add font assets to pubspec, the file name must be <font-family>-<weight>-<style> eg.ComicNeue-Bold-Italic.ttf";
+  String get description => "Add font assets to pubspec, the file name must be <font-family>-<weight>-<style> eg.ComicNeue-Bold-Italic.ttf";
 
   @override
   String get name => "fonts";
@@ -69,7 +68,8 @@ class FontsCommand extends RenderCommand {
 
     await pubspecFile.writeAsString(yamlEditor.toString());
     await runScripts(
-        ['flutter pub run build_runner build --delete-conflicting-outputs'],);
+      ['flutter pub run build_runner build --delete-conflicting-outputs'],
+    );
     // await _createFontFamilyDartFile(fonts, projectRoot);
 
     return;
@@ -89,8 +89,7 @@ class FontsCommand extends RenderCommand {
           ),
         );
       }
-      if (entity is File &&
-          path.basenameWithoutExtension(entity.path) != ".DS_Store") {
+      if (entity is File && path.basenameWithoutExtension(entity.path) != ".DS_Store") {
         final fileName = path.basenameWithoutExtension(entity.path).split("-");
 
         final familyName = fileName[0];
@@ -101,8 +100,7 @@ class FontsCommand extends RenderCommand {
           style: fileName.length >= 3 ? fileName[2].toLowerCase() : null,
         );
 
-        final font =
-            fonts.firstWhereOrNull((element) => element.family == familyName);
+        final font = fonts.firstWhereOrNull((element) => element.family == familyName);
 
         if (font == null) {
           fonts.add(Font(family: familyName, variants: [variant]));

@@ -1,11 +1,11 @@
-import 'package:render_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/commands/base.dart';
 
 import 'app.dart';
 
 /// {@template createCommand}
 /// Create a new project.
 /// {@endtemplate}
-class CreateCommand extends RenderCommand {
+class CreateCommand extends UnpackCommand {
   /// {@macro createCommand}
   CreateCommand() {
     addSubcommand(CreateAppCommand());

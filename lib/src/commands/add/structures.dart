@@ -1,15 +1,15 @@
 import 'dart:io';
 
 import 'package:mason/mason.dart';
-import 'package:render_cli/src/commands/base.dart';
-import 'package:render_cli/src/utils/structures.dart';
+import 'package:unpack_cli/src/commands/base.dart';
+import 'package:unpack_cli/src/utils/structures.dart';
 
 import '../../../bundles/_bundles.dart';
 
 /// {@template structureCommand}
 /// Add a structure to the app.
 /// {@endtemplate}
-class StructuresCommand extends RenderCommand {
+class StructuresCommand extends UnpackCommand {
   /// {@macro structureCommand}
   StructuresCommand() {
     argParser.addOption(
