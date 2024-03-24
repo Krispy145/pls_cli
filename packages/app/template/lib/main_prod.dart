@@ -14,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final flavorConfig = FlavorConfig(
     environment: Environment.production,
+    loggerFeatures: <Enum, bool>{},
     apiPrefix: "prod_base_url",
   );
 

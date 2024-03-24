@@ -1,6 +1,5 @@
-import 'package:utilities/logger/logger.dart';
-
-/// [AppLoggerFeatures] extends [LoggerFeatures], and is a class that defines all logger features used in the app.
-extension AppLoggerFeatures on LoggerFeatures {
+/// [AppFeatures] is an enum class that contains all the features of the app, used for logging.
+enum AppFeatures {
+  
   ///LOGGER FEATURE END
 }

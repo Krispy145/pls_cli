@@ -12,8 +12,11 @@ import 'package:utilities/flavors/flavor_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final loggerFeatures = <Enum, bool>{};
+
   final flavorConfig = FlavorConfig(
     environment: Environment.development,
+    loggerFeatures: loggerFeatures,
     apiPrefix: "dev_base_url",
   );
 

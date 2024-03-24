@@ -40,7 +40,7 @@ class LoggerFeatureCommand extends BrickCommandBase {
     const searchString = '///LOGGER FEATURE END';
 
     // Define the replacement string
-    final replacementString = '/// ${name.pascalCase} logger feature.\nstatic final LoggerFeature ${name.camelCase} = LoggerFeature("${name.constantCase}", true);';
+    final replacementString = '/// [${name.camelCase}] is the ${name.pascalCase} feature\n ${name.camelCase},\n\n ///LOGGER FEATURE END';
 
     // Get the current working directory
     final currentDirectory = Directory.current;
