@@ -36,12 +36,29 @@ export const newAssets = async (args: Uri) => {
       const webDir = path.join(rootProjectPath, "web");
       //   const linuxDir = path.join(assetsPath, "linux");
 
+      // Get Asset Platform Directories
+      const iosAssetsDir = path.join(assetsPath, "ios");
+      const androidAssetsDir = path.join(assetsPath, "android");
+      const macOSAssetsDir = path.join(assetsPath, "macos");
+      const webAssetsDir = path.join(assetsPath, "web");
+      // const linuxAssetsDir = path.join(assetsPath, "linux");
+
       // Handle assets for each platform
-      await handleAssets(iosDir, assetsPath);
-      await handleAssets(androidDir, assetsPath);
-      await handleAssets(macOSDir, assetsPath);
-      await handleAssets(webDir, assetsPath);
-      //   await handleAssets(linuxDir, assetsPath);
+      if (fs.existsSync(iosAssetsDir)) {
+        await handleAssets(iosDir, iosAssetsDir);
+      }
+      if (fs.existsSync(androidAssetsDir)) {
+        await handleAssets(androidDir, androidAssetsDir);
+      }
+      if (fs.existsSync(macOSAssetsDir)) {
+        await handleAssets(macOSDir, macOSAssetsDir);
+      }
+      if (fs.existsSync(webAssetsDir)) {
+        await handleAssets(webDir, webAssetsDir);
+      }
+      //   if (fs.existsSync(linuxAssetsDir)) {
+      //       await handleAssets(linuxDir, linuxAssetsDir);
+      //   }
     } else {
       window.showErrorMessage("No assets folder selected.");
     }
