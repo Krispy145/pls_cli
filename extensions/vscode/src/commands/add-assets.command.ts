@@ -19,6 +19,7 @@ export const newAssets = async (args: Uri) => {
 
     if (assetsFolder && assetsFolder.length > 0) {
       const assetsPath = assetsFolder[0].fsPath;
+      window.showInformationMessage(`Selected assets folder: ${assetsPath}`);
       const workspaceFolder = workspace.workspaceFolders?.[0];
 
       if (!workspaceFolder) {
@@ -103,7 +104,7 @@ const handleAssets = async (platformDir: string, assetsPath: string) => {
         if (stats.isDirectory()) {
           window.showInformationMessage("Directory found");
           // Recursively scan subdirectories
-          await scanAndCopyPlatformAssets(srcPath, destPath);
+          await scanAndCopyPlatformAssets(srcPath, destDir);
         } else {
           window.showInformationMessage("File found");
           // Add or update the file in the destination
