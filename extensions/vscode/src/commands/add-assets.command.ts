@@ -122,7 +122,7 @@ const handleAssets = async (platformDir: string, assetsPath: string) => {
         if (stats.isDirectory()) {
           window.showInformationMessage("Directory found");
           // Recursively scan subdirectories
-          await scanAndCopyPlatformAssets(srcPath, destDir);
+          await scanAndCopyPlatformAssets(srcPath, destPath);
         } else {
           window.showInformationMessage("File found");
           // Add or update the file in the destination
