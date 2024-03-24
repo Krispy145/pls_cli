@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { Uri, window } from "vscode";
+import { Uri, window, workspace } from "vscode";
 import { promisify } from "util";
 
 const readdir = promisify(fs.readdir);
@@ -19,12 +19,20 @@ export const newAssets = async (args: Uri) => {
 
     if (assetsFolder && assetsFolder.length > 0) {
       const assetsPath = assetsFolder[0].fsPath;
+      const workspaceFolder = workspace.workspaceFolders?.[0];
+
+      if (!workspaceFolder) {
+        window.showErrorMessage("No workspace folder found.");
+        return { error: "No workspace folder found." };
+      }
+
+      const rootProjectPath = workspaceFolder.uri.fsPath;
 
       // Get platform-specific directories
-      const iosDir = path.join(assetsPath, "ios/Runner");
-      const androidDir = path.join(assetsPath, "android/app/src");
-      const macOSDir = path.join(assetsPath, "macos/Runner");
-      const webDir = path.join(assetsPath, "web");
+      const iosDir = path.join(rootProjectPath, "ios/Runner");
+      const androidDir = path.join(rootProjectPath, "android/app/src");
+      const macOSDir = path.join(rootProjectPath, "macos/Runner");
+      const webDir = path.join(rootProjectPath, "web");
       //   const linuxDir = path.join(assetsPath, "linux");
 
       // Handle assets for each platform
