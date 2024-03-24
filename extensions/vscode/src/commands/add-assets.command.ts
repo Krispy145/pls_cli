@@ -71,31 +71,6 @@ const addOrUpdateFile = async (src: string, dest: string) => {
   }
 };
 
-const scanAndCopyAssets = async (srcDir: string, destDir: string) => {
-  try {
-    // Read contents of the source directory
-    const files = await readdir(srcDir);
-
-    // Iterate through each file in the directory
-    for (const file of files) {
-      const srcPath = path.join(srcDir, file);
-      const destPath = path.join(destDir, file);
-
-      // Check if the current item is a directory
-      const stats = await stat(srcPath);
-      if (stats.isDirectory()) {
-        // Recursively scan subdirectories
-        await scanAndCopyAssets(srcPath, destPath);
-      } else {
-        // Add or update the file in the destination
-        await addOrUpdateFile(srcPath, destPath);
-      }
-    }
-  } catch (error: any) {
-    console.error(`Error scanning directory: ${error.message}`);
-  }
-};
-
 // // Function to separate assets into platform directories
 // const separateAssets = async (assetsPath: string) => {
 //   // Create platform directories if they don't exist
@@ -128,7 +103,7 @@ const handleAssets = async (platformDir: string, assetsPath: string) => {
         if (stats.isDirectory()) {
           window.showInformationMessage("Directory found");
           // Recursively scan subdirectories
-          await scanAndCopyPlatformAssets(srcPath, destDir);
+          await scanAndCopyPlatformAssets(srcPath, destPath);
         } else {
           window.showInformationMessage("File found");
           // Add or update the file in the destination
