@@ -9,6 +9,7 @@ const copyFile = promisify(fs.copyFile);
 
 // Main function for the VSCode command
 export const newAssets = async (args: Uri) => {
+  window.showInformationMessage("Adding assets: 1");
   try {
     // Prompt the user to select the assets folder
     const assetsFolder = await window.showOpenDialog({
