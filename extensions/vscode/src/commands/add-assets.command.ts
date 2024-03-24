@@ -10,37 +10,37 @@ const copyFile = promisify(fs.copyFile);
 // Main function for the VSCode command
 export const newAssets = async (args: Uri) => {
   window.showInformationMessage("Hello from newAssets!");
-  //   try {
-  //     // Prompt the user to select the assets folder
-  //     const assetsFolder = await window.showOpenDialog({
-  //       canSelectFolders: true,
-  //       canSelectFiles: false,
-  //       openLabel: "Select Assets Folder",
-  //     });
+  try {
+    // Prompt the user to select the assets folder
+    const assetsFolder = await window.showOpenDialog({
+      canSelectFolders: true,
+      canSelectFiles: false,
+      openLabel: "Select Assets Folder",
+    });
 
-  //     window.showInformationMessage(`Selected folder: ${assetsFolder?.length}`);
-  //     if (assetsFolder && assetsFolder.length > 0) {
-  //       const assetsPath = assetsFolder[0].fsPath;
+    window.showInformationMessage(`Selected folder: ${assetsFolder?.length}`);
+    if (assetsFolder && assetsFolder.length > 0) {
+      const assetsPath = assetsFolder[0].fsPath;
 
-  //       // Get platform-specific directories
-  //       const iosDir = path.join(assetsPath, "ios/Runner");
-  //       const androidDir = path.join(assetsPath, "android/app/src");
-  //       const macOSDir = path.join(assetsPath, "macos/Runner");
-  //       const webDir = path.join(assetsPath, "web");
-  //       //   const linuxDir = path.join(assetsPath, "linux");
+      // Get platform-specific directories
+      const iosDir = path.join(assetsPath, "ios/Runner");
+      const androidDir = path.join(assetsPath, "android/app/src");
+      const macOSDir = path.join(assetsPath, "macos/Runner");
+      const webDir = path.join(assetsPath, "web");
+      //   const linuxDir = path.join(assetsPath, "linux");
 
-  //       // Handle assets for each platform
-  //       await handleAssets(iosDir, assetsPath);
-  //       await handleAssets(androidDir, assetsPath);
-  //       await handleAssets(macOSDir, assetsPath);
-  //       await handleAssets(webDir, assetsPath);
-  //       //   await handleAssets(linuxDir, assetsPath);
-  //     } else {
-  //       window.showErrorMessage("No assets folder selected.");
-  //     }
-  //   } catch (error: any) {
-  //     window.showErrorMessage(`Error: ${error.message}`);
-  //   }
+      // Handle assets for each platform
+      await handleAssets(iosDir, assetsPath);
+      await handleAssets(androidDir, assetsPath);
+      await handleAssets(macOSDir, assetsPath);
+      await handleAssets(webDir, assetsPath);
+      //   await handleAssets(linuxDir, assetsPath);
+    } else {
+      window.showErrorMessage("No assets folder selected.");
+    }
+  } catch (error: any) {
+    window.showErrorMessage(`Error: ${error.message}`);
+  }
 };
 
 const addOrUpdateFile = async (src: string, dest: string) => {
