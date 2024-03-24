@@ -6,7 +6,7 @@
   "version": "0.7.2",
   "repository": "https://github.com/digital-oasis-llc-fz/digital-oasis-cli",
   "private": true,
-  "icon": "assets/digital-oasis.jpeg",
+  "icon": "assets/128.png",
   "engines": {
     "vscode": "^1.66.0"
   },

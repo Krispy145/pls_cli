@@ -9,7 +9,6 @@ const copyFile = promisify(fs.copyFile);
 
 // Main function for the VSCode command
 export const newAssets = async (args: Uri) => {
-  window.showInformationMessage("Hello from newAssets!");
   try {
     // Prompt the user to select the assets folder
     const assetsFolder = await window.showOpenDialog({
@@ -18,7 +17,6 @@ export const newAssets = async (args: Uri) => {
       openLabel: "Select Assets Folder",
     });
 
-    window.showInformationMessage(`Selected folder: ${assetsFolder?.length}`);
     if (assetsFolder && assetsFolder.length > 0) {
       const assetsPath = assetsFolder[0].fsPath;
 
@@ -48,12 +46,14 @@ const addOrUpdateFile = async (src: string, dest: string) => {
     // Check if the file already exists in the destination
     const destStats = await stat(dest);
     if (destStats.isFile()) {
+      window.showInformationMessage("File exists");
       // File exists, replace it
       await copyFile(src, dest);
       console.log(`Replaced file: ${dest}`);
     }
   } catch (error: any) {
     if (error.code === "ENOENT") {
+      window.showInformationMessage("File does not exist");
       // File doesn't exist in the destination, add it
       await copyFile(src, dest);
       console.log(`Added file: ${dest}`);
@@ -103,7 +103,9 @@ const scanAndCopyAssets = async (srcDir: string, destDir: string) => {
 //   // You need to implement the logic to move files here
 // };
 const handleAssets = async (platformDir: string, assetsPath: string) => {
+  window.showInformationMessage(`Copying assets to ${platformDir}`);
   const scanAndCopyPlatformAssets = async (srcDir: string, destDir: string) => {
+    window.showInformationMessage(`Copying assets to ${destDir}`);
     try {
       // Read contents of the source directory
       const files = await readdir(srcDir);
@@ -116,9 +118,11 @@ const handleAssets = async (platformDir: string, assetsPath: string) => {
         // Check if the current item is a directory
         const stats = await stat(srcPath);
         if (stats.isDirectory()) {
+          window.showInformationMessage("Directory found");
           // Recursively scan subdirectories
           await scanAndCopyPlatformAssets(srcPath, destDir);
         } else {
+          window.showInformationMessage("File found");
           // Add or update the file in the destination
           await addOrUpdateFile(srcPath, destPath);
         }
