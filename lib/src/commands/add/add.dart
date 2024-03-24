@@ -1,7 +1,5 @@
 import 'package:unpack_cli/src/commands/add/auth.dart';
 import 'package:unpack_cli/src/commands/base.dart';
-
-import 'assets.dart';
 import 'component.dart';
 import 'data_layer.dart';
 import 'domain_layer.dart';
@@ -32,7 +30,6 @@ class AddCommand extends UnpackCommand {
     addSubcommand(MultiNotificationsFeatureCommand());
     addSubcommand(LoggerFeatureCommand());
     addSubcommand(ModelCommand());
-    addSubcommand(AssetsCommand());
   }
   @override
   String get description => "Add parts the app";

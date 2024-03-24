@@ -23,6 +23,7 @@ import 'package:utilities/flavors/flavor_config.dart';
 import 'package:utilities/flavors/flavor_manager.dart';
 import 'package:utilities/logger/logger.dart';
 import 'package:theme/wrapper/store.dart';
+import 'package:utilities/logger/logger.dart';
 import 'package:utilities/widgets/connection_state/base_store.dart';
 
 /// [Managers] is a variable that handles all service locator registrations.
@@ -37,6 +38,8 @@ class ManagerInjector {
 
   /// [init] is responsible for initialising all service locator registrations.
   void init({required FlavorConfig flavorConfig}) {
+    final _loggerInjector = AppLoggerInjector(flavorConfig.loggerFeatures);
+    _serviceLocator.registerLazySingleton<AppLoggerInjector>(() => _loggerInjector);
     AppLogger.print("Initializing ManagerInjector...", [LoggerFeatures.dependencyInjection]);
     _initCore(flavorConfig: flavorConfig);
     _initApp();

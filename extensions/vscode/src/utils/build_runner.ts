@@ -1,6 +1,7 @@
-import * as mkdirp from "mkdirp";
+import { mkdirp } from "mkdirp";
 import { window, workspace, ProgressLocation } from "vscode";
 import { exec } from "child_process";
+import { resolve } from "path";
 
 export const formatFiles = async () => {
   await runCommandInWorkspaceFolder("dart format .");
@@ -97,4 +98,44 @@ export const runCommandInWorkspaceFolder = async (
       window.showErrorMessage(`Error during execution: ${data}`);
     });
   });
+};
+
+export const runFunctionInWorkspaceFolder = async (
+  func: () => Promise<void>,
+  folderPath?: string
+): Promise<{ error?: string }> => {
+  const workspaceFolder = workspace.workspaceFolders?.[0];
+
+  if (!workspaceFolder) {
+    window.showErrorMessage("No workspace folder found.");
+    return { error: "No workspace folder found." };
+  }
+
+  const rootProjectPath = workspaceFolder.uri.fsPath;
+  const fullPath = folderPath
+    ? resolve(rootProjectPath, folderPath)
+    : rootProjectPath;
+
+  // Create directories if folderPath is specified
+  if (folderPath) {
+    try {
+      await mkdirp(resolve(rootProjectPath, folderPath));
+    } catch (error: any) {
+      window.showErrorMessage(`Error creating directories: ${error.message}`);
+      return { error: error.message };
+    }
+  }
+
+  try {
+    window.showInformationMessage(`Executing function in ${fullPath}`);
+    await func();
+    window.showInformationMessage(
+      `Function executed successfully in ${fullPath}`
+    );
+  } catch (error: any) {
+    window.showErrorMessage(`Error executing function: ${error.message}`);
+    return { error: error.message };
+  }
+
+  return {};
 };

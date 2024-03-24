@@ -18,8 +18,7 @@ scripts:
   build:vscode: "cd extensions/vscode && vsce package patch -o releases/digital-oasis.vsix"
   # Useful for bundling all the add bricks eg `BRICK=bloc up run bundle`
   bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
-  bundle:app: BRICK=app up run bundle
-  bundle:assets: BRICK=assets up run bundle  
+  bundle:app: BRICK=app up run bundle    
   bundle:component: BRICK=component up run bundle
   bundle:auth: BRICK=auth up run bundle  
   bundle:data_layer: BRICK=data_layer up run bundle

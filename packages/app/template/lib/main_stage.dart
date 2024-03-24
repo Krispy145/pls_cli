@@ -12,9 +12,12 @@ import 'package:utilities/flavors/flavor_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final loggerFeatures = <Enum, bool>{};
+
   final flavorConfig = FlavorConfig(
     environment: Environment.staging,
-    apiPrefix: "stage_base_url",
+    loggerFeatures: loggerFeatures,
+    apiPrefix: "dev_base_url",
   );
 
   /// FIREBASE START

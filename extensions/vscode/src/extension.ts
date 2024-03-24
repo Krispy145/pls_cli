@@ -14,6 +14,7 @@ import { newDomainLayer } from "./commands/new-domain-layer.command";
 import { newPresentationLayer } from "./commands/new-presentation-layer.command";
 import { newAuth } from "./commands/add-auth.command";
 import { addDeepLinks } from "./commands/add-deeplinks.command";
+import { newAssets } from "./commands/add-assets.command";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -63,6 +64,8 @@ export function activate(context: ExtensionContext) {
     addDeepLinks
   );
 
+  let assets = commands.registerCommand("digital-oasis.add-assets", newAssets);
+
   context.subscriptions.push(
     app,
     feature,
@@ -75,7 +78,8 @@ export function activate(context: ExtensionContext) {
     model,
     admob,
     notifications,
-    deepLinks
+    deepLinks,
+    assets
   );
 }
 
