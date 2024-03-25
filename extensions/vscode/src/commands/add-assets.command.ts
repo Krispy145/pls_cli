@@ -35,6 +35,7 @@ export const newAssets = async (args: Uri) => {
       const androidDir = path.join(rootProjectPath, "android/app/src");
       const macOSDir = path.join(rootProjectPath, "macos/Runner");
       const webDir = path.join(rootProjectPath, "web");
+      const assetsDir = path.join(rootProjectPath, "assets");
       //   const linuxDir = path.join(assetsPath, "linux");
 
       // Get Asset Platform Directories
@@ -42,6 +43,7 @@ export const newAssets = async (args: Uri) => {
       const androidAssetsDir = path.join(assetsPath, "android");
       const macOSAssetsDir = path.join(assetsPath, "macos");
       const webAssetsDir = path.join(assetsPath, "web");
+      const appAssetsDir = path.join(assetsPath, "assets");
       // const linuxAssetsDir = path.join(assetsPath, "linux");
 
       // Handle assets for each platform
@@ -56,6 +58,9 @@ export const newAssets = async (args: Uri) => {
       }
       if (fs.existsSync(webAssetsDir)) {
         await handleAssets(webDir, webAssetsDir);
+      }
+      if (fs.existsSync(appAssetsDir)) {
+        await handleAssets(assetsDir, appAssetsDir);
       }
       //   if (fs.existsSync(linuxAssetsDir)) {
       //       await handleAssets(linuxDir, linuxAssetsDir);
