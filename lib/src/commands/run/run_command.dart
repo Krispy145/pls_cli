@@ -43,7 +43,7 @@ class RunCommand extends UnpackCommand {
 
     final scriptName = argResults?.rest.isNotEmpty ?? false ? argResults?.rest[0] : null;
     if (scriptName == null) {
-      logger.err("No script specified, please run 'up run <script name>'");
+      logger.err("No script specified, please run 'oasis run <script name>'");
       _displayHelp(scripts);
       return;
     }
@@ -70,7 +70,7 @@ class RunCommand extends UnpackCommand {
       ..info(
         "${"Available scripts".blue.bold}: \n${scripts.keys.map((key) => "🔹 $key").join("\n")}",
       )
-      ..info("To run a script run 'up run <script name>'");
+      ..info("To run a script run 'oasis run <script name>'");
   }
 }
 

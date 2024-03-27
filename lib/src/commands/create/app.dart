@@ -187,8 +187,8 @@ class CreateAppCommand extends UnpackCommand {
 
     await runScripts([
       if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
-      "up add structure --type ${selectedStructure.name}",
-      "up add feature --name home",
+      "oasis add structure --type ${selectedStructure.name}",
+      "oasis add feature --name home",
       'flutter clean',
       'flutter pub get',
     ]);

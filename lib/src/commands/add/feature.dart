@@ -23,20 +23,20 @@ class FeatureCommand extends BrickCommandBase {
     final featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the feature?");
 
     await runInLibDirectory(
-      () => runScripts(["up add data_layer --name $featureName"]),
+      () => runScripts(["oasis add data_layer --name $featureName"]),
       extensionPath: "data",
     );
     await runInLibDirectory(
-      () => runScripts(["up add domain_layer --name $featureName"]),
+      () => runScripts(["oasis add domain_layer --name $featureName"]),
       extensionPath: "domain",
     );
     await runInLibDirectory(
-      () => runScripts(["up add presentation_layer --name $featureName"]),
+      () => runScripts(["oasis add presentation_layer --name $featureName"]),
       extensionPath: "presentation",
     );
 
     return runScripts([
-      'up add logger --name $featureName',
+      'oasis add logger --name $featureName',
       'dart format .',
       'dart fix --apply',
     ]);

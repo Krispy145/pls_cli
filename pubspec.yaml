@@ -5,8 +5,8 @@ environment:
   sdk: ">=2.15.0 <4.0.0"
 
 executables:
-  unpack: main
-  up: main
+  oasis: main
+  
 
 scripts:
   dev:test: flutter pub global activate -spath . --overwrite
@@ -16,23 +16,23 @@ scripts:
     - command: flutter pub get
       cwd: packages/app_brick_generator
   build:vscode: "cd extensions/vscode && vsce package patch -o releases/digital-oasis.vsix"
-  # Useful for bundling all the add bricks eg `BRICK=bloc up run bundle`
+  # Useful for bundling all the add bricks eg `BRICK=bloc oasis run bundle`
   bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
-  bundle:app: BRICK=app up run bundle    
-  bundle:component: BRICK=component up run bundle
-  bundle:auth: BRICK=auth up run bundle  
-  bundle:data_layer: BRICK=data_layer up run bundle
-  bundle:domain_layer: BRICK=domain_layer up run bundle
-  bundle:presentation_layer: BRICK=presentation_layer up run bundle
-  bundle:notifications_feature: BRICK=notifications_feature up run bundle
-  bundle:multi_notifications_feature: BRICK=multi_notifications_feature up run bundle
-  bundle:dashboard_structure: BRICK=dashboard_structure up run bundle
-  bundle:default_dashboard_structure: BRICK=default_dashboard_structure up run bundle
-  bundle:default_structure: BRICK=default_structure up run bundle
-  bundle:map_structure: BRICK=map_structure up run bundle
-  bundle:default_map_structure: BRICK=default_map_structure up run bundle
-  bundle:model: BRICK=model up run bundle
-  bundle:font_family: BRICK=font_family up run bundle  
+  bundle:app: BRICK=app oasis run bundle    
+  bundle:component: BRICK=component oasis run bundle
+  bundle:auth: BRICK=auth oasis run bundle  
+  bundle:data_layer: BRICK=data_layer oasis run bundle
+  bundle:domain_layer: BRICK=domain_layer oasis run bundle
+  bundle:presentation_layer: BRICK=presentation_layer oasis run bundle
+  bundle:notifications_feature: BRICK=notifications_feature oasis run bundle
+  bundle:multi_notifications_feature: BRICK=multi_notifications_feature oasis run bundle
+  bundle:dashboard_structure: BRICK=dashboard_structure oasis run bundle
+  bundle:default_dashboard_structure: BRICK=default_dashboard_structure oasis run bundle
+  bundle:default_structure: BRICK=default_structure oasis run bundle
+  bundle:map_structure: BRICK=map_structure oasis run bundle
+  bundle:default_map_structure: BRICK=default_map_structure oasis run bundle
+  bundle:model: BRICK=model oasis run bundle
+  bundle:font_family: BRICK=font_family oasis run bundle  
   gen:app_brick:
     - command: flutter clean
       cwd: packages/app/template

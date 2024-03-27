@@ -25,7 +25,7 @@ class AuthView extends StatelessWidget {
               style: Theme.of(context).textTheme.displaySmall,
             ),
             Sizes.xl.spacer(),
-            AuthentiationBuilder(
+            AuthenticationBuilder(
               repository: Managers.authenticationRepository,
               onSuccess: (userModel) => context.router.navigate(DefaultWrapperRoute()),
               // showPhoneAuth: ShowAuthAction(showSignUp: false, showSignIn: true),

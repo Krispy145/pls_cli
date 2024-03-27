@@ -402,7 +402,7 @@ class DeployCommand extends UnpackCommand {
     if (pushResult.exitCode != 0) {
       throw Exception("Running 'git push' command failed.");
     } else if (commitResults.exitCode == 0) {
-      // The commit might return a non-zero value when site is up to date.
+      // The commit might return a non-zero value when site is oasis to date.
       logger.info(
         "Project pushed to $environment with tag $tag".greenBright,
       );

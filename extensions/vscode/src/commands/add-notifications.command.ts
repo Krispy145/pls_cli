@@ -54,21 +54,21 @@ export const addNotifications = async (args: Uri) => {
     var runCommandResult;
     if (notificationType === "Local") {
       runCommandResult = await runCommandInWorkspaceFolder(
-        "up add notifications_feature -s local_notifications_store -r local_store --is_push false",
+        "oasis add notifications_feature -s local_notifications_store -r local_store --is_push false",
         {
           folderPath: "lib",
         }
       );
     } else if (notificationType === "Push")
       runCommandResult = await runCommandInWorkspaceFolder(
-        "up add notifications_feature -s push_notifications_store -r push_store --is_push true",
+        "oasis add notifications_feature -s push_notifications_store -r push_store --is_push true",
         {
           folderPath: "lib",
         }
       );
     else if (notificationType === "Both") {
       runCommandResult = await runCommandInWorkspaceFolder(
-        "up add multi_notifications_feature",
+        "oasis add multi_notifications_feature",
         {
           folderPath: "lib",
         }

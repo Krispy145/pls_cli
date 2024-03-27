@@ -15,7 +15,7 @@ export const newStructure = async (args: Uri) => {
     });
 
     if (type) {
-      const commandNewStructure = `up add structure --type ${type}`;
+      const commandNewStructure = `oasis add structure --type ${type}`;
       await runCommandInWorkspaceFolder(commandNewStructure, {
         folderPath: "lib/navigation",
       });

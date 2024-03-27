@@ -26,7 +26,7 @@ export const createApp = async (args: Uri) => {
   }
 
   const terminal = window.createTerminal("Create New App");
-  const cmd = `up create app ${appName}`;
+  const cmd = `oasis create app ${appName}`;
 
   // Change to the appDirectory and run the command
   terminal.sendText(`cd "${appDirectory}"`);

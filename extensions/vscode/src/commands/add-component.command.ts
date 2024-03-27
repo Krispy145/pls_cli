@@ -16,7 +16,7 @@ export const addComponent = async (args: Uri) => {
       targetDir += "/components";
     }
 
-    let child = exec(`up add component --name ${name} --path ${targetDir}`);
+    let child = exec(`oasis add component --name ${name} --path ${targetDir}`);
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
 
     await buildRunner("Component");
