@@ -3,19 +3,4 @@
 
 import 'package:mason/mason.dart';
 
-final fontFamilyBundle = MasonBundle.fromJson(<String, dynamic>{
-  "files": [
-    {
-      "path": "font_family.dart",
-      "data":
-          "Ly8vIFRoaXMgZmlsZSBpcyBnZW5lcmF0ZWQgYnkgdGhlIFJlbmRlciBDbGkuIAovLy8gVG8gcmVnZW5lcmF0ZSB0aGlzIGZpbGUsIHJ1biB0aGUgZm9sbG93aW5nIGNvbW1hbmQ6Ci8vLyBgcm4gYWRkIGZvbnRzYAoKYWJzdHJhY3QgY2xhc3MgRm9udEZhbWlseSB7CiAge3sjZm9udHN9fQogIHN0YXRpYyBjb25zdCB7eyNjYW1lbENhc2V9fXt7Ln19e3svY2FtZWxDYXNlfX0gPSAie3sufX0iOwogIHt7L2ZvbnRzfX0KfQo=",
-      "type": "text"
-    }
-  ],
-  "hooks": [],
-  "name": "font_family",
-  "description": "A typed list of font families",
-  "version": "0.1.0+1",
-  "environment": {"mason": ">=0.1.0-dev <0.1.0"},
-  "vars": {}
-});
+final fontFamilyBundle = MasonBundle.fromJson(<String, dynamic>{"files":[{"path":"font_family.dart","data":"Ly8vIFRoaXMgZmlsZSBpcyBnZW5lcmF0ZWQgYnkgdGhlIERpZ2l0YWwgT2FzaXMgQ2xpLiAKLy8vIFRvIHJlZ2VuZXJhdGUgdGhpcyBmaWxlLCBydW4gdGhlIGZvbGxvd2luZyBjb21tYW5kOgovLy8gYG9hc2lzIGFkZCBmb250c2AKCmFic3RyYWN0IGNsYXNzIEZvbnRGYW1pbHkgewogIHt7I2ZvbnRzfX0KICBzdGF0aWMgY29uc3Qge3sjY2FtZWxDYXNlfX17ey59fXt7L2NhbWVsQ2FzZX19ID0gInt7Ln19IjsKICB7ey9mb250c319Cn0K","type":"text"}],"hooks":[],"name":"font_family","description":"A typed list of font families","version":"0.1.0+1","environment":{"mason":">=0.1.0-dev <0.1.0"},"vars":{}});

@@ -33,6 +33,7 @@ scripts:
   bundle:default_map_structure: BRICK=default_map_structure oasis run bundle
   bundle:model: BRICK=model oasis run bundle
   bundle:font_family: BRICK=font_family oasis run bundle  
+  bundle:all: oasis run bundle:app && oasis run bundle:component && oasis run bundle:auth && oasis run bundle:data_layer && oasis run bundle:domain_layer && oasis run bundle:presentation_layer && oasis run bundle:notifications_feature && oasis run bundle:multi_notifications_feature && oasis run bundle:dashboard_structure && oasis run bundle:default_dashboard_structure && oasis run bundle:default_structure && oasis run bundle:map_structure && oasis run bundle:default_map_structure && oasis run bundle:model && oasis run bundle:font_family
   gen:app_brick:
     - command: flutter clean
       cwd: packages/app/template
