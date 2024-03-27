@@ -124,7 +124,7 @@ print("AdMobStore getter added to injection.dart")
 
 # Run the Flutter command to add the dependency
 # Define the dependency and path
-admob = "/Users/davidkisbey-green/Desktop/Digital_Oasis/admob/"
+admob = "../../../packages//admob"
 
 try:
     result = subprocess.run(

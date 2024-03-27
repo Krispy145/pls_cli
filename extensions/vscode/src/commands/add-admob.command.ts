@@ -117,8 +117,7 @@ export const addAdmob = async (args: Uri) => {
 
         fs.writeFileSync(injectionContainerPath, updatedContent3);
 
-        const admobPath =
-          "/Users/davidkisbey-green/Desktop/Digital_Oasis/admob/";
+        const admobPath = "../../../packages/admob/";
         addFlutterPackageFromPath("admob", admobPath);
       }
     }

@@ -1,7 +1,7 @@
 import 'package:app_template/core/assets/assets.gen.dart';
 import 'package:app_template/navigation/routes.dart';
 import 'package:get_it/get_it.dart';
-import 'package:theme/wrapper/store.dart';
+import 'package:theme/app/store.dart';
 
 /// IS_DASHBOARD START
 import 'package:navigation/structures/dashboard/shell/store.dart';
@@ -22,7 +22,7 @@ import 'package:navigation/structures/map/store.dart';
 import 'package:utilities/flavors/flavor_config.dart';
 import 'package:utilities/flavors/flavor_manager.dart';
 import 'package:utilities/logger/logger.dart';
-import 'package:theme/wrapper/store.dart';
+import 'package:theme/app/store.dart';
 import 'package:utilities/logger/logger.dart';
 import 'package:utilities/widgets/connection_state/base_store.dart';
 

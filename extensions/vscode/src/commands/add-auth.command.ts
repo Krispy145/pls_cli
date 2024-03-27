@@ -12,8 +12,7 @@ export const newAuth = async (args: Uri) => {
       folderPath: "lib",
     });
     // Add authentication package to pubspec.yaml
-    const authenticationPath =
-      "/Users/davidkisbey-green/Desktop/Digital_Oasis/authentication";
+    const authenticationPath = "../../../packages/authentication";
     addFlutterPackageFromPath("authentication", authenticationPath);
 
     const injectionContainerPath = getFeatureFilePath(

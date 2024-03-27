@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 /// FIREBASE END
 import 'package:flutter/material.dart';
 import 'package:utilities/flavors/flavor_config.dart';
-import 'package:theme/wrapper/wrapper.dart';
+import 'package:theme/app/view.dart';
 
 /// Main App Function
 void appMain({required FlavorConfig flavorConfig}) {

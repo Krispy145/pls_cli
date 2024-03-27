@@ -108,8 +108,7 @@ DeepLinksStore get deepLinksStore => _serviceLocator.get<DeepLinksStore>();
 
   fs.writeFileSync(injectionContainerPath, fileContent);
 
-  const deeplinksPath =
-    "/Users/davidkisbey-green/Desktop/Digital_Oasis/deeplinks/";
+  const deeplinksPath = "../../../packages/deeplinks";
 
   addFlutterPackageFromPath("deeplinks", deeplinksPath);
   await formatFiles();

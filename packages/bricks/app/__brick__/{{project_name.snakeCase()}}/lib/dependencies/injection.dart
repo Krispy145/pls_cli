@@ -1,7 +1,7 @@
 import 'package:{{project_name.snakeCase()}}/core/assets/assets.gen.dart';
 import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 import 'package:get_it/get_it.dart';
-import 'package:theme/wrapper/store.dart';
+import 'package:theme/app/store.dart';
 
 {{#is_dashboard}}
 import 'package:navigation/structures/dashboard/shell/store.dart';
@@ -22,7 +22,7 @@ import 'package:navigation/structures/map/store.dart';
 import 'package:utilities/flavors/flavor_config.dart';
 import 'package:utilities/flavors/flavor_manager.dart';
 import 'package:utilities/logger/logger.dart';
-import 'package:theme/wrapper/store.dart';
+import 'package:theme/app/store.dart';
 import 'package:utilities/widgets/connection_state/base_store.dart';
 
 /// [Managers] is a variable that handles all service locator registrations.
