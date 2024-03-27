@@ -1,4 +1,5 @@
 import 'package:app_template/dependencies/injection.dart';
+import 'package:app_template/environments/config.dart';
 
 /// FIREBASE START
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -7,12 +8,12 @@ import 'package:flutter/foundation.dart';
 
 /// FIREBASE END
 import 'package:flutter/material.dart';
-import 'package:utilities/flavors/flavor_config.dart';
 import 'package:theme/app/view.dart';
+import 'package:utilities/flavors/flavor_config.dart';
 
 /// Main App Function
-void appMain({required FlavorConfig flavorConfig}) {
-  Managers.init(flavorConfig: flavorConfig);
+void appMain({required Config config}) {
+  Managers.init(config: config);
 
   /// FIREBASE START
   if (!kIsWeb) {
@@ -21,7 +22,7 @@ void appMain({required FlavorConfig flavorConfig}) {
 
     // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
     PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      config.environment == Environment.production ? FirebaseCrashlytics.instance.recordError(error, stack) : FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
       return true;
     };
   }
@@ -47,13 +48,14 @@ class MainApp extends StatelessWidget {
         themeMode: currentThemeMode,
         routerConfig: Managers.router.config(
           /// FIREBASE START
-            navigatorObservers: () => !kIsWeb
+          navigatorObservers: () => !kIsWeb
               ? [
                   FirebaseAnalyticsObserver(
                     analytics: FirebaseAnalytics.instance,
                   ),
                 ]
               : [],
+
           /// FIREBASE END
         ),
       ),

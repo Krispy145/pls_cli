@@ -1,19 +1,19 @@
 import 'package:app_template/app.dart';
+import 'package:app_template/environments/config.dart';
+import 'package:app_template/environments/prod/env.dart';
+import 'package:flutter/widgets.dart';
 
 /// FIREBASE START
-//TODO: Uncomment this after running the firebase setup script
-// import 'package:app_template/firebase/firebase_options_prod.dart';
 // import 'package:firebase_core/firebase_core.dart';
-
+// import 'package:flutter/foundation.dart';
+// import '../../firebase/firebase_options_prod.dart';
 /// FIREBASE END
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-import 'package:utilities/flavors/flavor_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final flavorConfig = FlavorConfig(
-    environment: Environment.production,
+  final config = Config(
+    ProdEnv.name,
+    key1: ProdEnv.key1,
     loggerFeatures: <Enum, bool>{},
     apiPrefix: "prod_base_url",
   );
@@ -22,10 +22,10 @@ void main() async {
   //TODO: Uncomment this after adding the firebase_options_prod.dart file
   // Initialize firebase project
   // await Firebase.initializeApp(
-  //   name: !kIsWeb ? flavorConfig.environment.name : null,
+  //   name: !kIsWeb ? config.environment?.name : null,
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
 
   /// FIREBASE END
-  await appMain(flavorConfig: flavorConfig);
+  appMain(config: config);
 }
