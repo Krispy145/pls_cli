@@ -1,4 +1,5 @@
 import 'package:{{project_name.snakeCase()}}/core/assets/assets.gen.dart';
+import 'package:{{project_name.snakeCase()}}/environments/config.dart';
 import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theme/app/store.dart';
@@ -19,10 +20,8 @@ import 'package:navigation/structures/default/store.dart';
 import 'package:navigation/structures/map/store.dart';
 
 {{/is_map}}
-import 'package:utilities/flavors/flavor_config.dart';
 import 'package:utilities/flavors/flavor_manager.dart';
 import 'package:utilities/logger/logger.dart';
-import 'package:theme/app/store.dart';
 import 'package:utilities/widgets/connection_state/base_store.dart';
 
 /// [Managers] is a variable that handles all service locator registrations.
@@ -36,9 +35,11 @@ class ManagerInjector {
   final GetIt _serviceLocator = GetIt.instance;
 
   /// [init] is responsible for initialising all service locator registrations.
-  void init({required FlavorConfig flavorConfig}) {
+  void init({required Config config}) {
+    final _loggerInjector = AppLoggerInjector(config.loggerFeatures);
+    _serviceLocator.registerLazySingleton<AppLoggerInjector>(() => _loggerInjector);
     AppLogger.print("Initializing ManagerInjector...", [LoggerFeatures.dependencyInjection]);
-    _initCore(flavorConfig: flavorConfig);
+    _initCore(config: config);
     _initApp();
     _initExternal();
     AppLogger.print("ManagerInjector initialization complete.", [LoggerFeatures.dependencyInjection], type: LoggerType.confirmation);
@@ -76,12 +77,12 @@ class ManagerInjector {
   }
 
   /// Method responsible for handling all service locator registrations for core classes used in multiple features.
-  void _initCore({required FlavorConfig flavorConfig}) {
+  void _initCore({required Config config}) {
     AppLogger.print("Initializing core services...", [LoggerFeatures.dependencyInjection]);
     _serviceLocator
     ..registerSingleton(AppRouter())
       ..registerLazySingleton<ConnectionStateStore>(ConnectionStateStore.new)
-      ..registerLazySingleton<FlavorManager>(() => FlavorManager(flavorConfig: flavorConfig));
+      ..registerLazySingleton<FlavorManager>(() => FlavorManager(flavorConfig: config));
       
 
     ///END OF CORE
@@ -139,8 +140,8 @@ class ManagerInjector {
   /// [FlavorManager] getter
   FlavorManager get _flavor => _serviceLocator.get<FlavorManager>();
 
-  /// [FlavorConfig] getter
-  FlavorConfig get flavor => _flavor.flavorConfig;
+  /// [Config] getter
+  Config get config => _flavor.flavorConfig as Config;
 
   /// [ConnectionStateBaseStore] getter
   ConnectionStateStore get connectionStateStore => _serviceLocator.get<ConnectionStateStore>();
