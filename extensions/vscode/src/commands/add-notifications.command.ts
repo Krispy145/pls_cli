@@ -206,7 +206,7 @@ function updateAppBuildGradle() {
         multiDexEnabled true`;
 
     const codeToAddDependencies = `
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'`;
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'`;
 
     const codeToAddToCompileOptions = `
         coreLibraryDesugaringEnabled true`;

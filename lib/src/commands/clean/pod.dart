@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:path/path.dart' as path;
 
-import 'package:unpack_cli/src/commands/base.dart';
-import 'package:unpack_cli/src/utils/find_project_root.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/utils/find_project_root.dart';
 
 /// {@template podclean}
 /// Clean the pod files. Deletes pods, podfile.lock and reinstalls

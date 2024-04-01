@@ -1,6 +1,6 @@
 import 'package:ansi_styles/extension.dart';
-import 'package:unpack_cli/src/commands/base.dart';
-import 'package:unpack_cli/src/utils/feature.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/utils/feature.dart';
 
 /// {@template listFeaturesCommand}
 /// List all features in the project

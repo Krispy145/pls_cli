@@ -2,10 +2,10 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:mason/mason.dart';
 import 'package:path/path.dart' as path;
-import 'package:unpack_cli/bundles/_bundles.dart';
+import 'package:oasis_cli/bundles/_bundles.dart';
 
-import 'package:unpack_cli/src/commands/base.dart';
-import 'package:unpack_cli/src/utils/find_project_root.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/utils/find_project_root.dart';
 import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 

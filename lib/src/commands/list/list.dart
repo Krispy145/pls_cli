@@ -1,5 +1,5 @@
-import 'package:unpack_cli/src/commands/base.dart';
-import 'package:unpack_cli/src/commands/list/features.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/list/features.dart';
 
 /// {@template listCommand}
 /// List various aspects of a flutter project.

@@ -1,5 +1,5 @@
-import 'package:unpack_cli/src/commands/add/auth.dart';
-import 'package:unpack_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/add/auth.dart';
+import 'package:oasis_cli/src/commands/base.dart';
 import 'component.dart';
 import 'data_layer.dart';
 import 'domain_layer.dart';

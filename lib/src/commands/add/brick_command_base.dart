@@ -6,8 +6,8 @@ import 'package:ansi_styles/extension.dart';
 import 'package:args/args.dart';
 import 'package:mason/mason.dart' as mason;
 import 'package:path/path.dart' as p;
-import 'package:unpack_cli/src/commands/base.dart';
-import 'package:unpack_cli/src/logger.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/logger.dart';
 
 /// {@template brickCommandBase}
 ///

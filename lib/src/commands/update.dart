@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:path/path.dart' as path;
 
-import 'package:unpack_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/base.dart';
 
 /// Update the cli or extension
 class UpdateCommand extends UnpackCommand {

@@ -2,7 +2,7 @@
 
 This extension generates various aspects of a flutter project.
 
-It utilizes the `unpack_cli` to generate.
+It utilizes the `oasis_cli` to generate.
 
 Install the vsix file by pressing `cmd + shift + p` and searching for "install from vsix"
 

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:mason/mason.dart';
-import 'package:unpack_cli/src/commands/base.dart';
-import 'package:unpack_cli/src/utils/structures.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/utils/structures.dart';
 
 import '../../../bundles/_bundles.dart';
 

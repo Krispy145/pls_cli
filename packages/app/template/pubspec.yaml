@@ -4,13 +4,15 @@ version: 0.0.1+1
 publish_to: none
 
 scripts:
-  gen:
-    - command: flutter pub run build_runner build --delete-conflicting-outputs
-    - command: flutter clean
-    - command: flutter pub get
-  clean:    
-    - command: flutter clean
-    - command: flutter pub get
+  gen: make gen
+  clean: make clean
+  test: make test
+  build:dev: make build ENVIRONMENT=development ENV=dev FLAVOR_APP_NAME=[DEV] App Template
+  build:stage: make build ENVIRONMENT=staging ENV=stage FLAVOR_APP_NAME=[STAGE] App Template
+  build:prod: make build ENVIRONMENT=production ENV=prod FLAVOR_APP_NAME=App Template
+  deploy:dev: make deploy ENVIRONMENT=development ENV=dev FLAVOR_APP_NAME=[DEV] App Template
+  deploy:stage: make deploy ENVIRONMENT=staging ENV=stage FLAVOR_APP_NAME=[STAGE] App Template
+  deploy:prod: make deploy ENVIRONMENT=production ENV=prod FLAVOR_APP_NAME=App Template
 
 environment:
   sdk: ">=3.0.3 <4.0.0"
@@ -19,19 +21,19 @@ dependencies:
   flutter:
     sdk: flutter
   navigation:
-  #   # git:
-  #   #   url: git@github.com:digital-oasis-llc-fz/navigation.git
-  #   #   ref: v0.0.1
+    #   # git:
+    #   #   url: git@github.com:digital-oasis-llc-fz/navigation.git
+    #   #   ref: v0.0.1
     path: ../../../packages/navigation
   utilities:
-  #   # git:
-  #   #   url: git@github.com:digital-oasis-llc-fz/utilities.git
-  #   #   ref: v0.0.1
+    #   # git:
+    #   #   url: git@github.com:digital-oasis-llc-fz/utilities.git
+    #   #   ref: v0.0.1
     path: ../../../packages/utilities
   theme:
-  #   # git:
-  #   #   url: git@github.com:digital-oasis-llc-fz/theme.git
-  #   #   ref: v0.0.1
+    #   # git:
+    #   #   url: git@github.com:digital-oasis-llc-fz/theme.git
+    #   #   ref: v0.0.1
     path: ../../../packages/theme
   flutter_gen: ^5.3.2
   get_it: ^7.6.4
@@ -43,7 +45,6 @@ dependencies:
   firebase_crashlytics: ^3.4.4
   firebase_dynamic_links: ^5.4.4
   # FIREBASE END
-  
 
 dev_dependencies:
   flutter_test:
@@ -52,9 +53,9 @@ dev_dependencies:
   json_serializable: ^6.7.1
   flutter_lints: ^2.0.0
   mobx_codegen: ^2.3.0
-  build_runner:  
+  build_runner:
   flutter_gen_runner:
-  auto_route_generator: ^7.3.2  
+  auto_route_generator: ^7.3.2
   envied_generator: ^0.5.3
 
 flutter_gen:

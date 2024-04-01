@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
 import 'package:mason/mason.dart';
-import 'package:unpack_cli/bundles/_bundles.dart';
-import 'package:unpack_cli/src/commands/base.dart';
-import 'package:unpack_cli/src/utils/structures.dart';
+import 'package:oasis_cli/bundles/_bundles.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/utils/structures.dart';
 
 // A valid Dart identifier that can be used for a package, i.e. no
 // capital letters.

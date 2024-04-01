@@ -1,4 +1,4 @@
-name: unpack_cli
+name: oasis_cli
 version: 2.2.0
 
 environment:
@@ -6,21 +6,20 @@ environment:
 
 executables:
   oasis: main
-  
 
 scripts:
   dev:test: flutter pub global activate -spath . --overwrite
   get:
-    - command: flutter pub get 
+    - command: flutter pub get
       cwd: packages/app/template
     - command: flutter pub get
       cwd: packages/app_brick_generator
   build:vscode: "cd extensions/vscode && vsce package patch -o releases/digital-oasis.vsix"
   # Useful for bundling all the add bricks eg `BRICK=bloc oasis run bundle`
   bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
-  bundle:app: BRICK=app oasis run bundle    
+  bundle:app: BRICK=app oasis run bundle
   bundle:component: BRICK=component oasis run bundle
-  bundle:auth: BRICK=auth oasis run bundle  
+  bundle:auth: BRICK=auth oasis run bundle
   bundle:data_layer: BRICK=data_layer oasis run bundle
   bundle:domain_layer: BRICK=domain_layer oasis run bundle
   bundle:presentation_layer: BRICK=presentation_layer oasis run bundle
@@ -32,7 +31,7 @@ scripts:
   bundle:map_structure: BRICK=map_structure oasis run bundle
   bundle:default_map_structure: BRICK=default_map_structure oasis run bundle
   bundle:model: BRICK=model oasis run bundle
-  bundle:font_family: BRICK=font_family oasis run bundle  
+  bundle:font_family: BRICK=font_family oasis run bundle
   bundle:all: oasis run bundle:app && oasis run bundle:component && oasis run bundle:auth && oasis run bundle:data_layer && oasis run bundle:domain_layer && oasis run bundle:presentation_layer && oasis run bundle:notifications_feature && oasis run bundle:multi_notifications_feature && oasis run bundle:dashboard_structure && oasis run bundle:default_dashboard_structure && oasis run bundle:default_structure && oasis run bundle:map_structure && oasis run bundle:default_map_structure && oasis run bundle:model && oasis run bundle:font_family
   gen:app_brick:
     - command: flutter clean

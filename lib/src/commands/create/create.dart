@@ -1,4 +1,4 @@
-import 'package:unpack_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/base.dart';
 
 import 'app.dart';
 

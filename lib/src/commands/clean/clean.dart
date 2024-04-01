@@ -1,5 +1,5 @@
-import 'package:unpack_cli/src/commands/base.dart';
-import 'package:unpack_cli/src/commands/clean/pod.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/clean/pod.dart';
 
 /// {@template clean}
 /// Clean the project of various things.

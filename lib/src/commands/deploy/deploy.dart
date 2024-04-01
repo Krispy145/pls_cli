@@ -1,26 +1,21 @@
 import 'dart:io';
-
 import 'package:ansi_styles/extension.dart';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
-import 'package:unpack_cli/src/commands/base.dart';
-import 'package:unpack_cli/src/commands/deploy/git_config.dart';
-import 'package:unpack_cli/src/utils/find_project_root.dart';
-import 'package:yaml/yaml.dart';
-import 'package:yaml_edit/yaml_edit.dart';
-
-/// The git config for the deploy
-const deployEmail = "skateoasisdubai@gmail.com";
-
-/// The git config for the deploy
-const deployName = "skateoasisdubai";
+import 'package:oasis_cli/src/commands/base.dart';
 
 /// {@template deployCommand}
 /// Add various parts the app.
 /// {@endtemplate}
 class DeployCommand extends UnpackCommand {
   /// All the available deploy environments
-  static const environments = ["staging", "prod"];
+  static const environments = ["dev", "stage", "prod"];
+
+  /// All the available version types
+  static const versionTypes = ["build", "patch", "minor", "major"];
+
+  /// All the available channels
+  static const channels = ["alpha", "beta", "production"];
 
   /// {@macro deployCommend}
   DeployCommand() {
@@ -33,12 +28,17 @@ class DeployCommand extends UnpackCommand {
       ..addOption(
         "version",
         abbr: "v",
-        help: "Set the build number and version",
+        help: "Set the version type for the build.",
+      )
+      ..addOption(
+        "channel",
+        abbr: "c",
+        help: "Set the channel for the build.",
       );
   }
 
   @override
-  String get description => "Set version number, tag and push";
+  String get description => "Set the version and deploy the project";
 
   @override
   String get name => "deploy";
@@ -57,56 +57,53 @@ class DeployCommand extends UnpackCommand {
       logger.err("You are not in the root folder");
       return;
     }
-    final environment = _getEnv(results);
-    if (environment == null) {
+    final env = _getEnv(results);
+    if (env == null) {
       logger.err("Environment is null");
       return;
     }
-    final version = await _getVersionNumber(results);
-    if (version == null) {
-      logger.err("Environment ($environment) or version ($version) is null");
-      return;
+    String? version;
+    if (env == "dev") {
+      version = _getVersionNumber(results);
+      if (version == null) {
+        logger.err("Environment ($env) or version ($version) is null");
+        return;
+      }
     }
-    final tag = "$environment/$version";
-
-    final releaseMessage = logger.prompt(
-      prompt: "${'?'.bold.greenBright} Release message:",
-    );
+    String? channel;
+    if (env == "dev" || env == "stage") {
+      channel = _getChannel(results);
+      if (channel == null) {
+        logger.err("Channel is null");
+        return;
+      }
+    } else if (env == "prod") {
+      channel = "production";
+    }
 
     // final check before changing anything
     logger
       ..info(
         "\n\n${'Check the details below'.green.bold}",
       )
-      ..info("${'Tag to push: '.bold} $tag")
-      ..info("${'Version:'.bold} $version")
-      ..info("${'Release message: '.bold} $releaseMessage");
-
-    final confirm = logger.confirm(prompt: "Confirm environment and version");
-    if (!confirm) return;
-
-    final pubspecFile = findPubspec();
-    final pubspec = pubspecFile.readAsStringSync();
-
-    final projectName = getProjectName(pubspec);
-
-    await setVersion(
-      pubspecFile: pubspecFile,
-      version: version,
-      pubspec: pubspec,
-    );
-
-    if (projectName == null) {
-      logger.err("No name found in pubspec.yaml");
-      return;
+      ..info("${'Environment:'.bold} $env");
+    if (channel != null) {
+      logger.info("${'Channel:'.bold} $channel");
+    }
+    if (version != null) {
+      logger.info("${'Version:'.bold} $version");
     }
 
-    return _deploy(
-      releaseMessage: releaseMessage,
-      environment: environment,
-      tag: tag,
-      version: version,
-      projectName: projectName,
+    final confirm = logger.confirm(prompt: "Confirm Deployment Details?");
+    if (!confirm) return;
+
+    if (env == "dev" && channel == "alpha") {
+      await processRunner.runString(
+        "make  bump-version ENV=$env VERSION_TYPE=$version",
+      );
+    }
+    await processRunner.runString(
+      "make deploy ENV=$env CHANNEL=$channel",
     );
   }
 
@@ -132,292 +129,41 @@ class DeployCommand extends UnpackCommand {
     return res;
   }
 
-  Future<String?> _getVersionNumber(ArgResults results) async {
-    var version = results["version"] as String?;
+  String? _getVersionNumber(ArgResults results) {
+    final version = results["version"] as String?;
     if (version == null || version.isEmpty) {
-      final progress = logger.spinner(
-        icon: "🏷️",
-        rightPrompt: (done) => done ? "Tags fetched" : "Fetching tags",
+      final res = logger.chooseOne(
+        prompt: "${'?'.greenBright.bold} Select a version type",
+        options: DeployCommand.versionTypes,
       );
-      await processRunner.run("git", ["fetch", "--tags"], printOutput: false);
-      progress.done();
-      // list past tags
-      logger.info('Previous tags'.greenBright.bold);
-
-      final tagString = await processRunner.runResult(
-        "git",
-        ["tag", "--list", "-n9"],
-        printOutput: false,
-      );
-      if (tagString != null) {
-        final tags = tagString.split("\n").where((element) => element.trim() != "").map((e) {
-          final tag = e.trim();
-          final splitTag = tag.split(" ");
-          var message = "";
-          if (splitTag.length > 1) {
-            message = splitTag.sublist(1).join(" ");
-          }
-          final env = splitTag[0].split("+");
-          return _Tag(
-            buildNumber: int.tryParse(env[1]) ?? 0,
-            message: message,
-            version: env[0],
-          );
-        }).toList()
-          ..sort((a, b) {
-            return a.buildNumber - b.buildNumber;
-          });
-
-        final tagStrings = tags.fold<String>(
-          "",
-          (value, element) => "$value${element.version}+${element.buildNumber} ${element.message}\n",
-        );
-        logger.info(tagStrings);
-      }
-
-      version = logger.prompt(
-        prompt: "${'?'.greenBright.bold} Set the new build number: ",
-      );
+      return res;
     }
-    if (!_verifyVersion(version)) {
-      logger.warn('Incorrect version format');
-      return null;
-    }
-    return version;
+    if (versionTypes.contains(version)) return version;
+    logger
+      ..write("The input $version is not a recognized version type.")
+      ..write("The version must be one of the following:")
+      ..write(
+        DeployCommand.versionTypes.map<String>((r) => "$r\n").join(),
+      );
+    return null;
   }
 
-  bool _verifyVersion(String? version) {
-    final exp = RegExp(r"^(\d+)\.(\d+)\.(\d+)\+(\d+)");
-    if (version == null || !exp.hasMatch(version)) return false;
-    return true;
+  String? _getChannel(ArgResults results) {
+    final channel = results["channel"] as String?;
+    if (channel == null || channel.isEmpty) {
+      final res = logger.chooseOne(
+        prompt: "${'?'.greenBright.bold} Select a channel",
+        options: DeployCommand.channels,
+      );
+      return res;
+    }
+    if (channels.contains(channel)) return channel;
+    logger
+      ..write("The input $channel is not a recognized channel.")
+      ..write("The channel must be one of the following:")
+      ..write(
+        DeployCommand.channels.map<String>((r) => "$r\n").join(),
+      );
+    return null;
   }
-
-  /// Get the project name from pubspec
-  String? getProjectName(String pubspec) {
-    final yaml = loadYaml(pubspec) as YamlMap;
-    return yaml["name"] as String;
-  }
-
-  /// Sets the version in a pubspec
-  Future<void> setVersion({
-    required String version,
-    required String pubspec,
-    required File pubspecFile,
-  }) async {
-    final yamlEditor = YamlEditor(pubspec)..update(["version"], version);
-    await pubspecFile.writeAsString(yamlEditor.toString());
-  }
-
-  void _setGitConfig(GitConfig config) {
-    processRunner
-      ..runResult("git", ["config", "--local", "user.email", config.email])
-      ..runResult("git", ["config", "--local", "user.name", config.name]);
-  }
-
-  /// Checkout and deploy the branch
-  ///
-  /// Returns exit code
-  Future<void> _deploy({
-    required String releaseMessage,
-    required String environment,
-    required String version,
-    required String tag,
-    required String projectName,
-  }) async {
-    var currentBranch = await processRunner.runResult(
-      "git",
-      ["rev-parse", "--abbrev-ref", "HEAD"],
-    );
-    if (currentBranch == null) {
-      logger.err("Error getting the current branch");
-      return;
-    }
-    currentBranch = currentBranch.trim();
-
-    // Don't allow deploying from a deploy branch as these will get wiped in the process
-    if (currentBranch == "staging" || currentBranch == "production") {
-      logger.err(
-        "Cannot deploy from a deployment only branch",
-      );
-      return;
-    }
-    var remoteUrl = await processRunner.runResult(
-      "git",
-      ["config", "--get", "remote.origin.url"],
-    );
-    if (remoteUrl == null) {
-      logger.err("Error finding remote url");
-      return;
-    }
-    remoteUrl = remoteUrl.trim();
-
-    if (remoteUrl.isEmpty) {
-      logger.err("No remote url found");
-      return;
-    }
-
-    final originDir = Directory.current;
-    final tempDir = Directory.systemTemp.createTempSync(
-      "$projectName-$environment",
-    );
-
-    Directory.current = tempDir;
-
-    // Check out deployment branch when cloning repository, and then remove all
-    // the files in the directory. If the 'clone' command fails, assume that
-    // the deployment branch doesn't exist, and initialize git in an empty
-    // directory, check out a clean deployment branch and add remote.
-    final clonedProgress = logger.spinner(
-      icon: "✅",
-      rightPrompt: (done) => done ? "Project cloned" : "Cloning project",
-    );
-    var cloneSucceeded = false;
-
-    try {
-      final clone = await processRunner.run(
-        "git",
-        [
-          "clone",
-          "--depth",
-          "1",
-          "--branch",
-          environment,
-          remoteUrl,
-          tempDir.path,
-        ],
-      );
-      clonedProgress.done();
-      cloneSucceeded = clone.exitCode == 0;
-    } catch (_) {
-      cloneSucceeded = false;
-      clonedProgress.done();
-    }
-    // final clonedProcess = shell.run(
-    //   "git clone",
-    //   [
-    //     "clone",
-    //     "--depth",
-    //     "1",
-    //     "--branch",
-    //     environment,
-    //     remoteUrl,
-    //     tempDir.path,
-    //   ],
-    // );
-
-    if (cloneSucceeded) {
-      final removeProgress = logger.spinner(
-        rightPrompt: (done) => done ? "" : "Removing everything in branch $environment",
-      );
-      await processRunner.runResult(
-        "git",
-        ["rm", "-rf", "."],
-      );
-      removeProgress.done();
-    } else {
-      await processRunner.runResult("git", ["init"]);
-      await processRunner.runResult(
-        "git",
-        ["checkout", "-b", environment],
-      );
-      await processRunner.runResult(
-        "git",
-        ["remote", "add", "origin", remoteUrl],
-      );
-    }
-
-    await processRunner.runResult(
-      "git",
-      ["config", "--get", "remote.origin.url"],
-    );
-
-    // set config to deploy user
-    _setGitConfig(
-      GitConfig(email: deployEmail, name: deployName),
-    );
-    final copyProgress = logger.spinner(
-      icon: "🥨",
-      rightPrompt: (done) => done ? "Files copied to temp directory." : "Copying files to temp directory branch: $environment",
-    );
-
-    try {
-      // await copyPathNoGit(originDir.path, tempDir.path);
-      await processRunner.runResult(
-        "rsync",
-        ["-rv", "--exclude=.git", "${originDir.path}/", tempDir.path],
-      );
-    } catch (err) {
-      logger.err(
-        "Copying build assets from path=$originDir to path=$tempDir failed.",
-      );
-      rethrow;
-    }
-    copyProgress.done();
-
-    await processRunner.runResult(
-      "git",
-      ["add", "--all"],
-    );
-
-    final commitResults = await processRunner.run(
-      "git",
-      ["commit", "-m", "release($version)"],
-    );
-
-    var currentCommitId = await processRunner.runResult(
-      "git",
-      ["rev-parse", "HEAD"],
-    );
-    if (currentCommitId == null) {
-      logger.err("Error getting latest commit id");
-      return;
-    }
-    currentCommitId = currentCommitId.trim();
-
-    // Tag the commit
-    await processRunner.runResult(
-      "git",
-      ["tag", "-a", tag, currentCommitId, "-m", releaseMessage],
-    );
-    final pushTagProgress = logger.spinner(
-      icon: "🔖",
-      rightPrompt: (done) => done ? "Tag Pushed" : "Pushing tag",
-    );
-    await processRunner.runResult(
-      "git",
-      ["push", "origin", tag],
-    );
-    pushTagProgress.done();
-
-    final pushProgress = logger.spinner(
-      icon: "🌴",
-      rightPrompt: (done) => done ? "Pushed branch" : "Pushing branch $environment",
-    );
-    final pushResult = await processRunner.run(
-      "git",
-      ["push", "--force", "origin", environment],
-    );
-    pushProgress.done();
-
-    if (pushResult.exitCode != 0) {
-      throw Exception("Running 'git push' command failed.");
-    } else if (commitResults.exitCode == 0) {
-      // The commit might return a non-zero value when site is oasis to date.
-      logger.info(
-        "Project pushed to $environment with tag $tag".greenBright,
-      );
-    }
-  }
-}
-
-class _Tag {
-  final int buildNumber;
-  final String message;
-  final String version;
-
-  _Tag({
-    required this.buildNumber,
-    required this.message,
-    required this.version,
-  });
 }
