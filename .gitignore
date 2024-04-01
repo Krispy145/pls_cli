@@ -3,3 +3,4 @@
 **/.mason/
 test_app
 
+package-lock.json
