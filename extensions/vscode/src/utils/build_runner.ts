@@ -1,16 +1,17 @@
 import { mkdirp } from "mkdirp";
-import { window, workspace, ProgressLocation } from "vscode";
+import { window, workspace, ProgressLocation, Uri } from "vscode";
 import { exec } from "child_process";
 import { resolve } from "path";
+import { getWorkspaceFilePath } from "./get-target-directory";
 
-export const formatFiles = async () => {
-  await runCommandInWorkspaceFolder("dart format .");
-  await runCommandInWorkspaceFolder("dart fix --apply");
+export const formatFiles = async (args: Uri) => {
+  await runCommandInWorkspaceFolder(args, "dart format .");
+  await runCommandInWorkspaceFolder(args, "dart fix --apply");
 
   window.showInformationMessage("Files cleaned.");
 };
 
-export const buildRunner = async (commandName: string) => {
+export const buildRunner = async (args: Uri, commandName: string) => {
   // Define the build runner command
   const buildRunnerCommand =
     "flutter pub run build_runner build --delete-conflicting-outputs";
@@ -23,9 +24,10 @@ export const buildRunner = async (commandName: string) => {
     },
     async () => {
       const buildRunnerResult = await runCommandInWorkspaceFolder(
+        args,
         buildRunnerCommand
       );
-      await formatFiles();
+      await formatFiles(args);
       if (buildRunnerResult.error) {
         window.showErrorMessage(
           `Error running build runner: ${buildRunnerResult.error}`
@@ -40,25 +42,16 @@ export const buildRunner = async (commandName: string) => {
 };
 
 export const runCommandInWorkspaceFolder = async (
+  args: Uri,
   command: string,
   { folderPath }: { folderPath?: string } = {}
 ): Promise<{ error?: string }> => {
-  const workspaceFolder = workspace.workspaceFolders?.[0];
-
-  if (!workspaceFolder) {
-    window.showErrorMessage("No workspace folder found.");
-    return { error: "No workspace folder found." };
-  }
-
-  const rootProjectPath = workspaceFolder.uri.fsPath;
-  const fullPath = folderPath
-    ? `${rootProjectPath}/${folderPath}`
-    : rootProjectPath;
+  const fullPath = getWorkspaceFilePath(args, folderPath ?? "");
 
   // Create directories if folderPath is specified
   if (folderPath) {
     try {
-      mkdirp.sync(`${rootProjectPath}/${folderPath}`);
+      mkdirp.sync(fullPath);
     } catch (mkdirpError: any) {
       window.showErrorMessage(
         `Error creating directories: ${mkdirpError.message}`
@@ -101,28 +94,21 @@ export const runCommandInWorkspaceFolder = async (
 };
 
 export const runFunctionInWorkspaceFolder = async (
+  args: Uri,
   func: () => Promise<void>,
   folderPath?: string
 ): Promise<{ error?: string }> => {
-  const workspaceFolder = workspace.workspaceFolders?.[0];
-
-  if (!workspaceFolder) {
-    window.showErrorMessage("No workspace folder found.");
-    return { error: "No workspace folder found." };
-  }
-
-  const rootProjectPath = workspaceFolder.uri.fsPath;
-  const fullPath = folderPath
-    ? resolve(rootProjectPath, folderPath)
-    : rootProjectPath;
+  const fullPath = getWorkspaceFilePath(args, folderPath ?? "");
 
   // Create directories if folderPath is specified
   if (folderPath) {
     try {
-      await mkdirp(resolve(rootProjectPath, folderPath));
-    } catch (error: any) {
-      window.showErrorMessage(`Error creating directories: ${error.message}`);
-      return { error: error.message };
+      mkdirp.sync(fullPath);
+    } catch (mkdirpError: any) {
+      window.showErrorMessage(
+        `Error creating directories: ${mkdirpError.message}`
+      );
+      return { error: mkdirpError.message };
     }
   }
 

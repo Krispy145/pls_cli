@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 import { Uri, window, workspace } from "vscode";
 import {
-  getFeatureFilePath,
+  getWorkspaceFilePath,
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import {
@@ -68,22 +68,23 @@ export const addDeepLinks = async (args: Uri) => {
 
   switch (deepLinkConfigurationType) {
     case "Android":
-      addAndroidFiles(liveKey, testKey, linkDomainPrefix);
+      addAndroidFiles(args, liveKey, testKey, linkDomainPrefix);
       break;
     case "iOS":
-      addIosFiles(liveKey, testKey, linkDomainPrefix);
+      addIosFiles(args, liveKey, testKey, linkDomainPrefix);
       break;
     case "Web":
-      addWebFiles(liveKey);
+      addWebFiles(args, liveKey);
       break;
     default:
-      addAndroidFiles(liveKey, testKey, linkDomainPrefix);
-      addIosFiles(liveKey, testKey, linkDomainPrefix);
-      addWebFiles(liveKey);
+      addAndroidFiles(args, liveKey, testKey, linkDomainPrefix);
+      addIosFiles(args, liveKey, testKey, linkDomainPrefix);
+      addWebFiles(args, liveKey);
       break;
   }
 
-  const injectionContainerPath = getFeatureFilePath(
+  const injectionContainerPath = getWorkspaceFilePath(
+    args,
     "lib/dependencies/injection.dart"
   );
 
@@ -111,29 +112,31 @@ DeepLinksStore get deepLinksStore => _serviceLocator.get<DeepLinksStore>();
   const deeplinksPath = "../../../packages/deeplinks";
 
   addFlutterPackageFromPath("deeplinks", deeplinksPath);
-  await formatFiles();
+  await formatFiles(args);
 };
 
 function addAndroidFiles(
+  args: Uri,
   liveKey: string,
   testKey: string | undefined,
   linkDomainPrefix: string
 ) {
-  updateAppBuildGradle();
-  updateAndroidManifest(liveKey, testKey, linkDomainPrefix);
+  updateAppBuildGradle(args);
+  updateAndroidManifest(args, liveKey, testKey, linkDomainPrefix);
   addProGuardRules();
 }
 
 function addIosFiles(
+  args: Uri,
   liveKey: string,
   testKey: string | undefined,
   linkDomainPrefix: string
 ) {
-  updateInfoPlist(liveKey, testKey, linkDomainPrefix);
+  updateInfoPlist(args, liveKey, testKey, linkDomainPrefix);
 }
 
-function addWebFiles(liveKey: string) {
-  const webIndexHtmlPath = getFeatureFilePath("web/index.html");
+function addWebFiles(args: Uri, liveKey: string) {
+  const webIndexHtmlPath = getWorkspaceFilePath(args, "web/index.html");
   var webIndexHtmlContent = fs.readFileSync(webIndexHtmlPath, "utf8");
   const newContent = `
   <body>
@@ -154,8 +157,11 @@ branch.init("${liveKey}");
   fs.writeFileSync(webIndexHtmlPath, webIndexHtmlContent);
 }
 
-function updateAppBuildGradle() {
-  const appBuildGradlePath = getFeatureFilePath("android/app/build.gradle");
+function updateAppBuildGradle(args: Uri) {
+  const appBuildGradlePath = getWorkspaceFilePath(
+    args,
+    "android/app/build.gradle"
+  );
   var content = fs.readFileSync(appBuildGradlePath, "utf8");
 
   content = appendAfterMarkerInContent(
@@ -192,11 +198,13 @@ function addProGuardRules() {
 }
 
 function updateAndroidManifest(
+  args: Uri,
   liveKey: string,
   testKey: string | undefined,
   linkDomainPrefix: string
 ) {
-  const manifestPath = getFeatureFilePath(
+  const manifestPath = getWorkspaceFilePath(
+    args,
     "android/app/src/main/AndroidManifest.xml"
   );
   var androidManifestContent = fs.readFileSync(manifestPath, "utf8");
@@ -261,11 +269,12 @@ function updateAndroidManifest(
 }
 
 function updateInfoPlist(
+  args: Uri,
   liveKey: string,
   testKey: string | undefined,
   linkDomainPrefix: string
 ) {
-  const infoPlistPath = getFeatureFilePath("ios/Runner/Info.plist");
+  const infoPlistPath = getWorkspaceFilePath(args, "ios/Runner/Info.plist");
   var infoPlistContent = fs.readFileSync(infoPlistPath, "utf8");
 
   infoPlistContent = appendBeforeMarkerInContent(

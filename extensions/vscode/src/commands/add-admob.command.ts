@@ -1,7 +1,7 @@
 import { exec } from "child_process";
 import { Uri, window } from "vscode";
 import {
-  getFeatureFilePath as getFilePath,
+  getWorkspaceFilePath as getFilePath,
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import * as fs from "fs";
@@ -13,9 +13,10 @@ export const addAdmob = async (args: Uri) => {
   var targetDir = await getTargetDirectory(args);
   try {
     const androidManifestPath = getFilePath(
+      args,
       "android/app/src/main/AndroidManifest.xml"
     );
-    const iosInfoPlistPath = getFilePath("ios/Runner/Info.plist");
+    const iosInfoPlistPath = getFilePath(args, "ios/Runner/Info.plist");
 
     const androidAppId = await window.showInputBox({
       prompt: "Enter Android AdMob Application Identifier:",
@@ -93,6 +94,7 @@ export const addAdmob = async (args: Uri) => {
     AdMobStore get adMobStore => _serviceLocator.get<AdMobStore>();`;
 
         const injectionContainerPath = getFilePath(
+          args,
           "lib/dependencies/injection.dart"
         );
         const content = fs.readFileSync(injectionContainerPath, "utf-8");
@@ -121,7 +123,7 @@ export const addAdmob = async (args: Uri) => {
         addFlutterPackageFromPath("admob", admobPath);
       }
     }
-    await formatFiles();
+    await formatFiles(args);
   } catch (error) {
     window.showErrorMessage(`An error occurred: ${error}`);
   }

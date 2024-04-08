@@ -19,6 +19,6 @@ export const addModel = async (args: Uri) => {
     let child = exec(`oasis add model --name ${name} --path ${targetDir}`);
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
 
-    await buildRunner("Model");
+    await buildRunner(args, "Model");
   }
 };

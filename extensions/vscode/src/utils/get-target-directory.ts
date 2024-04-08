@@ -7,8 +7,7 @@ import {
 } from "vscode";
 import * as _ from "lodash";
 import { lstatSync } from "fs";
-import * as path from 'path';
-
+import * as path from "path";
 
 export const getTargetDirectory = async (
   uri: Uri
@@ -41,13 +40,18 @@ async function promptForTargetDirectory(): Promise<string | undefined> {
   });
 }
 
-
-// Function to get the path to a feature file with a provided relative path
-export const getFeatureFilePath = (relativePath: string): string => {
-  const currentWorkspace = workspace.workspaceFolders?.[0];
+// Function to get the required file path in the workspace
+export const getWorkspaceFilePath = (
+  uri: Uri,
+  relativePath: string
+): string => {
+  var currentWorkspace = workspace.workspaceFolders?.find((workspace) =>
+    uri.fsPath.startsWith(workspace.uri.fsPath)
+  );
   if (currentWorkspace) {
     return path.join(currentWorkspace.uri.fsPath, relativePath);
   } else {
-    throw new Error('No workspace folder found.');
+    window.showErrorMessage("No workspace folder found.");
+    throw new Error("No workspace folder found.");
   }
 };

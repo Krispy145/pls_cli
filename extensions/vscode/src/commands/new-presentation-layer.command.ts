@@ -10,7 +10,7 @@ export const newPresentationLayer = async (args: Uri) => {
 
     if (name) {
       const commandNewPresentationLayer = `oasis add presentation_layer --name ${name}`;
-      await runCommandInWorkspaceFolder(commandNewPresentationLayer, {
+      await runCommandInWorkspaceFolder(args, commandNewPresentationLayer, {
         folderPath: "lib/presentation",
       });
     }

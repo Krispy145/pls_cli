@@ -11,12 +11,6 @@ class DeployCommand extends UnpackCommand {
   /// All the available deploy environments
   static const environments = ["dev", "stage", "prod"];
 
-  /// All the available version types
-  static const versionTypes = ["build", "patch", "minor", "major"];
-
-  /// All the available channels
-  static const channels = ["alpha", "beta", "production"];
-
   /// {@macro deployCommend}
   DeployCommand() {
     argParser
@@ -34,6 +28,11 @@ class DeployCommand extends UnpackCommand {
         "channel",
         abbr: "c",
         help: "Set the channel for the build.",
+      )
+      ..addOption(
+        "platform",
+        abbr: "p",
+        help: "Set the platform for the build.",
       );
   }
 
@@ -72,7 +71,7 @@ class DeployCommand extends UnpackCommand {
     }
     String? channel;
     if (env == "dev" || env == "stage") {
-      channel = _getChannel(results);
+      channel = _getChannel(results, env);
       if (channel == null) {
         logger.err("Channel is null");
         return;
@@ -80,6 +79,8 @@ class DeployCommand extends UnpackCommand {
     } else if (env == "prod") {
       channel = "production";
     }
+
+    final platform = _getPlatform(results);
 
     // final check before changing anything
     logger
@@ -93,6 +94,9 @@ class DeployCommand extends UnpackCommand {
     if (version != null) {
       logger.info("${'Version:'.bold} $version");
     }
+    if (platform != null) {
+      logger.info("${'Platform:'.bold} $platform");
+    }
 
     final confirm = logger.confirm(prompt: "Confirm Deployment Details?");
     if (!confirm) return;
@@ -103,7 +107,7 @@ class DeployCommand extends UnpackCommand {
       );
     }
     await processRunner.runString(
-      "make deploy ENV=$env CHANNEL=$channel",
+      "make deploy ENV=$env CHANNEL=$channel PLATFORM=$platform",
     );
   }
 
@@ -130,11 +134,13 @@ class DeployCommand extends UnpackCommand {
   }
 
   String? _getVersionNumber(ArgResults results) {
+    /// All the available version types
+    const versionTypes = ["build", "patch", "minor", "major"];
     final version = results["version"] as String?;
     if (version == null || version.isEmpty) {
       final res = logger.chooseOne(
         prompt: "${'?'.greenBright.bold} Select a version type",
-        options: DeployCommand.versionTypes,
+        options: versionTypes,
       );
       return res;
     }
@@ -143,17 +149,24 @@ class DeployCommand extends UnpackCommand {
       ..write("The input $version is not a recognized version type.")
       ..write("The version must be one of the following:")
       ..write(
-        DeployCommand.versionTypes.map<String>((r) => "$r\n").join(),
+        versionTypes.map<String>((r) => "$r\n").join(),
       );
     return null;
   }
 
-  String? _getChannel(ArgResults results) {
+  String? _getChannel(ArgResults results, String env) {
+    /// All the available channels
+    final channels = <String>[];
+    if (env == "dev" || env == "stage") {
+      channels.addAll(["alpha", "beta"]);
+    } else if (env == "prod") {
+      channels.addAll(["production"]);
+    }
     final channel = results["channel"] as String?;
     if (channel == null || channel.isEmpty) {
       final res = logger.chooseOne(
         prompt: "${'?'.greenBright.bold} Select a channel",
-        options: DeployCommand.channels,
+        options: channels,
       );
       return res;
     }
@@ -162,8 +175,21 @@ class DeployCommand extends UnpackCommand {
       ..write("The input $channel is not a recognized channel.")
       ..write("The channel must be one of the following:")
       ..write(
-        DeployCommand.channels.map<String>((r) => "$r\n").join(),
+        channels.map<String>((r) => "$r\n").join(),
       );
     return null;
+  }
+
+  String? _getPlatform(ArgResults results) {
+    final platforms = ["mobile", "web", "both"];
+    final platform = results["platform"] as String?;
+    if (platform != null) {
+      return platform;
+    }
+    final res = logger.chooseOne(
+      prompt: "${'?'.greenBright.bold} Select a platform",
+      options: platforms,
+    );
+    return res;
   }
 }

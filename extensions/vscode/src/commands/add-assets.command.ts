@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { Uri, window, workspace } from "vscode";
 import { promisify } from "util";
+import { getWorkspaceFilePath } from "../utils/get-target-directory";
 
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
@@ -21,14 +22,8 @@ export const newAssets = async (args: Uri) => {
     if (assetsFolder && assetsFolder.length > 0) {
       const assetsPath = assetsFolder[0].fsPath;
       window.showInformationMessage(`Selected assets folder: ${assetsPath}`);
-      const workspaceFolder = workspace.workspaceFolders?.[0];
 
-      if (!workspaceFolder) {
-        window.showErrorMessage("No workspace folder found.");
-        return { error: "No workspace folder found." };
-      }
-
-      const rootProjectPath = workspaceFolder.uri.fsPath;
+      const rootProjectPath = getWorkspaceFilePath(args, "");
 
       // Get platform-specific directories
       const iosDir = path.join(rootProjectPath, "ios/Runner");

@@ -1,21 +1,22 @@
 import { Uri, window } from "vscode";
 import * as fs from "fs";
 import { runCommandInWorkspaceFolder } from "../utils/build_runner";
-import { getFeatureFilePath } from "../utils/get-target-directory";
+import { getWorkspaceFilePath } from "../utils/get-target-directory";
 import { addInjectionAndGetter } from "../utils/add_to_files";
 import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
 
 export const newAuth = async (args: Uri) => {
   try {
     const commandNewAuth = `oasis add auth`;
-    await runCommandInWorkspaceFolder(commandNewAuth, {
+    await runCommandInWorkspaceFolder(args, commandNewAuth, {
       folderPath: "lib",
     });
     // Add authentication package to pubspec.yaml
     const authenticationPath = "../../../packages/authentication";
     addFlutterPackageFromPath("authentication", authenticationPath);
 
-    const injectionContainerPath = getFeatureFilePath(
+    const injectionContainerPath = getWorkspaceFilePath(
+      args,
       "lib/dependencies/injection.dart"
     );
     var fileContent = fs.readFileSync(injectionContainerPath, "utf-8");

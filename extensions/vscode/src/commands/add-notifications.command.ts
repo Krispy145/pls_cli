@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 import { Uri, window, workspace } from "vscode";
 import {
-  getFeatureFilePath,
+  getWorkspaceFilePath,
   getTargetDirectory,
 } from "../utils/get-target-directory";
 import {
@@ -18,18 +18,19 @@ import {
 } from "../utils/build_runner";
 
 export const addNotifications = async (args: Uri) => {
-  await updateAppDelegate();
-  updateBuildGradle();
-  updateAppBuildGradle();
-  await updateAndroidManifest();
-  await updateStringsXml();
+  await updateAppDelegate(args);
+  updateBuildGradle(args);
+  updateAppBuildGradle(args);
+  await updateAndroidManifest(args);
+  await updateStringsXml(args);
 
   // Prompt user to select local, push, or both notification packages
   const notificationType = await vscode.window.showQuickPick(
     ["Local", "Push", "Both"],
     { placeHolder: "Select notification package type" }
   );
-  const injectionContainerPath = getFeatureFilePath(
+  const injectionContainerPath = getWorkspaceFilePath(
+    args,
     "lib/dependencies/injection.dart"
   );
 
@@ -49,48 +50,51 @@ export const addNotifications = async (args: Uri) => {
   // Add notification package(s) to pubspec.yaml
   const notificationsPath = "../../../packages/notifications";
   addFlutterPackageFromPath("notifications", notificationsPath);
-  const workspaceFolder = workspace.workspaceFolders?.[0];
-  if (workspaceFolder) {
-    var runCommandResult;
-    if (notificationType === "Local") {
-      runCommandResult = await runCommandInWorkspaceFolder(
-        "oasis add notifications_feature -s local_notifications_store -r local_store --is_push false",
-        {
-          folderPath: "lib",
-        }
-      );
-    } else if (notificationType === "Push")
-      runCommandResult = await runCommandInWorkspaceFolder(
-        "oasis add notifications_feature -s push_notifications_store -r push_store --is_push true",
-        {
-          folderPath: "lib",
-        }
-      );
-    else if (notificationType === "Both") {
-      runCommandResult = await runCommandInWorkspaceFolder(
-        "oasis add multi_notifications_feature",
-        {
-          folderPath: "lib",
-        }
-      );
-    }
-    if (runCommandResult?.error !== undefined) {
-      window.showErrorMessage(
-        `Error running build runner: ${runCommandResult?.error}`
-      );
-    } else {
-      window.showInformationMessage(
-        `notifications feature created successfully.`
-      );
-    }
+  var runCommandResult;
+  if (notificationType === "Local") {
+    runCommandResult = await runCommandInWorkspaceFolder(
+      args,
+      "oasis add notifications_feature -s local_notifications_store -r local_store --is_push false",
+      {
+        folderPath: "lib",
+      }
+    );
+  } else if (notificationType === "Push")
+    runCommandResult = await runCommandInWorkspaceFolder(
+      args,
+      "oasis add notifications_feature -s push_notifications_store -r push_store --is_push true",
+      {
+        folderPath: "lib",
+      }
+    );
+  else if (notificationType === "Both") {
+    runCommandResult = await runCommandInWorkspaceFolder(
+      args,
+      "oasis add multi_notifications_feature",
+      {
+        folderPath: "lib",
+      }
+    );
   }
-  await formatFiles();
+  if (runCommandResult?.error !== undefined) {
+    window.showErrorMessage(
+      `Error running build runner: ${runCommandResult?.error}`
+    );
+  } else {
+    window.showInformationMessage(
+      `notifications feature created successfully.`
+    );
+  }
+  await formatFiles(args);
 };
 
-async function updateAppDelegate() {
+async function updateAppDelegate(args: Uri) {
   try {
     // File path for AppDelegate.swift
-    const appDelegatePath = getFeatureFilePath("ios/Runner/AppDelegate.swift");
+    const appDelegatePath = getWorkspaceFilePath(
+      args,
+      "ios/Runner/AppDelegate.swift"
+    );
 
     // Read the current content of AppDelegate.swift
     var currentContent = fs.readFileSync(appDelegatePath, "utf-8");
@@ -151,8 +155,8 @@ async function updateAppDelegate() {
   }
 }
 
-function updateBuildGradle() {
-  const buildGradlePath = getFeatureFilePath("android/build.gradle");
+function updateBuildGradle(args: Uri) {
+  const buildGradlePath = getWorkspaceFilePath(args, "android/build.gradle");
 
   try {
     // Read the current content of build.gradle
@@ -194,8 +198,11 @@ function updateBuildGradle() {
   }
 }
 
-function updateAppBuildGradle() {
-  const buildGradlePath = getFeatureFilePath("android/app/build.gradle");
+function updateAppBuildGradle(args: Uri) {
+  const buildGradlePath = getWorkspaceFilePath(
+    args,
+    "android/app/build.gradle"
+  );
 
   try {
     // Read the current content of build.gradle
@@ -283,8 +290,9 @@ function updateAppBuildGradle() {
   }
 }
 
-async function updateAndroidManifest() {
-  const manifestPath = getFeatureFilePath(
+async function updateAndroidManifest(args: Uri) {
+  const manifestPath = getWorkspaceFilePath(
+    args,
     "android/app/src/main/AndroidManifest.xml"
   );
 
@@ -384,8 +392,9 @@ async function updateAndroidManifest() {
   }
 }
 
-async function updateStringsXml() {
-  const stringsXmlPath = getFeatureFilePath(
+async function updateStringsXml(args: Uri) {
+  const stringsXmlPath = getWorkspaceFilePath(
+    args,
     "android/app/src/main/res/values/strings.xml"
   );
   const stringsToAdd = `
