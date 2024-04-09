@@ -4,7 +4,6 @@ import 'component.dart';
 import 'data_layer.dart';
 import 'domain_layer.dart';
 import 'feature.dart';
-import 'fonts.dart';
 import 'logger.dart';
 import 'model.dart';
 import 'multi_notifications_feature.dart';
@@ -18,7 +17,6 @@ import 'structures.dart';
 class AddCommand extends UnpackCommand {
   /// {@macro addCommand}
   AddCommand() {
-    addSubcommand(FontsCommand());
     addSubcommand(ComponentCommand());
     addSubcommand(FeatureCommand());
     addSubcommand(AuthCommand());

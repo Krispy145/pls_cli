@@ -86,6 +86,10 @@ export const addNotifications = async (args: Uri) => {
     );
   }
   await formatFiles(args);
+
+  // Open the docs/notifications.md file from the workspace root directory
+  const docsPath = getWorkspaceFilePath(args, "docs/notifications.md");
+  window.showTextDocument(Uri.file(docsPath));
 };
 
 async function updateAppDelegate(args: Uri) {

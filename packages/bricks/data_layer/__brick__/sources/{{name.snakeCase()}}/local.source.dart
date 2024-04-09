@@ -24,13 +24,13 @@ class Local{{name.pascalCase()}}DataSource extends LocalDataSource<{{name.pascal
       final {{name.camelCase()}}s = _dataStore.values.toList();
       AppLogger.print(
         "IN MEMORY RESULT: Fetched all {{name.pascalCase()}} models successfully",
-        [AppLoggerFeatures.{{name.camelCase()}}],
+        [AppFeatures.{{name.camelCase()}}],
       );
       return Future.value({{name.camelCase()}}s);
     } catch (e) {
       AppLogger.print(
         "IN MEMORY RESULT: Error fetching all {{name.pascalCase()}} models: $e",
-        [AppLoggerFeatures.{{name.camelCase()}}],
+        [AppFeatures.{{name.camelCase()}}],
         type: LoggerType.error,
       );
       return [];

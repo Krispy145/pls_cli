@@ -26,7 +26,7 @@ class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase
     } catch (e) {
       AppLogger.print(
         "API RESULT: Failed request: $e",
-        [AppLoggerFeatures.{{name.camelCase()}}],
+        [AppFeatures.{{name.camelCase()}}],
         type: LoggerType.error,
       );
       return null;

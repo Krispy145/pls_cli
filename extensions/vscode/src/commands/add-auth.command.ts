@@ -22,7 +22,7 @@ export const newAuth = async (args: Uri) => {
     var fileContent = fs.readFileSync(injectionContainerPath, "utf-8");
 
     const injectionCode = `
-    ..registerSingleton(AuthenticationRepository.supabase(logToDatabase: false))
+    ..registerSingleton(AuthenticationRepository.firebase(logToDatabase: false))
     `;
 
     const getterCode = `
@@ -40,6 +40,10 @@ export const newAuth = async (args: Uri) => {
     });
 
     fs.writeFileSync(injectionContainerPath, fileContent);
+
+    //opens the docs/authentication.md file from the workspace root directory
+    const docsPath = getWorkspaceFilePath(args, "docs/authentication.md");
+    window.showTextDocument(Uri.file(docsPath));
   } catch (error) {
     window.showErrorMessage(`Error: ${error}`);
   }

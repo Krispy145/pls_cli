@@ -23,7 +23,7 @@ class Firestore{{name.pascalCase()}}DataSource extends FirestoreDataSource<{{nam
     } catch (e) {
       AppLogger.print(
         "Firestore RESULT: Failed request: $e",
-        [AppLoggerFeatures.{{name.camelCase()}}],
+        [AppFeatures.{{name.camelCase()}}],
         type: LoggerType.error,
       );
       return null;
