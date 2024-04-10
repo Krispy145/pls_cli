@@ -20,8 +20,8 @@ class DataLayerCommand extends BrickCommandBase {
 
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
-    _addRepositoriesFile();
     await super.run();
+    _addRepositoriesFile();
     return runScripts([
       'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
@@ -37,7 +37,7 @@ class DataLayerCommand extends BrickCommandBase {
     }
 
     // Define the path to the repositories directory
-    final repositoriesDirectory = Directory('${currentDirectory.path}/repositories');
+    final repositoriesDirectory = Directory('${currentDirectory.path}/data/repositories');
     if (!repositoriesDirectory.existsSync()) {
       logger.info('Creating repositories directory');
       repositoriesDirectory.createSync();

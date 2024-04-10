@@ -135,7 +135,6 @@ class PackageCommand extends BrickCommandBase {
         if (presentation) 'oasis add presentation_layer --name=$packageName',
         'flutter clean',
         'flutter pub get',
-        'dart run build_runner build --delete-conflicting-outputs',
         'dart format .',
       ],
     );

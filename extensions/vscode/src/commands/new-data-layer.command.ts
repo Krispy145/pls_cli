@@ -11,7 +11,7 @@ export const newDataLayer = async (args: Uri) => {
     if (name) {
       const commandNewDataLayer = `oasis add data_layer --name ${name}`;
       await runCommandInWorkspaceFolder(args, commandNewDataLayer, {
-        folderPath: "lib/data",
+        folderPath: "lib",
       });
     }
   } catch (error) {
