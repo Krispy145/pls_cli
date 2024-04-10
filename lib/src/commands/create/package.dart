@@ -1,6 +1,7 @@
 // import 'package:args/command_runner.dart';
 import 'dart:io';
 
+import 'package:ansi_styles/extension.dart';
 import 'package:mason/mason.dart';
 import 'package:oasis_cli/src/commands/brick_command_base.dart';
 import 'package:oasis_cli/src/utils/helpers.dart';
@@ -104,12 +105,47 @@ class PackageCommand extends BrickCommandBase {
         "wrapper": wrapper,
       },
     );
+    final packageDirectory = Directory(packagePath);
+    if (!packageDirectory.existsSync()) {
+      logger.err('Project directory not found: $packageName');
+      return;
+    }
+
+    // Save the current working directory
+    final currentDirectory = Directory.current;
+
+    // Change the current working directory to the project directory
+    Directory.current = packageDirectory;
+    logger.info("Changed directory to $packageName".blue);
+
+    // Now, change into the lib directory
+    final libDirectory = Directory('./lib');
+    if (!libDirectory.existsSync()) {
+      logger.err('lib directory not found in the project.');
+      return;
+    }
+
+    Directory.current = libDirectory;
+    logger.info("Changed directory to lib".blue);
+
     await runScripts(
       [
-        if (data) 'oasis add data_layer --name=$packageName --path=$packagePath/lib/data',
-        if (domain) 'oasis add domain_layer --name=$packageName --path=$packagePath/lib/domain',
-        if (presentation) 'oasis add presentation_layer --name=$packageName --path=$packagePath/lib/presentation',
+        if (data) 'oasis add data_layer --name=$packageName',
+        if (domain) 'oasis add domain_layer --name=$packageName',
+        if (presentation) 'oasis add presentation_layer --name=$packageName',
+        'flutter clean',
+        'flutter pub get',
+        'dart run build_runner build --delete-conflicting-outputs',
+        'dart format .',
       ],
     );
+
+    // Change the current working directory back to the original project directory
+    Directory.current = currentDirectory;
+    Directory.current = packageDirectory;
+    logger.info("Changed directory back to original project directory".blue);
+
+    // Open VS Code with the project directory
+    await Process.start('code', ['.', './README.md']);
   }
 }
