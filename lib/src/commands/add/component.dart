@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:mason/mason.dart';
 
 import '../../../bundles/_bundles.dart';
-import 'brick_command_base.dart';
+import '../brick_command_base.dart';
 
 /// {@template componentCommand}
 ///
@@ -21,7 +21,7 @@ class ComponentCommand extends BrickCommandBase {
   String get name => "component";
 
   @override
-  Future<void> run() async {
+  Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     if (argResults?['path'] == null) {
       // Get the current directory
       final currentDirectory = Directory.current;
@@ -32,10 +32,8 @@ class ComponentCommand extends BrickCommandBase {
         await super.run();
       } else {
         // Create a directory using the current directory path and change to that directory
-        const componentName =
-            'components'; // Change this to your desired component name
-        final componentDirectory =
-            Directory('${currentDirectory.path}/$componentName');
+        const componentName = 'components'; // Change this to your desired component name
+        final componentDirectory = Directory('${currentDirectory.path}/$componentName');
 
         // Check if the directory already exists
         if (!componentDirectory.existsSync()) {
@@ -49,7 +47,8 @@ class ComponentCommand extends BrickCommandBase {
         await super.run();
       }
       return runScripts(
-          ['flutter pub run build_runner build --delete-conflicting-outputs'],);
+        ['flutter pub run build_runner build --delete-conflicting-outputs'],
+      );
     } else {
       await super.run();
     }

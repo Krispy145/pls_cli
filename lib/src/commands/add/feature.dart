@@ -1,5 +1,6 @@
 import 'package:mason/mason.dart';
-import 'brick_command_base.dart';
+
+import '../brick_command_base.dart';
 
 /// {@template featureCommand}
 /// Add a feature to the app.
@@ -19,7 +20,7 @@ class FeatureCommand extends BrickCommandBase {
   String get name => "feature";
 
   @override
-  Future<void> run() async {
+  Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     final featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the feature?");
 
     await runInLibDirectory(

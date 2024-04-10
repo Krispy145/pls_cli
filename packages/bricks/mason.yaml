@@ -9,6 +9,8 @@ bricks:
     path: ./model    
   auth:
     path: ./auth
+  package:
+    path: ./package
   component:
     path: ./component
   notifications:

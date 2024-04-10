@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
 import 'package:oasis_cli/src/commands/base.dart';
-import 'package:oasis_cli/src/utils/find_project_root.dart';
+import 'package:oasis_cli/src/utils/helpers.dart';
 import 'package:yaml/yaml.dart';
 
 /// {@template run_command}

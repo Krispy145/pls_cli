@@ -1,7 +1,7 @@
 import 'dart:io';
 import "package:path/path.dart" as path;
 
-import 'package:oasis_cli/src/utils/find_project_root.dart';
+import 'package:oasis_cli/src/utils/helpers.dart';
 
 /// A representation of a feature
 class Feature {

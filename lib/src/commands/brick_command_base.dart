@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:ansi_styles/extension.dart';
 import 'package:args/args.dart';
 import 'package:mason/mason.dart' as mason;
-import 'package:path/path.dart' as p;
 import 'package:oasis_cli/src/commands/base.dart';
 import 'package:oasis_cli/src/logger.dart';
+import 'package:path/path.dart' as p;
 
 /// {@template brickCommandBase}
 ///
@@ -15,6 +15,10 @@ import 'package:oasis_cli/src/logger.dart';
 ///
 /// {@endtemplate}
 abstract class BrickCommandBase extends UnpackCommand {
+  BrickCommandBase() {
+    argParser.addDefaultOptions();
+  }
+
   /// The bundled template
   mason.MasonBundle get bundle;
   set bundle(mason.MasonBundle b) => bundle = b;
@@ -22,20 +26,15 @@ abstract class BrickCommandBase extends UnpackCommand {
   /// List of all pre hooks to be called in order
   List<PreHook> preHooks = [];
 
-  /// {@macro brickCommandBase}
-  BrickCommandBase() {
-    argParser.addDefaultOptions();
-  }
-
   @override
-  Future<void> run() async {
+  Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     final results = argResults;
     if (results == null) {
       if (stderr.hasTerminal) logger.err("No argument results found");
       return;
     }
 
-    final givenPath = results['path'] as String?;
+    final givenPath = results['path'] as String? ?? additionalArgs?['path'] as String?;
 
     final cwd = Directory.current;
 
@@ -53,7 +52,10 @@ abstract class BrickCommandBase extends UnpackCommand {
     }
 
     final target = mason.DirectoryGeneratorTarget(outputDir);
-    var vars = parseVars(results);
+    var vars = parseVars(
+      results,
+      additionalArgs: additionalArgs,
+    );
 
     // update vars with hooks
     for (final hook in preHooks) {
@@ -77,7 +79,7 @@ abstract class BrickCommandBase extends UnpackCommand {
         final files = await generator.generate(
           target,
           vars: vars,
-          fileConflictResolution: mason.FileConflictResolution.append,
+          fileConflictResolution: mason.FileConflictResolution.overwrite,
           logger: mason.Logger(),
         );
 
@@ -97,8 +99,9 @@ abstract class BrickCommandBase extends UnpackCommand {
   }
 
   /// Parse the command variables and prompt if they don't exist.
-  Map<String, dynamic> parseVars(ArgResults results) {
+  Map<String, dynamic> parseVars(ArgResults results, {Map<String, dynamic>? additionalArgs}) {
     final vars = <String, dynamic>{};
+    if (additionalArgs != null) vars.addAll(additionalArgs);
     for (final entry in bundle.vars.entries) {
       final variable = entry.key;
       final properties = entry.value;

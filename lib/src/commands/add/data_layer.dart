@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:mason/mason.dart';
 
 import '../../../bundles/_bundles.dart';
-import 'brick_command_base.dart';
+import '../brick_command_base.dart';
 
 /// {@template dataCommand}
 /// Add a data layer for the app.
@@ -19,7 +19,7 @@ class DataLayerCommand extends BrickCommandBase {
   String get name => "data_layer";
 
   @override
-  Future<void> run() async {
+  Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     _addRepositoriesFile();
     await super.run();
     return runScripts([
@@ -28,7 +28,7 @@ class DataLayerCommand extends BrickCommandBase {
   }
 
   void _addRepositoriesFile() {
-    final currentDirectory = Directory.current;
+    final currentDirectory = argResults?["path"] != null ? Directory(argResults!["path"] as String) : Directory.current;
     final _featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the feature?");
 
     if (!currentDirectory.existsSync()) {

@@ -1,7 +1,7 @@
 import 'package:mason/mason.dart';
 
 import '../../../bundles/_bundles.dart';
-import 'brick_command_base.dart';
+import '../brick_command_base.dart';
 
 /// {@template multiNotificationsFeatureCommand}
 /// Add multiple notification store features to the app.
@@ -19,7 +19,7 @@ class MultiNotificationsFeatureCommand extends BrickCommandBase {
   String get name => "multi_notifications_feature";
 
   @override
-  Future<void> run() async {
+  Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     await super.run();
     return runScripts([
       'flutter pub run build_runner build --delete-conflicting-outputs',

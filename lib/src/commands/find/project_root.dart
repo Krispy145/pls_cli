@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:oasis_cli/src/commands/base.dart';
 
-import '../../utils/find_project_root.dart';
+import '../../utils/helpers.dart';
 
 /// {@template projectRootCommand}
 /// Find and print the path to the route generator.

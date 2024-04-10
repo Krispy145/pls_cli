@@ -20,6 +20,7 @@ scripts:
   bundle:app: BRICK=app oasis run bundle
   bundle:component: BRICK=component oasis run bundle
   bundle:auth: BRICK=auth oasis run bundle
+  bundle:package: BRICK=package oasis run bundle
   bundle:data_layer: BRICK=data_layer oasis run bundle
   bundle:domain_layer: BRICK=domain_layer oasis run bundle
   bundle:presentation_layer: BRICK=presentation_layer oasis run bundle

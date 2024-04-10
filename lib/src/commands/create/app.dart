@@ -5,12 +5,12 @@ import 'package:ansi_styles/extension.dart';
 import 'package:mason/mason.dart';
 import 'package:oasis_cli/bundles/_bundles.dart';
 import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/utils/helpers.dart';
 import 'package:oasis_cli/src/utils/structures.dart';
 
 // A valid Dart identifier that can be used for a package, i.e. no
 // capital letters.
 // https://dart.dev/guides/language/language-tour#important-concepts
-final RegExp _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
 final RegExp _orgNameRegExp = RegExp(r'^[a-zA-Z][\w-]*(\.[a-zA-Z][\w-]*)+$');
 
 const _defaultOrgName = 'com.digital.oasis';
@@ -202,11 +202,6 @@ class CreateAppCommand extends UnpackCommand {
     await Process.start('code', ['.', './README.md']);
   }
 
-  bool _isValidPackageName(String name) {
-    final match = _identifierRegExp.matchAsPrefix(name);
-    return match != null && match.end == name.length;
-  }
-
   String _validateProjectName() {
     final args = argResults!.rest;
 
@@ -221,7 +216,7 @@ class CreateAppCommand extends UnpackCommand {
     }
 
     final name = args.first;
-    final isValidProjectName = _isValidPackageName(name);
+    final isValidProjectName = isValidPackageName(name);
     if (!isValidProjectName) {
       usageException(
         '"$name" is not a valid package name.\n\n'

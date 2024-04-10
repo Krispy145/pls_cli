@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:mason/mason.dart';
 
 import '../../../bundles/_bundles.dart';
-import 'brick_command_base.dart';
+import '../brick_command_base.dart';
 
 /// {@template modelCommand}
 ///
@@ -28,7 +28,7 @@ class ModelCommand extends BrickCommandBase {
   String get name => "model";
 
   @override
-  Future<void> run() async {
+  Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     if (argResults?['path'] == null) {
       // Get the current directory
       final currentDirectory = Directory.current;
@@ -54,7 +54,8 @@ class ModelCommand extends BrickCommandBase {
         await super.run();
       }
       return runScripts(
-          ['flutter pub run build_runner build --delete-conflicting-outputs'],);
+        ['flutter pub run build_runner build --delete-conflicting-outputs'],
+      );
     } else {
       await super.run();
     }

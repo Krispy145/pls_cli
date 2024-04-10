@@ -1,4 +1,5 @@
 import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/create/package.dart';
 
 import 'app.dart';
 
@@ -9,10 +10,11 @@ class CreateCommand extends UnpackCommand {
   /// {@macro createCommand}
   CreateCommand() {
     addSubcommand(CreateAppCommand());
+    addSubcommand(PackageCommand());
   }
 
   @override
-  String get description => 'Create a new project';
+  String get description => 'Create something new...';
 
   @override
   String get name => 'create';

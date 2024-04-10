@@ -3,12 +3,17 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+/// Validates the name of a package
+bool isValidPackageName(String name) {
+  final _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
+  final match = _identifierRegExp.matchAsPrefix(name);
+  return match != null && match.end == name.length;
+}
+
 /// find the root of a project by looking for closest pubspec.yaml
 Directory findProjectRoot(Directory dir, [int tryCount = 0]) {
   // check the current dir fo the pubspec
-  if (dir
-      .listSync()
-      .any((e) => e is File && p.basename(e.path) == "pubspec.yaml")) {
+  if (dir.listSync().any((e) => e is File && p.basename(e.path) == "pubspec.yaml")) {
     return dir;
   }
   if (tryCount > 15) throw Exception("No pubspec.yaml found");

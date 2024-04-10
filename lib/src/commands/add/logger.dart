@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:mason/mason.dart';
-import 'brick_command_base.dart';
+
+import '../brick_command_base.dart';
 
 /// {@template loggerCommand}
 /// LoggerFeatureCommand for adding a logger feature to the app
@@ -21,7 +22,7 @@ class LoggerFeatureCommand extends BrickCommandBase {
   String get name => "logger";
 
   @override
-  Future<void> run() async {
+  Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     // parse the event name
     final featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the logger feature?");
     // Call the runInLibDirectory function to change the working directory to "lib"

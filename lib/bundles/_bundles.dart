@@ -11,4 +11,5 @@ export 'map_structure_bundle.dart';
 export 'model_bundle.dart';
 export 'multi_notifications_feature_bundle.dart';
 export 'notifications_feature_bundle.dart';
+export "package_bundle.dart";
 export 'presentation_layer_bundle.dart';
