@@ -1,19 +1,17 @@
 import 'dart:io';
 
 import 'package:mason/mason.dart';
-
-import '../brick_command_base.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/brick_command_base.dart';
 
 /// {@template loggerCommand}
 /// LoggerFeatureCommand for adding a logger feature to the app
 /// {@endtemplate}
-class LoggerFeatureCommand extends BrickCommandBase {
-  @override
-  final MasonBundle bundle = const MasonBundle(
-    name: 'Logger',
-    description: "Creates a new logger feature for the feature",
-    version: '0.0.1',
-  );
+class LoggerFeatureCommand extends DOCommand {
+  /// LoggerFeatureCommand constructor
+  LoggerFeatureCommand() {
+    argParser.addDefaultOptions();
+  }
 
   @override
   String get description => "Creates a new logger feature for the feature";
@@ -47,7 +45,7 @@ class LoggerFeatureCommand extends BrickCommandBase {
     final currentDirectory = Directory.current;
 
     // Read the content of the logger feature file
-    final loggerFeatureFile = File.fromUri(currentDirectory.uri.resolve('logger_features.dart'));
+    final loggerFeatureFile = File.fromUri(currentDirectory.uri.resolve('loggers.dart'));
     var fileContent = loggerFeatureFile.readAsStringSync();
 
     // Replace the string

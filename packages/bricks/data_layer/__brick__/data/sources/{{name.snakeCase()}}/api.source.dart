@@ -4,7 +4,7 @@ import 'package:utilities/logger/logger.dart';
 
 import '../../models/{{name.snakeCase()}}_model.dart';
 import '../../../dependencies/injection.dart';
-import '../../../utils/logger_features.dart';
+import 'package:name_template/utils/loggers.dart';
 import '_source.dart';
 
 /// [Api{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
@@ -12,7 +12,7 @@ class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase
   /// [Api{{name.pascalCase()}}DataSource] constructor.
   Api{{name.pascalCase()}}DataSource()
       : super(
-          Managers.flavor.apiPrefix,
+          Managers.config.apiPrefix,
           sourceSuffix: "{{name.snakeCase()}}",
           convertDataTypeFromMap: {{name.pascalCase()}}Model.fromJson,
           convertDataTypeToMap: (data) => data.toJson(),
@@ -26,7 +26,7 @@ class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase
     } catch (e) {
       AppLogger.print(
         "API RESULT: Failed request: $e",
-        [AppFeatures.{{name.camelCase()}}],
+        [NameTemplateLoggers.{{name.camelCase()}}],
         type: LoggerType.error,
       );
       return null;

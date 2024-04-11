@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:path/path.dart' as path;
 
 import 'package:oasis_cli/src/commands/base.dart';
+import 'package:path/path.dart' as path;
 
 /// Update the cli or extension
-class UpdateCommand extends UnpackCommand {
+class UpdateCommand extends DOCommand {
   /// Update the cli or extension
   UpdateCommand() {
     argParser.addFlag(

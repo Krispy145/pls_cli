@@ -6,7 +6,7 @@ import 'package:oasis_cli/src/commands/list/features.dart';
 ///
 /// May not need to call this manually. Used in extensions.
 /// {@endtemplate}
-class ListCommand extends UnpackCommand {
+class ListCommand extends DOCommand {
   /// {@macro listCommand}
   ListCommand() {
     addSubcommand(ListFeaturesCommand());

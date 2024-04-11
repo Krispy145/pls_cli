@@ -2,7 +2,7 @@ import 'package:utilities/data_sources/remote/firestore.dart';
 import 'package:utilities/logger/logger.dart';
 
 import '../../models/{{name.snakeCase()}}_model.dart';
-import '../../../utils/logger_features.dart';
+import 'package:name_template/utils/loggers.dart';
 import '_source.dart';
 
 /// [Firestore{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
@@ -23,7 +23,7 @@ class Firestore{{name.pascalCase()}}DataSource extends FirestoreDataSource<{{nam
     } catch (e) {
       AppLogger.print(
         "Firestore RESULT: Failed request: $e",
-        [AppFeatures.{{name.camelCase()}}],
+        [NameTemplateLoggers.{{name.camelCase()}}],
         type: LoggerType.error,
       );
       return null;

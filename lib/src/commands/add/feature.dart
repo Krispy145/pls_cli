@@ -1,18 +1,14 @@
-import 'package:mason/mason.dart';
-
-import '../brick_command_base.dart';
+import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/brick_command_base.dart';
 
 /// {@template featureCommand}
 /// Add a feature to the app.
 /// {@endtemplate}
-class FeatureCommand extends BrickCommandBase {
-  @override
-  final MasonBundle bundle = const MasonBundle(
-    name: 'Feature',
-    description: "Creates a new feature for the app",
-    version: '0.0.1',
-  );
-
+class FeatureCommand extends DOCommand {
+  /// FeatureCommand constructor
+  FeatureCommand() {
+    argParser.addDefaultOptions();
+  }
   @override
   String get description => "Creates a new feature for the app";
 

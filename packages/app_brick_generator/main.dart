@@ -1,17 +1,13 @@
 import 'dart:io';
+
 import 'package:path/path.dart' as path;
 import 'package:pool/pool.dart';
 
 final _sourcePath = path.join(path.current, "packages", "app");
-final _targetPath =
-    path.join(path.current, "packages", "bricks", 'app', '__brick__');
-final _staticDir =
-    path.join(path.current, 'packages', 'app_brick_generator', 'static');
+final _targetPath = path.join(path.current, "packages", "bricks", 'app', '__brick__');
+final _staticDir = path.join(path.current, 'packages', 'app_brick_generator', 'static');
 final _androidPath = path.join(_targetPath, 'template', 'android');
-final _rootPath = path.join(_targetPath, 'template');
-final _libPath = path.join(_targetPath, 'template', 'lib');
-final _androidKotlinPath =
-    path.join(_androidPath, 'app', 'src', 'main', 'kotlin');
+final _androidKotlinPath = path.join(_androidPath, 'app', 'src', 'main', 'kotlin');
 final _orgPath = path.join(_androidKotlinPath, 'com');
 
 final pool = Pool(10, timeout: Duration(seconds: 30));
@@ -51,11 +47,7 @@ void main() async {
   Directory(_orgPath).deleteSync(recursive: true);
 
   // Convert Values to Variables
-  await Future.forEach(
-      Directory(_targetPath)
-          .listSync(recursive: true)
-          .whereType<File>()
-          .toList(), (_) async {
+  await Future.forEach(Directory(_targetPath).listSync(recursive: true).whereType<File>().toList(), (_) async {
     var file = _ as File;
     if (path.basename(file.path) == ".DS_Store") {
       await file.delete();
@@ -63,10 +55,7 @@ void main() async {
   });
 
   await Future.wait(
-    Directory(path.join(_targetPath, 'template'))
-        .listSync(recursive: true)
-        .whereType<File>()
-        .map((_) async {
+    Directory(path.join(_targetPath, 'template')).listSync(recursive: true).whereType<File>().map((_) async {
       var file = _;
 
       try {
@@ -89,6 +78,8 @@ void main() async {
               .replaceApplicationId(file.path)
               .replaceAll('app_template', '{{project_name.snakeCase()}}')
               .replaceAll('app-template', '{{project_name.paramCase()}}')
+              .replaceAll('AppTemplate', '{{project_name.pascalCase()}}')
+              .replaceAll('appTemplate', '{{project_name.camelCase()}}')
               .replaceAll('A new Digital Oasis Project.', '{{{description}}}')
               .replaceAll('App Template', '{{project_name.titleCase()}}')
               .replaceAll('/// FIREBASE START', '{{#has_firebase}}')
@@ -102,8 +93,7 @@ void main() async {
               .replaceAll('/// IS_MAP START', '{{#is_map}}')
               .replaceAll('/// IS_MAP END', '{{/is_map}}')
               .replaceAll('/// IS_DASHBOARD START', '{{#is_dashboard}}')
-              .replaceAll('/// IS_DASHBOARD END', '{{/is_dashboard}}')
-              .replaceAll("// ignore: cascade_invocations", ''),
+              .replaceAll('/// IS_DASHBOARD END', '{{/is_dashboard}}'),
           flush: true,
         );
 
@@ -124,8 +114,7 @@ void main() async {
 
   final mainActivityKt = File(
     path.join(
-      _androidKotlinPath.replaceAll(
-          'app_template', '{{project_name.snakeCase()}}'),
+      _androidKotlinPath.replaceAll('app_template', '{{project_name.snakeCase()}}'),
       '{{application_id_android.pathCase()}}',
       'MainActivity.kt',
     ),
@@ -198,10 +187,7 @@ class _Cmd {
     List<String> args,
   ) {
     if (pr.exitCode != 0) {
-      final values = {
-        'Standard out': pr.stdout.toString().trim(),
-        'Standard error': pr.stderr.toString().trim()
-      }..removeWhere((k, v) => v.isEmpty);
+      final values = {'Standard out': pr.stdout.toString().trim(), 'Standard error': pr.stderr.toString().trim()}..removeWhere((k, v) => v.isEmpty);
 
       String message;
       if (values.isEmpty) {

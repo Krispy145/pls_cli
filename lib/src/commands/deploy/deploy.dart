@@ -1,13 +1,14 @@
 import 'dart:io';
+
 import 'package:ansi_styles/extension.dart';
 import 'package:args/args.dart';
-import 'package:path/path.dart' as p;
 import 'package:oasis_cli/src/commands/base.dart';
+import 'package:path/path.dart' as p;
 
 /// {@template deployCommand}
 /// Add various parts the app.
 /// {@endtemplate}
-class DeployCommand extends UnpackCommand {
+class DeployCommand extends DOCommand {
   /// All the available deploy environments
   static const environments = ["dev", "stage", "prod"];
 

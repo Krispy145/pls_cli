@@ -12,10 +12,6 @@ class AuthGuard implements AutoRouteGuard {
   @override
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
     final authStatus = Managers.authenticationRepository.currentUserModelStream.value?.status ?? AuthStatus.unauthenticated;
-    AppLogger.print(
-      "Supabase user AuthGuard: onNavigation => $authStatus",
-      [PackageFeatures.authentication],
-    );
     if (authStatus == AuthStatus.authenticated) {
       resolver.next();
     } else {

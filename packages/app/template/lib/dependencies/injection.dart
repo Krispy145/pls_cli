@@ -1,11 +1,12 @@
 import 'package:app_template/core/assets/assets.gen.dart';
 import 'package:app_template/environments/config.dart';
 import 'package:app_template/navigation/routes.dart';
+import 'package:app_template/utils/loggers.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theme/app/store.dart';
-
+import 'package:name_template/utils/loggers.dart';
 /// IS_DASHBOARD START
-import 'package:navigation/structures/dashboard/shell/store.dart';
+import 'package:navigation/structures/dashboard/store.dart';
 
 /// IS_DASHBOARD END
 /// IS_DEFAULTMAP START
@@ -38,11 +39,11 @@ class ManagerInjector {
   void init({required Config config}) {
     final _loggerInjector = AppLoggerInjector(config.loggerFeatures);
     _serviceLocator.registerLazySingleton<AppLoggerInjector>(() => _loggerInjector);
-    AppLogger.print("Initializing ManagerInjector...", [PackageFeatures.dependencyInjection]);
+    AppLogger.print("Initializing ManagerInjector...", [NameTemplateLoggers.dependencyInjection]);
     _initCore(config: config);
     _initApp();
     _initExternal();
-    AppLogger.print("ManagerInjector initialization complete.", [PackageFeatures.dependencyInjection], type: LoggerType.confirmation);
+    AppLogger.print("ManagerInjector initialization complete.", [NameTemplateLoggers.dependencyInjection], type: LoggerType.confirmation);
   }
 
 
@@ -78,7 +79,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for core classes used in multiple features.
   void _initCore({required Config config}) {
-    AppLogger.print("Initializing core services...", [PackageFeatures.dependencyInjection]);
+    AppLogger.print("Initializing core services...", [NameTemplateLoggers.dependencyInjection]);
     _serviceLocator
     ..registerSingleton(AppRouter())
       ..registerLazySingleton<ConnectionStateStore>(ConnectionStateStore.new)
@@ -90,7 +91,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
   void _initApp() {
-    AppLogger.print("Initializing app services...", [PackageFeatures.dependencyInjection]);
+    AppLogger.print("Initializing app services...", [NameTemplateLoggers.dependencyInjection]);
      _serviceLocator
       ..registerLazySingleton<ThemeStateStore>(
         () => ThemeStateStore.assets(
@@ -124,7 +125,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for external services.
   void _initExternal() {
-    AppLogger.print("Initializing external services...", [PackageFeatures.dependencyInjection]);
+    AppLogger.print("Initializing external services...", [NameTemplateLoggers.dependencyInjection]);
 
     ///END OF EXTERNAL
   }

@@ -5,7 +5,7 @@ import 'package:oasis_cli/src/utils/feature.dart';
 /// {@template listFeaturesCommand}
 /// List all features in the project
 /// {@endtemplate}
-class ListFeaturesCommand extends UnpackCommand {
+class ListFeaturesCommand extends DOCommand {
   /// {@macro listFeaturesCommand}
   ListFeaturesCommand();
   @override

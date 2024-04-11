@@ -1,5 +1,6 @@
 import 'package:oasis_cli/src/commands/add/auth.dart';
 import 'package:oasis_cli/src/commands/base.dart';
+
 import 'component.dart';
 import 'data_layer.dart';
 import 'domain_layer.dart';
@@ -14,7 +15,7 @@ import 'structures.dart';
 /// {@template addCommand}
 /// Add various parts of the app.
 /// {@endtemplate}
-class AddCommand extends UnpackCommand {
+class AddCommand extends DOCommand {
   /// {@macro addCommand}
   AddCommand() {
     addSubcommand(ComponentCommand());

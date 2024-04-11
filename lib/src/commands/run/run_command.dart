@@ -8,7 +8,7 @@ import 'package:yaml/yaml.dart';
 /// {@template run_command}
 /// Run scripts specified in the pubspec.yaml, similar to npm scripts
 /// {@endtemplate}
-class RunCommand extends UnpackCommand {
+class RunCommand extends DOCommand {
   /// {@macro run_command}
   RunCommand() {
     argParser.addFlag(

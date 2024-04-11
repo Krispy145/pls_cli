@@ -130,6 +130,14 @@ class PackageCommand extends BrickCommandBase {
     // Change the current working directory back to the original project directory
     Directory.current = currentDirectory;
     Directory.current = packageDirectory;
+    await replaceAllInDirectory(
+      Directory.current,
+      {
+        'nameTemplate': packageName.camelCase,
+        'NameTemplate': packageName.pascalCase,
+        'name_template': packageName.snakeCase,
+      },
+    );
     logger.info("Changed directory back to original project directory".blue);
 
     // Open VS Code with the project directory

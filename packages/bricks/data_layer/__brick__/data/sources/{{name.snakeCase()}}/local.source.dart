@@ -2,7 +2,7 @@ import 'package:utilities/data_sources/local/hive.dart';
 import 'package:utilities/logger/logger.dart';
 
 import '../../models/{{name.snakeCase()}}_model.dart';
-import '../../../utils/logger_features.dart';
+import 'package:name_template/utils/loggers.dart';
 import '_source.dart';
 
 /// [Local{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
@@ -24,13 +24,13 @@ class Local{{name.pascalCase()}}DataSource extends LocalDataSource<{{name.pascal
       final {{name.camelCase()}}s = _dataStore.values.toList();
       AppLogger.print(
         "IN MEMORY RESULT: Fetched all {{name.pascalCase()}} models successfully",
-        [AppFeatures.{{name.camelCase()}}],
+        [NameTemplateLoggers.{{name.camelCase()}}],
       );
       return Future.value({{name.camelCase()}}s);
     } catch (e) {
       AppLogger.print(
         "IN MEMORY RESULT: Error fetching all {{name.pascalCase()}} models: $e",
-        [AppFeatures.{{name.camelCase()}}],
+        [NameTemplateLoggers.{{name.camelCase()}}],
         type: LoggerType.error,
       );
       return [];

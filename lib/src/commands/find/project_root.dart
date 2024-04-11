@@ -8,7 +8,7 @@ import '../../utils/helpers.dart';
 /// {@template projectRootCommand}
 /// Find and print the path to the route generator.
 /// {@endtemplate}
-class ProjectRootCommand extends UnpackCommand {
+class ProjectRootCommand extends DOCommand {
   /// {@macro projectRootCommand}
   ProjectRootCommand() {
     argParser.addOption(

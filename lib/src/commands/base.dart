@@ -9,7 +9,7 @@ import 'package:oasis_cli/src/process_runner.dart';
 const githubPath = "git@github.com:digital-oasis-llc-fz/digital-oasis-cli.git";
 
 /// Consistent base for all commands
-abstract class UnpackCommand extends Command<void> {
+abstract class DOCommand extends Command<void> {
   /// Logger for all commands
   Logger get logger => Logger();
 

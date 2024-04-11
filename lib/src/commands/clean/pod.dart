@@ -7,7 +7,7 @@ import 'package:oasis_cli/src/utils/helpers.dart';
 /// {@template podclean}
 /// Clean the pod files. Deletes pods, podfile.lock and reinstalls
 /// {@endtemplate}
-class PodCleanCommand extends UnpackCommand {
+class PodCleanCommand extends DOCommand {
   /// {@macro podclean}
   PodCleanCommand() {
     argParser.addFlag("repo-update", abbr: "u");

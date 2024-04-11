@@ -25,7 +25,7 @@ typedef MasonGeneratorFromBrick = Future<MasonGenerator> Function(Brick);
 /// {@template modelCommand}
 /// Add a new model the app.
 /// {@endtemplate}
-class CreateAppCommand extends UnpackCommand {
+class CreateAppCommand extends DOCommand {
   /// The [MasonBundle] used to generate the project.
   final bundle = appTemplateBundle;
   final String? appName;
@@ -204,6 +204,17 @@ class CreateAppCommand extends UnpackCommand {
     Directory.current = currentDirectory;
     Directory.current = projectDirectory;
     logger.info("Changed directory back to original project directory".blue);
+
+    if (_projectName != null) {
+      await replaceAllInDirectory(
+        Directory.current,
+        {
+          'nameTemplate': _projectName!.camelCase,
+          'NameTemplate': _projectName!.pascalCase,
+          'name_template': _projectName!.snakeCase,
+        },
+      );
+    }
 
     // Open VS Code with the project directory
     if (shouldOpen) await Process.start('code', ['.', './README.md']);

@@ -39,16 +39,29 @@ check_and_configure() {
                 --project="{{project_name.paramCase()}}-$SUFFIX" \
                 --out="$CONFIG_FILE" \
                 --ios-bundle-id="{{application_id}}.$SUFFIX" \
+                --macos-bundle-id="{{application_id}}.$SUFFIX" \
                 --android-package-name="{{application_id_android}}.$SUFFIX" \
-                --platforms="ios,android,web"
+                --platforms="ios,android,macos,web"
+            
+            echo "Firebase $ENVIRONMENT configuration saved to $CONFIG_FILE"
+            echo "Creating Firebase Alias for $ENVIRONMENT environment..."
+            echo "You will be prompted to select the Firebase project to use for $ENVIRONMENT environment, please select the project you just created."
+            echo "The alias naming conventions is "$ENV" for $ENVIRONMENT environment."
+            sleep 5
+            firebase use --add 
 
              # Move google-services.json for Android
-            mkdir -p android/src/$ENV
+            mkdir -p android/app/src/$ENV
             mv android/app/google-services.json android/app/src/$ENV/
 
             # Move GoogleService-Info.plist for iOS
             mkdir -p ios/Firebase/$ENV
             mv ios/Runner/GoogleService-Info.plist ios/Firebase/$ENV/
+
+            # Move GoogleService-Info.plist for macOS
+            mkdir -p macos/Firebase/$ENV
+            mv macos/Runner/GoogleService-Info.plist macos/Firebase/$ENV/
+
         else
             echo "Skipping configuration for $ENVIRONMENT environment."
         fi

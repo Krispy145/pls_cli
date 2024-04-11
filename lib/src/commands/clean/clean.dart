@@ -4,7 +4,7 @@ import 'package:oasis_cli/src/commands/clean/pod.dart';
 /// {@template clean}
 /// Clean the project of various things.
 /// {@endtemplate}
-class CleanCommand extends UnpackCommand {
+class CleanCommand extends DOCommand {
   /// {@macro clean}
   CleanCommand() {
     addSubcommand(PodCleanCommand());

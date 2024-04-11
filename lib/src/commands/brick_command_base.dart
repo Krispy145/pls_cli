@@ -14,7 +14,8 @@ import 'package:path/path.dart' as p;
 /// The base of any command which generates files from bricks
 ///
 /// {@endtemplate}
-abstract class BrickCommandBase extends UnpackCommand {
+abstract class BrickCommandBase extends DOCommand {
+  /// BrickCommandBase constructor
   BrickCommandBase() {
     argParser.addDefaultOptions();
   }

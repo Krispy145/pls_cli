@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:mason/mason.dart';
 import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/brick_command_base.dart';
 import 'package:oasis_cli/src/utils/structures.dart';
 
 import '../../../bundles/_bundles.dart';
@@ -9,14 +10,16 @@ import '../../../bundles/_bundles.dart';
 /// {@template structureCommand}
 /// Add a structure to the app.
 /// {@endtemplate}
-class StructuresCommand extends UnpackCommand {
+class StructuresCommand extends DOCommand {
   /// {@macro structureCommand}
   StructuresCommand() {
-    argParser.addOption(
-      'type',
-      defaultsTo: 'Default',
-      help: 'The type of the structure.',
-    );
+    argParser
+      ..addDefaultOptions()
+      ..addOption(
+        'type',
+        defaultsTo: 'Default',
+        help: 'The type of the structure.',
+      );
   }
 
   @override

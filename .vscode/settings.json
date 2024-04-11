@@ -1,8 +1,9 @@
 {
-  "cSpell.words": ["writeln"],
+  "cSpell.words": ["USERPROFILE", "writeln"],
   "[dart]": {
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
       "source.organizeImports": "always"
-    }}
+    }
+  }
 }

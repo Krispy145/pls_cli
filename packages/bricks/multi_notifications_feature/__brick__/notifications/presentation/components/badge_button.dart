@@ -26,10 +26,6 @@ class NotificationsBadgeButton extends StatelessWidget {
       loadedBuilder: (context) => NotificationBadgeObserver(
         valueListenable: store.notifications,
         builder: (context, valueListenable, child) {
-          AppLogger.print(
-            "valueListenable: ${valueListenable.keys}",
-            [PackageFeatures.notifications],
-          );
           return NotificationBadge.count(
             showBadge: valueListenable.isNotEmpty,
             count: valueListenable.length,
