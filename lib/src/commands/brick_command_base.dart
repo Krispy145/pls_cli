@@ -29,12 +29,12 @@ abstract class BrickCommandBase extends UnpackCommand {
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     final results = argResults;
-    if (results == null) {
+    if (results == null && additionalArgs == null) {
       if (stderr.hasTerminal) logger.err("No argument results found");
       return;
     }
 
-    final givenPath = results['path'] as String? ?? additionalArgs?['path'] as String?;
+    final givenPath = results?['path'] as String? ?? additionalArgs?['path'] as String?;
 
     final cwd = Directory.current;
 
@@ -99,7 +99,7 @@ abstract class BrickCommandBase extends UnpackCommand {
   }
 
   /// Parse the command variables and prompt if they don't exist.
-  Map<String, dynamic> parseVars(ArgResults results, {Map<String, dynamic>? additionalArgs}) {
+  Map<String, dynamic> parseVars(ArgResults? results, {Map<String, dynamic>? additionalArgs}) {
     final vars = <String, dynamic>{};
     if (additionalArgs != null) vars.addAll(additionalArgs);
     for (final entry in bundle.vars.entries) {
@@ -107,7 +107,7 @@ abstract class BrickCommandBase extends UnpackCommand {
       final properties = entry.value;
 
       if (vars.containsKey(variable)) continue;
-      final dynamic arg = results[variable];
+      final dynamic arg = results?[variable];
       if ((arg is! List && arg != null) || (arg is List && arg.isNotEmpty)) {
         // The argument has been passed through the command line
         vars.addAll(<String, dynamic>{variable: _maybeDecode(arg)});
@@ -215,6 +215,6 @@ extension on mason.GeneratedFile {
 /// Must return the new or unchanged variables.
 typedef PreHook = FutureOr<Map<String, dynamic>> Function(
   Map<String, dynamic> vars,
-  ArgResults argResults,
+  ArgResults? argResults,
   String? outputDir,
 );

@@ -28,9 +28,11 @@ typedef MasonGeneratorFromBrick = Future<MasonGenerator> Function(Brick);
 class CreateAppCommand extends UnpackCommand {
   /// The [MasonBundle] used to generate the project.
   final bundle = appTemplateBundle;
+  final String? appName;
+  final bool openVSCode;
 
   /// {@macro modelCommand}
-  CreateAppCommand() {
+  CreateAppCommand({this.appName, this.openVSCode = true}) {
     argParser
       ..addFlag(
         "firebase",
@@ -52,7 +54,8 @@ class CreateAppCommand extends UnpackCommand {
         help: 'The organization for this new project.',
         defaultsTo: _defaultOrgName,
         aliases: ['org'],
-      );
+      )
+      ..addFlag("open", help: "Open the project in VS Code after creation", defaultsTo: true);
   }
 
   @override
@@ -63,31 +66,31 @@ class CreateAppCommand extends UnpackCommand {
 
   /// Gets the output [Directory].
   Directory get outputDirectory {
-    final directory = argResults!['output-directory'] as String? ?? '.';
+    final directory = argResults?['output-directory'] as String? ?? '.';
     return Directory(directory);
   }
 
   /// Gets the organization name.
   String get orgName {
-    final orgName = argResults!['org-name'] as String? ?? _defaultOrgName;
+    final orgName = argResults?['org-name'] as String? ?? _defaultOrgName;
     _validateOrgName(orgName);
     return orgName;
   }
 
   /// Gets the description for the project.
-  String get projectDescription => argResults!['description'] as String? ?? '';
+  String get projectDescription => argResults?['description'] as String? ?? '';
 
   String? _projectName;
   bool _hasFirebase = false;
 
   @override
   Future<void> run() async {
-    if (argResults == null) {
+    if (argResults == null && appName == null) {
       logger.err("Invalid argument results");
       return;
     }
-    _projectName = _validateProjectName();
-    _hasFirebase = argResults!["firebase"] as bool? ?? false;
+    _projectName = _validateProjectName(appName);
+    _hasFirebase = argResults?["firebase"] as bool? ?? false;
 
     final iosBundleId = logger.prompt(
       prompt: "🍎 Please enter your ios bundle id:",
@@ -162,6 +165,8 @@ class CreateAppCommand extends UnpackCommand {
   }
 
   Future<void> _runScripts(bool _hasFirebase, Structure selectedStructure) async {
+    logger.info('Running scripts'.blue);
+    final shouldOpen = argResults?["open"] as bool? ?? openVSCode;
     final projectDirectory = Directory("./$_projectName");
     if (!projectDirectory.existsSync()) {
       logger.err('Project directory not found: $_projectName');
@@ -191,6 +196,8 @@ class CreateAppCommand extends UnpackCommand {
       "oasis add feature --name home",
       'flutter clean',
       'flutter pub get',
+      'dart format .',
+      'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
 
     // Change the current working directory back to the original project directory
@@ -199,24 +206,24 @@ class CreateAppCommand extends UnpackCommand {
     logger.info("Changed directory back to original project directory".blue);
 
     // Open VS Code with the project directory
-    await Process.start('code', ['.', './README.md']);
+    if (shouldOpen) await Process.start('code', ['.', './README.md']);
   }
 
-  String _validateProjectName() {
-    final args = argResults!.rest;
+  String _validateProjectName(String? appName) {
+    final args = argResults?.rest ?? [];
 
     logger.info('Validating project name; args: $args');
 
-    if (args.isEmpty) {
+    if (args.isEmpty && appName == null) {
       usageException('No option specified for the project name.');
     }
 
-    if (args.length > 1) {
+    if (args.length > 1 && appName == null) {
       usageException('Multiple project names specified.');
     }
 
-    final name = args.first;
-    final isValidProjectName = isValidPackageName(name);
+    final name = appName ?? args.first;
+    final isValidProjectName = isValidDirectoryName(name);
     if (!isValidProjectName) {
       usageException(
         '"$name" is not a valid package name.\n\n'

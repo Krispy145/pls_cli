@@ -3,7 +3,7 @@
   "displayName": "Digital Oasis",
   "publisher": "skate-oasis",
   "description": "vscode extension to streamline dev",
-  "version": "0.7.2",
+  "version": "0.7.4",
   "repository": "https://github.com/digital-oasis-llc-fz/digital-oasis-cli",
   "private": true,
   "icon": "assets/128.png",

@@ -38,11 +38,11 @@ class ManagerInjector {
   void init({required Config config}) {
     final _loggerInjector = AppLoggerInjector(config.loggerFeatures);
     _serviceLocator.registerLazySingleton<AppLoggerInjector>(() => _loggerInjector);
-    AppLogger.print("Initializing ManagerInjector...", [LoggerFeatures.dependencyInjection]);
+    AppLogger.print("Initializing ManagerInjector...", [PackageFeatures.dependencyInjection]);
     _initCore(config: config);
     _initApp();
     _initExternal();
-    AppLogger.print("ManagerInjector initialization complete.", [LoggerFeatures.dependencyInjection], type: LoggerType.confirmation);
+    AppLogger.print("ManagerInjector initialization complete.", [PackageFeatures.dependencyInjection], type: LoggerType.confirmation);
   }
 
 
@@ -78,7 +78,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for core classes used in multiple features.
   void _initCore({required Config config}) {
-    AppLogger.print("Initializing core services...", [LoggerFeatures.dependencyInjection]);
+    AppLogger.print("Initializing core services...", [PackageFeatures.dependencyInjection]);
     _serviceLocator
     ..registerSingleton(AppRouter())
       ..registerLazySingleton<ConnectionStateStore>(ConnectionStateStore.new)
@@ -90,7 +90,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
   void _initApp() {
-    AppLogger.print("Initializing app services...", [LoggerFeatures.dependencyInjection]);
+    AppLogger.print("Initializing app services...", [PackageFeatures.dependencyInjection]);
      _serviceLocator
       ..registerLazySingleton<ThemeStateStore>(
         () => ThemeStateStore.assets(
@@ -124,7 +124,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for external services.
   void _initExternal() {
-    AppLogger.print("Initializing external services...", [LoggerFeatures.dependencyInjection]);
+    AppLogger.print("Initializing external services...", [PackageFeatures.dependencyInjection]);
 
     ///END OF EXTERNAL
   }

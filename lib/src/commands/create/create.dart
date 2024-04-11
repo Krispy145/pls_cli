@@ -1,4 +1,5 @@
 import 'package:oasis_cli/src/commands/base.dart';
+import 'package:oasis_cli/src/commands/create/managed_app.dart';
 import 'package:oasis_cli/src/commands/create/package.dart';
 
 import 'app.dart';
@@ -11,6 +12,7 @@ class CreateCommand extends UnpackCommand {
   CreateCommand() {
     addSubcommand(CreateAppCommand());
     addSubcommand(PackageCommand());
+    addSubcommand(ManagedAppCommand());
   }
 
   @override

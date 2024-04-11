@@ -14,7 +14,7 @@ class AuthGuard implements AutoRouteGuard {
     final authStatus = Managers.authenticationRepository.currentUserModelStream.value?.status ?? AuthStatus.unauthenticated;
     AppLogger.print(
       "Supabase user AuthGuard: onNavigation => $authStatus",
-      [LoggerFeatures.authentication],
+      [PackageFeatures.authentication],
     );
     if (authStatus == AuthStatus.authenticated) {
       resolver.next();

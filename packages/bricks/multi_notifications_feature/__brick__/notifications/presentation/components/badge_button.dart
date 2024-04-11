@@ -28,7 +28,7 @@ class NotificationsBadgeButton extends StatelessWidget {
         builder: (context, valueListenable, child) {
           AppLogger.print(
             "valueListenable: ${valueListenable.keys}",
-            [LoggerFeatures.notifications],
+            [PackageFeatures.notifications],
           );
           return NotificationBadge.count(
             showBadge: valueListenable.isNotEmpty,

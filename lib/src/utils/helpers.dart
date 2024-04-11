@@ -4,7 +4,7 @@ import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
 /// Validates the name of a package
-bool isValidPackageName(String name) {
+bool isValidDirectoryName(String name) {
   final _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
   final match = _identifierRegExp.matchAsPrefix(name);
   return match != null && match.end == name.length;

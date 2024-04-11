@@ -8,16 +8,18 @@ import 'package:oasis_cli/src/utils/helpers.dart';
 
 import '../../../bundles/_bundles.dart';
 
-/// {@template authCommand}
-/// Add a auth layer for the app.
+/// {@template packageCommand}
+/// Create a new Digital Oasis package.
 /// {@endtemplate}
 class PackageCommand extends BrickCommandBase {
+  /// {@macro packageCommand}
   PackageCommand() {
     argParser
       ..addFlag("wrapper", help: _wrapperPrompt)
       ..addFlag("data", help: _dataPrompt)
       ..addFlag("domain", help: _domainPrompt)
-      ..addFlag("presentation", help: _presentationPrompt);
+      ..addFlag("presentation", help: _presentationPrompt)
+      ..addFlag("open", help: "Open the project in VS Code after creation", defaultsTo: true);
   }
 
   final _wrapperPrompt = "Do you want a wrapper for this package?";
@@ -36,17 +38,13 @@ class PackageCommand extends BrickCommandBase {
 
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
-    logger.info("Creating a new package in: ${Directory.current.path}");
-    if (!Directory.current.path.endsWith("packages")) {
-      logger.err("You can't create a package inside another package");
-      return;
-    }
-    var packageName = argResults?["name"] as String?;
+    final shouldOpen = argResults?["open"] as bool? ?? additionalArgs?["open"] as bool? ?? true;
+    var packageName = argResults?["name"] as String? ?? additionalArgs?["name"] as String?;
     while (packageName == null) {
       logger.info("In while loop");
       final name = logger.prompt(prompt: "What's the name of your package");
       if (name.isNotEmpty) {
-        if (isValidPackageName(name)) {
+        if (isValidDirectoryName(name)) {
           packageName = name;
           break;
         } else {
@@ -57,39 +55,29 @@ class PackageCommand extends BrickCommandBase {
 
     argParser.parse(['--name=$packageName']);
 
-    logger.info("Name set to: ${argResults?["name"]} - $packageName");
-
-    var wrapper = argResults?["wrapper"] as bool;
+    var wrapper = argResults?["wrapper"] as bool? ?? false;
     if (wrapper != true) {
       wrapper = logger.confirm(prompt: _wrapperPrompt);
       if (wrapper) argParser.parse(["--wrapper"]);
     }
 
-    logger.info("Wrapper set to: ${argResults?["wrapper"]}");
-
-    var data = argResults?["data"] as bool;
+    var data = argResults?["data"] as bool? ?? false;
     if (data != true) {
       data = logger.confirm(prompt: _dataPrompt);
       if (data) argParser.parse(["--data"]);
     }
 
-    logger.info("data set to: ${argResults?["data"]}");
-
-    var domain = argResults?["domain"] as bool;
+    var domain = argResults?["domain"] as bool? ?? false;
     if (domain != true) {
       domain = logger.confirm(prompt: _domainPrompt);
       if (domain) argParser.parse(["--domain"]);
     }
 
-    logger.info("domain set to: ${argResults?["domain"]}");
-
-    var presentation = argResults?["presentation"] as bool;
+    var presentation = argResults?["presentation"] as bool? ?? false;
     if (presentation != true) {
       presentation = logger.confirm(prompt: _presentationPrompt);
       if (presentation) argParser.parse(["--presentation"]);
     }
-
-    logger.info("presentation set to: ${argResults?["presentation"]}");
 
     final packagePath = "./$packageName";
 
@@ -145,6 +133,6 @@ class PackageCommand extends BrickCommandBase {
     logger.info("Changed directory back to original project directory".blue);
 
     // Open VS Code with the project directory
-    await Process.start('code', ['.', './README.md']);
+    if (shouldOpen) await Process.start('code', ['.', './README.md']);
   }
 }
