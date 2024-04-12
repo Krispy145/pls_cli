@@ -39,6 +39,11 @@ class PackageCommand extends BrickCommandBase {
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     final shouldOpen = argResults?["open"] as bool? ?? additionalArgs?["open"] as bool? ?? true;
+
+    // Save the current working directory
+    final currentDirectory = Directory.current;
+
+    // Get the package name
     var packageName = argResults?["name"] as String? ?? additionalArgs?["name"] as String?;
     while (packageName == null) {
       logger.info("In while loop");
@@ -79,7 +84,7 @@ class PackageCommand extends BrickCommandBase {
       if (presentation) argParser.parse(["--presentation"]);
     }
 
-    final packagePath = "./$packageName";
+    final packagePath = "${Directory.current.path}/$packageName";
 
     await runScripts(
       [
@@ -99,9 +104,6 @@ class PackageCommand extends BrickCommandBase {
       return;
     }
 
-    // Save the current working directory
-    final currentDirectory = Directory.current;
-
     // Change the current working directory to the project directory
     Directory.current = packageDirectory;
     logger.info("Changed directory to $packageName".blue);
@@ -115,7 +117,6 @@ class PackageCommand extends BrickCommandBase {
 
     Directory.current = libDirectory;
     logger.info("Changed directory to lib".blue);
-
     await runScripts(
       [
         if (data) 'oasis add data_layer --name=$packageName',
@@ -128,8 +129,8 @@ class PackageCommand extends BrickCommandBase {
     );
 
     // Change the current working directory back to the original project directory
-    Directory.current = currentDirectory;
     Directory.current = packageDirectory;
+    logger.info("Changed directory back to $packageName".blue);
     await replaceAllInDirectory(
       Directory.current,
       {
@@ -138,9 +139,16 @@ class PackageCommand extends BrickCommandBase {
         'name_template': packageName.snakeCase,
       },
     );
-    logger.info("Changed directory back to original project directory".blue);
+    Directory.current = currentDirectory;
+    logger.info("Changed directory back to ${currentDirectory.path}".blue);
+    await replaceAllInDirectory(
+      Directory.current,
+      {
+        '# MELOS_PACKAGE_LIST_END': ' - ${packageName.snakeCase}\n # MELOS_PACKAGE_LIST_END',
+      },
+    );
 
     // Open VS Code with the project directory
-    if (shouldOpen) await Process.start('code', ['.', './README.md']);
+    if (shouldOpen) await Process.start('code', ['.', './$packageName/README.md']);
   }
 }

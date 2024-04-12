@@ -4,18 +4,18 @@ import { Uri, window, workspace } from "vscode";
 import {
   getWorkspaceFilePath,
   getTargetDirectory,
-} from "../utils/get-target-directory";
+} from "../../utils/get-target-directory";
 import {
   addInjectionAndGetter,
   appendAfterMarkerInContent,
   appendBeforeMarkerInContent,
-} from "../utils/add_to_files";
-import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
-import { compareGradleVersions } from "../utils/compare_gradle_versions";
+} from "../../utils/add_to_files";
+import { addFlutterPackageFromPath } from "../../utils/add_flutter_package";
+import { compareGradleVersions } from "../../utils/compare_gradle_versions";
 import {
   formatFiles,
   runCommandInWorkspaceFolder,
-} from "../utils/build_runner";
+} from "../../utils/build_runner";
 
 export const addNotifications = async (args: Uri) => {
   await updateAppDelegate(args);
@@ -54,7 +54,7 @@ export const addNotifications = async (args: Uri) => {
   if (notificationType === "Local") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      "oasis add notifications_feature -s local_notifications_store -r local_store --is_push false",
+      "oasis add notifications_feature -s=local_notifications_store -r=local_store --is_push=false",
       {
         folderPath: "lib",
       }
@@ -62,7 +62,7 @@ export const addNotifications = async (args: Uri) => {
   } else if (notificationType === "Push")
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      "oasis add notifications_feature -s push_notifications_store -r push_store --is_push true",
+      "oasis add notifications_feature -s=push_notifications_store -r=push_store --is_push=true",
       {
         folderPath: "lib",
       }

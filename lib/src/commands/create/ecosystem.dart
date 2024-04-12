@@ -45,6 +45,7 @@ class EcosystemCommand extends BrickCommandBase {
       ecosystemDirectory.createSync();
     }
     Directory.current = ecosystemDirectory;
+    logger.info('Changed working directory to: ${ecosystemDirectory.path}'.blue);
     argParser.parse(['--name=$packageName']);
     final userAppCommand = CreateAppCommand(appName: "${packageName}_app", openVSCode: false);
     final dashboardAppCommand = CreateAppCommand(appName: "${packageName}_dashboard", openVSCode: false);
@@ -55,14 +56,17 @@ class EcosystemCommand extends BrickCommandBase {
       ..info("User app created ✅\n\n".green)
       ..info("Creating dashboard app 🚀".yellow);
     Directory.current = ecosystemDirectory;
+    logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
     await dashboardAppCommand.run();
     logger
       ..info("Dashboard app created ✅\n\n".green)
       ..info("Creating package 🚀".yellow);
     Directory.current = ecosystemDirectory;
+    logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
     await packageCommand.run(additionalArgs: {"name": packageName, "open": false});
     logger.info("Package created ✅\n\n".green);
     Directory.current = ecosystemDirectory;
+    logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
 
     await Process.start('code', [
       './$packageName',

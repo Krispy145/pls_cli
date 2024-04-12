@@ -15,12 +15,14 @@
   ],
   "activationEvents": [
     "onCommand:digital-oasis.create-app",
-    "onCommand:digital-oasis.new-feature",
-    "onCommand:digital-oasis.new-auth",
-    "onCommand:digital-oasis.new-data-layer",
-    "onCommand:digital-oasis.new-domain-layer",
-    "onCommand:digital-oasis.new-presentation-layer",
-    "onCommand:digital-oasis.new-structure",
+    "onCommand:digital-oasis.create-package",
+    "onCommand:digital-oasis.create-ecosystem",
+    "onCommand:digital-oasis.add-feature",
+    "onCommand:digital-oasis.add-auth",
+    "onCommand:digital-oasis.add-data-layer",
+    "onCommand:digital-oasis.add-domain-layer",
+    "onCommand:digital-oasis.add-presentation-layer",
+    "onCommand:digital-oasis.add-structure",
     "onCommand:digital-oasis.add-component",
     "onCommand:digital-oasis.add-model",
     "onCommand:digital-oasis.add-admob",
@@ -42,32 +44,40 @@
         "title": "Digital Oasis: Create a New App"
       },
       {
-        "command": "digital-oasis.new-feature",
+        "command": "digital-oasis.create-package",
+        "title": "Digital Oasis: Create a New Package"
+      },
+      {
+        "command": "digital-oasis.create-ecosystem",
+        "title": "Digital Oasis: Create a New Ecosystem"
+      },
+      {
+        "command": "digital-oasis.add-feature",
         "title": "Feature",
         "shortTitle": "New Feature"
       },
       {
-        "command": "digital-oasis.new-auth",
+        "command": "digital-oasis.add-auth",
         "title": "Authentication",
         "shortTitle": "Add Authentication"
       },
       {
-        "command": "digital-oasis.new-data-layer",
+        "command": "digital-oasis.add-data-layer",
         "title": "Data Layer",
         "shortTitle": "New Data Layer"
       },
       {
-        "command": "digital-oasis.new-domain-layer",
+        "command": "digital-oasis.add-domain-layer",
         "title": "Domain Layer",
         "shortTitle": "New Domain Layer"
       },
       {
-        "command": "digital-oasis.new-presentation-layer",
+        "command": "digital-oasis.add-presentation-layer",
         "title": "Presentation Layer",
         "shortTitle": "New Presentation Layer"
       },
       {
-        "command": "digital-oasis.new-structure",
+        "command": "digital-oasis.add-structure",
         "title": "Structure",
         "shortTitle": "New Structure"
       },
@@ -113,27 +123,27 @@
       "commandPalette": [],
       "digital-oasis.submenu": [
         {
-          "command": "digital-oasis.new-feature",
+          "command": "digital-oasis.add-feature",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
         },
         {
-          "command": "digital-oasis.new-auth",
+          "command": "digital-oasis.add-auth",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|presentation))$/"
         },
         {
-          "command": "digital-oasis.new-data-layer",
+          "command": "digital-oasis.add-data-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|data))$/"
         },
         {
-          "command": "digital-oasis.new-domain-layer",
+          "command": "digital-oasis.add-domain-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|domain))$/"
         },
         {
-          "command": "digital-oasis.new-presentation-layer",
+          "command": "digital-oasis.add-presentation-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|presentation))$/"
         },
         {
-          "command": "digital-oasis.new-structure",
+          "command": "digital-oasis.add-structure",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|navigation))$/"
         },
         {

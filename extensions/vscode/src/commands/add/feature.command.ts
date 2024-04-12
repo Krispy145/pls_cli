@@ -1,7 +1,7 @@
 import { Uri, window } from "vscode";
-import { runCommandInWorkspaceFolder } from "../utils/build_runner";
+import { runCommandInWorkspaceFolder } from "../../utils/build_runner";
 
-export const newFeature = async (args: Uri) => {
+export const addFeature = async (args: Uri) => {
   try {
     const name = await window.showInputBox({
       prompt: "Name of the feature",
@@ -9,7 +9,7 @@ export const newFeature = async (args: Uri) => {
     });
 
     if (name) {
-      const commandNewFeature = `oasis add feature --name ${name}`;
+      const commandNewFeature = `oasis add feature --name=${name}`;
       await runCommandInWorkspaceFolder(args, commandNewFeature, {
         folderPath: "lib",
       });

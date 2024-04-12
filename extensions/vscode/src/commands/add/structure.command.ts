@@ -1,7 +1,7 @@
 import { Uri, window } from "vscode";
-import { runCommandInWorkspaceFolder } from "../utils/build_runner";
+import { runCommandInWorkspaceFolder } from "../../utils/build_runner";
 
-export const newStructure = async (args: Uri) => {
+export const addStructure = async (args: Uri) => {
   const structures = [
     "Default",
     "DefaultMap",
@@ -15,7 +15,7 @@ export const newStructure = async (args: Uri) => {
     });
 
     if (type) {
-      const commandNewStructure = `oasis add structure --type ${type}`;
+      const commandNewStructure = `oasis add structure --type=${type}`;
       await runCommandInWorkspaceFolder(args, commandNewStructure, {
         folderPath: "lib/navigation",
       });

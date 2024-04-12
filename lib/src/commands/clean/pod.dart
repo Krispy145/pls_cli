@@ -1,8 +1,9 @@
 import 'dart:io';
-import 'package:path/path.dart' as path;
 
+import 'package:ansi_styles/extension.dart';
 import 'package:oasis_cli/src/commands/base.dart';
 import 'package:oasis_cli/src/utils/helpers.dart';
+import 'package:path/path.dart' as path;
 
 /// {@template podclean}
 /// Clean the pod files. Deletes pods, podfile.lock and reinstalls
@@ -43,6 +44,7 @@ class PodCleanCommand extends DOCommand {
     }
 
     Directory.current = podsDir.parent;
+    logger.info("Changed working directory to: ${podsDir.parent.path}".blue);
 
     var spinner = logger.spinner(
       rightPrompt: (complete) => complete ? "Finished deleting Pods folder" : "Deleting Pods folder.",

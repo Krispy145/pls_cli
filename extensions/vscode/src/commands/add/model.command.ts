@@ -1,7 +1,7 @@
 import { exec } from "child_process";
 import { Uri, window } from "vscode";
-import { getTargetDirectory } from "../utils/get-target-directory";
-import { buildRunner } from "../utils/build_runner";
+import { getTargetDirectory } from "../../utils/get-target-directory";
+import { buildRunner } from "../../utils/build_runner";
 
 export const addModel = async (args: Uri) => {
   const name = await window.showInputBox({
@@ -16,7 +16,7 @@ export const addModel = async (args: Uri) => {
       targetDir += "/models";
     }
 
-    let child = exec(`oasis add model --name ${name} --path ${targetDir}`);
+    let child = exec(`oasis add model --name=${name} --path=${targetDir}`);
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
 
     await buildRunner(args, "Model");

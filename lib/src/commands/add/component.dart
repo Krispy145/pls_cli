@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ansi_styles/extension.dart';
 import 'package:mason/mason.dart';
 
 import '../../../bundles/_bundles.dart';
@@ -42,6 +43,7 @@ class ComponentCommand extends BrickCommandBase {
 
         // Change to the component directory
         Directory.current = componentDirectory;
+        logger.info('Changed working directory to: ${componentDirectory.path}'.blue);
 
         // Run the brick in the new component directory
         await super.run();

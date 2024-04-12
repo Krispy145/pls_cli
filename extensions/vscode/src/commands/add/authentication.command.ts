@@ -1,11 +1,11 @@
 import { Uri, window } from "vscode";
 import * as fs from "fs";
-import { runCommandInWorkspaceFolder } from "../utils/build_runner";
-import { getWorkspaceFilePath } from "../utils/get-target-directory";
-import { addInjectionAndGetter } from "../utils/add_to_files";
-import { addFlutterPackageFromPath } from "../utils/add_flutter_package";
+import { runCommandInWorkspaceFolder } from "../../utils/build_runner";
+import { getWorkspaceFilePath } from "../../utils/get-target-directory";
+import { addInjectionAndGetter } from "../../utils/add_to_files";
+import { addFlutterPackageFromPath } from "../../utils/add_flutter_package";
 
-export const newAuth = async (args: Uri) => {
+export const addAuth = async (args: Uri) => {
   try {
     const commandNewAuth = `oasis add auth`;
     await runCommandInWorkspaceFolder(args, commandNewAuth, {

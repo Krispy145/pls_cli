@@ -1,50 +1,63 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 
-import { newFeature } from "./commands/new-feature.command";
-import { newStructure } from "./commands/new-structure.command";
-import { addComponent } from "./commands/add-component.command";
+import { addFeature } from "./commands/add/feature.command";
+import { addStructure } from "./commands/add/structure.command";
+import { addComponent } from "./commands/add/component.command";
 import { commands, ExtensionContext } from "vscode";
-import { addModel } from "./commands/add-model.command";
-import { addAdmob } from "./commands/add-admob.command";
-import { addNotifications } from "./commands/add-notifications.command";
-import { createApp } from "./commands/create-app.command";
-import { newDataLayer } from "./commands/new-data-layer.command";
-import { newDomainLayer } from "./commands/new-domain-layer.command";
-import { newPresentationLayer } from "./commands/new-presentation-layer.command";
-import { newAuth } from "./commands/add-auth.command";
-import { addDeepLinks } from "./commands/add-deeplinks.command";
-import { newAssets } from "./commands/add-assets.command";
+import { addModel } from "./commands/add/model.command";
+import { addAdmob } from "./commands/add/admob.command";
+import { addNotifications } from "./commands/add/notifications.command";
+import { createApp } from "./commands/create/app.command";
+import { addDataLayer } from "./commands/add/data-layer.command";
+import { addDomainLayer } from "./commands/add/domain-layer.command";
+import { addPresentationLayer } from "./commands/add/presentation-layer.command";
+import { addAuth } from "./commands/add/authentication.command";
+import { addDeepLinks } from "./commands/add/deeplinks.command";
+import { addAssets } from "./commands/add/assets.command";
+import { createPackage } from "./commands/create/package.command";
+import { createEcosystem } from "./commands/create/ecosystem.command";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
+  /// CREATE
   let app = commands.registerCommand("digital-oasis.create-app", createApp);
-  let feature = commands.registerCommand(
-    "digital-oasis.new-feature",
-    newFeature
+  let newPackage = commands.registerCommand(
+    "digital-oasis.create-package",
+    createPackage
+  );
+  let ecosystem = commands.registerCommand(
+    "digital-oasis.create-ecosystem",
+    createEcosystem
   );
 
-  let auth = commands.registerCommand("digital-oasis.new-auth", newAuth);
+  /// ADD
+  let feature = commands.registerCommand(
+    "digital-oasis.add-feature",
+    addFeature
+  );
+
+  let auth = commands.registerCommand("digital-oasis.add-auth", addAuth);
 
   let data_layer = commands.registerCommand(
-    "digital-oasis.new-data-layer",
-    newDataLayer
+    "digital-oasis.add-data-layer",
+    addDataLayer
   );
 
   let domain_layer = commands.registerCommand(
-    "digital-oasis.new-domain-layer",
-    newDomainLayer
+    "digital-oasis.add-domain-layer",
+    addDomainLayer
   );
 
   let presentation_layer = commands.registerCommand(
-    "digital-oasis.new-presentation-layer",
-    newPresentationLayer
+    "digital-oasis.add-presentation-layer",
+    addPresentationLayer
   );
 
   let structure = commands.registerCommand(
-    "digital-oasis.new-structure",
-    newStructure
+    "digital-oasis.add-structure",
+    addStructure
   );
   let component = commands.registerCommand(
     "digital-oasis.add-component",
@@ -64,10 +77,15 @@ export function activate(context: ExtensionContext) {
     addDeepLinks
   );
 
-  let assets = commands.registerCommand("digital-oasis.add-assets", newAssets);
+  let assets = commands.registerCommand("digital-oasis.add-assets", addAssets);
 
   context.subscriptions.push(
+    /// CREATE
     app,
+    newPackage,
+    ecosystem,
+
+    /// ADD
     feature,
     auth,
     data_layer,

@@ -20,10 +20,10 @@ class FeatureCommand extends DOCommand {
     final featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the feature?");
 
     return runScripts([
-      "oasis add data_layer --name $featureName",
-      "oasis add domain_layer --name $featureName",
-      "oasis add presentation_layer --name $featureName",
-      'oasis add logger --name $featureName',
+      "oasis add data_layer --name=$featureName",
+      "oasis add domain_layer --name=$featureName",
+      "oasis add presentation_layer --name=$featureName",
+      'oasis add logger --name=$featureName',
       'dart format .',
       'dart fix --apply',
     ]);

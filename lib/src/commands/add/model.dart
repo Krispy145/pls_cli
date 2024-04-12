@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ansi_styles/extension.dart';
 import 'package:mason/mason.dart';
 
 import '../../../bundles/_bundles.dart';
@@ -49,6 +50,7 @@ class ModelCommand extends BrickCommandBase {
 
         // Change to the model directory
         Directory.current = modelDirectory;
+        logger.info('Changed working directory to: ${modelDirectory.path}'.blue);
 
         // Run the brick in the new model directory
         await super.run();

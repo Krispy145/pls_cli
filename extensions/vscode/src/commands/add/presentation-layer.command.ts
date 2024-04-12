@@ -1,7 +1,7 @@
 import { Uri, window } from "vscode";
-import { runCommandInWorkspaceFolder } from "../utils/build_runner";
+import { runCommandInWorkspaceFolder } from "../../utils/build_runner";
 
-export const newPresentationLayer = async (args: Uri) => {
+export const addPresentationLayer = async (args: Uri) => {
   try {
     const name = await window.showInputBox({
       prompt: "Name of the Presentation layer",
@@ -9,7 +9,7 @@ export const newPresentationLayer = async (args: Uri) => {
     });
 
     if (name) {
-      const commandNewPresentationLayer = `oasis add presentation_layer --name ${name}`;
+      const commandNewPresentationLayer = `oasis add presentation_layer --name=${name}`;
       await runCommandInWorkspaceFolder(args, commandNewPresentationLayer, {
         folderPath: "lib",
       });

@@ -68,12 +68,14 @@ abstract class DOCommand extends Command<void> {
 
           // Change the working directory to the extension folder
           Directory.current = extensionDirectory;
+          logger.info('Changed working directory to: ${extensionDirectory.path}'.blue);
         } else {
           // Get the lib directory
           final libDirectory = Directory.fromUri(currentDirectory.uri.resolve('lib'));
 
           // Change the working directory to the lib folder
           Directory.current = libDirectory;
+          logger.info('Changed working directory to: ${libDirectory.path}'.blue);
         }
 
         // Run the provided function
@@ -85,6 +87,7 @@ abstract class DOCommand extends Command<void> {
     } finally {
       // Restore the original working directory
       Directory.current = Directory(originalDirectory);
+      logger.info('Changed working directory back to: $originalDirectory'.blue);
     }
   }
 }

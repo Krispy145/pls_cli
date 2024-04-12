@@ -2,14 +2,14 @@ import * as fs from "fs";
 import * as path from "path";
 import { Uri, window, workspace } from "vscode";
 import { promisify } from "util";
-import { getWorkspaceFilePath } from "../utils/get-target-directory";
+import { getWorkspaceFilePath } from "../../utils/get-target-directory";
 
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 const copyFile = promisify(fs.copyFile);
 
 // Main function for the VSCode command
-export const newAssets = async (args: Uri) => {
+export const addAssets = async (args: Uri) => {
   window.showInformationMessage("Adding assets: 1");
   try {
     // Prompt the user to select the assets folder
