@@ -1,0 +1,118 @@
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+#TODO: Beta App Review Information
+#TODO: Localized App Information
+#TODO: Localized Build Information
+#TODO: External groups csv to import in App Store Connect for External Testers
+#TODO: capture_ios_screenshots lane to capture screenshots for all devices
+#TODO: Release Metadata for App Store Connect Distribution
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Deploy a new version to TestFlight for Development environment"
+  lane :deploy_dev do |options|
+    track = options[:channel]
+    deploy_to_apple("dev",track, options)
+  end
+
+  desc "Deploy a new version to TestFlight for Staging environment"
+  lane :deploy_stage do |options|
+    track = options[:channel]
+    deploy_to_apple("stage",track, options)
+  end
+
+  desc "Deploy a new version to App Store for Production environment"
+  lane :deploy_prod do |options|
+    track = "production"
+    deploy_to_apple("prod",track, options)
+  end
+
+  def deploy_to_apple(env,track, options)
+    environment = env.capitalize
+    filePath = options[:filePath]
+    success = nil
+  
+    if env == "dev" || env == "stage"
+      if track == "alpha"
+      success = upload_to_testflight(
+        api_key_path: "./Firebase/#{environment}/app_store_connect.json",
+        ipa: filePath,
+        skip_waiting_for_build_processing: true
+      )
+      end
+      if track == "beta"
+      setup_ci
+      testers = ["External Testers"]
+      success = upload_to_testflight(
+        distribute_external: true,
+        app_platform: "ios",
+        beta_app_review_info: {
+          contact_email: "team@digitaloasis.ae",
+          contact_first_name: "Digital Oasis",
+          contact_last_name: "Dev",
+          contact_phone: "+971585337202",
+          demo_account_name: "demo",
+          demo_account_password: "demo"
+        },
+        localized_app_info: {
+          "en-US": {
+            feedback_email: "team@digitaloasis.ae",
+            marketing_url: "",
+            privacy_policy_url: "",
+            description: "App #{environment.capitalize} Version"
+          }
+        },
+        localized_build_info: {
+          "en-US": {
+            whats_new: "App #{environment.capitalize} Version changes"
+          }
+        },
+        distribute_only: true,
+        groups: testers
+      )
+      end
+    end
+    if env == "prod" && track == "production"
+      upload_to_testflight(
+        api_key_path: "./Firebase/#{environment}/app_store_connect.json",
+        ipa: filePath,
+        skip_waiting_for_build_processing: true
+      )
+      success = upload_to_app_store(
+        submit_for_review: true,
+        automatic_release: false,
+        force: true
+      )
+    end
+  
+    send_email(
+      subject: "App Deployment to #{track.capitalize} - #{environment}",
+      message: "The app was successfully deployed to #{environment.capitalize} environment.",
+      success: success
+    )
+  end 
+
+  private_lane :send_email do |options|
+    subject = options[:subject]
+    message = options[:message]
+    success = options[:success]
+
+    mailgun(
+      apikey: "5c5c324cf8cfd7cd526e063817de2feb-f68a26c9-eb516c6f",
+      postmaster: "postmaster@sandbox1660d5c9cae340f7b284744331e39b20.mailgun.org",
+      to: "team@digitaloasis.ae",
+      app_link: "app_link",
+      subject: subject,
+      message: message,
+      success: success
+    )
+
+    if success
+      puts "Email notification sent successfully: #{subject}"
+    else
+      puts "Failed to send email notification: #{subject}"
+    end
+  end
+end

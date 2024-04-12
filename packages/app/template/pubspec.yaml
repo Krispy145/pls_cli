@@ -4,15 +4,33 @@ version: 0.0.1+1
 publish_to: none
 
 scripts:
+  #* Generate the files for the project
   gen: make gen
+
+  #* clean the project
   clean: make clean
+
+  #* Run the tests for the project
   test: make test
-  build:dev: make build ENVIRONMENT=development ENV=dev FLAVOR_APP_NAME=[DEV] App Template
-  build:stage: make build ENVIRONMENT=staging ENV=stage FLAVOR_APP_NAME=[STAGE] App Template
-  build:prod: make build ENVIRONMENT=production ENV=prod FLAVOR_APP_NAME=App Template
-  deploy:dev: make deploy ENVIRONMENT=development ENV=dev FLAVOR_APP_NAME=[DEV] App Template
-  deploy:stage: make deploy ENVIRONMENT=staging ENV=stage FLAVOR_APP_NAME=[STAGE] App Template
-  deploy:prod: make deploy ENVIRONMENT=production ENV=prod FLAVOR_APP_NAME=App Template
+
+  #* Build the project with ios/android/web release builds
+  #? Used for building the project with the development environment
+  build:dev: make build ENV=dev
+
+  #? Used for building the project with the staging environment
+  build:stage: make build ENV=stage
+
+  #? Used for building the project with the production environment
+  build:prod: make build ENV=prod
+
+  #* Deploy the projects using fastlane to the respective environments
+  #? Used for bumping only the build number
+  #? required flags: ENV and VERSION_TYPE
+  bump: make bump-version
+
+  #? Used for deploying the project to the development environment
+  #? required flags: ENV and CHANNEL and PLATFORM
+  deploy: make deploy
 
 environment:
   sdk: ">=3.0.3 <4.0.0"

@@ -1,0 +1,17 @@
+json_key_file("app/src/development/google_play_dev.json") # Path to the json secret file _ Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("ae.app_template.dev") # e.g. com.krausefx.app
+
+for_platform :android do
+    for_lane :deploy_dev do
+        package_name("ae.app_template.dev")
+        json_key_file("app/src/development/google_play_dev.json")
+    end
+    for_lane :deploy_stage do
+        package_name("ae.app_template.stage")
+        json_key_file("app/src/staging/google_play_stage.json")
+    end
+    for_lane :deploy_prod do
+        package_name("ae.app_template")
+        json_key_file("app/src/main/google_play.json")
+    end
+end
