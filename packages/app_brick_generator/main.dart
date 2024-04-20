@@ -88,8 +88,6 @@ void main() async {
               .replaceAll('# FIREBASE END', '{{/has_firebase}}')
               .replaceAll('/// IS_DEFAULT START', '{{#is_default}}')
               .replaceAll('/// IS_DEFAULT END', '{{/is_default}}')
-              .replaceAll('/// IS_DEFAULTMAP START', '{{#is_default_map}}')
-              .replaceAll('/// IS_DEFAULTMAP END', '{{/is_default_map}}')
               .replaceAll('/// IS_MAP START', '{{#is_map}}')
               .replaceAll('/// IS_MAP END', '{{/is_map}}')
               .replaceAll('/// IS_DASHBOARD START', '{{#is_dashboard}}')
@@ -127,12 +125,16 @@ void main() async {
       _targetPath,
       "template",
       "{{#has_firebase}}tools{{/has_firebase}}",
-      "firebase_install.sh",
     ),
   );
-  await Shell.mkdir(firebaseToolPath.parent.path);
+  await Shell.mkdir(firebaseToolPath.path);
   await Shell.cp(
     path.join(_staticDir, 'firebase_install.sh'),
+    firebaseToolPath.path,
+  );
+
+  await Shell.cp(
+    path.join(_staticDir, 'bump.dart'),
     firebaseToolPath.path,
   );
 

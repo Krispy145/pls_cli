@@ -7,7 +7,7 @@ import { addFlutterPackageFromPath } from "../../utils/add_flutter_package";
 
 export const addAuth = async (args: Uri) => {
   try {
-    const commandNewAuth = `oasis add auth`;
+    const commandNewAuth = `oasis add auth --runner`;
     await runCommandInWorkspaceFolder(args, commandNewAuth, {
       folderPath: "lib",
     });

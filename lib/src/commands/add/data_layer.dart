@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:mason/mason.dart';
+import 'package:oasis_cli/src/utils/helpers.dart';
 
 import '../../../bundles/_bundles.dart';
 import '../brick_command_base.dart';
@@ -20,16 +21,21 @@ class DataLayerCommand extends BrickCommandBase {
 
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
+    final buildRunner = argResults?['runner'] as bool? ?? false;
     await super.run();
     _addRepositoriesFile();
     return runScripts([
-      'flutter pub run build_runner build --delete-conflicting-outputs',
+      if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
   }
 
   void _addRepositoriesFile() {
     final currentDirectory = argResults?["path"] != null ? Directory(argResults!["path"] as String) : Directory.current;
-    final _featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the feature?");
+    final _featureName = argResults?['name'] as String? ??
+        logger.prompt(
+          prompt: "What is the name of the data_layer?",
+          validator: isValidDirectoryName,
+        );
 
     if (!currentDirectory.existsSync()) {
       logger.err('Current directory does not exist.');
@@ -90,6 +96,9 @@ enum DataSourceTypes {
 
   /// [local] is the local data source.
   local,
+
+  /// [assets] is the assets data source.
+  assets,
 
   /// [firestore] is the firestore data source.
   firestore,

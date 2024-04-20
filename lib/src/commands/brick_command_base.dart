@@ -172,6 +172,10 @@ extension DefaultOptions on ArgParser {
         "name",
         abbr: "n",
         help: "The name of the generated item.",
+      )
+      ..addFlag(
+        "runner",
+        help: "Run the build runner after the generation",
       );
   }
 }

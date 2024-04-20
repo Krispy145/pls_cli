@@ -19,7 +19,8 @@ class PackageCommand extends BrickCommandBase {
       ..addFlag("data", help: _dataPrompt)
       ..addFlag("domain", help: _domainPrompt)
       ..addFlag("presentation", help: _presentationPrompt)
-      ..addFlag("open", help: "Open the project in VS Code after creation", defaultsTo: true);
+      ..addFlag("open", help: "Open the project in VS Code after creation", defaultsTo: true)
+      ..addFlag("ecosystem", help: "Create a package in a monorepo");
   }
 
   final _wrapperPrompt = "Do you want a wrapper for this package?";
@@ -39,6 +40,7 @@ class PackageCommand extends BrickCommandBase {
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     final shouldOpen = argResults?["open"] as bool? ?? additionalArgs?["open"] as bool? ?? true;
+    final isEcoSystem = argResults?["ecosystem"] as bool? ?? additionalArgs?["ecosystem"] as bool? ?? true;
 
     // Save the current working directory
     final currentDirectory = Directory.current;
@@ -47,7 +49,10 @@ class PackageCommand extends BrickCommandBase {
     var packageName = argResults?["name"] as String? ?? additionalArgs?["name"] as String?;
     while (packageName == null) {
       logger.info("In while loop");
-      final name = logger.prompt(prompt: "What's the name of your package");
+      final name = logger.prompt(
+        prompt: "What's the name of your package",
+        validator: isValidDirectoryName,
+      );
       if (name.isNotEmpty) {
         if (isValidDirectoryName(name)) {
           packageName = name;
@@ -122,29 +127,37 @@ class PackageCommand extends BrickCommandBase {
         if (data) 'oasis add data_layer --name=$packageName',
         if (domain) 'oasis add domain_layer --name=$packageName',
         if (presentation) 'oasis add presentation_layer --name=$packageName',
-        'flutter clean',
-        'flutter pub get',
-        'dart format .',
       ],
     );
 
     // Change the current working directory back to the original project directory
     Directory.current = packageDirectory;
     logger.info("Changed directory back to $packageName".blue);
+    final replaceStringsMap = {
+      'nameTemplate': packageName.camelCase,
+      'NameTemplate': packageName.pascalCase,
+      'name_template': packageName.snakeCase,
+    };
+    if (isEcoSystem) replaceStringsMap['../../packages'] = '../../../packages';
+
     await replaceAllInDirectory(
       Directory.current,
-      {
-        'nameTemplate': packageName.camelCase,
-        'NameTemplate': packageName.pascalCase,
-        'name_template': packageName.snakeCase,
-      },
+      replaceStringsMap,
     );
+    Directory.current = libDirectory;
+    logger.info("Changed directory to lib".blue);
+    await runScripts([
+      'flutter clean',
+      'flutter pub get',
+      'dart format .',
+      'flutter pub run build_runner build --delete-conflicting-outputs',
+    ]);
     Directory.current = currentDirectory;
     logger.info("Changed directory back to ${currentDirectory.path}".blue);
     await replaceAllInDirectory(
       Directory.current,
       {
-        '# MELOS_PACKAGE_LIST_END': ' - ${packageName.snakeCase}\n # MELOS_PACKAGE_LIST_END',
+        '# MELOS_PACKAGE_LIST_END': '- ${packageName.snakeCase}\n # MELOS_PACKAGE_LIST_END',
       },
     );
 

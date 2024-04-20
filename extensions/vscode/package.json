@@ -3,7 +3,7 @@
   "displayName": "Digital Oasis",
   "publisher": "skate-oasis",
   "description": "vscode extension to streamline dev",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "repository": "https://github.com/digital-oasis-llc-fz/digital-oasis-cli",
   "private": true,
   "icon": "assets/128.png",
@@ -53,43 +53,43 @@
       },
       {
         "command": "digital-oasis.add-feature",
-        "title": "Feature",
-        "shortTitle": "New Feature"
+        "title": "Add Feature",
+        "shortTitle": "Add Feature"
       },
       {
         "command": "digital-oasis.add-auth",
-        "title": "Authentication",
+        "title": "Add Authentication",
         "shortTitle": "Add Authentication"
       },
       {
         "command": "digital-oasis.add-data-layer",
-        "title": "Data Layer",
-        "shortTitle": "New Data Layer"
+        "title": "Add Data Layer",
+        "shortTitle": "Add Data Layer"
       },
       {
         "command": "digital-oasis.add-domain-layer",
-        "title": "Domain Layer",
-        "shortTitle": "New Domain Layer"
+        "title": "Add Domain Layer",
+        "shortTitle": "Add Domain Layer"
       },
       {
         "command": "digital-oasis.add-presentation-layer",
-        "title": "Presentation Layer",
-        "shortTitle": "New Presentation Layer"
+        "title": "Add Presentation Layer",
+        "shortTitle": "Add Presentation Layer"
       },
       {
         "command": "digital-oasis.add-structure",
-        "title": "Structure",
-        "shortTitle": "New Structure"
+        "title": "Add Structure",
+        "shortTitle": "Add Structure"
       },
       {
         "command": "digital-oasis.add-component",
-        "title": "Component",
-        "shortTitle": "New Component"
+        "title": "Add Component",
+        "shortTitle": "Add Component"
       },
       {
         "command": "digital-oasis.add-model",
-        "shortTitle": "New Model",
-        "title": "Model"
+        "shortTitle": "Add Model",
+        "title": "Add Model"
       },
       {
         "command": "digital-oasis.add-admob",

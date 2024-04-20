@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation/structures/map/widget.dart';
-import 'package:new_setup/navigation/routes.gr.dart';
 
 import '/dependencies/injection.dart';
 
@@ -19,12 +18,10 @@ class MapWrapperView extends StatelessWidget {
     return MapShellStructure.left(
       store: _mapShellStore,
       overlayPercentage: 0.25,
-      map: const Center(
-        child: Center(
-          child: GestureDetector(
-            onTap: _mapShellStore.toggleOverlay,
-            child: const Text("This is a map structure"),
-          ),
+      map: Center(
+        child: GestureDetector(
+          onTap: _mapShellStore.toggleOverlay,
+          child: const Text("This is a map structure"),
         ),
       ),
     );

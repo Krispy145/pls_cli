@@ -23,6 +23,7 @@ class ComponentCommand extends BrickCommandBase {
 
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
+    final buildRunner = argResults?['runner'] as bool? ?? false;
     if (argResults?['path'] == null) {
       // Get the current directory
       final currentDirectory = Directory.current;
@@ -49,7 +50,7 @@ class ComponentCommand extends BrickCommandBase {
         await super.run();
       }
       return runScripts(
-        ['flutter pub run build_runner build --delete-conflicting-outputs'],
+        [if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs'],
       );
     } else {
       await super.run();

@@ -20,9 +20,10 @@ class MultiNotificationsFeatureCommand extends BrickCommandBase {
 
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
+    final buildRunner = argResults?['runner'] as bool? ?? false;
     await super.run();
     return runScripts([
-      'flutter pub run build_runner build --delete-conflicting-outputs',
+      if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
   }
 }

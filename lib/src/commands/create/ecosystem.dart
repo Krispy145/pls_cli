@@ -29,7 +29,10 @@ class EcosystemCommand extends BrickCommandBase {
     logger.info("Creating Ecosystem 🚀".yellow);
     var packageName = argResults?["name"] as String?;
     while (packageName == null) {
-      final name = logger.prompt(prompt: "What's the name of your Ecosystem");
+      final name = logger.prompt(
+        prompt: "What's the name of your Ecosystem",
+        validator: isValidDirectoryName,
+      );
       if (name.isNotEmpty) {
         if (isValidDirectoryName(name)) {
           packageName = name;
@@ -47,8 +50,8 @@ class EcosystemCommand extends BrickCommandBase {
     Directory.current = ecosystemDirectory;
     logger.info('Changed working directory to: ${ecosystemDirectory.path}'.blue);
     argParser.parse(['--name=$packageName']);
-    final userAppCommand = CreateAppCommand(appName: "${packageName}_app", openVSCode: false);
-    final dashboardAppCommand = CreateAppCommand(appName: "${packageName}_dashboard", openVSCode: false);
+    final userAppCommand = CreateAppCommand(appName: "${packageName}_app", openVSCode: false, isEcoSystem: true);
+    final dashboardAppCommand = CreateAppCommand(appName: "${packageName}_dashboard", openVSCode: false, isEcoSystem: true);
     final packageCommand = PackageCommand();
     logger.info("Creating user app 🚀".yellow);
     await userAppCommand.run();
@@ -63,7 +66,7 @@ class EcosystemCommand extends BrickCommandBase {
       ..info("Creating package 🚀".yellow);
     Directory.current = ecosystemDirectory;
     logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
-    await packageCommand.run(additionalArgs: {"name": packageName, "open": false});
+    await packageCommand.run(additionalArgs: {"name": packageName, "open": false, "ecosystem": true});
     logger.info("Package created ✅\n\n".green);
     Directory.current = ecosystemDirectory;
     logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);

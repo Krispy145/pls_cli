@@ -9,8 +9,9 @@ import 'package:flutter/foundation.dart';
 /// FIREBASE END
 import 'package:flutter/material.dart';
 import 'package:theme/app/view.dart';
+/// FIREBASE START
 import 'package:utilities/flavors/flavor_config.dart';
-
+/// FIREBASE END
 /// Main App Function
 void appMain({required Config config}) {
   Managers.init(config: config);

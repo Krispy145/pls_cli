@@ -28,4 +28,3 @@ vars:
     type: boolean
     description: Whether the package should have a wrapper
     prompt: Would you like a wrapper?
- 

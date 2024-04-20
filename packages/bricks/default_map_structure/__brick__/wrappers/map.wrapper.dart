@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation/structures/map/widget.dart';
-import 'package:new_setup/navigation/routes.gr.dart';
 
 import '/dependencies/injection.dart';
 

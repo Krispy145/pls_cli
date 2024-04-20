@@ -9,7 +9,7 @@ export const addDomainLayer = async (args: Uri) => {
     });
 
     if (name) {
-      const commandNewDomainLayer = `oasis add domain_layer --name=${name}`;
+      const commandNewDomainLayer = `oasis add domain_layer --name=${name} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewDomainLayer, {
         folderPath: "lib",
       });

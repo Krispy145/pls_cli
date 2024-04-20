@@ -9,8 +9,9 @@ import 'package:flutter/foundation.dart';
 {{/has_firebase}}
 import 'package:flutter/material.dart';
 import 'package:theme/app/view.dart';
+{{#has_firebase}}
 import 'package:utilities/flavors/flavor_config.dart';
-
+{{/has_firebase}}
 /// Main App Function
 void appMain({required Config config}) {
   Managers.init(config: config);

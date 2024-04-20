@@ -3,7 +3,6 @@ import 'package:utilities/data_sources/remote/api.dart';
 import 'package:utilities/logger/logger.dart';
 
 import '../../models/{{name.snakeCase()}}_model.dart';
-import '../../../dependencies/injection.dart';
 import 'package:name_template/utils/loggers.dart';
 import '_source.dart';
 
@@ -12,7 +11,8 @@ class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase
   /// [Api{{name.pascalCase()}}DataSource] constructor.
   Api{{name.pascalCase()}}DataSource()
       : super(
-          Managers.config.apiPrefix,
+          //TODO: Replace the following URL with the actual API URL.
+          "https://api.{{name.snakeCase()}}.com",
           sourceSuffix: "{{name.snakeCase()}}",
           convertDataTypeFromMap: {{name.pascalCase()}}Model.fromJson,
           convertDataTypeToMap: (data) => data.toJson(),

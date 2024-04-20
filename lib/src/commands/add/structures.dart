@@ -30,6 +30,7 @@ class StructuresCommand extends DOCommand {
 
   @override
   Future<void> run() async {
+    final buildRunner = argResults?['runner'] as bool? ?? false;
     final structureArg = argResults?['type'] as String? ??
         logger.chooseOne(
           prompt: 'Select the app structure:',
@@ -40,7 +41,7 @@ class StructuresCommand extends DOCommand {
     await runInLibDirectory(() => _setupStructureFiles(structureType), extensionPath: 'navigation');
 
     return runScripts([
-      'flutter pub run build_runner build --delete-conflicting-outputs',
+      if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
       'dart format .',
       'dart fix --apply',
     ]);

@@ -1,2 +1,2 @@
 #TODO: Change path to package once published on github
-include: ../../../packages/utilities/analysis_options.yaml
+include: ../../packages/analysis_options.yaml

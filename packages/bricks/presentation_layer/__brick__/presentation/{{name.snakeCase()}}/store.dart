@@ -23,7 +23,7 @@ abstract class {{name.pascalCase()}}BaseStore extends LoadStateStore with Store 
   Future<void> load{{name.pascalCase()}}Models() async {
     try {
       setLoading();
-      final loaded{{name.pascalCase()}}s = await repository.getAll{{name.pascalCase()}}ModelsFromApi();
+      final loaded{{name.pascalCase()}}s = await repository.getAll{{name.pascalCase()}}Models();
       if (loaded{{name.pascalCase()}}s.isNotEmpty) {
         {{name.camelCase()}}s
           ..clear()

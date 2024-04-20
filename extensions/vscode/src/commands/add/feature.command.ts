@@ -9,7 +9,7 @@ export const addFeature = async (args: Uri) => {
     });
 
     if (name) {
-      const commandNewFeature = `oasis add feature --name=${name}`;
+      const commandNewFeature = `oasis add feature --name=${name} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewFeature, {
         folderPath: "lib",
       });

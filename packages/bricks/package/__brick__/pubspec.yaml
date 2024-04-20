@@ -1,4 +1,4 @@
-name: {{name.snakeCase()}}
+name: name_template
 description: "A new Digital Oasis package project."
 version: 0.0.1
 homepage:
@@ -12,10 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   utilities:
-    # git:
-    #   url: git@github.com:digital-oasis-llc-fz/utilities.git
-    #   ref: v0.0.1
-    path: ../utilities
+    path: ../../packages/utilities
 
 dev_dependencies:
   flutter_test:

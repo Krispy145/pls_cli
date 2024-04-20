@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:mason/mason.dart';
 import 'package:oasis_cli/src/commands/base.dart';
 import 'package:oasis_cli/src/commands/brick_command_base.dart';
+import 'package:oasis_cli/src/utils/helpers.dart';
 
 /// {@template loggerCommand}
 /// LoggerFeatureCommand for adding a logger feature to the app
@@ -21,15 +22,20 @@ class LoggerFeatureCommand extends DOCommand {
 
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
+    final buildRunner = argResults?['runner'] as bool? ?? false;
     // parse the event name
-    final featureName = argResults?['name'] as String? ?? logger.prompt(prompt: "What is the name of the logger feature?");
+    final featureName = argResults?['name'] as String? ??
+        logger.prompt(
+          prompt: "What is the name of the logger feature?",
+          validator: isValidDirectoryName,
+        );
     // Call the runInLibDirectory function to change the working directory to "lib"
     await runInLibDirectory(
       () => replaceLoggerFeatureString(featureName),
       extensionPath: "utils",
     );
     return runScripts([
-      'flutter pub run build_runner build --delete-conflicting-outputs',
+      if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
   }
 

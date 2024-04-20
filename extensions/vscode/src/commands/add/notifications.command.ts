@@ -13,6 +13,7 @@ import {
 import { addFlutterPackageFromPath } from "../../utils/add_flutter_package";
 import { compareGradleVersions } from "../../utils/compare_gradle_versions";
 import {
+  buildRunner,
   formatFiles,
   runCommandInWorkspaceFolder,
 } from "../../utils/build_runner";
@@ -86,6 +87,7 @@ export const addNotifications = async (args: Uri) => {
     );
   }
   await formatFiles(args);
+  await buildRunner(args, "Notifications");
 
   // Open the docs/notifications.md file from the workspace root directory
   const docsPath = getWorkspaceFilePath(args, "docs/notifications.md");

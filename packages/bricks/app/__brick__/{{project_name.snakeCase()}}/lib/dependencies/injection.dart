@@ -1,18 +1,13 @@
 import 'package:{{project_name.snakeCase()}}/core/assets/assets.gen.dart';
 import 'package:{{project_name.snakeCase()}}/environments/config.dart';
 import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
-import 'package:{{project_name.snakeCase()}}/utils/loggers.dart';
 import 'package:get_it/get_it.dart';
-import 'package:theme/app/store.dart';
 import 'package:name_template/utils/loggers.dart';
+
 {{#is_dashboard}}
 import 'package:navigation/structures/dashboard/store.dart';
 
 {{/is_dashboard}}
-{{#is_default_map}}
-import 'package:navigation/structures/default_map/store.dart';
-
-{{/is_default_map}}
 {{#is_default}}
 import 'package:navigation/structures/default/store.dart';
 
@@ -21,6 +16,7 @@ import 'package:navigation/structures/default/store.dart';
 import 'package:navigation/structures/map/store.dart';
 
 {{/is_map}}
+import 'package:theme/app/store.dart';
 import 'package:utilities/flavors/flavor_manager.dart';
 import 'package:utilities/logger/logger.dart';
 import 'package:utilities/widgets/connection_state/base_store.dart';
@@ -35,7 +31,7 @@ class ManagerInjector {
   static final ManagerInjector instance = ManagerInjector();
   final GetIt _serviceLocator = GetIt.instance;
 
-  /// [init] is responsible for initialising all service locator registrations.
+  /// [init] is responsible for initializing all service locator registrations.
   void init({required Config config}) {
     final _loggerInjector = AppLoggerInjector(config.loggerFeatures);
     _serviceLocator.registerLazySingleton<AppLoggerInjector>(() => _loggerInjector);
@@ -45,7 +41,6 @@ class ManagerInjector {
     _initExternal();
     AppLogger.print("ManagerInjector initialization complete.", [NameTemplateLoggers.dependencyInjection], type: LoggerType.confirmation);
   }
-
 
   /// [add] is responsible for adding a service locator registration.
   void add<T extends Object>(T instance) {
@@ -81,10 +76,9 @@ class ManagerInjector {
   void _initCore({required Config config}) {
     AppLogger.print("Initializing core services...", [NameTemplateLoggers.dependencyInjection]);
     _serviceLocator
-    ..registerSingleton(AppRouter())
+      ..registerSingleton(AppRouter())
       ..registerLazySingleton<ConnectionStateStore>(ConnectionStateStore.new)
       ..registerLazySingleton<FlavorManager>(() => FlavorManager(flavorConfig: config));
-      
 
     ///END OF CORE
   }
@@ -92,33 +86,27 @@ class ManagerInjector {
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
   void _initApp() {
     AppLogger.print("Initializing app services...", [NameTemplateLoggers.dependencyInjection]);
-     _serviceLocator
-      ..registerLazySingleton<ThemeStateStore>(
-        () => ThemeStateStore.assets(
-          baseThemeAssetPath: Assets.themes.baseTheme,
-          componentThemesAssetPath: Assets.themes.componentsThemes,
-        ),
-      )
+    _serviceLocator
+          ..registerLazySingleton<ThemeStateStore>(
+            () => ThemeStateStore.assets(
+              baseThemeAssetPath: Assets.themes.baseTheme,
+              componentThemesAssetPath: Assets.themes.componentsThemes,
+            ),
+          )
 
-    {{#is_default}}
-    ..registerLazySingleton<DefaultShellStructureStore>(DefaultShellStructureStore.new);
+          {{#is_default}}
+          ..registerLazySingleton<DefaultShellStructureStore>(DefaultShellStructureStore.new)
 
-    {{/is_default}}
+          {{/is_default}}
+          {{#is_map}}
+          ..registerLazySingleton<MapShellStructureStore>(MapShellStructureStore.new)
 
-    {{#is_default_map}}
-    ..registerLazySingleton<DefaultMapShellStructureStore>(DefaultMapShellStructureStore.new);
+          {{/is_map}}
+          {{#is_dashboard}}
+          ..registerLazySingleton<DashboardShellStructureStore>(DashboardShellStructureStore.new)
 
-    {{/is_default_map}}
-
-    {{#is_map}}
-    ..registerLazySingleton<MapShellStructureStore>(MapShellStructureStore.new);
-
-    {{/is_map}}
-
-    {{#is_dashboard}}
-    ..registerLazySingleton<DashboardShellStructureStore>(DashboardShellStructureStore.new);
-
-    {{/is_dashboard}}
+        {{/is_dashboard}}
+        ;
 
     ///END OF APP
   }
@@ -130,21 +118,17 @@ class ManagerInjector {
     ///END OF EXTERNAL
   }
 
-
-
-  
-
   /// Getters for all services
   /// [AppRouter] getter
   AppRouter get router => _serviceLocator.get<AppRouter>();
-  
+
   /// [FlavorManager] getter
   FlavorManager get _flavor => _serviceLocator.get<FlavorManager>();
 
   /// [Config] getter
   Config get config => _flavor.flavorConfig as Config;
 
-  /// [ConnectionStateBaseStore] getter
+  /// [ConnectionStateStore] getter
   ConnectionStateStore get connectionStateStore => _serviceLocator.get<ConnectionStateStore>();
 
   /// [ThemeStateStore] getter
@@ -155,12 +139,6 @@ class ManagerInjector {
   DefaultShellStructureStore get defaultShellStore => _serviceLocator.get<DefaultShellStructureStore>();
 
   {{/is_default}}
-
-  {{#is_default_map}}
-  /// [DefaultMapShellStructureStore] getter
-  DefaultMapShellStructureStore get defaultMapShellStore => _serviceLocator.get<DefaultMapShellStructureStore>();
-
-  {{/is_default_map}}
 
   {{#is_map}}
   /// [MapShellStructureStore] getter

@@ -30,9 +30,10 @@ class CreateAppCommand extends DOCommand {
   final bundle = appTemplateBundle;
   final String? appName;
   final bool openVSCode;
+  final bool isEcoSystem;
 
   /// {@macro modelCommand}
-  CreateAppCommand({this.appName, this.openVSCode = true}) {
+  CreateAppCommand({this.appName, this.openVSCode = true, this.isEcoSystem = false}) {
     argParser
       ..addFlag(
         "firebase",
@@ -118,6 +119,7 @@ class CreateAppCommand extends DOCommand {
     final isDefaultmap = selectedStructure == Structure.DefaultMap;
     final isMap = selectedStructure == Structure.Map;
     final isDashboard = selectedStructure == Structure.Dashboard;
+    final isDefaultDashboard = selectedStructure == Structure.DefaultDashboard;
 
     final generateProgress = logger.progress('Creating');
 
@@ -127,10 +129,10 @@ class CreateAppCommand extends DOCommand {
       final vars = getTemplateVars(<String, dynamic>{
         "application_id": iosBundleId,
         "application_id_android": androidBundleId,
-        "is_default": isDefault,
-        "is_default_map": isDefaultmap,
-        "is_map": isMap,
-        "is_dashboard": isDashboard,
+        "is_default": isDefault || isDefaultmap || isDefaultDashboard,
+        "is_default_map": false,
+        "is_map": isMap || isDefaultmap,
+        "is_dashboard": isDashboard || isDefaultDashboard,
       });
 
       final target = DirectoryGeneratorTarget(outputDirectory);
@@ -167,18 +169,22 @@ class CreateAppCommand extends DOCommand {
   Future<void> _runScripts(bool _hasFirebase, Structure selectedStructure) async {
     logger.info('Running scripts'.blue);
     final shouldOpen = argResults?["open"] as bool? ?? openVSCode;
-    final projectDirectory = Directory("./$_projectName");
+    final projectDirectory = Directory("${Directory.current.path}/$_projectName");
     if (!projectDirectory.existsSync()) {
       logger.err('Project directory not found: $_projectName');
       return;
     }
 
-    // Save the current working directory
-    final currentDirectory = Directory.current;
-
     // Change the current working directory to the project directory
     Directory.current = projectDirectory;
     logger.info("Changed directory to $_projectName".blue);
+
+    if (isEcoSystem) {
+      await replaceAllInDirectory(
+        Directory.current,
+        {'../../packages': '../../../packages'},
+      );
+    }
 
     // Now, change into the lib directory
     final libDirectory = Directory('./lib');
@@ -196,23 +202,21 @@ class CreateAppCommand extends DOCommand {
       "oasis add feature --name home",
       'flutter clean',
       'flutter pub get',
-      'dart format .',
       'flutter pub run build_runner build --delete-conflicting-outputs',
+      'dart format .',
     ]);
 
-    // Change the current working directory back to the original project directory
-    Directory.current = currentDirectory;
     Directory.current = projectDirectory;
     logger.info("Changed directory back to original project directory".blue);
-
     if (_projectName != null) {
+      final replaceStringsMap = {
+        'nameTemplate': _projectName!.camelCase,
+        'NameTemplate': _projectName!.pascalCase,
+        'name_template': _projectName!.snakeCase,
+      };
       await replaceAllInDirectory(
         Directory.current,
-        {
-          'nameTemplate': _projectName!.camelCase,
-          'NameTemplate': _projectName!.pascalCase,
-          'name_template': _projectName!.snakeCase,
-        },
+        replaceStringsMap,
       );
     }
 
