@@ -1,4 +1,4 @@
-import 'package:utilities/flavors/flavor_config.dart';
+import "package:utilities/flavors/flavor_config.dart";
 
 /// [Config] is a class that holds all the configurations for the application.
 /// [Config] extends [FlavorConfig] to inherit the properties of the [FlavorConfig] class.

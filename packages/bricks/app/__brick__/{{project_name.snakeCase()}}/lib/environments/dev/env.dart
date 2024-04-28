@@ -1,13 +1,13 @@
-import 'package:envied/envied.dart';
-import 'package:utilities/flavors/flavor_config.dart';
+import "package:envied/envied.dart";
+import "package:utilities/flavors/flavor_config.dart";
 
-part 'env.g.dart';
+part "env.g.dart";
 
 /// Dev Environment
-@Envied(path: 'lib/environments/dev/.env', name: "DevEnv")
+@Envied(path: "lib/environments/dev/.env", name: "DevEnv")
 class DevEnv implements Env {
   /// Name of the environment
-  @EnviedField()
+  @EnviedField(obfuscate: true)
   static const String name = _DevEnv.name;
 
   /// Key1
