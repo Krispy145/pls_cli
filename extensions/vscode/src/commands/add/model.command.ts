@@ -7,6 +7,7 @@ export const addModel = async (args: Uri) => {
   const name = await window.showInputBox({
     prompt: "Name of the model",
     placeHolder: "Model name",
+    ignoreFocusOut: true,
   });
   var targetDir = await getTargetDirectory(args);
 

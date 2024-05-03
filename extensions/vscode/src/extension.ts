@@ -17,6 +17,7 @@ import { addDeepLinks } from "./commands/add/deeplinks.command";
 import { addAssets } from "./commands/add/assets.command";
 import { createPackage } from "./commands/create/package.command";
 import { createEcosystem } from "./commands/create/ecosystem.command";
+import { addUserLocation } from "./commands/add/user-location.command";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -79,6 +80,11 @@ export function activate(context: ExtensionContext) {
 
   let assets = commands.registerCommand("digital-oasis.add-assets", addAssets);
 
+  let userLocation = commands.registerCommand(
+    "digital-oasis.add-user-location",
+    addUserLocation
+  );
+
   context.subscriptions.push(
     /// CREATE
     app,
@@ -97,7 +103,8 @@ export function activate(context: ExtensionContext) {
     admob,
     notifications,
     deepLinks,
-    assets
+    assets,
+    userLocation
   );
 }
 

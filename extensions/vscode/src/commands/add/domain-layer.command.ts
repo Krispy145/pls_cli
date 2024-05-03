@@ -6,6 +6,7 @@ export const addDomainLayer = async (args: Uri) => {
     const name = await window.showInputBox({
       prompt: "Name of the Domain layer",
       placeHolder: "Domain layer name",
+      ignoreFocusOut: true,
     });
 
     if (name) {

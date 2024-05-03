@@ -7,6 +7,7 @@ export const addComponent = async (args: Uri) => {
   const name = await window.showInputBox({
     prompt: "Name of the component",
     placeHolder: "Component name",
+    ignoreFocusOut: true,
   });
   var targetDir = await getTargetDirectory(args);
 

@@ -6,6 +6,7 @@ export const addPresentationLayer = async (args: Uri) => {
     const name = await window.showInputBox({
       prompt: "Name of the Presentation layer",
       placeHolder: "Presentation layer name",
+      ignoreFocusOut: true,
     });
 
     if (name) {

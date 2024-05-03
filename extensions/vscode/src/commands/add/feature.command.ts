@@ -6,6 +6,7 @@ export const addFeature = async (args: Uri) => {
     const name = await window.showInputBox({
       prompt: "Name of the feature",
       placeHolder: "Feature name",
+      ignoreFocusOut: true,
     });
 
     if (name) {

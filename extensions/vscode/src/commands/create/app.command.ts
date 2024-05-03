@@ -18,6 +18,7 @@ export const createApp = async (args: Uri) => {
   const appName = await window.showInputBox({
     prompt: "Enter the name for your new app",
     placeHolder: "digital_oasis_app",
+    ignoreFocusOut: true,
   });
 
   if (!appName) {

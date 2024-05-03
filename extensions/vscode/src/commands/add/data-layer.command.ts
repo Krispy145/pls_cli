@@ -6,6 +6,7 @@ export const addDataLayer = async (args: Uri) => {
     const name = await window.showInputBox({
       prompt: "Name of the Data layer",
       placeHolder: "Data layer name",
+      ignoreFocusOut: true,
     });
 
     if (name) {

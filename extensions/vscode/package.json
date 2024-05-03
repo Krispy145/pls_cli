@@ -28,7 +28,8 @@
     "onCommand:digital-oasis.add-admob",
     "onCommand:digital-oasis.add-notifications",
     "onCommand:digital-oasis.add-deeplinks",
-    "onCommand:digital-oasis.add-assets"
+    "onCommand:digital-oasis.add-assets",
+    "onCommand:digital-oasis.add-user-location"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -110,6 +111,11 @@
         "command": "digital-oasis.add-assets",
         "title": "Add Assets",
         "shortTitle": "Add Assets"
+      },
+      {
+        "command": "digital-oasis.add-user-location",
+        "title": "Add User Location",
+        "shortTitle": "Add User Location"
       }
     ],
     "menus": {
@@ -169,6 +175,10 @@
         {
           "command": "digital-oasis.add-assets",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(assets|lib|))$/"
+        },
+        {
+          "command": "digital-oasis.add-user-location",
+          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
         }
       ]
     }

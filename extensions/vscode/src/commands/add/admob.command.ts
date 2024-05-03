@@ -153,6 +153,7 @@ export const addAdmob = async (args: Uri) => {
 const updateAndroidManifest = async (args: Uri) => {
   const androidAppId = await window.showInputBox({
     prompt: "Enter Android AdMob Application Identifier:",
+    ignoreFocusOut: true,
   });
   while (androidAppId === undefined || androidAppId === "") {
     window.showErrorMessage(
@@ -180,6 +181,7 @@ const updateAndroidManifest = async (args: Uri) => {
 const updateIOSInfoPlist = async (args: Uri) => {
   const iosAppId = await window.showInputBox({
     prompt: "Enter iOS AdMob Application Identifier:",
+    ignoreFocusOut: true,
   });
   while (iosAppId === undefined || iosAppId === "") {
     window.showErrorMessage(
@@ -208,12 +210,15 @@ const updateIOSInfoPlist = async (args: Uri) => {
 const handleAdUnitIds = async (args: Uri) => {
   var bannerAdUnitId = await window.showInputBox({
     prompt: "Enter your Banner Ad Unit ID:",
+    ignoreFocusOut: true,
   });
   var interstitialAdUnitId = await window.showInputBox({
     prompt: "Enter your Interstitial Ad Unit ID:",
+    ignoreFocusOut: true,
   });
   var rewardAdUnitId = await window.showInputBox({
     prompt: "Enter your Reward Ad Unit ID:",
+    ignoreFocusOut: true,
   });
 
   bannerAdUnitId = bannerAdUnitId ? bannerAdUnitId : undefined;
