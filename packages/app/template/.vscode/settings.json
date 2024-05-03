@@ -20,9 +20,9 @@
   "editor.inlineSuggest.enabled": true,
   "editor.formatOnSave": true,
   "explorer.fileNesting.patterns": {
-    "*.dart": "${capture}.g.dart, ${capture}.freezed.dart"
+    "*.dart": "${capture}.g.dart, ${capture}.freezed.dart,${capture}.mapper.dart"
   },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
-  "files.trimTrailingWhitespace": false,
+  "files.trimTrailingWhitespace": false
 }

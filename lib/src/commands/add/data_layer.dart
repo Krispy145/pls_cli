@@ -104,7 +104,10 @@ enum DataSourceTypes {
   firestore,
 
   /// [secure] is the secure data source.
-  secure;
+  secure,
+
+  /// [dummy] is the dummy data source.
+  dummy;
 }
 
 /// [DataRepositories] is a class that defines the different data repositories.

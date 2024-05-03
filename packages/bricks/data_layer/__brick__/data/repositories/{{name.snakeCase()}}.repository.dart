@@ -3,6 +3,7 @@ import '/data/repositories/_repositories.dart';
 import '/data/models/{{name.snakeCase()}}_model.dart';
 import '/data/sources/{{name.snakeCase()}}/_source.dart';
 import '/data/sources/{{name.snakeCase()}}/api.source.dart';
+import '/data/sources/{{name.snakeCase()}}/dummy.source.dart';
 import '/data/sources/{{name.snakeCase()}}/firestore.source.dart';
 import '/data/sources/{{name.snakeCase()}}/local.source.dart';
 
@@ -32,7 +33,7 @@ class {{name.pascalCase()}}DataRepository {
 
       //TODO: set default accordingly
       default:
-        return Local{{name.pascalCase()}}DataSource();
+        return Dummy{{name.pascalCase()}}DataSource();
     }
   }
 }

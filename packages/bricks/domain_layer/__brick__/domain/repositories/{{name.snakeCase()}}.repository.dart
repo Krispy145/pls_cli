@@ -12,7 +12,7 @@ class {{name.pascalCase()}}Repository {
   {{name.pascalCase()}}Repository();
 
   //* {{name.pascalCase()}}Model Data Source Type
-  final _source = DataSourceTypes.assets;
+  final _source = DataSourceTypes.dummy;
 
   /// [getAll{{name.pascalCase()}}Models] fetches all [{{name.pascalCase()}}Model]s from the data source.
   Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models() {

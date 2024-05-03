@@ -5,10 +5,10 @@ import "package:utilities/flavors/flavor_config.dart";
 /// [Config] is used to set variables for constants that are used throughout the application.
 /// and requires hidden values from the environment files.
 class Config extends FlavorConfig {
-  final String key1;
+  final bool showDevTools;
   Config(
     super._environmentName, {
-    required this.key1,
+    this.showDevTools = false,
     required super.apiPrefix,
     required super.loggerFeatures,
   });

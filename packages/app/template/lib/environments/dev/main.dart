@@ -51,7 +51,9 @@ void main() async {
   // }
   /// FIREBASE END
 
-  runApp(const DevApp());
+  runApp(
+    config.showDevTools ? const DevApp() : const MainApp(),
+  );
 }
 
 class DevApp extends StatelessWidget {

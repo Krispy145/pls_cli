@@ -1,17 +1,38 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import "package:dart_mappable/dart_mappable.dart";
 
-part '{{name.snakeCase()}}_model.freezed.dart';
-part '{{name.snakeCase()}}_model.g.dart';
+part "{{name.snakeCase()}}_model.mapper.dart";
 
-/// [{{name.pascalCase()}}Model] is a class that represents the main model.
-@freezed
-class {{name.pascalCase()}}Model with _${{name.pascalCase()}}Model {
-  /// [{{name.pascalCase()}}Model] constructor.
-  const factory {{name.pascalCase()}}Model({
-    required String id,
-     String? name,    
-  }) = _{{name.pascalCase()}}Model;
+@MappableClass(caseStyle: CaseStyle.snakeCase)
+class {{name.pascalCase()}}Model with {{name.pascalCase()}}ModelMappable {
+  final String id;
+  final String name;
 
-  /// [{{name.pascalCase()}}Model] factory constructor.
-  factory {{name.pascalCase()}}Model.fromJson(Map<String, dynamic> json) => _${{name.pascalCase()}}ModelFromJson(json);
+  {{name.pascalCase()}}Model({
+    required this.id,
+    required this.name,
+  });
+
+  static const fromMap = {{name.pascalCase()}}ModelMapper.fromMap;
+  static const fromJson = {{name.pascalCase()}}ModelMapper.fromJson;
+
+  static final {{name.camelCase()}}One = {{name.pascalCase()}}Model(
+    id: "{{name.camelCase()}}OneId",
+    name: "{{name.titleCase()}} One",    
+  );
+  
+  static final {{name.camelCase()}}Two = {{name.pascalCase()}}Model(
+    id: "{{name.camelCase()}}TwoId",
+    name: "{{name.titleCase()}} Two",    
+  );
+  
+  static final {{name.camelCase()}}Three = {{name.pascalCase()}}Model(
+    id: "{{name.camelCase()}}ThreeId",
+    name: "{{name.titleCase()}} Three",    
+  );
+
+  static final List<{{name.pascalCase()}}Model> fakeData = [
+    {{name.camelCase()}}One,
+    {{name.camelCase()}}Two,
+    {{name.camelCase()}}Three,
+  ];
 }
