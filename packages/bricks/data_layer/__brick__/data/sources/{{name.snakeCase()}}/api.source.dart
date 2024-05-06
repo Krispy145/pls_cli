@@ -14,8 +14,8 @@ class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase
           //TODO: Replace the following URL with the actual API URL.
           "https://api.{{name.snakeCase()}}.com",
           sourceSuffix: "{{name.snakeCase()}}",
-          convertDataTypeFromMap: {{name.pascalCase()}}Model.fromJson,
-          convertDataTypeToMap: (data) => data.toJson(),
+          convertDataTypeFromMap: {{name.pascalCase()}}Model.fromMap,
+          convertDataTypeToMap: (data) => data.toMap(),
         );
 
   /// [_handleError] is an optional helper method that handles errors when calling the API.

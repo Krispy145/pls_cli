@@ -12,8 +12,8 @@ class Assets{{name.pascalCase()}}DataSource extends AssetsDataSource<{{name.pasc
       : super(
           //TODO: Replace the following key with the actual assets key.
           rootBundleKey: 'assets/{{name.snakeCase()}}/list.json',
-          convertDataTypeFromMap: {{name.pascalCase()}}Model.fromJson,
-          convertDataTypeToMap: (data) => data.toJson(),
+          convertDataTypeFromMap: {{name.pascalCase()}}Model.fromMap,
+          convertDataTypeToMap: (data) => data.toMap(),
         );
 
 

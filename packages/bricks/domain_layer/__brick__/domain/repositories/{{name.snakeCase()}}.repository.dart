@@ -19,6 +19,14 @@ class {{name.pascalCase()}}Repository {
     return _{{name.camelCase()}}DataRepository.getAll{{name.pascalCase()}}Models(source: _source);
   }
 
+  /// [get{{name.pascalCase()}}Model] fetches a single [{{name.pascalCase()}}Model] from the data source.
+  Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}Model(String id) {
+    return _instagramDataRepository.get{{name.pascalCase()}}Model(
+      source: _source,
+      id: id,
+    );
+  }
+
   /// [addAll{{name.pascalCase()}}Models] adds all [{{name.pascalCase()}}Model]s to the data source.
   Future<void> addAll{{name.pascalCase()}}Models(List<{{name.pascalCase()}}Model> {{name.camelCase()}}Models) {
     return _{{name.camelCase()}}DataRepository.addAll{{name.pascalCase()}}Models(

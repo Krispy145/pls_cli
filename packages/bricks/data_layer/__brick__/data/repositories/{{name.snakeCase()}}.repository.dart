@@ -14,6 +14,12 @@ class {{name.pascalCase()}}DataRepository {
     return _dataSourceByType(source).getAll();    
   }
 
+  /// [get{{name.pascalCase()}}Model] returns a single [{{name.pascalCase()}}Model].
+  Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}Model(
+      {required DataSourceTypes source, required String id}) async {
+    return _dataSourceByType(source).get(id);
+  }
+
   /// [addAll{{name.pascalCase()}}Models] adds all [{{name.pascalCase()}}Model]s to the data source.
   Future<void> addAll{{name.pascalCase()}}Models({required DataSourceTypes source, required List<{{name.pascalCase()}}Model> {{name.camelCase()}}Models}) async {
     return _dataSourceByType(source).addAll({{name.camelCase()}}Models);

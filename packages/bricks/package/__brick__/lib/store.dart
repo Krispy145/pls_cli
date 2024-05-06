@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:utilities/widgets/load_state/base_store.dart';
+import "package:utilities/widgets/load_state/store.dart";
 import 'domain/repositories/{{name.snakeCase()}}.repository.dart';
 
 part 'store.g.dart';

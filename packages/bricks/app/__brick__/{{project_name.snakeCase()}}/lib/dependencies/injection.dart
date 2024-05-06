@@ -19,7 +19,7 @@ import 'package:navigation/structures/map/store.dart';
 import 'package:theme/app/store.dart';
 import 'package:utilities/flavors/flavor_manager.dart';
 import 'package:utilities/logger/logger.dart';
-import 'package:utilities/widgets/connection_state/base_store.dart';
+import "package:utilities/widgets/connection_state/store.dart";
 
 /// [Managers] is a variable that handles all service locator registrations.
 // ignore: non_constant_identifier_names

@@ -4,6 +4,7 @@ import "package:mobx/mobx.dart";
 import "/data/models/{{name.snakeCase()}}_model.dart";
 import "/utils/loggers.dart";
 import "package:utilities/logger/logger.dart";
+import '../list/store.dart';
 
 part "store.g.dart";
 

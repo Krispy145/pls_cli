@@ -31,7 +31,7 @@ class {{name.pascalCase()}}View extends StatelessWidget {
                   store.isEmpty ? "Empty {{name.pascalCase()}}" : "store.current{{name.pascalCase()}}?.name",
                   style: context.textTheme.headlineMedium,
                 ),
-          )
+          );
         },
       ),
     );
