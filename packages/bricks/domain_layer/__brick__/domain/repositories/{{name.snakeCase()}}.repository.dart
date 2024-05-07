@@ -21,7 +21,7 @@ class {{name.pascalCase()}}Repository {
 
   /// [get{{name.pascalCase()}}Model] fetches a single [{{name.pascalCase()}}Model] from the data source.
   Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}Model(String id) {
-    return _instagramDataRepository.get{{name.pascalCase()}}Model(
+    return _{{name.camelCase()}}DataRepository.get{{name.pascalCase()}}Model(
       source: _source,
       id: id,
     );
