@@ -5,7 +5,7 @@ import '/data/sources/{{name.snakeCase()}}/_source.dart';
 import '/data/sources/{{name.snakeCase()}}/api.source.dart';
 import '/data/sources/{{name.snakeCase()}}/dummy.source.dart';
 import '/data/sources/{{name.snakeCase()}}/firestore.source.dart';
-import '/data/sources/{{name.snakeCase()}}/local.source.dart';
+import '/data/sources/{{name.snakeCase()}}/secure.source.dart';
 
 /// [{{name.pascalCase()}}DataRepository] is a class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
 class {{name.pascalCase()}}DataRepository {
@@ -32,8 +32,8 @@ class {{name.pascalCase()}}DataRepository {
     switch (type) {
       case DataSourceTypes.api:
         return Api{{name.pascalCase()}}DataSource();
-      case DataSourceTypes.local:
-        return Local{{name.pascalCase()}}DataSource();
+      case DataSourceTypes.secure:
+        return Secure{{name.pascalCase()}}DataSource();
       case DataSourceTypes.firestore:
         return Firestore{{name.pascalCase()}}DataSource();
 
