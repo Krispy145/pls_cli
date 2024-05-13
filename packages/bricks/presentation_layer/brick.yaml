@@ -23,3 +23,7 @@ vars:
     type: string
     description: presentation layer name
     prompt: What is the presentation layer name?
+  project:
+    type: string
+    description: project name
+    prompt: What is the project name?

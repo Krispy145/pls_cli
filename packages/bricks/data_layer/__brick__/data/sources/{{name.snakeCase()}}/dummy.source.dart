@@ -1,13 +1,20 @@
 import "package:utilities/data_sources/local/dummy_data.dart";
+import "package:utilities/data/models/basic_search_query_model.dart";
 
 import '../../models/{{name.snakeCase()}}_model.dart';
 import '_source.dart';
 
 /// [Dummy{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
-class Dummy{{name.pascalCase()}}DataSource extends DummyDataSource<{{name.pascalCase()}}Model> implements {{name.pascalCase()}}DataSource {
+class Dummy{{name.pascalCase()}}DataSource extends DummyDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource {
   @override
   List<{{name.pascalCase()}}Model> get fakeData => {{name.pascalCase()}}Model.fakeData;
 
   @override
   bool matchesID(String id, {{name.pascalCase()}}Model item) => item.id == id;
+
+  @override
+  bool matchesQuery(BasicSearchQueryModel query, {{name.pascalCase()}}Model item) {
+    // TODO: implement matchesQuery
+    throw UnimplementedError();
+  }
 }

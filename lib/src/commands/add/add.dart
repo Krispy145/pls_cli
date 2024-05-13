@@ -1,4 +1,5 @@
 import 'package:oasis_cli/src/commands/add/auth.dart';
+import 'package:oasis_cli/src/commands/add/ecosystem_presentation_layer.dart';
 import 'package:oasis_cli/src/commands/base.dart';
 
 import 'component.dart';
@@ -25,6 +26,7 @@ class AddCommand extends DOCommand {
     addSubcommand(DataLayerCommand());
     addSubcommand(DomainLayerCommand());
     addSubcommand(PresentationLayerCommand());
+    addSubcommand(EcosystemPresentationLayerCommand());
     addSubcommand(NotificationsFeatureCommand());
     addSubcommand(MultiNotificationsFeatureCommand());
     addSubcommand(LoggerFeatureCommand());

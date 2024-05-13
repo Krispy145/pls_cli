@@ -7,6 +7,7 @@ export 'default_dashboard_structure_bundle.dart';
 export 'default_map_structure_bundle.dart';
 export 'default_structure_bundle.dart';
 export 'domain_layer_bundle.dart';
+export 'ecosystem_presentation_layer_bundle.dart';
 export 'map_structure_bundle.dart';
 export 'model_bundle.dart';
 export 'multi_notifications_feature_bundle.dart';

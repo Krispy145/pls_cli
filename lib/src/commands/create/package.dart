@@ -66,25 +66,25 @@ class PackageCommand extends BrickCommandBase {
     argParser.parse(['--name=$packageName']);
 
     var wrapper = argResults?["wrapper"] as bool? ?? false;
-    if (wrapper != true) {
+    if (wrapper != true && !isEcoSystem) {
       wrapper = logger.confirm(prompt: _wrapperPrompt);
       if (wrapper) argParser.parse(["--wrapper"]);
     }
 
     var data = argResults?["data"] as bool? ?? false;
-    if (data != true) {
+    if (data != true && !isEcoSystem) {
       data = logger.confirm(prompt: _dataPrompt);
       if (data) argParser.parse(["--data"]);
     }
 
     var domain = argResults?["domain"] as bool? ?? false;
-    if (domain != true) {
+    if (domain != true && !isEcoSystem) {
       domain = logger.confirm(prompt: _domainPrompt);
       if (domain) argParser.parse(["--domain"]);
     }
 
     var presentation = argResults?["presentation"] as bool? ?? false;
-    if (presentation != true) {
+    if (presentation != true && !isEcoSystem) {
       presentation = logger.confirm(prompt: _presentationPrompt);
       if (presentation) argParser.parse(["--presentation"]);
     }
@@ -120,13 +120,31 @@ class PackageCommand extends BrickCommandBase {
       return;
     }
 
+    final dataLayerScript = isEcoSystem
+        ? 'oasis add data_layer --name=home --project=$packageName'
+        : data
+            ? 'oasis add data_layer --name=$packageName --project=$packageName'
+            : null;
+    final domainLayerScript = isEcoSystem
+        ? 'oasis add domain_layer --name=home --project=$packageName'
+        : domain
+            ? 'oasis add domain_layer --name=$packageName --project=$packageName'
+            : null;
+    final presentationLayerScript = presentation ? 'oasis add presentation_layer --name=$packageName --project=$packageName' : null;
+
     Directory.current = libDirectory;
     logger.info("Changed directory to lib".blue);
     await runScripts(
       [
-        if (data) 'oasis add data_layer --name=$packageName',
-        if (domain) 'oasis add domain_layer --name=$packageName',
-        if (presentation) 'oasis add presentation_layer --name=$packageName',
+        if (dataLayerScript != null) dataLayerScript,
+        if (domainLayerScript != null) domainLayerScript,
+        if (presentationLayerScript != null) presentationLayerScript,
+        if (!isEcoSystem) ...[
+          'flutter clean',
+          'flutter pub get',
+          'flutter pub run build_runner build --delete-conflicting-outputs',
+          'dart format .',
+        ],
       ],
     );
 
@@ -134,9 +152,9 @@ class PackageCommand extends BrickCommandBase {
     Directory.current = packageDirectory;
     logger.info("Changed directory back to $packageName".blue);
     final replaceStringsMap = {
-      'nameTemplate': packageName.camelCase,
-      'NameTemplate': packageName.pascalCase,
-      'name_template': packageName.snakeCase,
+      'parentNameTemplate': packageName.camelCase,
+      'ParentNameTemplate': packageName.pascalCase,
+      'parent_name_template': packageName.snakeCase,
     };
     if (isEcoSystem) replaceStringsMap['../../packages'] = '../../../packages';
 
@@ -144,14 +162,7 @@ class PackageCommand extends BrickCommandBase {
       Directory.current,
       replaceStringsMap,
     );
-    Directory.current = libDirectory;
-    logger.info("Changed directory to lib".blue);
-    await runScripts([
-      'flutter clean',
-      'flutter pub get',
-      'dart format .',
-      'flutter pub run build_runner build --delete-conflicting-outputs',
-    ]);
+
     Directory.current = currentDirectory;
     logger.info("Changed directory back to ${currentDirectory.path}".blue);
     await replaceAllInDirectory(

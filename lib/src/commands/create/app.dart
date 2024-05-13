@@ -199,20 +199,22 @@ class CreateAppCommand extends DOCommand {
     await runScripts([
       if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
       "oasis add structure --type ${selectedStructure.name}",
-      "oasis add feature --name home",
-      'flutter clean',
-      'flutter pub get',
-      'flutter pub run build_runner build --delete-conflicting-outputs',
-      'dart format .',
+      if (!isEcoSystem) ...[
+        "oasis add feature --name home --project=$_projectName",
+        'flutter clean',
+        'flutter pub get',
+        'flutter pub run build_runner build --delete-conflicting-outputs',
+        'dart format .',
+      ],
     ]);
 
     Directory.current = projectDirectory;
     logger.info("Changed directory back to original project directory".blue);
     if (_projectName != null) {
       final replaceStringsMap = {
-        'nameTemplate': _projectName!.camelCase,
-        'NameTemplate': _projectName!.pascalCase,
-        'name_template': _projectName!.snakeCase,
+        'parentNameTemplate': _projectName!.camelCase,
+        'ParentNameTemplate': _projectName!.pascalCase,
+        'parent_name_template': _projectName!.snakeCase,
       };
       await replaceAllInDirectory(
         Directory.current,

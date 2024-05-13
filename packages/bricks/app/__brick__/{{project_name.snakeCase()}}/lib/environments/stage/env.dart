@@ -8,9 +8,5 @@ part "env.g.dart";
 class StageEnv implements Env {
   /// Name of the environment
   @EnviedField(obfuscate: true)
-  static const String name = _StageEnv.name;
-
-  /// Key1
-  @EnviedField(obfuscate: true)
-  static String key1 = _StageEnv.key1;
+  static final String name = _StageEnv.name;
 }

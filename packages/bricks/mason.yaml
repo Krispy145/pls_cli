@@ -5,8 +5,10 @@ bricks:
     path: ./domain_layer
   presentation_layer:
     path: ./presentation_layer
+  ecosystem_presentation_layer:
+    path: ./ecosystem_presentation_layer
   model:
-    path: ./model    
+    path: ./model
   auth:
     path: ./auth
   package:
@@ -27,4 +29,3 @@ bricks:
     path: ./map_structure
   default_map_structure:
     path: ./default_map_structure
-  

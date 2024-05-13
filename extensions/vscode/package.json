@@ -3,7 +3,7 @@
   "displayName": "Digital Oasis",
   "publisher": "skate-oasis",
   "description": "vscode extension to streamline dev",
-  "version": "0.7.5",
+  "version": "0.8.1",
   "repository": "https://github.com/digital-oasis-llc-fz/digital-oasis-cli",
   "private": true,
   "icon": "assets/128.png",
@@ -38,6 +38,10 @@
       {
         "label": "Digital Oasis",
         "id": "digital-oasis.submenu"
+      },
+      {
+        "label": "Ecosystem",
+        "id": "digital-oasis.ecosystem.submenu"
       }
     ],
     "commands": [
@@ -130,6 +134,10 @@
       "commandPalette": [],
       "digital-oasis.submenu": [
         {
+          "submenu": "digital-oasis.ecosystem.submenu",
+          "when": "explorerResourceIsFolder"
+        },
+        {
           "command": "digital-oasis.add-feature",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
         },
@@ -180,6 +188,20 @@
         {
           "command": "digital-oasis.add-user-location",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
+        }
+      ],
+      "digital-oasis.ecosystem.submenu": [
+        {
+          "command": "digital-oasis.create-app",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "digital-oasis.create-package",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "digital-oasis.create-ecosystem",
+          "when": "explorerResourceIsFolder"
         }
       ]
     },

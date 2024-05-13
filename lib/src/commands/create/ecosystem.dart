@@ -66,13 +66,20 @@ class EcosystemCommand extends BrickCommandBase {
       ..info("Creating package 🚀".yellow);
     Directory.current = ecosystemDirectory;
     logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
-    await packageCommand.run(additionalArgs: {"name": packageName, "open": false, "ecosystem": true});
+    await packageCommand.run(additionalArgs: {"name": "${packageName}_package", "open": false, "ecosystem": true});
     logger.info("Package created ✅\n\n".green);
     Directory.current = ecosystemDirectory;
+    await runScripts([
+      'oasis add ecosystem_presentation_layer --name=home --project=$packageName',
+      'flutter clean',
+      'flutter pub get',
+      'dart format .',
+      'flutter pub run build_runner build --delete-conflicting-outputs',
+    ]);
     logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
 
     await Process.start('code', [
-      './$packageName',
+      './${packageName}_package',
       './${packageName}_app',
       './${packageName}_dashboard',
     ]);

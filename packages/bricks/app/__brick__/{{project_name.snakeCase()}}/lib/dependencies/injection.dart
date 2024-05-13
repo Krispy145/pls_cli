@@ -2,7 +2,6 @@ import 'package:{{project_name.snakeCase()}}/core/assets/assets.gen.dart';
 import 'package:{{project_name.snakeCase()}}/environments/config.dart';
 import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
 import 'package:get_it/get_it.dart';
-import 'package:name_template/utils/loggers.dart';
 
 {{#is_dashboard}}
 import 'package:navigation/structures/dashboard/store.dart';
@@ -14,6 +13,7 @@ import 'package:navigation/structures/default/store.dart';
 {{/is_default}}
 {{#is_map}}
 import 'package:navigation/structures/map/store.dart';
+import 'package:parent_name_template/utils/loggers.dart';
 
 {{/is_map}}
 import 'package:theme/app/store.dart';
@@ -35,11 +35,11 @@ class ManagerInjector {
   void init({required Config config}) {
     final _loggerInjector = AppLoggerInjector(config.loggerFeatures);
     _serviceLocator.registerLazySingleton<AppLoggerInjector>(() => _loggerInjector);
-    AppLogger.print("Initializing ManagerInjector...", [NameTemplateLoggers.dependencyInjection]);
+    AppLogger.print("Initializing ManagerInjector...", [ParentNameTemplateLoggers.dependencyInjection]);
     _initCore(config: config);
     _initApp();
     _initExternal();
-    AppLogger.print("ManagerInjector initialization complete.", [NameTemplateLoggers.dependencyInjection], type: LoggerType.confirmation);
+    AppLogger.print("ManagerInjector initialization complete.", [ParentNameTemplateLoggers.dependencyInjection], type: LoggerType.confirmation);
   }
 
   /// [add] is responsible for adding a service locator registration.
@@ -74,7 +74,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for core classes used in multiple features.
   void _initCore({required Config config}) {
-    AppLogger.print("Initializing core services...", [NameTemplateLoggers.dependencyInjection]);
+    AppLogger.print("Initializing core services...", [ParentNameTemplateLoggers.dependencyInjection]);
     _serviceLocator
       ..registerSingleton(AppRouter())
       ..registerLazySingleton<ConnectionStateStore>(ConnectionStateStore.new)
@@ -85,7 +85,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for the app classes used in multiple features.
   void _initApp() {
-    AppLogger.print("Initializing app services...", [NameTemplateLoggers.dependencyInjection]);
+    AppLogger.print("Initializing app services...", [ParentNameTemplateLoggers.dependencyInjection]);
     _serviceLocator
           ..registerLazySingleton<ThemeStateStore>(
             () => ThemeStateStore.assets(
@@ -113,7 +113,7 @@ class ManagerInjector {
 
   /// Method responsible for handling all service locator registrations for external services.
   void _initExternal() {
-    AppLogger.print("Initializing external services...", [NameTemplateLoggers.dependencyInjection]);
+    AppLogger.print("Initializing external services...", [ParentNameTemplateLoggers.dependencyInjection]);
 
     ///END OF EXTERNAL
   }

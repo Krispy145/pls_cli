@@ -24,12 +24,10 @@ void main() async {
 
   final config = Config(
     DevEnv.name,
-    key1: DevEnv.key1,
     loggerFeatures: loggerFeatures,
     apiPrefix: "dev_base_url",
   );
   
-  Managers.init(config: config);
 
   {{#has_firebase}}
   // TODO: Uncomment this after adding the firebase_options_dev.dart file
@@ -50,6 +48,7 @@ void main() async {
   //   };
   // }
   {{/has_firebase}}
+  Managers.init(config: config);
 
   runApp(
     config.showDevTools ? const DevApp() : const MainApp(),

@@ -22,12 +22,9 @@ void main() async {
 
   final config = Config(
     ProdEnv.name,
-    key1: ProdEnv.key1,
     loggerFeatures: loggerFeatures,
     apiPrefix: "prod_base_url",
   );
-
-  Managers.init(config: config);
 
   /// FIREBASE START
   // TODO: Uncomment this after adding the firebase_options_prod.dart file
@@ -49,6 +46,7 @@ void main() async {
   // }
 
   /// FIREBASE END
+  Managers.init(config: config);
 
   runApp(const MainApp());
 }

@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
                     ),
                   ]
                 : 
-            ///  FIREBASE END
+            {{/has_firebase}}
                 [],
           ),
         );

@@ -4,7 +4,7 @@ import '/data/repositories/{{name.snakeCase()}}.repository.dart';
 
 
 
-/// [{{name.pascalCase()}}Repository] is an abstract class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
+/// [{{name.pascalCase()}}Repository] is a class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
 class {{name.pascalCase()}}Repository {
   final {{name.pascalCase()}}DataRepository _{{name.camelCase()}}DataRepository = DataRepositories.instance.{{name.camelCase()}};
 
@@ -12,7 +12,7 @@ class {{name.pascalCase()}}Repository {
   {{name.pascalCase()}}Repository();
 
   //* {{name.pascalCase()}}Model Data Source Type
-  final _source = DataSourceTypes.dummy;
+  final _source = {{name.camelCase()}}DataSourceTypes.dummy;
 
   /// [getAll{{name.pascalCase()}}Models] fetches all [{{name.pascalCase()}}Model]s from the data source.
   Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models() {
@@ -21,9 +21,17 @@ class {{name.pascalCase()}}Repository {
 
   /// [get{{name.pascalCase()}}Model] fetches a single [{{name.pascalCase()}}Model] from the data source.
   Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}Model(String id) {
-    return _instagramDataRepository.get{{name.pascalCase()}}Model(
+    return _{{name.camelCase()}}DataRepository.get{{name.pascalCase()}}Model(
       source: _source,
       id: id,
+    );
+  }
+
+  /// [addit{{name.pascalCase()}}Model] addits a single [{{name.pascalCase()}}Model] to the data source.
+  Future<void> addit{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}Model) {
+    return _{{name.camelCase()}}DataRepository.addit{{name.pascalCase()}}Model(
+      source: _source,
+      {{name.camelCase()}}Model: {{name.camelCase()}}Model,
     );
   }
 
@@ -32,6 +40,15 @@ class {{name.pascalCase()}}Repository {
     return _{{name.camelCase()}}DataRepository.addAll{{name.pascalCase()}}Models(
       source: _source,
       {{name.camelCase()}}Models: {{name.camelCase()}}Models,
+    );
+  }
+
+
+  /// [delete{{name.pascalCase()}}Model] deletes a single [{{name.pascalCase()}}Model] from the data source.
+  Future<void> delete{{name.pascalCase()}}Model(String id) {
+    return _{{name.camelCase()}}DataRepository.delete{{name.pascalCase()}}Model(
+      source: _source,
+      id: id,
     );
   }
 }

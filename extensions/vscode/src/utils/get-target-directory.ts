@@ -40,14 +40,38 @@ async function promptForTargetDirectory(): Promise<string | undefined> {
   });
 }
 
+// Function to find the name of the Project/Ecosystem
+export const findProjectName = (uri: Uri): string => {
+  const currentWorkspace = workspace.getWorkspaceFolder(uri);
+  if (currentWorkspace) {
+    var baseName = path.basename(currentWorkspace.uri.fsPath);
+    if (baseName === "lib") {
+      var parentPath = path.dirname(currentWorkspace.uri.fsPath);
+      if (parentPath.includes("_app")) {
+        return path.basename(parentPath.substring(0, parentPath.length - 4));
+      }
+      if (parentPath.includes("_dashboard")) {
+        return path.basename(parentPath.substring(0, parentPath.length - 10));
+      }
+      if (parentPath.includes("_package")) {
+        return path.basename(parentPath.substring(0, parentPath.length - 9));
+      } else {
+        return path.basename(parentPath);
+      }
+    }
+    return baseName;
+  } else {
+    window.showErrorMessage("No workspace folder found.");
+    throw new Error("No workspace folder found.");
+  }
+};
+
 // Function to get the required file path in the workspace
 export const getWorkspaceFilePath = (
   uri: Uri,
   relativePath: string
 ): string => {
-  var currentWorkspace = workspace.workspaceFolders?.find((workspace) =>
-    uri.fsPath.startsWith(workspace.uri.fsPath)
-  );
+  const currentWorkspace = workspace.getWorkspaceFolder(uri);
   if (currentWorkspace) {
     return path.join(currentWorkspace.uri.fsPath, relativePath);
   } else {

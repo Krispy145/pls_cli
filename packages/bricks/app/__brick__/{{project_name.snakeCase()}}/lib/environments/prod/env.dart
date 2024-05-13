@@ -8,9 +8,5 @@ part "env.g.dart";
 class ProdEnv implements Env {
   /// Name of the environment
   @EnviedField(obfuscate: true)
-  static const String name = _ProdEnv.name;
-
-  /// Key1
-  @EnviedField(obfuscate: true)
-  static String key1 = _ProdEnv.key1;
+  static final String name = _ProdEnv.name;
 }

@@ -1,13 +1,13 @@
 
 import 'package:utilities/data_sources/remote/api.dart';
 import 'package:utilities/logger/logger.dart';
-
+import "package:utilities/data/models/basic_search_query_model.dart";
 import '../../models/{{name.snakeCase()}}_model.dart';
-import 'package:name_template/utils/loggers.dart';
+import 'package:parent_name_template/utils/loggers.dart';
 import '_source.dart';
 
 /// [Api{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
-class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase()}}Model> implements {{name.pascalCase()}}DataSource {
+class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource {
   /// [Api{{name.pascalCase()}}DataSource] constructor.
   Api{{name.pascalCase()}}DataSource()
       : super(
@@ -18,6 +18,12 @@ class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase
           convertDataTypeToMap: (data) => data.toMap(),
         );
 
+  @override
+    Map<String, dynamic> buildQuery(BasicSearchQueryModel query) {
+      // TODO: implement buildQuery
+      throw UnimplementedError();
+    }
+
   /// [_handleError] is an optional helper method that handles errors when calling the API.
   // ignore: unused_element
   Future<T?> _handleError<T>(Future<T?> Function() apiCall) async {
@@ -26,7 +32,7 @@ class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase
     } catch (e) {
       AppLogger.print(
         "API RESULT: Failed request: $e",
-        [NameTemplateLoggers.{{name.camelCase()}}],
+        [ParentNameTemplateLoggers.{{name.camelCase()}}],
         type: LoggerType.error,
       );
       return null;

@@ -5,27 +5,29 @@ part "{{name.snakeCase()}}_model.mapper.dart";
 @MappableClass(caseStyle: CaseStyle.snakeCase)
 class {{name.pascalCase()}}Model with {{name.pascalCase()}}ModelMappable {
   final String id;
-  final String name;
+  final String? name;
 
-  {{name.pascalCase()}}Model({
+  const {{name.pascalCase()}}Model({
     required this.id,
-    required this.name,
+     this.name,
   });
 
   static const fromMap = {{name.pascalCase()}}ModelMapper.fromMap;
   static const fromJson = {{name.pascalCase()}}ModelMapper.fromJson;
 
-  static final {{name.camelCase()}}One = {{name.pascalCase()}}Model(
+  static const empty = {{name.pascalCase()}}Model(id: "");
+
+  static const {{name.camelCase()}}One = {{name.pascalCase()}}Model(
     id: "{{name.camelCase()}}OneId",
     name: "{{name.titleCase()}} One",    
   );
   
-  static final {{name.camelCase()}}Two = {{name.pascalCase()}}Model(
+  static const {{name.camelCase()}}Two = {{name.pascalCase()}}Model(
     id: "{{name.camelCase()}}TwoId",
     name: "{{name.titleCase()}} Two",    
   );
   
-  static final {{name.camelCase()}}Three = {{name.pascalCase()}}Model(
+  static const {{name.camelCase()}}Three = {{name.pascalCase()}}Model(
     id: "{{name.camelCase()}}ThreeId",
     name: "{{name.titleCase()}} Three",    
   );

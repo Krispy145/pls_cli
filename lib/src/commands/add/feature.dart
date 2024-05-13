@@ -8,7 +8,17 @@ import 'package:oasis_cli/src/utils/helpers.dart';
 class FeatureCommand extends DOCommand {
   /// FeatureCommand constructor
   FeatureCommand() {
-    argParser.addDefaultOptions();
+    argParser
+      ..addDefaultOptions()
+      ..addOption(
+        'project',
+        help: 'The name of the project',
+        valueHelp: 'project_name',
+      )
+      ..addFlag(
+        'ecosystem',
+        help: 'Add the ecosystem to the project',
+      );
   }
   @override
   String get description => "Creates a new feature for the app";
@@ -19,16 +29,22 @@ class FeatureCommand extends DOCommand {
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     final buildRunner = argResults?['runner'] as bool? ?? false;
+    final projectName = argResults?['project'] as String?;
+    final isEcoSystem = argResults?['ecosystem'] as bool? ?? false;
     final featureName = argResults?['name'] as String? ??
         logger.prompt(
           prompt: "What is the name of the feature?",
           validator: isValidDirectoryName,
         );
+    final dataLayerScript = isEcoSystem ? 'oasis add data_layer --name=$featureName --project=${projectName}_package' : 'oasis add data_layer --name=$featureName --project=$projectName';
+    final domainLayerScript = isEcoSystem ? 'oasis add domain_layer --name=$featureName --project=${projectName}_package' : 'oasis add domain_layer --name=$featureName --project=$projectName';
+    final presentationLayerScript =
+        isEcoSystem ? 'oasis add ecosystem_presentation_layer --name=$featureName --project=$projectName' : 'oasis add presentation_layer --name=$featureName --project=$projectName';
 
     return runScripts([
-      "oasis add data_layer --name=$featureName",
-      "oasis add domain_layer --name=$featureName",
-      "oasis add presentation_layer --name=$featureName",
+      dataLayerScript,
+      domainLayerScript,
+      presentationLayerScript,
       'oasis add logger --name=$featureName',
       if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
       'dart format .',

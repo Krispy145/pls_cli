@@ -10,6 +10,14 @@ import '../brick_command_base.dart';
 /// Add a data layer for the app.
 /// {@endtemplate}
 class DataLayerCommand extends BrickCommandBase {
+  /// [DataLayerCommand] constructor
+  DataLayerCommand() {
+    argParser.addOption(
+      'project',
+      help: 'The name of the project',
+      valueHelp: 'project_name',
+    );
+  }
   @override
   final MasonBundle bundle = dataLayerBundle;
 
@@ -22,8 +30,20 @@ class DataLayerCommand extends BrickCommandBase {
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     final buildRunner = argResults?['runner'] as bool? ?? false;
+    final projectName = argResults?['project'] as String?;
     await super.run();
     _addRepositoriesFile();
+    if (projectName != null) {
+      final replaceStringsMap = {
+        'parentNameTemplate': projectName.camelCase,
+        'ParentNameTemplate': projectName.pascalCase,
+        'parent_name_template': projectName.snakeCase,
+      };
+      await replaceAllInDirectory(
+        Directory.current,
+        replaceStringsMap,
+      );
+    }
     return runScripts([
       if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
@@ -89,8 +109,8 @@ class DataLayerCommand extends BrickCommandBase {
 import '${_featureName.snakeCase}.repository.dart';
 ///END OF IMPORTS
 
-/// [DataSourceTypes] is an enum that defines the different data sources.
-enum DataSourceTypes {
+/// [${_featureName.pascalCase}DataSourceTypes] is an enum that defines the different data sources.
+enum ${_featureName.pascalCase}DataSourceTypes {
   /// [api] is the remote data source.
   api,
 
