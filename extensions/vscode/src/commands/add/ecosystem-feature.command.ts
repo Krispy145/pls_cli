@@ -10,7 +10,7 @@ export const addEcosystemFeature = async (args: Uri) => {
     var projectName = findProjectName(args);
     var projectPath = args.fsPath.split(projectName)[0] + projectName;
 
-    var packageExtension = `/${projectPath}_package/lib`;
+    var packageExtension = `/${projectName}_package/lib`;
     var appExtension = `/${projectName}_app/lib`;
     var dashboardExtension = `/${projectName}_dashboard/lib`;
     window.showInformationMessage(projectPath);
