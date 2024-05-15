@@ -16,7 +16,8 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
   {{name.pascalCase()}}sView({super.key});
 
   /// [store] is an instance of [Addit{{name.pascalCase()}}sStore], used in the [LoadStateBuilder].
-  final Addit{{name.pascalCase()}}sStore store = Managers.addit{{name.pascalCase()}}sStore;
+  /// TODO: Move to Managers if requiring global state of store.
+  final Addit{{name.pascalCase()}}sStore store = Addit{{name.pascalCase()}}sStore();
 
   @override
   Widget build(BuildContext context) {

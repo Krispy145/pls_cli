@@ -2,8 +2,6 @@ import '/data/models/{{name.snakeCase()}}_model.dart';
 import '/data/repositories/_repositories.dart';
 import '/data/repositories/{{name.snakeCase()}}.repository.dart';
 
-
-
 /// [{{name.pascalCase()}}Repository] is a class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
 class {{name.pascalCase()}}Repository {
   final {{name.pascalCase()}}DataRepository _{{name.camelCase()}}DataRepository = DataRepositories.instance.{{name.camelCase()}};
@@ -12,7 +10,7 @@ class {{name.pascalCase()}}Repository {
   {{name.pascalCase()}}Repository();
 
   //* {{name.pascalCase()}}Model Data Source Type
-  final _source = {{name.camelCase()}}DataSourceTypes.dummy;
+  final _source = {{name.pascalCase()}}DataSourceTypes.dummy;
 
   /// [getAll{{name.pascalCase()}}Models] fetches all [{{name.pascalCase()}}Model]s from the data source.
   Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models() {

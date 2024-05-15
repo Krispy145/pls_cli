@@ -15,16 +15,6 @@ export const createPackage = async (args: Uri) => {
 
   const appDirectory = folderUri[0].fsPath;
 
-  // const appName = await window.showInputBox({
-  //   prompt: "Enter the name for your new package",
-  //   placeHolder: "digital_oasis_package",
-  // });
-
-  // if (!appName) {
-  //   window.showErrorMessage("Package name not provided. Aborting.");
-  //   return;
-  // }
-
   const terminal = window.createTerminal("Create New Package");
   const cmd = `oasis create package`;
 

@@ -23,24 +23,29 @@ class LoggerFeatureCommand extends DOCommand {
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     final buildRunner = argResults?['runner'] as bool? ?? false;
+    final path = argResults?['path'] as String?;
     // parse the event name
     final featureName = argResults?['name'] as String? ??
         logger.prompt(
           prompt: "What is the name of the logger feature?",
           validator: isValidDirectoryName,
         );
-    // Call the runInLibDirectory function to change the working directory to "lib"
-    await runInLibDirectory(
-      () => replaceLoggerFeatureString(featureName),
-      extensionPath: "utils",
-    );
+    if (path != null) {
+      await replaceLoggerFeatureString(featureName, '$path/utils');
+    } else {
+      // Call the runInLibDirectory function to change the working directory to "lib"
+      await runInLibDirectory(
+        () => replaceLoggerFeatureString(featureName, Directory.current.path),
+        extensionPath: "utils",
+      );
+    }
     return runScripts([
       if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
   }
 
   /// Add the Feature to the Logger to be used in the app
-  Future<void> replaceLoggerFeatureString(String name) async {
+  Future<void> replaceLoggerFeatureString(String name, String path) async {
     // Define the string to replace
     const searchString = '///LOGGER FEATURE END';
 
@@ -48,14 +53,14 @@ class LoggerFeatureCommand extends DOCommand {
     final replacementString = '/// [${name.camelCase}] is the ${name.pascalCase} feature\n ${name.camelCase},\n\n ///LOGGER FEATURE END';
 
     // Get the current working directory
-    final currentDirectory = Directory.current;
+    final currentDirectory = Directory(path);
 
     // Read the content of the logger feature file
     final loggerFeatureFile = File.fromUri(currentDirectory.uri.resolve('loggers.dart'));
     var fileContent = loggerFeatureFile.readAsStringSync();
 
     // Replace the string
-    if (!fileContent.contains(replacementString)) {
+    if (!fileContent.contains("[${name.camelCase}] is the ${name.pascalCase} feature\n ${name.camelCase}")) {
       fileContent = fileContent.replaceFirst(searchString, replacementString);
     }
 

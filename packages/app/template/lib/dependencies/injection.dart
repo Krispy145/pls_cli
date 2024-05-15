@@ -13,9 +13,9 @@ import 'package:navigation/structures/default/store.dart';
 /// IS_DEFAULT END
 /// IS_MAP START
 import 'package:navigation/structures/map/store.dart';
-import 'package:parent_name_template/utils/loggers.dart';
 
 /// IS_MAP END
+import 'package:parent_name_template/utils/loggers.dart';
 import 'package:theme/app/store.dart';
 import 'package:utilities/flavors/flavor_manager.dart';
 import 'package:utilities/logger/logger.dart';
@@ -90,7 +90,7 @@ class ManagerInjector {
           ..registerLazySingleton<ThemeStateStore>(
             () => ThemeStateStore.assets(
               baseThemeAssetPath: Assets.themes.baseTheme,
-              componentThemesAssetPath: Assets.themes.componentsThemes,
+              componentThemesAssetPath: Assets.themes.componentsTheme,
             ),
           )
 

@@ -44,6 +44,7 @@ class PresentationLayerCommand extends BrickCommandBase {
       );
     }
     return runScripts([
+      'oasis add logger --name=$name',
       if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
   }

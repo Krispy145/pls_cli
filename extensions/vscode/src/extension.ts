@@ -18,6 +18,10 @@ import { addAssets } from "./commands/add/assets.command";
 import { createPackage } from "./commands/create/package.command";
 import { createEcosystem } from "./commands/create/ecosystem.command";
 import { addUserLocation } from "./commands/add/user-location.command";
+import { addEcosystemPresentationLayer } from "./commands/add/ecosystem-presentation-layer.command";
+import { addEcosystemDataLayer } from "./commands/add/ecosystem-data-layer.command";
+import { addEcosystemDomainLayer } from "./commands/add/ecosystem-domain-layer.command";
+import { addEcosystemFeature } from "./commands/add/ecosystem-feature.command";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -85,6 +89,26 @@ export function activate(context: ExtensionContext) {
     addUserLocation
   );
 
+  let ecosystemFeature = commands.registerCommand(
+    "digital-oasis.add-ecosystem-feature",
+    addEcosystemFeature
+  );
+
+  let ecosystemPresentation = commands.registerCommand(
+    "digital-oasis.add-ecosystem-presentation-layer",
+    addEcosystemPresentationLayer
+  );
+
+  let ecosystemData = commands.registerCommand(
+    "digital-oasis.add-ecosystem-data-layer",
+    addEcosystemDataLayer
+  );
+
+  let ecosystemDomain = commands.registerCommand(
+    "digital-oasis.add-ecosystem-domain-layer",
+    addEcosystemDomainLayer
+  );
+
   context.subscriptions.push(
     /// CREATE
     app,
@@ -104,7 +128,11 @@ export function activate(context: ExtensionContext) {
     notifications,
     deepLinks,
     assets,
-    userLocation
+    userLocation,
+    ecosystemFeature,
+    ecosystemPresentation,
+    ecosystemData,
+    ecosystemDomain
   );
 }
 

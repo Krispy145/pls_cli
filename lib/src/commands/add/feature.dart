@@ -45,7 +45,6 @@ class FeatureCommand extends DOCommand {
       dataLayerScript,
       domainLayerScript,
       presentationLayerScript,
-      'oasis add logger --name=$featureName',
       if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
       'dart format .',
       'dart fix --apply',

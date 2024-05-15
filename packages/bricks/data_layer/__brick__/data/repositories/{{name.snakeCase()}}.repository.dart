@@ -7,6 +7,27 @@ import '/data/sources/{{name.snakeCase()}}/dummy.source.dart';
 import '/data/sources/{{name.snakeCase()}}/firestore.source.dart';
 import '/data/sources/{{name.snakeCase()}}/secure.source.dart';
 
+/// [{{name.pascalCase()}}DataSourceTypes] is an enum that defines the different data sources.
+enum {{name.pascalCase()}}DataSourceTypes {
+  /// [api] is the remote data source.
+  api,
+
+  /// [local] is the local data source.
+  local,
+
+  /// [assets] is the assets data source.
+  assets,
+
+  /// [firestore] is the firestore data source.
+  firestore,
+
+  /// [secure] is the secure data source.
+  secure,
+
+  /// [dummy] is the dummy data source.
+  dummy;
+}
+
 /// [{{name.pascalCase()}}DataRepository] is a class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
 class {{name.pascalCase()}}DataRepository {
   /// [getAll{{name.pascalCase()}}Models] returns a list of [{{name.pascalCase()}}Model]s.

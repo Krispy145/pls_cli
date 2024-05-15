@@ -43,6 +43,9 @@ class EcosystemCommand extends BrickCommandBase {
       }
     }
     final ecosystemDirectory = Directory("${Directory.current.path}/$packageName");
+    final appDirectory = Directory("${ecosystemDirectory.path}/${packageName}_app");
+    final dashboardDirectory = Directory("${ecosystemDirectory.path}/${packageName}_dashboard");
+    final packageDirectory = Directory("${ecosystemDirectory.path}/${packageName}_package");
     if (!ecosystemDirectory.existsSync()) {
       logger.info('Creating Ecosystem directory');
       ecosystemDirectory.createSync();
@@ -71,13 +74,41 @@ class EcosystemCommand extends BrickCommandBase {
     Directory.current = ecosystemDirectory;
     await runScripts([
       'oasis add ecosystem_presentation_layer --name=home --project=$packageName',
+    ]);
+    Directory.current = ecosystemDirectory;
+    Directory.current = appDirectory;
+    logger.info('Changed working directory to: ${appDirectory.path}'.blue);
+    await runScripts([
+      'oasis add logger --name=home',
+      'flutter pub add ${packageName}_package --path=../${packageName}_package',
       'flutter clean',
       'flutter pub get',
       'dart format .',
       'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
+    Directory.current = ecosystemDirectory;
+    Directory.current = dashboardDirectory;
+    logger.info('Changed working directory to: ${dashboardDirectory.path}'.blue);
+    await runScripts([
+      'oasis add logger --name=home',
+      'flutter pub add ${packageName}_package --path=../${packageName}_package',
+      'flutter clean',
+      'flutter pub get',
+      'dart format .',
+      'flutter pub run build_runner build --delete-conflicting-outputs',
+    ]);
+    Directory.current = ecosystemDirectory;
+    Directory.current = packageDirectory;
+    logger.info('Changed working directory to: ${packageDirectory.path}'.blue);
+    await runScripts([
+      'oasis add logger --name=home',
+      'flutter clean',
+      'flutter pub get',
+      'dart format .',
+      'flutter pub run build_runner build --delete-conflicting-outputs',
+    ]);
+    Directory.current = ecosystemDirectory;
     logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
-
     await Process.start('code', [
       './${packageName}_package',
       './${packageName}_app',

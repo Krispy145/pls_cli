@@ -4,6 +4,13 @@ import { exec } from "child_process";
 import { resolve } from "path";
 import { getWorkspaceFilePath } from "./get-target-directory";
 
+export const buildScripts = [
+  "flutter clean",
+  "flutter pub get",
+  "dart format .",
+  "flutter pub run build_runner build --delete-conflicting-outputs",
+];
+
 export const formatFiles = async (args: Uri) => {
   await runCommandInWorkspaceFolder(args, "dart format .");
   await runCommandInWorkspaceFolder(args, "dart fix --apply");
@@ -81,11 +88,6 @@ export const runCommandInWorkspaceFolder = async (
       }
     );
 
-    // Log the progress of the command
-    childProcess.stdout?.on("data", (data) => {
-      window.showInformationMessage(`Progress: ${data}`);
-    });
-
     // Log errors, if any, during the execution
     childProcess.stderr?.on("data", (data) => {
       window.showErrorMessage(`Error during execution: ${data}`);
@@ -93,35 +95,46 @@ export const runCommandInWorkspaceFolder = async (
   });
 };
 
-export const runFunctionInWorkspaceFolder = async (
-  args: Uri,
-  func: () => Promise<void>,
-  folderPath?: string
+export const runCommandsFromPath = async (
+  fullPath: string,
+  commands: string[]
 ): Promise<{ error?: string }> => {
-  const fullPath = getWorkspaceFilePath(args, folderPath ?? "");
-
-  // Create directories if folderPath is specified
-  if (folderPath) {
-    try {
-      mkdirp.sync(fullPath);
-    } catch (mkdirpError: any) {
-      window.showErrorMessage(
-        `Error creating directories: ${mkdirpError.message}`
-      );
-      return { error: mkdirpError.message };
-    }
-  }
-
-  try {
-    window.showInformationMessage(`Executing function in ${fullPath}`);
-    await func();
-    window.showInformationMessage(
-      `Function executed successfully in ${fullPath}`
-    );
-  } catch (error: any) {
-    window.showErrorMessage(`Error executing function: ${error.message}`);
-    return { error: error.message };
+  // Iterate over the commands and execute them sequentially
+  for (const command of commands) {
+    const result = await runCommand(fullPath, command);
   }
 
   return {};
+};
+
+const runCommand = async (
+  fullPath: string,
+  command: string
+): Promise<{ error?: string }> => {
+  return new Promise((resolve) => {
+    window.showInformationMessage(`Running command in ${fullPath}: ${command}`);
+
+    const childProcess = exec(
+      command,
+      { cwd: fullPath },
+      (error, stdout, stderr) => {
+        if (error) {
+          window.showErrorMessage(`Error executing command: ${error.message}`);
+          window.showErrorMessage(`Command output: ${stderr}`);
+          resolve({ error: error.message });
+        } else {
+          window.showInformationMessage(`Command output: ${stdout}`);
+          window.showInformationMessage(
+            `Command executed successfully in ${fullPath}`
+          );
+          resolve({});
+        }
+      }
+    );
+
+    // Log errors, if any, during the execution
+    childProcess.stderr?.on("data", (data) => {
+      window.showErrorMessage(`Error during execution: ${data}`);
+    });
+  });
 };

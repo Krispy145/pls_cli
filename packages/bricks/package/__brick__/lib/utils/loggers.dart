@@ -3,4 +3,6 @@
 enum ParentNameTemplateLoggers {
   /// [parentNameTemplate] is the feature reference for parentNameTemplate.
   parentNameTemplate,
+
+  ///LOGGER FEATURE END
 }

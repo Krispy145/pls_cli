@@ -1,12 +1,8 @@
 // ignore_for_file: unused_element
 
 import "package:mobx/mobx.dart";
-import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/single_store.dart";
-import "package:{{project.snakeCase()}}_dashboard/utils/loggers.dart";
-import "package:{{project.snakeCase()}}_package/utils/loggers.dart";
-import "package:{{project.snakeCase()}}_dashboard/dependencies/injection.dart";
-import "package:utilities/logger/logger.dart";
 import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/single_store.dart";
 
 part "store.g.dart";
 
@@ -24,14 +20,6 @@ abstract class _Addit{{name.pascalCase()}}Store extends {{name.pascalCase()}}Sto
   /// [addit{{name.pascalCase()}}Model] addits a [{{name.pascalCase()}}Model] to the data source.
   @action
   Future<void> addit{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}Model) async {
-    try { 
-       AppLogger.print(
-        "Additing {{name.camelCase()}} model: ${{{name.camelCase()}}Model.name}",
-        [ParentNameTemplateDashboardLoggers.{{name.camelCase()}}],
-      );     
-      await repository.addit{{name.pascalCase()}}Model(current{{name.pascalCase()}} ?? {{name.camelCase()}}Model);      
-    } catch (e) {
-      AppLogger.print("Error additing {{name.camelCase()}} model: $e", [ParentNameTemplateDashboardLoggers.{{name.camelCase()}}]);
-    }
+    await repository.addit{{name.pascalCase()}}Model(current{{name.pascalCase()}} ?? {{name.camelCase()}}Model);
   }
 }

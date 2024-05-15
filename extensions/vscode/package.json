@@ -3,7 +3,7 @@
   "displayName": "Digital Oasis",
   "publisher": "skate-oasis",
   "description": "vscode extension to streamline dev",
-  "version": "0.8.1",
+  "version": "0.8.3",
   "repository": "https://github.com/digital-oasis-llc-fz/digital-oasis-cli",
   "private": true,
   "icon": "assets/128.png",
@@ -30,7 +30,11 @@
     "onCommand:digital-oasis.add-notifications",
     "onCommand:digital-oasis.add-deeplinks",
     "onCommand:digital-oasis.add-assets",
-    "onCommand:digital-oasis.add-user-location"
+    "onCommand:digital-oasis.add-user-location",
+    "onCommand:digital-oasis.add-ecosystem-feature",
+    "onCommand:digital-oasis.add-ecosystem-presentation-layer",
+    "onCommand:digital-oasis.add-ecosystem-data-layer",
+    "onCommand:digital-oasis.add-ecosystem-domain-layer"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -121,6 +125,26 @@
         "command": "digital-oasis.add-user-location",
         "title": "Add User Location",
         "shortTitle": "Add User Location"
+      },
+      {
+        "command": "digital-oasis.add-ecosystem-feature",
+        "title": "Add Feature",
+        "shortTitle": "Add Feature"
+      },
+      {
+        "command": "digital-oasis.add-ecosystem-presentation-layer",
+        "title": "Add Presentation Layer",
+        "shortTitle": "Add Presentation Layer"
+      },
+      {
+        "command": "digital-oasis.add-ecosystem-data-layer",
+        "title": "Add Data Layer",
+        "shortTitle": "Add Data Layer"
+      },
+      {
+        "command": "digital-oasis.add-ecosystem-domain-layer",
+        "title": "Add Domain Layer",
+        "shortTitle": "Add Domain Layer"
       }
     ],
     "menus": {
@@ -192,15 +216,19 @@
       ],
       "digital-oasis.ecosystem.submenu": [
         {
-          "command": "digital-oasis.create-app",
+          "command": "digital-oasis.add-ecosystem-feature",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "digital-oasis.create-package",
+          "command": "digital-oasis.add-ecosystem-presentation-layer",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "digital-oasis.create-ecosystem",
+          "command": "digital-oasis.add-ecosystem-data-layer",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "digital-oasis.add-ecosystem-domain-layer",
           "when": "explorerResourceIsFolder"
         }
       ]

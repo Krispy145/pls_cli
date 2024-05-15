@@ -54,11 +54,22 @@ export const findProjectName = (uri: Uri): string => {
         return path.basename(parentPath.substring(0, parentPath.length - 10));
       }
       if (parentPath.includes("_package")) {
-        return path.basename(parentPath.substring(0, parentPath.length - 9));
+        return path.basename(parentPath.substring(0, parentPath.length - 8));
       } else {
         return path.basename(parentPath);
       }
+    } else {
+      if (baseName.includes("_app")) {
+        return baseName.substring(0, baseName.length - 4);
+      }
+      if (baseName.includes("_dashboard")) {
+        return baseName.substring(0, baseName.length - 10);
+      }
+      if (baseName.includes("_package")) {
+        return baseName.substring(0, baseName.length - 8);
+      }
     }
+    window.showInformationMessage(`No changes made: ${baseName}`);
     return baseName;
   } else {
     window.showErrorMessage("No workspace folder found.");
