@@ -24,7 +24,3 @@ vars:
     type: string
     description: package name
     prompt: What is the package name?
-  wrapper:
-    type: boolean
-    description: Whether the package should have a wrapper
-    prompt: Would you like a wrapper?

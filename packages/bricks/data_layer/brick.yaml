@@ -27,3 +27,38 @@ vars:
     type: string
     description: project name
     prompt: What is the project name?
+  api:
+    type: boolean
+    description: include API data source
+    prompt: Include API Data Source?
+    default: false
+  assets:
+    type: boolean
+    description: include assets data source
+    prompt: Include Assets Data Source?
+    default: false
+  dummy:
+    type: boolean
+    description: include dummy data source
+    prompt: Include Dummy Data Source?
+    default: true
+  firestore:
+    type: boolean
+    description: include firestore data source
+    prompt: Include Firestore Data Source?
+    default: false
+  hive:
+    type: boolean
+    description: include hive data source
+    prompt: Include Hive Data Source?
+    default: false
+  secure:
+    type: boolean
+    description: include secure data source
+    prompt: Include Secure Data Source?
+    default: false
+  supabase:
+    type: boolean
+    description: include supabase data source
+    prompt: Include Supabase Data Source?
+    default: false

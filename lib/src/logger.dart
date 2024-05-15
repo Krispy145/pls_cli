@@ -19,6 +19,20 @@ class Logger extends util.StandardLogger {
     return options[res];
   }
 
+  /// A multi select menu to choose multiple options
+  List<String> chooseMany({
+    required final List<String> options,
+    final String prompt = "",
+    final List<bool> initialIndices = const [],
+  }) {
+    final res = MultiSelect(
+      options: options,
+      prompt: prompt,
+      defaults: initialIndices,
+    ).interact();
+    return res.map((e) => options[e]).toList();
+  }
+
   /// Log info to the user, same as writing to the stdout
   void info(String message) {
     return stdout(message);

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:ansi_styles/extension.dart';
 import 'package:mason/mason.dart';
 import 'package:oasis_cli/src/commands/brick_command_base.dart';
+import 'package:oasis_cli/src/utils/data_sources.dart';
 import 'package:oasis_cli/src/utils/helpers.dart';
 
 import '../../../bundles/_bundles.dart';
@@ -20,7 +21,12 @@ class PackageCommand extends BrickCommandBase {
       ..addFlag("domain", help: _domainPrompt)
       ..addFlag("presentation", help: _presentationPrompt)
       ..addFlag("open", help: "Open the project in VS Code after creation", defaultsTo: true)
-      ..addFlag("ecosystem", help: "Create a package in a monorepo");
+      ..addFlag("ecosystem", help: "Create a package in a monorepo")
+      ..addOption(
+        'feature',
+        help: 'The name of the feature',
+        valueHelp: 'feature_name',
+      );
   }
 
   final _wrapperPrompt = "Do you want a wrapper for this package?";
@@ -41,6 +47,7 @@ class PackageCommand extends BrickCommandBase {
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
     final shouldOpen = argResults?["open"] as bool? ?? additionalArgs?["open"] as bool? ?? true;
     final isEcoSystem = argResults?["ecosystem"] as bool? ?? additionalArgs?["ecosystem"] as bool? ?? true;
+    var featureName = argResults?["feature"] as String? ?? additionalArgs?["feature"] as String?;
 
     // Save the current working directory
     final currentDirectory = Directory.current;
@@ -65,12 +72,6 @@ class PackageCommand extends BrickCommandBase {
 
     argParser.parse(['--name=$packageName']);
 
-    var wrapper = argResults?["wrapper"] as bool? ?? false;
-    if (wrapper != true && !isEcoSystem) {
-      wrapper = logger.confirm(prompt: _wrapperPrompt);
-      if (wrapper) argParser.parse(["--wrapper"]);
-    }
-
     var data = argResults?["data"] as bool? ?? false;
     if (data != true && !isEcoSystem) {
       data = logger.confirm(prompt: _dataPrompt);
@@ -89,6 +90,23 @@ class PackageCommand extends BrickCommandBase {
       if (presentation) argParser.parse(["--presentation"]);
     }
 
+    if (presentation || domain || data || isEcoSystem) {
+      featureName ??= logger.prompt(
+        prompt: "What is the name of the feature?",
+        validator: isValidDirectoryName,
+      );
+    }
+    var dataSourceList = <String>[];
+    if (data || isEcoSystem) {
+      dataSourceList = logger.chooseMany(
+        prompt: "Choose the data sources you want to add",
+        options: DataSourceTypes.values.map((e) => e.name).toList(),
+        initialIndices: DataSourceTypes.values.map((e) => e.defaultPrompt).toList(),
+      );
+    }
+
+    final dataSourcesFlags = dataSourceList.map((e) => "--$e").toList().join(" ");
+
     final packagePath = "${Directory.current.path}/$packageName";
 
     await runScripts(
@@ -100,7 +118,6 @@ class PackageCommand extends BrickCommandBase {
       additionalArgs: {
         "name": packageName,
         "path": packagePath,
-        "wrapper": wrapper,
       },
     );
     final packageDirectory = Directory(packagePath);
@@ -121,12 +138,12 @@ class PackageCommand extends BrickCommandBase {
     }
 
     final dataLayerScript = isEcoSystem
-        ? 'oasis add data_layer --name=home --project=$packageName'
+        ? 'oasis add data_layer --name=$featureName --project=$packageName $dataSourcesFlags'
         : data
             ? 'oasis add data_layer --name=$packageName --project=$packageName'
             : null;
     final domainLayerScript = isEcoSystem
-        ? 'oasis add domain_layer --name=home --project=$packageName'
+        ? 'oasis add domain_layer --name=$featureName --project=$packageName'
         : domain
             ? 'oasis add domain_layer --name=$packageName --project=$packageName'
             : null;

@@ -12,11 +12,41 @@ import '../brick_command_base.dart';
 class DataLayerCommand extends BrickCommandBase {
   /// [DataLayerCommand] constructor
   DataLayerCommand() {
-    argParser.addOption(
-      'project',
-      help: 'The name of the project',
-      valueHelp: 'project_name',
-    );
+    argParser
+      ..addOption(
+        'project',
+        help: 'The name of the project',
+        valueHelp: 'project_name',
+      )
+      ..addFlag(
+        'api',
+        help: 'Whether to add an API Data Source',
+      )
+      ..addFlag(
+        'assets',
+        help: 'Whether to add an Assets Data Source',
+      )
+      ..addFlag(
+        'dummy',
+        help: 'Whether to add a Dummy Data Source',
+        defaultsTo: true,
+      )
+      ..addFlag(
+        'firestore',
+        help: 'Whether to add a Firestore Data Source',
+      )
+      ..addFlag(
+        'hive',
+        help: 'Whether to add a Hive Data Source',
+      )
+      ..addFlag(
+        'secure',
+        help: 'Whether to add a Secure Data Source',
+      )
+      ..addFlag(
+        'supabase',
+        help: 'Whether to add a Supabase Data Source',
+      );
   }
   @override
   final MasonBundle bundle = dataLayerBundle;

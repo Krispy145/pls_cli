@@ -6,6 +6,7 @@ import {
 } from "../../utils/build_runner";
 import { findProjectName } from "../../utils/get-target-directory";
 import { exec } from "child_process";
+import { promptForDataSourceTypes } from "../../utils/data_source_types";
 
 export const addEcosystemDataLayer = async (args: Uri) => {
   try {
@@ -35,8 +36,11 @@ export async function newEcoSystemDataLayer(
   projectPath: string,
   runScripts: boolean = true
 ) {
+  var types = await promptForDataSourceTypes();
+
+  const pickedDataSourceType = types?.map((item) => `--${item}`).join(" ");
   const commandNewLogger = `oasis add logger --name=${name} --path=${projectPath}`;
-  const commandNewDataLayer = `oasis add data_layer --name=${name} --project=${projectName}`;
+  const commandNewDataLayer = `oasis add data_layer --name=${name} --project=${projectName} ${pickedDataSourceType}`;
   await runCommandsFromPath(projectPath, [
     commandNewLogger,
     commandNewDataLayer,

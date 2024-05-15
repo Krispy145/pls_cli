@@ -15,6 +15,14 @@ import 'package.dart';
 /// Creates a Dashboard app, user app, and a package to communicate between the two.
 /// {@endtemplate}
 class EcosystemCommand extends BrickCommandBase {
+  /// [EcosystemCommand] constructor
+  EcosystemCommand() {
+    argParser.addOption(
+      'feature',
+      help: 'The name of the feature',
+      valueHelp: 'feature_name',
+    );
+  }
   @override
   final MasonBundle bundle = packageBundle;
 
@@ -52,6 +60,21 @@ class EcosystemCommand extends BrickCommandBase {
     }
     Directory.current = ecosystemDirectory;
     logger.info('Changed working directory to: ${ecosystemDirectory.path}'.blue);
+    var featureName = argResults?["feature"] as String?;
+    while (featureName == null) {
+      final name = logger.prompt(
+        prompt: "What's the name of the first feature of the Ecosystem",
+        validator: isValidDirectoryName,
+      );
+      if (name.isNotEmpty) {
+        if (isValidDirectoryName(name)) {
+          featureName = name;
+          break;
+        } else {
+          logger.info("Invalid name. Must be snake_case 💪");
+        }
+      }
+    }
     argParser.parse(['--name=$packageName']);
     final userAppCommand = CreateAppCommand(appName: "${packageName}_app", openVSCode: false, isEcoSystem: true);
     final dashboardAppCommand = CreateAppCommand(appName: "${packageName}_dashboard", openVSCode: false, isEcoSystem: true);
@@ -69,17 +92,17 @@ class EcosystemCommand extends BrickCommandBase {
       ..info("Creating package 🚀".yellow);
     Directory.current = ecosystemDirectory;
     logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
-    await packageCommand.run(additionalArgs: {"name": "${packageName}_package", "open": false, "ecosystem": true});
+    await packageCommand.run(additionalArgs: {"name": "${packageName}_package", "open": false, "ecosystem": true, "feature": featureName});
     logger.info("Package created ✅\n\n".green);
     Directory.current = ecosystemDirectory;
     await runScripts([
-      'oasis add ecosystem_presentation_layer --name=home --project=$packageName',
+      'oasis add ecosystem_presentation_layer --name=$featureName --project=$packageName',
     ]);
     Directory.current = ecosystemDirectory;
     Directory.current = appDirectory;
     logger.info('Changed working directory to: ${appDirectory.path}'.blue);
     await runScripts([
-      'oasis add logger --name=home',
+      'oasis add logger --name=$featureName',
       'flutter pub add ${packageName}_package --path=../${packageName}_package',
       'flutter clean',
       'flutter pub get',
@@ -90,7 +113,7 @@ class EcosystemCommand extends BrickCommandBase {
     Directory.current = dashboardDirectory;
     logger.info('Changed working directory to: ${dashboardDirectory.path}'.blue);
     await runScripts([
-      'oasis add logger --name=home',
+      'oasis add logger --name=$featureName',
       'flutter pub add ${packageName}_package --path=../${packageName}_package',
       'flutter clean',
       'flutter pub get',
@@ -101,7 +124,7 @@ class EcosystemCommand extends BrickCommandBase {
     Directory.current = packageDirectory;
     logger.info('Changed working directory to: ${packageDirectory.path}'.blue);
     await runScripts([
-      'oasis add logger --name=home',
+      'oasis add logger --name=$featureName',
       'flutter clean',
       'flutter pub get',
       'dart format .',
