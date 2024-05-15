@@ -22,9 +22,7 @@ class DefaultWrapperView extends StatelessWidget {
       store: _defaultShellStore,
       appBar: const MainAppBar(),
       bottomNavigationBar: MainBottomNavBar(
-        iconButtons: [
-          Pair(Icons.home, () => context.navigateTo(HomeRoute())),
-        ],
+        iconButtons: [],
       ),
     );
   }

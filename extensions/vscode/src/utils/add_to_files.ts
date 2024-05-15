@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
-
+import { getWorkspaceFilePath } from "./get-target-directory";
+import * as fs from "fs";
 export function upsertFileToPathAndGetContents(
   path: string,
   fileName: string,
@@ -141,5 +142,183 @@ export function addInjectionAndGetter({
       `An error occurred adding ${storeName} store: ${error}`
     );
     return fileContent;
+  }
+}
+
+export function addToAndroidManifest(
+  args: vscode.Uri,
+  userPermissions: string[] | undefined,
+  applicationAttributes: string[] | undefined,
+  activityAttributes: string[] | undefined,
+  activityIntentFilter: string[] | undefined
+) {
+  const androidManifestPath = getWorkspaceFilePath(
+    args,
+    "android/app/src/main/AndroidManifest.xml"
+  );
+  var currentAndroidContent = fs.readFileSync(androidManifestPath, "utf-8");
+  try {
+    if (userPermissions) {
+      userPermissions.forEach((permission) => {
+        if (!currentAndroidContent.includes(permission)) {
+          currentAndroidContent = appendAfterMarkerInContent(
+            currentAndroidContent,
+            permission,
+            /(\<uses-permission android:name=".+"\s*\/\>)/
+          );
+        }
+      });
+    }
+
+    if (applicationAttributes) {
+      applicationAttributes.forEach((attribute) => {
+        if (!currentAndroidContent.includes(attribute)) {
+          currentAndroidContent = appendAfterMarkerInContent(
+            currentAndroidContent,
+            attribute,
+            /(\<application .+\s*\/\>)/
+          );
+        }
+      });
+    }
+
+    if (activityAttributes) {
+      activityAttributes.forEach((attribute) => {
+        if (!currentAndroidContent.includes(attribute)) {
+          currentAndroidContent = appendAfterMarkerInContent(
+            currentAndroidContent,
+            attribute,
+            /(\<activity .+\s*\/\>)/
+          );
+        }
+      });
+    }
+
+    if (activityIntentFilter) {
+      activityIntentFilter.forEach((intentFilter) => {
+        if (!currentAndroidContent.includes(intentFilter)) {
+          currentAndroidContent = appendAfterMarkerInContent(
+            currentAndroidContent,
+            intentFilter,
+            /(\<intent-filter .+\s*\/\>)/
+          );
+        }
+      });
+    }
+
+    fs.writeFileSync(androidManifestPath, currentAndroidContent);
+    vscode.window.showInformationMessage(
+      "AndroidManifest.xml updated successfully."
+    );
+  } catch (error) {
+    vscode.window.showErrorMessage(`Error: ${error}`);
+  }
+}
+
+export function addToAppBuildGradle(
+  args: vscode.Uri,
+  plugins: string[] | undefined,
+  dependencies: string[] | undefined
+) {
+  const appBuildGradlePath = getWorkspaceFilePath(
+    args,
+    "android/app/build.gradle"
+  );
+  var currentAppBuildGradleContent = fs.readFileSync(
+    appBuildGradlePath,
+    "utf-8"
+  );
+  try {
+    if (dependencies) {
+      dependencies.forEach((dependency) => {
+        if (!currentAppBuildGradleContent.includes(dependency)) {
+          currentAppBuildGradleContent = appendAfterMarkerInContent(
+            currentAppBuildGradleContent,
+            dependency,
+            /(dependencies \{)/
+          );
+        }
+      });
+    }
+
+    if (plugins) {
+      plugins.forEach((plugin) => {
+        if (!currentAppBuildGradleContent.includes(plugin)) {
+          currentAppBuildGradleContent = appendAfterMarkerInContent(
+            currentAppBuildGradleContent,
+            plugin,
+            /(plugins \{)/
+          );
+        }
+      });
+    }
+
+    fs.writeFileSync(appBuildGradlePath, currentAppBuildGradleContent);
+    vscode.window.showInformationMessage(
+      "app/build.gradle updated successfully."
+    );
+  } catch (error) {
+    vscode.window.showErrorMessage(`Error: ${error}`);
+  }
+}
+
+export function addToIOSInfoPlist(
+  args: vscode.Uri,
+  ios: boolean = false,
+  macos: boolean = true,
+  inputs: string[] | undefined
+) {
+  if (ios) {
+    const iosInfoPlistPath = getWorkspaceFilePath(
+      args,
+      "ios/Runner/Info.plist"
+    );
+    var currentIOSInfoPlistContent = fs.readFileSync(iosInfoPlistPath, "utf-8");
+    try {
+      if (inputs) {
+        inputs.forEach((input) => {
+          if (!currentIOSInfoPlistContent.includes(input)) {
+            currentIOSInfoPlistContent = appendAfterMarkerInContent(
+              currentIOSInfoPlistContent,
+              input,
+              /(\<dict\>)/
+            );
+          }
+        });
+      }
+
+      fs.writeFileSync(iosInfoPlistPath, currentIOSInfoPlistContent);
+      vscode.window.showInformationMessage("Info.plist updated successfully.");
+    } catch (error) {
+      vscode.window.showErrorMessage(`Error: ${error}`);
+    }
+  }
+  if (macos) {
+    const macosInfoPlistPath = getWorkspaceFilePath(
+      args,
+      "macos/Runner/Info.plist"
+    );
+    var currentIOSInfoPlistContent = fs.readFileSync(
+      macosInfoPlistPath,
+      "utf-8"
+    );
+    try {
+      if (inputs) {
+        inputs.forEach((input) => {
+          if (!currentIOSInfoPlistContent.includes(input)) {
+            currentIOSInfoPlistContent = appendBeforeMarkerInContent(
+              currentIOSInfoPlistContent,
+              input,
+              new RegExp("</dict>\n</plist>")
+            );
+          }
+        });
+      }
+
+      fs.writeFileSync(macosInfoPlistPath, currentIOSInfoPlistContent);
+      vscode.window.showInformationMessage("Info.plist updated successfully.");
+    } catch (error) {
+      vscode.window.showErrorMessage(`Error: ${error}`);
+    }
   }
 }
