@@ -164,7 +164,7 @@ export function addToAndroidManifest(
           currentAndroidContent = appendAfterMarkerInContent(
             currentAndroidContent,
             permission,
-            /(\<uses-permission android:name=".+"\s*\/\>)/
+            /(\<uses-permission android:name=".+"\s*\/\>)/ //TODO: check this regexp
           );
         }
       });
@@ -176,7 +176,7 @@ export function addToAndroidManifest(
           currentAndroidContent = appendAfterMarkerInContent(
             currentAndroidContent,
             attribute,
-            /(\<application .+\s*\/\>)/
+            /(\<application .+\s*\/\>)/ //TODO: check this regexp
           );
         }
       });
@@ -188,7 +188,7 @@ export function addToAndroidManifest(
           currentAndroidContent = appendAfterMarkerInContent(
             currentAndroidContent,
             attribute,
-            /(\<activity .+\s*\/\>)/
+            /(\<activity .+\s*\/\>)/ //TODO: check this regexp
           );
         }
       });
@@ -200,7 +200,7 @@ export function addToAndroidManifest(
           currentAndroidContent = appendAfterMarkerInContent(
             currentAndroidContent,
             intentFilter,
-            /(\<intent-filter .+\s*\/\>)/
+            /(\<intent-filter .+\s*\/\>)/ //TODO: check this regexp
           );
         }
       });
@@ -235,7 +235,7 @@ export function addToAppBuildGradle(
           currentAppBuildGradleContent = appendAfterMarkerInContent(
             currentAppBuildGradleContent,
             dependency,
-            /(dependencies \{)/
+            /(dependencies \{)/ //TODO: check this regexp
           );
         }
       });
@@ -247,7 +247,7 @@ export function addToAppBuildGradle(
           currentAppBuildGradleContent = appendAfterMarkerInContent(
             currentAppBuildGradleContent,
             plugin,
-            /(plugins \{)/
+            /(plugins \{)/ //TODO: check this regexp
           );
         }
       });
@@ -281,7 +281,7 @@ export function addToIOSInfoPlist(
             currentIOSInfoPlistContent = appendAfterMarkerInContent(
               currentIOSInfoPlistContent,
               input,
-              /(\<dict\>)/
+              /(\<dict\>)/ //TODO: check this regexp
             );
           }
         });
@@ -309,7 +309,7 @@ export function addToIOSInfoPlist(
             currentIOSInfoPlistContent = appendBeforeMarkerInContent(
               currentIOSInfoPlistContent,
               input,
-              new RegExp("</dict>\n</plist>")
+              new RegExp("</dict>\n</plist>") //TODO: check this regexp
             );
           }
         });
