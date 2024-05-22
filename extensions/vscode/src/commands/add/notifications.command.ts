@@ -496,8 +496,7 @@ function addPushNotificationInjection(fileContent: string) {
     importCode: `
   import 'package:notifications/stores/local_store.dart';
   import 'package:notifications/stores/base_store.dart';
-  import 'package:notifications/stores/push_store.dart';
-  import '../features/notifications/data/sources/notifications_api.dart';`,
+  import 'package:notifications/stores/push_store.dart';`,
     injectionCode: injectionCode,
     getterCode: getterCode,
     injectInto: "CORE", //change to EXTERNAL when changed logic to either add ..register... or add _serviceLocator..register...
