@@ -1,7 +1,7 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
-import "package:test_package/data/models/{{name.snakeCase()}}_model.dart";
-import "package:test_package/presentation/{{name.snakeCase()}}/list_store.dart";
+import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/list_store.dart";
 import "package:utilities/layouts/paginated_list/builder.dart";
 import "package:utilities/widgets/load_state/builder.dart";
 

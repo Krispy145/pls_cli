@@ -1,6 +1,6 @@
 .idea/
 .dart_tool/
 **/.mason/
-test_app
+{{project.snakeCase()}}_app
 
 package-lock.json

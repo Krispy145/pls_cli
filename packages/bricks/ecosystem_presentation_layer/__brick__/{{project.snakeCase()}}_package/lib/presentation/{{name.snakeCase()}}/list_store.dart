@@ -1,6 +1,6 @@
 import "package:mobx/mobx.dart";
-import "package:test_package/data/models/{{name.snakeCase()}}_model.dart";
-import "package:test_package/domain/repositories/{{name.snakeCase()}}.repository.dart";
+import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_package/domain/repositories/{{name.snakeCase()}}.repository.dart";
 import "package:utilities/layouts/paginated_list/store.dart";
 
 part "list_store.g.dart";

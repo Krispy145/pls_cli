@@ -1,7 +1,7 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
-import "package:test_dashboard/navigation/routes.gr.dart";
-import "package:test_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_dashboard/navigation/routes.gr.dart";
+import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
 import "package:theme/extensions/build_context.dart";
 import "package:utilities/layouts/paginated_list/builder.dart";
 import "package:utilities/sizes/spacers.dart";
