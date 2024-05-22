@@ -1,8 +1,7 @@
-
 part of "_source.dart";
 
 /// [Assets{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
-class Assets{{name.pascalCase()}}DataSource extends AssetsDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource {
+class Assets{{name.pascalCase()}}DataSource extends PaginatedAssetsDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource<AssetsResponseModel<{{name.pascalCase()}}Model?>> {
   /// [Assets{{name.pascalCase()}}DataSource] constructor.
   Assets{{name.pascalCase()}}DataSource()
       : super(

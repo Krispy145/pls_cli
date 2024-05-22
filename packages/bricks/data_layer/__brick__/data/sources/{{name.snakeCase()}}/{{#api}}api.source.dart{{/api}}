@@ -1,7 +1,8 @@
-part "_source.dart";
+part of "_source.dart";
 
 /// [Api{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
-class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource {
+/// TODO: Setup an ApiResponseModel that can be used to handle API responses.
+class Api{{name.pascalCase()}}DataSource extends PaginatedApiDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource<ResponseModel> {
   /// [Api{{name.pascalCase()}}DataSource] constructor.
   Api{{name.pascalCase()}}DataSource()
       : super(
@@ -13,10 +14,22 @@ class Api{{name.pascalCase()}}DataSource extends ApiDataSource<{{name.pascalCase
         );
 
   @override
-    Map<String, dynamic> buildQuery(BasicSearchQueryModel query) {
-      // TODO: implement buildQuery
-      throw UnimplementedError();
-    }
+  Map<String, dynamic> buildQuery(BasicSearchQueryModel query) {
+    // TODO: implement buildQuery
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Pair<ResponseModel, List<{{name.pascalCase()}}Model?>>> getPage({ResponseModel? lastResponse, int? size}) {
+    // TODO: implement getPage
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Pair<ResponseModel, List<{{name.pascalCase()}}Model?>>> searchPage({ResponseModel? lastResponse, int? size, required BasicSearchQueryModel query}) {
+    // TODO: implement searchPage
+    throw UnimplementedError();
+  }
 
   /// [_handleError] is an optional helper method that handles errors when calling the API.
   // ignore: unused_element

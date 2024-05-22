@@ -1,21 +1,22 @@
 library data.sources.{{name.snakeCase()}};
-import 'package:utilities/data_sources/source.dart';
-import "package:utilities/data/models/basic_search_query_model.dart";
-import '../../models/{{name.snakeCase()}}_model.dart';
 
-import 'package:utilities/data_sources/remote/api.dart';
-import 'package:utilities/logger/logger.dart';
-import 'package:parent_name_template/utils/loggers.dart';
-import 'package:utilities/data_sources/local/assets.dart';
-import "package:utilities/data_sources/local/dummy_data.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
-import 'package:utilities/data_sources/remote/firestore.dart';
-import "package:utilities/data_sources/local/hive/hive.dart";
-import "/utils/loggers.dart";
-import "package:utilities/data_sources/local/secure.dart";
-import "package:utilities/logger/logger.dart";
-import 'package:utilities/data_sources/remote/supabase.dart';
 import "package:supabase_flutter/supabase_flutter.dart";
+import 'package:test_package/utils/loggers.dart';
+import "package:utilities/data/models/basic_search_query_model.dart";
+import 'package:utilities/data_sources/api/paginated.dart';
+import 'package:utilities/data_sources/assets/paginated.dart';
+import 'package:utilities/data_sources/dummy/paginated.dart';
+import 'package:utilities/data_sources/firestore/paginated.dart';
+import 'package:utilities/data_sources/hive/paginated.dart';
+import 'package:utilities/data_sources/paginated.dart';
+import 'package:utilities/data_sources/secure/paginated.dart';
+import 'package:utilities/data_sources/source.dart';
+import 'package:utilities/data_sources/supabase/paginated.dart';
+import 'package:utilities/helpers/tuples.dart';
+import "package:utilities/logger/logger.dart";
+
+import '../../models/{{name.snakeCase()}}_model.dart';
 
 
 {{#api}} part 'api.source.dart'; {{/api}}
@@ -27,4 +28,5 @@ import "package:supabase_flutter/supabase_flutter.dart";
 {{#supabase}} part 'supabase.source.dart'; {{/supabase}}
 
 /// [{{name.pascalCase()}}DataSource] is an mixin that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
-sealed class {{name.pascalCase()}}DataSource implements DataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> {}
+sealed class {{name.pascalCase()}}DataSource<Resp extends ResponseModel> with DataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel>, Paginated<Resp, {{name.pascalCase()}}Model, BasicSearchQueryModel> {}
+

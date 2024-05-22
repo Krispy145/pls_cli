@@ -1,6 +1,8 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
-import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/list_store.dart";
+import "package:test_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:test_package/presentation/{{name.snakeCase()}}/list_store.dart";
+import "package:utilities/layouts/paginated_list/builder.dart";
 import "package:utilities/widgets/load_state/builder.dart";
 
 /// [{{name.pascalCase()}}sView] of the app.
@@ -14,21 +16,12 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoadStateBuilder(
-      viewStore: store,
-      emptyBuilder: (context) => const Center(
-        child: Text("Empty {{name.camelCase()}}s view."),
-      ),
-      loadedBuilder: (context) => ListView.builder(
-        itemCount: store.{{name.camelCase()}}s.length,
-        itemBuilder: (context, index) {
-          final {{name.camelCase()}}Model = store.{{name.camelCase()}}s[index]!;
-          return ListTile(title: Text({{name.camelCase()}}Model.id));
-        },
-      ),
-      errorBuilder: (context) => const Center(
-        child: Text("Error loading {{name.camelCase()}}s view."),
-      ),
+    return PaginatedListBuilder<{{name.pascalCase()}}Model>.listView(
+      store: store,
+      itemBuilder: (context, index) {
+        final {{name.camelCase()}}Model = store.{{name.camelCase()}}s[index]!;
+        return ListTile(title: Text({{name.camelCase()}}Model.id));
+      },
     );
   }
 }

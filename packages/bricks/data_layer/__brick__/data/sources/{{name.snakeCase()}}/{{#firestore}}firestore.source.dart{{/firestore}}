@@ -1,8 +1,7 @@
-
 part of "_source.dart";
 
 /// [Firestore{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
-class Firestore{{name.pascalCase()}}DataSource extends FirestoreDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource {
+class Firestore{{name.pascalCase()}}DataSource extends PaginatedFirestoreDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource<FirestoreResponseModel<{{name.pascalCase()}}Model?>> {
   /// [Firestore{{name.pascalCase()}}DataSource] constructor.
   Firestore{{name.pascalCase()}}DataSource()
       : super(
@@ -11,7 +10,6 @@ class Firestore{{name.pascalCase()}}DataSource extends FirestoreDataSource<{{nam
           convertDataTypeToMap: (data) => data.toMap(),
         );
 
-  
   @override
   Query<Map<String, dynamic>> buildQuery(BasicSearchQueryModel query, Query<Map<String, dynamic>> collectionReference) {
     // TODO: implement buildQuery
@@ -26,7 +24,7 @@ class Firestore{{name.pascalCase()}}DataSource extends FirestoreDataSource<{{nam
     } catch (e) {
       AppLogger.print(
         "Firestore RESULT: Failed request: $e",
-        [ParentNameTemplateLoggers.{{name.camelCase()}}],
+        [TestPackageLoggers.{{name.camelCase()}}],
         type: LoggerType.error,
       );
       return null;

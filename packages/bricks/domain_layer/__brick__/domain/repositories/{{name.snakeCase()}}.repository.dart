@@ -1,3 +1,5 @@
+import 'package:utilities/data_sources/paginated.dart';
+
 import '/data/models/{{name.snakeCase()}}_model.dart';
 import '/data/repositories/_repositories.dart';
 import '/data/repositories/{{name.snakeCase()}}.repository.dart';
@@ -13,9 +15,25 @@ class {{name.pascalCase()}}Repository {
   //* {{name.pascalCase()}}Model Data Source Type
   final _source = Dummy{{name.pascalCase()}}DataSource();
 
+  ResponseModel? _lastResponse;
+
   /// [getAll{{name.pascalCase()}}Models] fetches all [{{name.pascalCase()}}Model]s from the data source.
   Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models() {
     return _{{name.camelCase()}}DataRepository.getAll{{name.pascalCase()}}Models(source: _source);
+  }
+
+  /// [getPaged{{name.pascalCase()}}Models] fetches a page of [{{name.pascalCase()}}Model]s from the data source.
+  Future<List<{{name.pascalCase()}}Model?>> getPaged{{name.pascalCase()}}Models({
+    int? limit,
+    bool refresh = false,
+  }) async {
+    final _response = await _{{name.camelCase()}}DataRepository.getPaged{{name.pascalCase()}}Models(
+      source: _source,
+      limit: limit,
+      lastResponse: refresh ? null : _lastResponse,
+    );
+    _lastResponse = _response.first;
+    return _response.second;
   }
 
   /// [get{{name.pascalCase()}}Model] fetches a single [{{name.pascalCase()}}Model] from the data source.
@@ -41,7 +59,6 @@ class {{name.pascalCase()}}Repository {
       {{name.camelCase()}}Models: {{name.camelCase()}}Models,
     );
   }
-
 
   /// [delete{{name.pascalCase()}}Model] deletes a single [{{name.pascalCase()}}Model] from the data source.
   Future<void> delete{{name.pascalCase()}}Model(String id) {

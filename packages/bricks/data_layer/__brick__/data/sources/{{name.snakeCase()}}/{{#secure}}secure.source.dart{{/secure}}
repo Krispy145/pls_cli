@@ -1,15 +1,25 @@
-
-
-part "_source.dart";
+part of "_source.dart";
 
 /// [Secure{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
-class Secure{{name.pascalCase()}}DataSource extends SecureDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource {
+class Secure{{name.pascalCase()}}DataSource extends PaginatedSecureDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource<SecureResponseModel<{{name.pascalCase()}}Model?>> {
   /// [Secure{{name.pascalCase()}}DataSource] constructor.
   Secure{{name.pascalCase()}}DataSource()
-      : super(          
+      : super(
           convertDataTypeFromMap: {{name.pascalCase()}}Model.fromMap,
           convertDataTypeToMap: (data) => data.toMap(),
         );
+
+  @override
+  bool matchesID(String key, {{name.pascalCase()}}Model item) {
+    // TODO: implement matchesID
+    throw UnimplementedError();
+  }
+
+  @override
+  bool matchesQuery(BasicSearchQueryModel query, {{name.pascalCase()}}Model item) {
+    // TODO: implement matchesQuery
+    throw UnimplementedError();
+  }
 
   @override
   Future<{{name.pascalCase()}}Model?> search(BasicSearchQueryModel query) async {

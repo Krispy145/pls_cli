@@ -1,6 +1,5 @@
 import "package:mobx/mobx.dart";
-import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/list_store.dart";
-import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:test_package/presentation/{{name.snakeCase()}}/list_store.dart";
 
 part "store.g.dart";
 

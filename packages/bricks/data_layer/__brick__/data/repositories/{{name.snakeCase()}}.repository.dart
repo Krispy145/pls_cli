@@ -1,4 +1,5 @@
-import '/data/repositories/_repositories.dart';
+import 'package:utilities/data_sources/paginated.dart';
+import 'package:utilities/helpers/tuples.dart';
 
 import '/data/models/{{name.snakeCase()}}_model.dart';
 import '/data/sources/{{name.snakeCase()}}/_source.dart';
@@ -7,12 +8,20 @@ import '/data/sources/{{name.snakeCase()}}/_source.dart';
 class {{name.pascalCase()}}DataRepository {
   /// [getAll{{name.pascalCase()}}Models] returns a list of [{{name.pascalCase()}}Model]s.
   Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models({required {{name.pascalCase()}}DataSource source}) async {
-    return source.getAll();    
+    return source.getAll();
+  }
+
+  /// [getPaged{{name.pascalCase()}}Models] returns a page of [{{name.pascalCase()}}Model]s.
+  Future<Pair<ResponseModel, List<{{name.pascalCase()}}Model?>>> getPaged{{name.pascalCase()}}Models({
+    required {{name.pascalCase()}}DataSource source,
+    int? limit,
+    ResponseModel? lastResponse,
+  }) async {
+    return source.getPage(size: limit, lastResponse: lastResponse);
   }
 
   /// [get{{name.pascalCase()}}Model] returns a single [{{name.pascalCase()}}Model].
-  Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}Model(
-      {required {{name.pascalCase()}}DataSource source, required String id}) async {
+  Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required String id}) async {
     return source.get(id);
   }
 
@@ -30,5 +39,4 @@ class {{name.pascalCase()}}DataRepository {
   Future<void> delete{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required String id}) async {
     return source.delete(id);
   }
-
 }

@@ -1,8 +1,8 @@
-
 part of "_source.dart";
 
 /// [Supabase{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
-class Supabase{{name.pascalCase()}}DataSource extends SupabaseDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource {
+/// /// TODO: Setup a SupabaseResponseModel that can be used to handle API responses.
+class Supabase{{name.pascalCase()}}DataSource extends PaginatedSupabaseDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource<ResponseModel> {
   /// [Supabase{{name.pascalCase()}}DataSource] constructor.
   Supabase{{name.pascalCase()}}DataSource()
       : super(
@@ -12,10 +12,10 @@ class Supabase{{name.pascalCase()}}DataSource extends SupabaseDataSource<{{name.
         );
 
   @override
-    SupabaseQueryBuilder buildQuery(BasicSearchQueryModel query, SupabaseQueryBuilder table) {
-      // TODO: implement buildQuery
-      throw UnimplementedError();
-    }
+  SupabaseQueryBuilder buildQuery(BasicSearchQueryModel query, SupabaseQueryBuilder table) {
+    // TODO: implement buildQuery
+    throw UnimplementedError();
+  }
 
   /// [_handleError] is an optional helper method that handles errors when calling the Supabase.
   // ignore: unused_element
@@ -30,5 +30,17 @@ class Supabase{{name.pascalCase()}}DataSource extends SupabaseDataSource<{{name.
       );
       return null;
     }
+  }
+
+  @override
+  Future<Pair<ResponseModel, List<{{name.pascalCase()}}Model?>>> getPage({ResponseModel? lastResponse, int? size}) {
+    // TODO: implement getPage
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Pair<ResponseModel, List<{{name.pascalCase()}}Model?>>> searchPage({ResponseModel? lastResponse, int? size, required BasicSearchQueryModel query}) {
+    // TODO: implement searchPage
+    throw UnimplementedError();
   }
 }

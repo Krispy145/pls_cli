@@ -1,28 +1,18 @@
-
-
-part "_source.dart";
+part of "_source.dart";
 
 /// [Hive{{name.pascalCase()}}DataSource] is a class that implements [{{name.pascalCase()}}DataSource] interface.
-class Hive{{name.pascalCase()}}DataSource<T> extends HiveDataSource<T, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource<T> {
-  // Simulated in-memory data store
-  final Map<String, T> _dataStore = {};
-
+class Hive{{name.pascalCase()}}DataSource<T> extends PaginatedHiveDataSource<{{name.pascalCase()}}Model, BasicSearchQueryModel> implements {{name.pascalCase()}}DataSource<HiveResponseModel<{{name.pascalCase()}}Model?>> {
   /// [Hive{{name.pascalCase()}}DataSource] constructor.
-  Hive{{name.pascalCase()}}DataSource():super(
-    "{{name.snakeCase()}}"
-    convertDataTypeFromMap: {{name.pascalCase()}}Model.fromMap,
+  Hive{{name.pascalCase()}}DataSource()
+      : super(
+          "{{name.snakeCase()}}",
+          convertDataTypeFromMap: {{name.pascalCase()}}Model.fromMap,
           convertDataTypeToMap: (data) => data.toMap(),
-  )
-  
+        );
+
   @override
-  Future<T?> search(BasicSearchQueryModel query) {
-    // TO{{name.pascalCase()}}: implement search
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<List<T?>> searchAll(BasicSearchQueryModel query) {
-    // TO{{name.pascalCase()}}: implement searchAll
+  bool matchesQuery(BasicSearchQueryModel query, {{name.pascalCase()}}Model item) {
+    // TODO: implement matchesQuery
     throw UnimplementedError();
   }
 }
