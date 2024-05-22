@@ -1,5 +1,4 @@
 .idea/
 .dart_tool/
 **/.mason/
-
 package-lock.json
