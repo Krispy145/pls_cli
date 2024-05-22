@@ -1,10 +1,7 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import { Uri, window, workspace } from "vscode";
-import {
-  getWorkspaceFilePath,
-  getTargetDirectory,
-} from "../../utils/get-target-directory";
+import { Uri, window } from "vscode";
+import { getWorkspaceFilePath } from "../../utils/get-target-directory";
 import {
   addInjectionAndGetter,
   appendAfterMarkerInContent,
@@ -55,26 +52,17 @@ export const addNotifications = async (args: Uri) => {
   if (notificationType === "Local") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      "oasis add notifications_feature -s=local_notifications_store -r=local_store --is_push=false",
-      {
-        folderPath: "lib",
-      }
+      "oasis add notifications_feature -s=local_notifications_store -r=local_store --is_push=false"
     );
   } else if (notificationType === "Push")
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      "oasis add notifications_feature -s=push_notifications_store -r=push_store --is_push=true",
-      {
-        folderPath: "lib",
-      }
+      "oasis add notifications_feature -s=push_notifications_store -r=push_store --is_push=true"
     );
   else if (notificationType === "Both") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      "oasis add multi_notifications_feature",
-      {
-        folderPath: "lib",
-      }
+      "oasis add multi_notifications_feature"
     );
   }
   if (runCommandResult?.error !== undefined) {

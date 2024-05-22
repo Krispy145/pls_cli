@@ -199,7 +199,7 @@
         },
         {
           "command": "digital-oasis.add-notifications",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
+          "when": "explorerResourceIsFolder"
         },
         {
           "command": "digital-oasis.add-deeplinks",
