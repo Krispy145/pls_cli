@@ -29,11 +29,9 @@ class NotificationsFeatureCommand extends BrickCommandBase {
         valueHelp: 'local_store',
         defaultsTo: 'local_store',
       )
-      ..addOption(
+      ..addFlag(
         'is_push',
         help: 'Is this a push notification store?',
-        valueHelp: 'false',
-        defaultsTo: 'false',
       );
   }
   @override
@@ -53,7 +51,7 @@ class NotificationsFeatureCommand extends BrickCommandBase {
       additionalArgs: {
         'store': argResults?['store'] as String? ?? additionalArgs?['store'] as String?,
         'store_route': argResults?['store_route'] as String? ?? additionalArgs?['store_route'] as String?,
-        'is_push': argResults?['is_push'] as String? ?? additionalArgs?['is_push'] as String?,
+        'is_push': argResults?['is_push'] as bool? ?? additionalArgs?['is_push'] as bool?,
         'project': projectName,
         'runner': buildRunner,
       },
