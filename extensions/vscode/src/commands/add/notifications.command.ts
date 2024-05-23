@@ -64,12 +64,12 @@ export const addNotifications = async (args: Uri) => {
   if (notificationType === "Local") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      `oasis add notifications_feature -s=local_notifications_store -r=local_store --is_push=false --project=${projectName}`
+      `oasis add notifications_feature -s=local_notifications_store -r=local_store --project=${projectName}`
     );
   } else if (notificationType === "Push")
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      `oasis add notifications_feature -s=push_notifications_store -r=push_store --is_push=true --project=${projectName}`
+      `oasis add notifications_feature -s=push_notifications_store -r=push_store --is_push --project=${projectName}`
     );
   else if (notificationType === "Both") {
     runCommandResult = await runCommandInWorkspaceFolder(
