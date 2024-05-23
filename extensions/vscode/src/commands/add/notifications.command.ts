@@ -17,7 +17,7 @@ import {
   formatFiles,
   runCommandInWorkspaceFolder,
 } from "../../utils/build_runner";
-import { toConstantCase } from "../../utils/strings";
+import { toPascalCase } from "../../utils/strings";
 
 export const addNotifications = async (args: Uri) => {
   await updateAppDelegate(args);
@@ -25,7 +25,13 @@ export const addNotifications = async (args: Uri) => {
   updateAppBuildGradle(args);
   await updateAndroidManifest(args);
   await updateStringsXml(args);
-  const projectName = findProjectName(args);
+  const projectNameList = findProjectName(args);
+  var projectName = projectNameList[0];
+  const projectType = projectNameList[1] ?? "";
+
+  if (projectType.length > 0) {
+    projectName = projectName + projectType;
+  }
 
   // Prompt user to select local, push, or both notification packages
   const notificationType = await vscode.window.showQuickPick(
@@ -449,15 +455,15 @@ function addNotificationInjection(
   storeName: string
 ) {
   const injectionCode = `
-  ..registerSingleton<${toConstantCase(projectName)}NotificationsStore>(
-    ${toConstantCase(projectName)}NotificationsStore(),
+  ..registerSingleton<${toPascalCase(projectName)}NotificationsStore>(
+    ${toPascalCase(projectName)}NotificationsStore(),
   )`;
 
   const getterCode = `
-  /// [${toConstantCase(projectName)}NotificationsStore] getter
-  ${toConstantCase(
+  /// [${toPascalCase(projectName)}NotificationsStore] getter
+  ${toPascalCase(
     projectName
-  )}NotificationsStore get notificationsStore => _serviceLocator.get<${toConstantCase(
+  )}NotificationsStore get notificationsStore => _serviceLocator.get<${toPascalCase(
     projectName
   )}NotificationsStore>();`;
 
@@ -465,7 +471,7 @@ function addNotificationInjection(
     fileContent: fileContent,
     storeName: storeName,
     importCode: `
-    import "package:${toConstantCase(
+    import "package:${toPascalCase(
       projectName
     )}/presentation/notifications/store.dart";
       `,

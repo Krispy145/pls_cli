@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:notifications/stores/{{store_route.snakeCase()}}.dart';
 import 'package:notifications/widgets/view/single_store_view.dart';
 import 'package:utilities/widgets/load_state/builder.dart';
 import '../../../dependencies/injection.dart';

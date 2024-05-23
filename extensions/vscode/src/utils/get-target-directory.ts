@@ -41,36 +41,45 @@ async function promptForTargetDirectory(): Promise<string | undefined> {
 }
 
 // Function to find the name of the Project/Ecosystem
-export const findProjectName = (uri: Uri): string => {
+export const findProjectName = (uri: Uri): string[] => {
   const currentWorkspace = workspace.getWorkspaceFolder(uri);
   if (currentWorkspace) {
     var baseName = path.basename(currentWorkspace.uri.fsPath);
     if (baseName === "lib") {
       var parentPath = path.dirname(currentWorkspace.uri.fsPath);
       if (parentPath.includes("_app")) {
-        return path.basename(parentPath.substring(0, parentPath.length - 4));
+        return [
+          path.basename(parentPath.substring(0, parentPath.length - 4)),
+          "_app",
+        ];
       }
       if (parentPath.includes("_dashboard")) {
-        return path.basename(parentPath.substring(0, parentPath.length - 10));
+        return [
+          path.basename(parentPath.substring(0, parentPath.length - 10)),
+          "_dashboard",
+        ];
       }
       if (parentPath.includes("_package")) {
-        return path.basename(parentPath.substring(0, parentPath.length - 8));
+        return [
+          path.basename(parentPath.substring(0, parentPath.length - 8)),
+          "_package",
+        ];
       } else {
-        return path.basename(parentPath);
+        return [path.basename(parentPath)];
       }
     } else {
       if (baseName.includes("_app")) {
-        return baseName.substring(0, baseName.length - 4);
+        return [baseName.substring(0, baseName.length - 4), "_app"];
       }
       if (baseName.includes("_dashboard")) {
-        return baseName.substring(0, baseName.length - 10);
+        return [baseName.substring(0, baseName.length - 10), "_dashboard"];
       }
       if (baseName.includes("_package")) {
-        return baseName.substring(0, baseName.length - 8);
+        return [baseName.substring(0, baseName.length - 8), "_package"];
       }
     }
     window.showInformationMessage(`No changes made: ${baseName}`);
-    return baseName;
+    return [baseName];
   } else {
     window.showErrorMessage("No workspace folder found.");
     throw new Error("No workspace folder found.");
