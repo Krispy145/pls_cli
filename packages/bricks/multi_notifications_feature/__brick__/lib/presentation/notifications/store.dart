@@ -3,6 +3,7 @@ import "package:notifications/models/notification.dart";
 import "package:notifications/stores/local_store.dart";
 import "package:notifications/stores/push_store.dart";
 import "package:utilities/widgets/load_state/builder.dart";
+import "package:utilities/widgets/load_state/store.dart";
 
 part "store.g.dart";
 
@@ -10,12 +11,20 @@ part "store.g.dart";
 class {{project.pascalCase()}}NotificationsStore = _{{project.pascalCase()}}NotificationsStore with _${{project.pascalCase()}}NotificationsStore;
 
 /// [_{{project.pascalCase()}}NotificationsStore] is a class that manages the state of the  feature.
-abstract class _{{project.pascalCase()}}NotificationsStore with Store {
+abstract class _{{project.pascalCase()}}NotificationsStore extends LoadStateStore with Store {
+  /// [_{{project.pascalCase()}}NotificationsStore] constructor.
+  _{{project.pascalCase()}}NotificationsStore() {
+    setLoading();
+    pushNotificationsStore.initialize();
+    localNotificationsStore.initialize();
+    setLoaded();
+  }
+
   /// [pushNotificationsStore] is an instance of NotificationsStore, used in the [LoadStateBuilder].
-  final PushNotificationsStore pushNotificationsStore = PushNotificationsStore()..initialize();
+  final PushNotificationsStore pushNotificationsStore = PushNotificationsStore();
 
   /// [localNotificationsStore] is an instance of [LocalNotificationsStore], used in the [LoadStateBuilder].
-  final LocalNotificationsStore localNotificationsStore = LocalNotificationsStore()..initialize();
+  final LocalNotificationsStore localNotificationsStore = LocalNotificationsStore();
 
   /// [sendToTopic] sends a notification to a topic.
   /// this function is set here to access the project's functions.
