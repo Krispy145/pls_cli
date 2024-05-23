@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { getWorkspaceFilePath } from "./get-target-directory";
 import * as fs from "fs";
+import { toCamelCase, toConstantCase, toPascalCase } from "./strings";
 export function upsertFileToPathAndGetContents(
   path: string,
   fileName: string,
@@ -58,23 +59,6 @@ export const createLoggerFeatureString = (name: string): string => {
   const pascalCaseName = toPascalCase(name);
 
   return `/// ${pascalCaseName} logger feature.\n static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
-};
-
-// Function to convert a string to camelCase
-export const toCamelCase = (str: string): string => {
-  return str.replace(/[-_]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""));
-};
-
-// Function to convert a string to CONSTANT_CASE
-export const toConstantCase = (str: string): string => {
-  return str.replace(/[-\s]+/g, "_").toUpperCase();
-};
-
-// Function to convert a string to PascalCase
-export const toPascalCase = (str: string): string => {
-  return str.replace(/[-_\s]+./g, (match) =>
-    match.charAt(match.length - 1).toUpperCase()
-  );
 };
 
 export function addInjectionAndGetter({

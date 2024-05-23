@@ -11,6 +11,11 @@ class NotificationsFeatureCommand extends BrickCommandBase {
   NotificationsFeatureCommand() {
     argParser
       ..addOption(
+        'project',
+        help: 'The name of the project',
+        valueHelp: 'project_name',
+      )
+      ..addOption(
         'store',
         abbr: 's',
         help: 'The store of the notifications feature.',
@@ -42,8 +47,17 @@ class NotificationsFeatureCommand extends BrickCommandBase {
 
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
-    final buildRunner = argResults?['runner'] as bool? ?? false;
-    await super.run();
+    final buildRunner = argResults?['runner'] as bool? ?? additionalArgs?['runner'] as bool? ?? false;
+    final projectName = argResults?['project'] as String? ?? additionalArgs?['project'] as String?;
+    await super.run(
+      additionalArgs: {
+        'store': argResults?['store'] as String? ?? additionalArgs?['store'] as String?,
+        'store_route': argResults?['store_route'] as String? ?? additionalArgs?['store_route'] as String?,
+        'is_push': argResults?['is_push'] as String? ?? additionalArgs?['is_push'] as String?,
+        'project': projectName,
+        'runner': buildRunner,
+      },
+    );
     return runScripts([
       if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);

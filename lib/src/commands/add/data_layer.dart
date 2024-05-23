@@ -59,9 +59,10 @@ class DataLayerCommand extends BrickCommandBase {
 
   @override
   Future<void> run({Map<String, dynamic>? additionalArgs}) async {
-    final buildRunner = argResults?['runner'] as bool? ?? false;
-    final projectName = argResults?['project'] as String?;
+    final buildRunner = argResults?['runner'] as bool? ?? additionalArgs?['runner'] as bool? ?? false;
+    final projectName = argResults?['project'] as String? ?? additionalArgs?['project'] as String?;
     final _featureName = argResults?['name'] as String? ??
+        additionalArgs?['name'] as String? ??
         logger.prompt(
           prompt: "What is the name of the data_layer?",
           validator: isValidDirectoryName,

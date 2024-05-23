@@ -1,7 +1,10 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import { Uri, window } from "vscode";
-import { getWorkspaceFilePath } from "../../utils/get-target-directory";
+import {
+  findProjectName,
+  getWorkspaceFilePath,
+} from "../../utils/get-target-directory";
 import {
   addInjectionAndGetter,
   appendAfterMarkerInContent,
@@ -14,6 +17,7 @@ import {
   formatFiles,
   runCommandInWorkspaceFolder,
 } from "../../utils/build_runner";
+import { toConstantCase } from "../../utils/strings";
 
 export const addNotifications = async (args: Uri) => {
   await updateAppDelegate(args);
@@ -21,28 +25,29 @@ export const addNotifications = async (args: Uri) => {
   updateAppBuildGradle(args);
   await updateAndroidManifest(args);
   await updateStringsXml(args);
+  const projectName = findProjectName(args);
 
   // Prompt user to select local, push, or both notification packages
   const notificationType = await vscode.window.showQuickPick(
     ["Local", "Push", "Both"],
     { placeHolder: "Select notification package type" }
   );
-  const injectionContainerPath = getWorkspaceFilePath(
-    args,
-    "lib/dependencies/injection.dart"
-  );
 
-  var fileContent = fs.readFileSync(injectionContainerPath, "utf-8");
-  // Add the selected notification package(s)
-  if (notificationType === "Local" || notificationType === "Both") {
-    fileContent = addLocalNotificationInjection(fileContent);
+  // Add the selected notification package(s) to the injection container
+  if (notificationType !== undefined) {
+    const injectionContainerPath = getWorkspaceFilePath(
+      args,
+      "lib/dependencies/injection.dart"
+    );
+    var fileContent = fs.readFileSync(injectionContainerPath, "utf-8");
+    fileContent = addNotificationInjection(
+      fileContent,
+      projectName,
+      notificationType
+    );
+
+    fs.writeFileSync(injectionContainerPath, fileContent);
   }
-
-  if (notificationType === "Push" || notificationType === "Both") {
-    fileContent = addPushNotificationInjection(fileContent);
-  }
-
-  fs.writeFileSync(injectionContainerPath, fileContent);
   //
 
   // Add notification package(s) to pubspec.yaml
@@ -52,17 +57,17 @@ export const addNotifications = async (args: Uri) => {
   if (notificationType === "Local") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      "oasis add notifications_feature -s=local_notifications_store -r=local_store --is_push=false"
+      `oasis add notifications_feature -s=local_notifications_store -r=local_store --is_push=false --project=${projectName}`
     );
   } else if (notificationType === "Push")
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      "oasis add notifications_feature -s=push_notifications_store -r=push_store --is_push=true"
+      `oasis add notifications_feature -s=push_notifications_store -r=push_store --is_push=true --project=${projectName}`
     );
   else if (notificationType === "Both") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      "oasis add multi_notifications_feature"
+      `oasis add multi_notifications_feature --project=${projectName}`
     );
   }
   if (runCommandResult?.error !== undefined) {
@@ -78,7 +83,7 @@ export const addNotifications = async (args: Uri) => {
   await buildRunner(args, "Notifications");
 
   // Open the docs/notifications.md file from the workspace root directory
-  const docsPath = getWorkspaceFilePath(args, "docs/notifications.md");
+  const docsPath = getWorkspaceFilePath(args, "lib/docs/notifications.md");
   window.showTextDocument(Uri.file(docsPath));
 };
 
@@ -438,68 +443,36 @@ async function updateStringsXml(args: Uri) {
   }
 }
 
-function addLocalNotificationInjection(fileContent: string) {
+function addNotificationInjection(
+  fileContent: string,
+  projectName: string,
+  storeName: string
+) {
   const injectionCode = `
-  ..registerSingleton<LocalNotificationsStore>(
-    LocalNotificationsStore()..initialize(),
+  ..registerSingleton<${toConstantCase(projectName)}NotificationsStore>(
+    ${toConstantCase(projectName)}NotificationsStore(),
   )`;
 
   const getterCode = `
-  /// [NotificationsStore] getter
-  T notificationsStore<T extends NotificationsStore>() {
-    if (T == PushNotificationsStore) {
-      return _serviceLocator.get<T>();
-    } else if (T == LocalNotificationsStore) {
-      return _serviceLocator.get<T>();
-    } else {
-      throw Exception("Invalid type for notificationsStore");
-    }
-  }`;
+  /// [${toConstantCase(projectName)}NotificationsStore] getter
+  ${toConstantCase(
+    projectName
+  )}NotificationsStore get notificationsStore => _serviceLocator.get<${toConstantCase(
+    projectName
+  )}NotificationsStore>();`;
 
   fileContent = addInjectionAndGetter({
     fileContent: fileContent,
-    storeName: "Local Notifications",
+    storeName: storeName,
     importCode: `
-      import 'package:notifications/stores/base_store.dart';
-      import 'package:notifications/stores/local_store.dart';
-      import 'package:notifications/stores/push_store.dart';
+    import "package:${toConstantCase(
+      projectName
+    )}/presentation/notifications/store.dart";
       `,
     injectionCode,
     getterCode,
     injectInto: "CORE", //change to EXTERNAL when changed logic to either add ..register... or add _serviceLocator..register...
   });
 
-  return fileContent;
-}
-
-function addPushNotificationInjection(fileContent: string) {
-  const injectionCode = `
-  ..registerSingleton<PushNotificationsStore>(
-    PushNotificationsStore()..initialize(),
-  )`;
-
-  const getterCode = `
-  /// [NotificationsStore] getter
-  T notificationsStore<T extends NotificationsStore>() {
-    if (T == PushNotificationsStore) {
-      return _serviceLocator.get<T>();
-    } else if (T == LocalNotificationsStore) {
-      return _serviceLocator.get<T>();
-    } else {
-      throw Exception("Invalid type for notificationsStore");
-    }
-  }`;
-
-  fileContent = addInjectionAndGetter({
-    fileContent: fileContent,
-    storeName: "Push Notifications",
-    importCode: `
-  import 'package:notifications/stores/local_store.dart';
-  import 'package:notifications/stores/base_store.dart';
-  import 'package:notifications/stores/push_store.dart';`,
-    injectionCode: injectionCode,
-    getterCode: getterCode,
-    injectInto: "CORE", //change to EXTERNAL when changed logic to either add ..register... or add _serviceLocator..register...
-  });
   return fileContent;
 }

@@ -11,8 +11,7 @@ class NotificationsView extends StatelessWidget {
   /// [NotificationsView] constructor.
   NotificationsView({super.key});
 
-  /// [store] is an instance of NotificationsStore, used in the [LoadStateBuilder].
-  final {{store.pascalCase()}} store = Managers.notificationsStore<{{store.pascalCase()}}>();
+  final store = Managers.notificationsStore;
 
   @override
   Widget build(BuildContext context) {

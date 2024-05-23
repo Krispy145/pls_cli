@@ -42,7 +42,7 @@ export const addAuth = async (args: Uri) => {
     fs.writeFileSync(injectionContainerPath, fileContent);
 
     //opens the docs/authentication.md file from the workspace root directory
-    const docsPath = getWorkspaceFilePath(args, "docs/authentication.md");
+    const docsPath = getWorkspaceFilePath(args, "lib/docs/authentication.md");
     window.showTextDocument(Uri.file(docsPath));
   } catch (error) {
     window.showErrorMessage(`Error: ${error}`);

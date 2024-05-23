@@ -12,6 +12,10 @@ environment:
   mason: ">=0.1.0-dev <0.1.0"
 
 vars:
+  project:
+    type: string
+    description: project name
+    prompt: What is the project name?
   store:
     type: string
     description: the notification store
@@ -27,4 +31,3 @@ vars:
     description: Is this a push notification store?
     default: false
     prompt: Is this a push notification store?
-
