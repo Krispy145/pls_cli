@@ -31,7 +31,7 @@ with Store {
   /// the name can "sendToTopic" can be changed to any other function name.
   @action
   Future<void> sendToTopic(NotificationModel notificationModel) async {
-    await pushNotificationsStore.functions.httpsCallable("sendToTopic").call<Map<String, String>>(
+    await functions.httpsCallable("sendToTopic").call<Map<String, String>>(
           notificationModel.toStringMap(),
         );
   }
@@ -39,7 +39,7 @@ with Store {
   /// [subscribePushNotificationsToTopic] subscribes to a topic.
   @action
   Future<void> subscribePushNotificationsToTopic(String topic) async {
-    await pushNotificationsStore.subscribeToTopic(topic);
+    await subscribeToTopic(topic);
   }
   {{/is_push}}
 }

@@ -17,7 +17,8 @@ import {
   formatFiles,
   runCommandInWorkspaceFolder,
 } from "../../utils/build_runner";
-import { toPascalCase } from "../../utils/strings";
+
+import { toSnake, toPascal, toCamel } from "ts-case-convert";
 
 export const addNotifications = async (args: Uri) => {
   await updateAppDelegate(args);
@@ -455,15 +456,15 @@ function addNotificationInjection(
   storeName: string
 ) {
   const injectionCode = `
-  ..registerSingleton<${toPascalCase(projectName)}NotificationsStore>(
-    ${toPascalCase(projectName)}NotificationsStore(),
+  ..registerSingleton<${toPascal(projectName)}NotificationsStore>(
+    ${toPascal(projectName)}NotificationsStore(),
   )`;
 
   const getterCode = `
-  /// [${toPascalCase(projectName)}NotificationsStore] getter
-  ${toPascalCase(
+  /// [${toPascal(projectName)}NotificationsStore] getter
+  ${toPascal(
     projectName
-  )}NotificationsStore get notificationsStore => _serviceLocator.get<${toPascalCase(
+  )}NotificationsStore get notificationsStore => _serviceLocator.get<${toPascal(
     projectName
   )}NotificationsStore>();`;
 
@@ -471,7 +472,7 @@ function addNotificationInjection(
     fileContent: fileContent,
     storeName: storeName,
     importCode: `
-    import "package:${toPascalCase(
+    import "package:${toSnake(
       projectName
     )}/presentation/notifications/store.dart";
       `,

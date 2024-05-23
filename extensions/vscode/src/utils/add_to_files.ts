@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { getWorkspaceFilePath } from "./get-target-directory";
 import * as fs from "fs";
-import { toCamelCase, toConstantCase, toPascalCase } from "./strings";
+import { toCamel, toPascal } from "ts-case-convert";
 export function upsertFileToPathAndGetContents(
   path: string,
   fileName: string,
@@ -54,9 +54,9 @@ export function appendAfterMarkerInContent(
 
 // Function to create the logger feature string
 export const createLoggerFeatureString = (name: string): string => {
-  const camelCaseName = toCamelCase(name);
-  const constantCaseName = toConstantCase(name);
-  const pascalCaseName = toPascalCase(name);
+  const camelCaseName = toCamel(name);
+  const constantCaseName = toConstant(name);
+  const pascalCaseName = toPascal(name);
 
   return `/// ${pascalCaseName} logger feature.\n static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
 };
@@ -305,4 +305,7 @@ export function addToIOSInfoPlist(
       vscode.window.showErrorMessage(`Error: ${error}`);
     }
   }
+}
+function toConstant(name: string) {
+  return name.toUpperCase().replace(/ /g, "_").replace(/-/g, "_");
 }

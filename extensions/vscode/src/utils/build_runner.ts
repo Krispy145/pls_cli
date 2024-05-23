@@ -22,6 +22,7 @@ export const buildRunner = async (args: Uri, commandName: string) => {
   // Define the build runner command
   const buildRunnerCommand =
     "flutter pub run build_runner build --delete-conflicting-outputs";
+  const isLib = args.path.includes("lib");
 
   await window.withProgress(
     {
@@ -32,7 +33,10 @@ export const buildRunner = async (args: Uri, commandName: string) => {
     async () => {
       const buildRunnerResult = await runCommandInWorkspaceFolder(
         args,
-        buildRunnerCommand
+        buildRunnerCommand,
+        {
+          folderPath: isLib ? undefined : "lib",
+        }
       );
       await formatFiles(args);
       if (buildRunnerResult.error) {
