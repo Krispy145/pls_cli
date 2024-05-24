@@ -11,7 +11,7 @@ export const addEcosystemDomainLayer = async (args: Uri) => {
   try {
     var projectName = findProjectName(args);
     var projectPath =
-      args.fsPath.split(projectName)[0] +
+      args.fsPath.split(projectName[0])[0] +
       projectName +
       `/${projectName}_package/lib`;
     window.showInformationMessage(projectPath);
@@ -23,7 +23,7 @@ export const addEcosystemDomainLayer = async (args: Uri) => {
     });
 
     if (name) {
-      newEcoSystemDomainLayer(name, projectName, projectPath);
+      newEcoSystemDomainLayer(name, projectName[0], projectPath);
     }
   } catch (error) {
     window.showErrorMessage(`Error: ${error}`);

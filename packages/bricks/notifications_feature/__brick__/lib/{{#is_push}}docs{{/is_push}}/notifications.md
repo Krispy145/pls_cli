@@ -42,8 +42,21 @@ Add the APNs key to the Apple Developer Console:
 - Navigate to **Certificates, Identifiers & Profiles** > **Keys**.
 - Create a new key and provide a name.
 - Download the key and upload it to Firebase as mentioned in step 2.
-
 - Here is a good guide to generating and uploading your APNS Key:
 - https://medium.com/@m1nori/ios-setup-of-push-notifications-flutter-firebase-775b0430140e
+
+## 6. Add Firebase Functions to Project
+
+- Run `firebase init functons` from the project root directory
+
+  - If a Firebase project has been created already:
+    - Select the correct
+  - Else add a new Firebase project and name appropriately
+
+- Overwrite the existing codebase if one already exists
+- Select TypeScript as the desired language for the functions to be written in
+- NB: Ensure you DO overwrite the existing src/index.ts file, as this file already contains base function logic for use with the notifications
+- Overwrite the existing codebase if one already exists
+- Overwrite the existing codebase if one already exists
 
 That's it! You've now completed setting up push notifications for your Firebase project. You can now send push notifications to your iOS app using Firebase Cloud Messaging.

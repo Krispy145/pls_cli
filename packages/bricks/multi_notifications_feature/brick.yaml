@@ -19,3 +19,8 @@ environment:
 #  * an optional default value
 #  * an optional prompt phrase used when asking for the variable.
 
+vars:
+  project:
+    type: string
+    description: project name
+    prompt: What is the project name?

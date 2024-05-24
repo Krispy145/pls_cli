@@ -9,7 +9,7 @@ import { exec } from "child_process";
 export const addEcosystemPresentationLayer = async (args: Uri) => {
   try {
     var projectName = findProjectName(args);
-    var projectPath = args.fsPath.split(projectName)[0] + projectName;
+    var projectPath = args.fsPath.split(projectName[0])[0] + projectName;
     window.showInformationMessage(projectPath);
 
     const name = await window.showInputBox({
@@ -19,7 +19,7 @@ export const addEcosystemPresentationLayer = async (args: Uri) => {
     });
 
     if (name) {
-      newEcoSystemPresentationLayer(name, projectName, projectPath);
+      newEcoSystemPresentationLayer(name, projectName[0], projectPath);
     }
   } catch (error) {
     window.showErrorMessage(`Error: ${error}`);

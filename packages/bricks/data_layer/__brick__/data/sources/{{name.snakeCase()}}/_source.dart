@@ -2,7 +2,7 @@ library data.sources.{{name.snakeCase()}};
 
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
-import 'package:{{project.snakeCase()}}_package/utils/loggers.dart';
+import 'package:{{project.snakeCase()}}/utils/loggers.dart';
 import "package:utilities/data/models/basic_search_query_model.dart";
 import 'package:utilities/data_sources/api/paginated.dart';
 import 'package:utilities/data_sources/assets/paginated.dart';

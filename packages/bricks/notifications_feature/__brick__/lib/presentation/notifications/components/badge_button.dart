@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:notifications/stores/base_store.dart';
-import 'package:notifications/widgets/badges/badge.dart';
-import 'package:notifications/widgets/badges/badge_observer.dart';
-import 'package:utilities/logger/logger.dart';
-import 'package:utilities/widgets/load_state/state_widget.dart';
+import "package:auto_route/auto_route.dart";
+import "package:flutter/material.dart";
+import "package:notifications/stores/base_store.dart";
+import "package:notifications/widgets/badges/badge.dart";
+import "package:notifications/widgets/badges/badge_observer.dart";
+import "package:utilities/widgets/load_state/builder.dart";
 
-import '../route_data.dart';
+import "../../../navigation/routes.gr.dart";
 
 /// [NotificationsBadgeButton] is a Button that shows the number of notifications.
 /// When pressed, it navigates to the [NotificationsRoute].
@@ -30,10 +30,7 @@ class NotificationsBadgeButton extends StatelessWidget {
             showBadge: valueListenable.isNotEmpty,
             count: valueListenable.length,
             child: const Icon(Icons.notifications),
-            onTap: () {
-              //! TODO: Add route to lib/navigation/routes.dart file
-              const NotificationsRoute().go(context);
-            },
+            onTap: () => context.navigateTo(NotificationsRoute()),
           );
         },
       ),

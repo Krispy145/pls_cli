@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { getWorkspaceFilePath } from "./get-target-directory";
 import * as fs from "fs";
+import { toCamel, toPascal } from "ts-case-convert";
 export function upsertFileToPathAndGetContents(
   path: string,
   fileName: string,
@@ -53,28 +54,11 @@ export function appendAfterMarkerInContent(
 
 // Function to create the logger feature string
 export const createLoggerFeatureString = (name: string): string => {
-  const camelCaseName = toCamelCase(name);
-  const constantCaseName = toConstantCase(name);
-  const pascalCaseName = toPascalCase(name);
+  const camelCaseName = toCamel(name);
+  const constantCaseName = toConstant(name);
+  const pascalCaseName = toPascal(name);
 
   return `/// ${pascalCaseName} logger feature.\n static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
-};
-
-// Function to convert a string to camelCase
-export const toCamelCase = (str: string): string => {
-  return str.replace(/[-_]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""));
-};
-
-// Function to convert a string to CONSTANT_CASE
-export const toConstantCase = (str: string): string => {
-  return str.replace(/[-\s]+/g, "_").toUpperCase();
-};
-
-// Function to convert a string to PascalCase
-export const toPascalCase = (str: string): string => {
-  return str.replace(/[-_\s]+./g, (match) =>
-    match.charAt(match.length - 1).toUpperCase()
-  );
 };
 
 export function addInjectionAndGetter({
@@ -321,4 +305,7 @@ export function addToIOSInfoPlist(
       vscode.window.showErrorMessage(`Error: ${error}`);
     }
   }
+}
+function toConstant(name: string) {
+  return name.toUpperCase().replace(/ /g, "_").replace(/-/g, "_");
 }

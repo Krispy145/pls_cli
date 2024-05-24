@@ -199,7 +199,7 @@
         },
         {
           "command": "digital-oasis.add-notifications",
-          "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
+          "when": "explorerResourceIsFolder"
         },
         {
           "command": "digital-oasis.add-deeplinks",
@@ -279,6 +279,7 @@
   "dependencies": {
     "change-case": "^5.0.2",
     "lodash": "^4.17.21",
-    "mkdirp": "^3.0.1"
+    "mkdirp": "^3.0.1",
+    "ts-case-convert": "^2.0.7"
   }
 }
