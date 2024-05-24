@@ -131,11 +131,24 @@ class EcosystemCommand extends BrickCommandBase {
       'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
     Directory.current = ecosystemDirectory;
+    final docTODOs = await findKeyAndCopyLineInDirectory(ecosystemDirectory, 'TODO');
+    if (docTODOs.isNotEmpty) {
+      ///create an md file and add a title and subtitle, then add the todos
+      final docFile = File("./${packageName}_package/TODO.md");
+      if (!docFile.existsSync()) {
+        docFile.createSync();
+      }
+      final title = "# $packageName Ecosystem TODO's\n\n";
+      final subtitle = "This document contains all the TODO's in the $packageName Ecosystem\n\n";
+      await docFile.writeAsString("$title$subtitle\n\n# TODOs\n\n${docTODOs.join('\n')}");
+      await docFile.writeAsString("# TODOs\n\n");
+    }
     logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
     await Process.start('code', [
       './${packageName}_package',
       './${packageName}_app',
       './${packageName}_dashboard',
+      './${packageName}_package/TODO.md',
     ]);
   }
 }

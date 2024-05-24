@@ -34,7 +34,7 @@ YamlMap loadPubspec({Directory? startDir}) {
   return loadYaml(pubspecString) as YamlMap;
 }
 
-/// Process template files
+/// Replace all occurrences of a string in a Directory
 Future<void> replaceAllInDirectory(Directory directory, Map<String, String> replacements) async {
   await Future.wait(
     directory.listSync(recursive: true).whereType<File>().map((file) async {
@@ -52,6 +52,40 @@ Future<void> replaceAllInDirectory(Directory directory, Map<String, String> repl
       } catch (_) {}
     }),
   );
+}
+
+/// Find and List all occurrences of a string in a Directory
+Future<List<String>> findInDirectory(Directory directory, String search) async {
+  final results = <String>[];
+  await Future.wait(
+    directory.listSync(recursive: true).whereType<File>().map((file) async {
+      try {
+        final fileContent = await file.readAsString();
+        if (fileContent.contains(search)) {
+          results.add(file.path);
+        }
+      } catch (_) {}
+    }),
+  );
+  return results;
+}
+
+/// Find and List all occurrence keys and return the line in a Directory
+Future<List<String>> findKeyAndCopyLineInDirectory(Directory directory, String search) async {
+  final results = <String>[];
+  await Future.wait(
+    directory.listSync(recursive: true).whereType<File>().map((file) async {
+      try {
+        final fileContent = await file.readAsLines();
+        for (var i = 0; i < fileContent.length; i++) {
+          if (fileContent[i].contains(search)) {
+            results.add("• ${fileContent[i]}\n  - Line ${i + 1}: ${file.path}");
+          }
+        }
+      } catch (_) {}
+    }),
+  );
+  return results;
 }
 
 /// Get the root path of the user's home directory

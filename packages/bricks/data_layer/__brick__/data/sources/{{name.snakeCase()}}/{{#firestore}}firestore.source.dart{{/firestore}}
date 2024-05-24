@@ -24,7 +24,7 @@ class Firestore{{name.pascalCase()}}DataSource extends PaginatedFirestoreDataSou
     } catch (e) {
       AppLogger.print(
         "Firestore RESULT: Failed request: $e",
-        [TestPackageLoggers.{{name.camelCase()}}],
+        [ParentNameTemplateLoggers.{{name.camelCase()}}],
         type: LoggerType.error,
       );
       return null;
