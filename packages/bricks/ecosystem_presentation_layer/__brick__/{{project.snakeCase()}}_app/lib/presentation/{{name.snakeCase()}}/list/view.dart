@@ -16,12 +16,14 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PaginatedListBuilder<{{name.pascalCase()}}Model>.listView(
+    return Scaffold(
+      body: PaginatedListBuilder<{{name.pascalCase()}}Model>.listView(
       store: store,
       itemBuilder: (context, index) {
         final {{name.camelCase()}}Model = store.{{name.camelCase()}}s[index]!;
         return ListTile(title: Text({{name.camelCase()}}Model.id));
       },
+    ),
     );
   }
 }
