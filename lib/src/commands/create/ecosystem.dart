@@ -141,7 +141,6 @@ class EcosystemCommand extends BrickCommandBase {
       final title = "# $packageName Ecosystem TODO's\n\n";
       final subtitle = "This document contains all the TODO's in the $packageName Ecosystem\n\n";
       await docFile.writeAsString("$title$subtitle\n\n# TODOs\n\n${docTODOs.join('\n')}");
-      await docFile.writeAsString("# TODOs\n\n");
     }
     logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
     await Process.start('code', [
