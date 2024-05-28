@@ -79,7 +79,8 @@ Future<List<String>> findKeyAndCopyLineInDirectory(Directory directory, String s
         final fileContent = await file.readAsLines();
         for (var i = 0; i < fileContent.length; i++) {
           if (fileContent[i].contains(search)) {
-            results.add("• ${fileContent[i]}\n  - Line ${i + 1}: ${file.path}");
+            final relativePath = path.relative(file.path, from: directory.path);
+            results.add("• ${fileContent[i].trim()}\n  - Line ${i + 1}: $relativePath");
           }
         }
       } catch (_) {}

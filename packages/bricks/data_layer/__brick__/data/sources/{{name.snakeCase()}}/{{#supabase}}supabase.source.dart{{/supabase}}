@@ -6,7 +6,7 @@ class Supabase{{name.pascalCase()}}DataSource extends PaginatedSupabaseDataSourc
   /// [Supabase{{name.pascalCase()}}DataSource] constructor.
   Supabase{{name.pascalCase()}}DataSource()
       : super(
-          '{{name.camelCase()}}',
+          '{{name.camelCase()}}s',
           convertDataTypeFromMap: {{name.pascalCase()}}Model.fromMap,
           convertDataTypeToMap: (data) => data.toMap(),
         );

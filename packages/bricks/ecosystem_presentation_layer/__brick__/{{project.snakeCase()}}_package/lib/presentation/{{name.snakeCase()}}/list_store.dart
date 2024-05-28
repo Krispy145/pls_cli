@@ -16,10 +16,6 @@ abstract class _{{name.pascalCase()}}sStore extends PaginatedListStore<{{name.pa
   /// [repository] is an instance of [{{name.pascalCase()}}Repository].
   final {{name.pascalCase()}}Repository repository = {{name.pascalCase()}}Repository();
 
-  /// [{{name.camelCase()}}s] is an observable list of [{{name.pascalCase()}}Model]s.
-  @observable
-  ObservableList<{{name.pascalCase()}}Model?> {{name.camelCase()}}s = ObservableList<{{name.pascalCase()}}Model?>();
-
   /// [load{{name.pascalCase()}}Models] loads all [{{name.pascalCase()}}Model]s from the data source.
   @action
   Future<void> load{{name.pascalCase()}}Models() async {
@@ -27,7 +23,7 @@ abstract class _{{name.pascalCase()}}sStore extends PaginatedListStore<{{name.pa
       setLoading();
       final loaded{{name.pascalCase()}}s = await repository.getAll{{name.pascalCase()}}Models();
       if (loaded{{name.pascalCase()}}s.isNotEmpty) {
-        {{name.camelCase()}}s
+        results
           ..clear()
           ..addAll(loaded{{name.pascalCase()}}s);
         setLoaded();

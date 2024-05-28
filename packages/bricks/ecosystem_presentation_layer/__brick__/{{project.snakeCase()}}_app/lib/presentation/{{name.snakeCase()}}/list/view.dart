@@ -12,15 +12,15 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
   {{name.pascalCase()}}sView({super.key});
 
   /// [store] is an instance of [{{name.pascalCase()}}sStore], used in the [LoadStateBuilder].
-  final {{name.pascalCase()}}sStore store = {{name.pascalCase()}}sStore()..load{{name.pascalCase()}}Models();
+  final {{name.pascalCase()}}sStore store = {{name.pascalCase()}}sStore();
 
   @override
   Widget build(BuildContext context) {
     return PaginatedListBuilder<{{name.pascalCase()}}Model>.listView(
       store: store,
       itemBuilder: (context, index) {
-        final {{name.camelCase()}}Model = store.{{name.camelCase()}}s[index]!;
-        return ListTile(title: Text({{name.camelCase()}}Model.id));
+        final {{name.camelCase()}}Model = store.results[index]!;
+        return ListTile(title: Text({{name.camelCase()}}.id),subtitle: {{name.camelCase()}}.name!=null?Text({{name.camelCase()}}.name!):null,);
       },
     );
   }

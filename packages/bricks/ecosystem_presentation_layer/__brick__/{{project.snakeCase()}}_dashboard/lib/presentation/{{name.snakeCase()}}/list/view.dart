@@ -24,7 +24,7 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Near Mes"),
+        title: const Text("{{project.titleCase()}}s"),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.navigateTo({{name.pascalCase()}}Route()),
@@ -33,7 +33,7 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
       body: PaginatedListBuilder<{{name.pascalCase()}}Model>.listView(
         store: store,
         itemBuilder: (context, index) {
-          final {{name.camelCase()}}sModel = store.{{name.camelCase()}}s[index];
+          final {{name.camelCase()}}sModel = store.results[index];
           if ({{name.camelCase()}}sModel == null) {
             return const SizedBox.shrink();
           }
@@ -52,7 +52,7 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
               ),
             ),
             child: ListTile(
-              title: Text({{name.camelCase()}}sModel.id),
+              title: Text({{name.camelCase()}}.id),subtitle: {{name.camelCase()}}.name!=null?Text({{name.camelCase()}}.name!):null,
               onTap: () => context.navigateTo(
                 {{name.pascalCase()}}Route(
                   id: {{name.camelCase()}}sModel.id,

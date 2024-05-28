@@ -5,7 +5,7 @@ class Hive{{name.pascalCase()}}DataSource<T> extends PaginatedHiveDataSource<{{n
   /// [Hive{{name.pascalCase()}}DataSource] constructor.
   Hive{{name.pascalCase()}}DataSource()
       : super(
-          "{{name.snakeCase()}}",
+          "{{name.snakeCase()}}s",
           convertDataTypeFromMap: {{name.pascalCase()}}Model.fromMap,
           convertDataTypeToMap: (data) => data.toMap(),
         );

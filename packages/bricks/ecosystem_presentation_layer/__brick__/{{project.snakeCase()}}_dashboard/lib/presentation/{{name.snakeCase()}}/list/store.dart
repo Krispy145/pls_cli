@@ -13,7 +13,7 @@ abstract class _Addit{{name.pascalCase()}}sStore extends {{name.pascalCase()}}sS
     try {
       setLoading();
       await repository.delete{{name.pascalCase()}}Model(id);
-      {{name.camelCase()}}s.removeWhere((element) => element!.id == id);
+      results.removeWhere((element) => element!.id == id);
       setLoaded();
     } catch (e) {
       setError();

@@ -138,8 +138,8 @@ class EcosystemCommand extends BrickCommandBase {
       if (!docFile.existsSync()) {
         docFile.createSync();
       }
-      final title = "# $packageName Ecosystem TODO's\n\n";
-      final subtitle = "This document contains all the TODO's in the $packageName Ecosystem\n\n";
+      final title = "# ${packageName.titleCase} Ecosystem TODO's\n\n";
+      final subtitle = "This document contains all the TODO's in the ${packageName.titleCase} Ecosystem\n\n";
       await docFile.writeAsString("$title$subtitle\n\n# TODOs\n\n${docTODOs.join('\n')}");
     }
     logger.info('Changed working directory back to: ${ecosystemDirectory.path}'.blue);
@@ -148,6 +148,8 @@ class EcosystemCommand extends BrickCommandBase {
       './${packageName}_app',
       './${packageName}_dashboard',
       './${packageName}_package/TODO.md',
+      './${packageName}_app/README.md',
+      './${packageName}_dashboard/README.md',
     ]);
   }
 }

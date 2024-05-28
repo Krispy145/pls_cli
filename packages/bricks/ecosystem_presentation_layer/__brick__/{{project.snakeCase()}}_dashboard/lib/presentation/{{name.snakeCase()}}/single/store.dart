@@ -20,6 +20,6 @@ abstract class _Addit{{name.pascalCase()}}Store extends {{name.pascalCase()}}Sto
   /// [addit{{name.pascalCase()}}Model] addits a [{{name.pascalCase()}}Model] to the data source.
   @action
   Future<void> addit{{name.pascalCase()}}Model({{name.pascalCase()}}Model {{name.camelCase()}}Model) async {
-    await repository.addit{{name.pascalCase()}}Model(current{{name.pascalCase()}} ?? {{name.camelCase()}}Model);
+    await repository.addit{{name.pascalCase()}}Model({{name.camelCase()}}Model);
   }
 }

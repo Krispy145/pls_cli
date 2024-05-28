@@ -1,4 +1,4 @@
-import 'package:utilities/data_sources/paginated.dart';
+import 'package:utilities/data/sources/paginated.dart';
 
 import '/data/models/{{name.snakeCase()}}_model.dart';
 import '/data/repositories/_repositories.dart';
@@ -12,7 +12,7 @@ class {{name.pascalCase()}}Repository {
   /// [{{name.pascalCase()}}Repository] constructor.
   {{name.pascalCase()}}Repository();
 
-  //* {{name.pascalCase()}}Model Data Source Type
+  ///TODO Select {{name.pascalCase()}}Model Data Source Type
   final _source = Dummy{{name.pascalCase()}}DataSource();
 
   ResponseModel? _lastResponse;

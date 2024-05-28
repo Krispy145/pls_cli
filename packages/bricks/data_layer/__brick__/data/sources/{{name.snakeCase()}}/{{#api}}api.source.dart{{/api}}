@@ -8,7 +8,7 @@ class Api{{name.pascalCase()}}DataSource extends PaginatedApiDataSource<{{name.p
       : super(
           //TODO: Replace the following URL with the actual API URL.
           "https://api.{{name.snakeCase()}}.com",
-          sourceSuffix: "{{name.snakeCase()}}",
+          sourceSuffix: "{{name.snakeCase()}}s",
           convertDataTypeFromMap: {{name.pascalCase()}}Model.fromMap,
           convertDataTypeToMap: (data) => data.toMap(),
         );
