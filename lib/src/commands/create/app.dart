@@ -215,6 +215,10 @@ class CreateAppCommand extends DOCommand {
         'parentNameTemplate': _projectName!.camelCase,
         'ParentNameTemplate': _projectName!.pascalCase,
         'parent_name_template': _projectName!.snakeCase,
+        'appTemplate': _projectName!.camelCase,
+        'app_template': _projectName!.snakeCase,
+        'App Template': _projectName!.titleCase,
+        'AppTemplate': _projectName!.pascalCase,
       };
       await replaceAllInDirectory(
         Directory.current,

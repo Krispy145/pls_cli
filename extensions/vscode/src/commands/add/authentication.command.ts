@@ -7,7 +7,34 @@ import { addFlutterPackageFromPath } from "../../utils/add_flutter_package";
 
 export const addAuth = async (args: Uri) => {
   try {
-    const commandNewAuth = `oasis add auth --runner`;
+    const authType = await window.showQuickPick(
+      ["User Authentication", "Silent Authentication", "Both"],
+      {
+        title: "Select the type of authentication you want to add",
+        canPickMany: false,
+        ignoreFocusOut: true,
+      }
+    );
+    while (!authType) {
+      window.showQuickPick(
+        ["User Authentication", "Silent Authentication", "Both"],
+        {
+          title: "Select the type of authentication you want to add",
+          canPickMany: false,
+          ignoreFocusOut: true,
+        }
+      );
+    }
+    var authTypeValue = "";
+    if (authType === "User Authentication") {
+      authTypeValue = "auth";
+    } else if (authType === "Silent Authentication") {
+      authTypeValue = "silent";
+    } else {
+      authTypeValue = "both";
+    }
+
+    const commandNewAuth = `oasis add auth  --${authTypeValue} --runner`;
     await runCommandInWorkspaceFolder(args, commandNewAuth, {
       folderPath: "lib",
     });

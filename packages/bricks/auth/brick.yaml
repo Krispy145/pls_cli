@@ -19,3 +19,19 @@ environment:
 #  * an optional default value
 #  * an optional prompt phrase used when asking for the variable.
 
+vars:
+  auth:
+    type: boolean
+    description: Authenticate User
+    prompt: Authenticate User
+    default: false
+  silent:
+    type: boolean
+    description: Silent Authentication
+    prompt: Silent Authentication
+    default: false
+  both:
+    type: boolean
+    description: Silent and Authenticate User
+    prompt: Silent and Authenticate User
+    default: false
