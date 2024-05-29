@@ -3,5 +3,5 @@ enum AppTemplateLoggers {
   appTemplate,
   dependencyInjection,
 
-  ///LOGGER FEATURE END
+  /// LOGGER FEATURE END
 }

@@ -1,21 +1,20 @@
 import "package:mobx/mobx.dart";
-import "package:utilities/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_package/domain/repositories/{{name.snakeCase()}}.repository.dart";
 import "package:utilities/layouts/paginated_list/store.dart";
 
-import "/domain/repositories/{{name.snakeCase()}}.repository.dart";
+part "list_store.g.dart";
 
-part "store.g.dart";
-
-/// [{{name.pascalCase()}}sStore] is a class that uses [_{{name.pascalCase()}}sStore] to manage state of the {{name.camelCase()}} feature.
+/// [{{name.pascalCase()}}sStore] is a class that uses [_{{name.pascalCase()}}sStore] to manage state of the {{name.camelCase()}}s feature.
 class {{name.pascalCase()}}sStore = _{{name.pascalCase()}}sStore with _${{name.pascalCase()}}sStore;
 
-/// [_{{name.pascalCase()}}sStore] is a class that manages the state of the permission feature.
+/// [_{{name.pascalCase()}}sStore] is a class that manages the state of the {{name.camelCase()}}s feature.
 abstract class _{{name.pascalCase()}}sStore extends PaginatedListStore<{{name.pascalCase()}}Model> with Store {
-  /// [repository] is an instance of [{{name.pascalCase()}}Repository].
-  final {{name.pascalCase()}}Repository repository = {{name.pascalCase()}}Repository();
-
   @override
   late final loadMoreFromRepository = repository.getPaged{{name.pascalCase()}}Models;
+
+  /// [repository] is an instance of [{{name.pascalCase()}}Repository].
+  final {{name.pascalCase()}}Repository repository = {{name.pascalCase()}}Repository();
 
   /// [load{{name.pascalCase()}}Models] loads all [{{name.pascalCase()}}Model]s from the data source.
   @action
@@ -29,7 +28,6 @@ abstract class _{{name.pascalCase()}}sStore extends PaginatedListStore<{{name.pa
           ..addAll(loaded{{name.pascalCase()}}s);
         setLoaded();
       } else {
-        results.clear();
         setEmpty();
       }
     } catch (e) {

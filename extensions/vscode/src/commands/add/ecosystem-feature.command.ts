@@ -7,8 +7,9 @@ import { buildScripts, runCommandsFromPath } from "../../utils/build_runner";
 
 export const addEcosystemFeature = async (args: Uri) => {
   try {
-    var projectName = findProjectName(args);
-    var projectPath = args.fsPath.split(projectName[0])[0] + projectName;
+    var projectNames = findProjectName(args);
+    var projectName = projectNames[0];
+    var projectPath = args.fsPath.split(projectName)[0] + projectName;
 
     var packageExtension = `/${projectName}_package/lib`;
     var appExtension = `/${projectName}_app/lib`;
@@ -36,7 +37,7 @@ export const addEcosystemFeature = async (args: Uri) => {
       );
       await newEcoSystemPresentationLayer(
         name,
-        projectName[0],
+        projectName,
         projectPath,
         false
       );

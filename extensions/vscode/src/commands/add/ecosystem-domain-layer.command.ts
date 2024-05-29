@@ -9,11 +9,10 @@ import { exec } from "child_process";
 
 export const addEcosystemDomainLayer = async (args: Uri) => {
   try {
-    var projectName = findProjectName(args);
+    var projectNames = findProjectName(args);
+    var projectName = projectNames[0] + projectNames[1];
     var projectPath =
-      args.fsPath.split(projectName[0])[0] +
-      projectName +
-      `/${projectName}_package/lib`;
+      args.fsPath.split(projectNames[0])[0] + projectName + `/lib`;
     window.showInformationMessage(projectPath);
 
     const name = await window.showInputBox({
@@ -23,7 +22,7 @@ export const addEcosystemDomainLayer = async (args: Uri) => {
     });
 
     if (name) {
-      newEcoSystemDomainLayer(name, projectName[0], projectPath);
+      newEcoSystemDomainLayer(name, projectName, projectPath);
     }
   } catch (error) {
     window.showErrorMessage(`Error: ${error}`);

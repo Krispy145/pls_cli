@@ -3,5 +3,5 @@ enum {{project_name.pascalCase()}}Loggers {
   {{project_name.camelCase()}},
   dependencyInjection,
 
-  ///LOGGER FEATURE END
+  /// LOGGER FEATURE END
 }

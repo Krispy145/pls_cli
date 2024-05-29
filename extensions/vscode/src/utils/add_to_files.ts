@@ -58,7 +58,7 @@ export const createLoggerFeatureString = (name: string): string => {
   const constantCaseName = toConstant(name);
   const pascalCaseName = toPascal(name);
 
-  return `/// ${pascalCaseName} logger feature.\n static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n///LOGGER FEATURE END`;
+  return `/// ${pascalCaseName} logger feature.\n static final LoggerFeature ${camelCaseName} = LoggerFeature("${constantCaseName}", true);\n/// LOGGER FEATURE END`;
 };
 
 export function addInjectionAndGetter({

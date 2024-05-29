@@ -15,7 +15,8 @@ export const addDataLayer = async (args: Uri) => {
     const pickedDataSourceType = types?.map((item) => `--${item}`).join(" ");
 
     if (name) {
-      var projectName = findProjectName(args);
+      var projectNames = findProjectName(args);
+      var projectName = projectNames[0] + projectNames[1];
       const commandNewDataLayer = `oasis add data_layer --name=${name} --project=${projectName} --runner ${pickedDataSourceType}`;
       await runCommandInWorkspaceFolder(args, commandNewDataLayer, {
         folderPath: "lib",

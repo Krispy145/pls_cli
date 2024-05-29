@@ -47,10 +47,10 @@ class LoggerFeatureCommand extends DOCommand {
   /// Add the Feature to the Logger to be used in the app
   Future<void> replaceLoggerFeatureString(String name, String path) async {
     // Define the string to replace
-    const searchString = '///LOGGER FEATURE END';
+    const searchString = '/// LOGGER FEATURE END';
 
     // Define the replacement string
-    final replacementString = '/// [${name.camelCase}] is the ${name.pascalCase} feature\n ${name.camelCase},\n\n ///LOGGER FEATURE END';
+    final replacementString = '/// [${name.camelCase}] is the ${name.pascalCase} feature\n ${name.camelCase},\n\n /// LOGGER FEATURE END';
 
     // Get the current working directory
     final currentDirectory = Directory(path);

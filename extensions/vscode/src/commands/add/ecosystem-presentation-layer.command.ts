@@ -8,8 +8,10 @@ import { exec } from "child_process";
 
 export const addEcosystemPresentationLayer = async (args: Uri) => {
   try {
-    var projectName = findProjectName(args);
-    var projectPath = args.fsPath.split(projectName[0])[0] + projectName;
+    var projectNames = findProjectName(args);
+    var projectName = projectNames[0] + projectNames[1];
+    var projectPath =
+      args.fsPath.split(projectNames[0])[0] + projectName + `/lib`;
     window.showInformationMessage(projectPath);
 
     const name = await window.showInputBox({

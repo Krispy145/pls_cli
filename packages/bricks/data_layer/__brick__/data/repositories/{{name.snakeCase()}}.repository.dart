@@ -1,8 +1,9 @@
-import 'package:utilities/data/sources/paginated.dart';
-import 'package:utilities/helpers/tuples.dart';
+import "package:utilities/data/sources/paginated.dart";
+import "package:utilities/data/sources/source.dart";
+import "package:utilities/helpers/tuples.dart";
 
-import '/data/models/{{name.snakeCase()}}_model.dart';
-import '/data/sources/{{name.snakeCase()}}/_source.dart';
+import "/data/models/{{name.snakeCase()}}_model.dart";
+import "/data/sources/{{name.snakeCase()}}/_source.dart";
 
 /// [{{name.pascalCase()}}DataRepository] is a class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
 class {{name.pascalCase()}}DataRepository {
@@ -26,17 +27,22 @@ class {{name.pascalCase()}}DataRepository {
   }
 
   /// [addAll{{name.pascalCase()}}Models] adds all [{{name.pascalCase()}}Model]s to the data source.
-  Future<void> addAll{{name.pascalCase()}}Models({required {{name.pascalCase()}}DataSource source, required List<{{name.pascalCase()}}Model> {{name.camelCase()}}Models}) async {
+  Future<RequestResponse> addAll{{name.pascalCase()}}Models({required {{name.pascalCase()}}DataSource source, required List<{{name.pascalCase()}}Model> {{name.camelCase()}}Models}) async {
     return source.addAll({{name.camelCase()}}Models);
   }
 
-  /// [addit{{name.pascalCase()}}Model] addits a single [{{name.pascalCase()}}Model] to the data source.
-  Future<void> addit{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required {{name.pascalCase()}}Model {{name.camelCase()}}Model}) async {
+  /// [add{{name.pascalCase()}}Model] addits a single [{{name.pascalCase()}}Model] to the data source.
+  Future<Pair<RequestResponse, {{name.pascalCase()}}Model?>> add{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required {{name.pascalCase()}}Model {{name.camelCase()}}Model}) async {
+    return source.add({{name.camelCase()}}Model);
+  }
+
+  /// [update{{name.pascalCase()}}Model] updates a single [{{name.pascalCase()}}Model] in the data source.
+  Future<RequestResponse> update{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required {{name.pascalCase()}}Model {{name.camelCase()}}Model}) async {
     return source.update({{name.camelCase()}}Model.id, {{name.camelCase()}}Model);
   }
 
   /// [delete{{name.pascalCase()}}Model] deletes a single [{{name.pascalCase()}}Model] from the data source.
-  Future<void> delete{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required String id}) async {
+  Future<RequestResponse> delete{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required String id}) async {
     return source.delete(id);
   }
 }

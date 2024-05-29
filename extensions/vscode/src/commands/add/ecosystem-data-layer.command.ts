@@ -10,11 +10,10 @@ import { promptForDataSourceTypes } from "../../utils/data_source_types";
 
 export const addEcosystemDataLayer = async (args: Uri) => {
   try {
-    var projectName = findProjectName(args);
+    var projectNames = findProjectName(args);
+    var projectName = projectNames[0] + projectNames[1];
     var projectPath =
-      args.fsPath.split(projectName[0])[0] +
-      projectName +
-      `/${projectName}_package/lib`;
+      args.fsPath.split(projectNames[0])[0] + projectName + `/lib`;
     window.showInformationMessage(projectPath);
 
     const name = await window.showInputBox({

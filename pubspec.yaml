@@ -13,7 +13,9 @@ scripts:
       cwd: packages/app/template
     - command: flutter pub get
       cwd: packages/app_brick_generator
-  build:vscode: "cd extensions/vscode && npm run build && npm install -g vsce"
+  major:vscode: "cd extensions/vscode/scripts && bash update.sh -M"
+  minor:vscode: "cd extensions/vscode/scripts && bash update.sh -m"
+  build:vscode: "cd extensions/vscode/scripts && bash update.sh -p"
   build:cli:
     - command: flutter pub global activate -spath . --overwrite
     - command: oasis run gen:app_brick

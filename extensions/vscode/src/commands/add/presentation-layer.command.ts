@@ -11,7 +11,8 @@ export const addPresentationLayer = async (args: Uri) => {
     });
 
     if (name) {
-      var projectName = findProjectName(args);
+      var projectNames = findProjectName(args);
+      var projectName = projectNames[0] + projectNames[1];
       const commandNewPresentationLayer = `oasis add presentation_layer --name=${name} --project=${projectName} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewPresentationLayer, {
         folderPath: "lib",

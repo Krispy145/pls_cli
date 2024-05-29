@@ -11,7 +11,8 @@ export const addFeature = async (args: Uri) => {
     });
 
     if (name) {
-      var projectName = findProjectName(args);
+      var projectNames = findProjectName(args);
+      var projectName = projectNames[0];
       const commandNewFeature = `oasis add feature --name=${name} --project=${projectName} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewFeature, {
         folderPath: "lib",

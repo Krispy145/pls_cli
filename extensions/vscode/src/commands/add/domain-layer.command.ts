@@ -11,7 +11,8 @@ export const addDomainLayer = async (args: Uri) => {
     });
 
     if (name) {
-      var projectName = findProjectName(args);
+      var projectNames = findProjectName(args);
+      var projectName = projectNames[0] + projectNames[1];
       const commandNewDomainLayer = `oasis add domain_layer --name=${name} --project=${projectName} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewDomainLayer, {
         folderPath: "lib",

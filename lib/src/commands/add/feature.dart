@@ -36,8 +36,8 @@ class FeatureCommand extends DOCommand {
           prompt: "What is the name of the feature?",
           validator: isValidDirectoryName,
         );
-    final dataLayerScript = isEcoSystem ? 'oasis add data_layer --name=$featureName --project=${projectName}_package' : 'oasis add data_layer --name=$featureName --project=$projectName';
-    final domainLayerScript = isEcoSystem ? 'oasis add domain_layer --name=$featureName --project=${projectName}_package' : 'oasis add domain_layer --name=$featureName --project=$projectName';
+    final dataLayerScript = isEcoSystem ? 'oasis add data_layer --name=$featureName --project=$projectName' : 'oasis add data_layer --name=$featureName --project=$projectName';
+    final domainLayerScript = isEcoSystem ? 'oasis add domain_layer --name=$featureName --project=$projectName' : 'oasis add domain_layer --name=$featureName --project=$projectName';
     final presentationLayerScript =
         isEcoSystem ? 'oasis add ecosystem_presentation_layer --name=$featureName --project=$projectName' : 'oasis add presentation_layer --name=$featureName --project=$projectName';
 

@@ -1,17 +1,16 @@
 // ignore_for_file: unused_element
 
 import "package:mobx/mobx.dart";
-import "/data/models/{{name.snakeCase()}}_model.dart";
-import "/utils/loggers.dart";
-import "package:utilities/logger/logger.dart";
-import '../list/store.dart';
+import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
 
-part "store.g.dart";
+import "list_store.dart";
 
-/// [{{name.pascalCase()}}Store] is a class that uses [_{{name.pascalCase()}}Store] to manage state of the {{name.pascalCase()}} feature.
+part "single_store.g.dart";
+
+/// [{{name.pascalCase()}}Store] is a class that uses [_{{name.pascalCase()}}Store] to manage state of the {{name.camelCase()}}s feature.
 class {{name.pascalCase()}}Store = _{{name.pascalCase()}}Store with _${{name.pascalCase()}}Store;
 
-/// [_{{name.pascalCase()}}Store] is a class that manages the state of the {{name.pascalCase()}} feature.
+/// [_{{name.pascalCase()}}Store] is a class that manages the state of the {{name.camelCase()}}s feature.
 abstract class _{{name.pascalCase()}}Store extends {{name.pascalCase()}}sStore with Store {
   final String? id;
 
