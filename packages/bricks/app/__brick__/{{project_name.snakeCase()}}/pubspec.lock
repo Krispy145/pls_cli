@@ -494,7 +494,7 @@ packages:
       path: "../../../../../packages/fonts"
       relative: true
     source: path
-    version: "0.0.1"  
+    version: "0.0.1"
   frontend_server_client:
     dependency: transitive
     description:
