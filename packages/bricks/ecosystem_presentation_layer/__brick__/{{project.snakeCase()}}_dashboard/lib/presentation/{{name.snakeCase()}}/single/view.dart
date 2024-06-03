@@ -32,7 +32,7 @@ class {{name.pascalCase()}}View extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          store.isEmpty ? "{{name.pascalCase()}} Creation" : "Update ${store.current{{name.pascalCase()}}?.name}",
+          {{name.camelCase()}}FormStore.isAdding ? "{{name.pascalCase()}} Creation" : "Update ${store.current{{name.pascalCase()}}?.name}",
           style: context.textTheme.headlineMedium,
         ),
       ),

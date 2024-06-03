@@ -19,7 +19,7 @@ abstract class _{{name.pascalCase()}}FormStore extends FormsModelStore<{{name.pa
     required this.{{name.camelCase()}}Store,
     required {{name.pascalCase()}}Model? {{name.camelCase()}}Model,
     required super.onValueSaved,
-  }) : super(value: {{name.camelCase()}}Model ?? {{name.pascalCase()}}Model.empty, isAdding: {{name.camelCase()}}Model == null);
+  }) : super(value: {{name.camelCase()}}Model ?? {{name.pascalCase()}}Model.empty);
 
   late final nameStore = TextFormFieldStore(
     value: value.name,

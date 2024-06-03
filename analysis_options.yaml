@@ -2,16 +2,14 @@ include: all_lint_rules.yaml
 analyzer:
   exclude:
     - "**/*.g.dart"
-    - "**/*.freezed.dart"
     - "build/**"
     - "**/*.g.dart"
     - "**/*.gr.dart"
-    - "**/*.freezed.dart"
     - "**/__brick__/**"
     - "**/*_bundle.dart"
     - "packages/app"
-  errors:    
-    included_file_warning: ignore    
+  errors:
+    included_file_warning: ignore
     invalid_annotation_target: ignore
     missing_required_param: error
     avoid_print: info
@@ -22,7 +20,7 @@ analyzer:
 
 linter:
   rules:
-    leading_newlines_in_multiline_strings: false    
+    leading_newlines_in_multiline_strings: false
     avoid_classes_with_only_static_members: false
     discarded_futures: false
     parameter_assignments: false

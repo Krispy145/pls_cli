@@ -49,8 +49,14 @@ export const addAuth = async (args: Uri) => {
     var fileContent = fs.readFileSync(injectionContainerPath, "utf-8");
 
     const injectionCode = `
-    ..registerSingleton(AuthenticationRepository.firebase(logToDatabase: false))
-    `;
+    ..registerSingleton(
+      AuthenticationRepository.firebase(
+        //TODO: extend UserModel to include the required fields for project specific requirements
+        convertDataTypeFromMap: UserModel.fromMap,
+        hasPermissions: true,
+        convertDataTypeToMap: (user) => user.toMap(),
+      ),
+    )`;
 
     const getterCode = `
   /// [AuthenticationRepository] getter

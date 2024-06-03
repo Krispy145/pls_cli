@@ -103,7 +103,6 @@ Adds a cubit to a feature.
 - `(-n) --name` The name of the generated item.
 - `(-f) --feature` Add the generation to a feature
 - `--[no-]form` Creates a form cubit
-- `--[no-]hasState` Whether the cubit has a freezed state class
 - `(-i) --inputs <list,of,inputs>` Inputs to add to a form. Only used in a form bloc
 
 #### Event

@@ -1,51 +1,29 @@
-import "package:authentication/data/models/auth_params.dart";
-import "package:authentication/presentation/builder.dart";
-import "package:authentication/presentation/components/social_types.dart";
+import "package:authentication/data/models/user_model.dart";
+import "package:authentication/presentation/auth/builder.dart";
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
-import '/navigation/components/app_bar.dart';
 import "package:utilities/sizes/spacers.dart";
 
 import "/dependencies/injection.dart";
-import "/navigation/routes.gr.dart";
 
 /// [AuthView] of the app.
 @RoutePage()
-class {{^both}}Silent{{/both}}AuthView extends StatelessWidget {
+class AuthView extends StatelessWidget {
+  final void Function(UserModel)? onSuccess;
+
   /// [AuthView] constructor.
-  const AuthView({super.key});
+  const AuthView({super.key, this.onSuccess});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      {{#auth}}
-      appBar: MainAppBar(
-        title: "Sign In or Sign Up",
-        ),
-      {{/auth}}
       body: Column(
         children: [
           Sizes.xl.spacer(),
-          {{#auth}}
-          AuthenticationBuilder.authenticate(
-            repository: Managers.authenticationRepository,            
-            // showPhoneAuth: ShowAuthAction(showSignUp: false, showSignIn: true),
-            socialTypes: [
-              SocialButtonType.apple(params: AuthParams.apple()),
-              SocialButtonType.google(params: AuthParams.google()),
-            ],
-          ),
-          {{/auth}}
-          {{#silent}}
-          AuthenticationBuilder.silent(
-            repository: Managers.authenticationRepository,            
-          ),
-          {{/silent}}
-          {{#both}}
           AuthenticationBuilder.authenticateThenSilent(
-            repository: Managers.authenticationRepository,            
+            repository: Managers.authenticationRepository,
+            onSuccess: onSuccess,
           ),
-          {{/both}}
         ],
       ),
     );
