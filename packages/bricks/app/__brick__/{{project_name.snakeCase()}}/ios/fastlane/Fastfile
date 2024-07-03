@@ -14,69 +14,70 @@ platform :ios do
   desc "Deploy a new version to TestFlight for Development environment"
   lane :deploy_dev do |options|
     track = options[:channel]
-    deploy_to_apple("dev",track, options)
+    deploy_to_apple("development",track, options)
   end
 
   desc "Deploy a new version to TestFlight for Staging environment"
   lane :deploy_stage do |options|
     track = options[:channel]
-    deploy_to_apple("stage",track, options)
+    deploy_to_apple("staging",track, options)
   end
 
   desc "Deploy a new version to App Store for Production environment"
   lane :deploy_prod do |options|
     track = "production"
-    deploy_to_apple("prod",track, options)
+    deploy_to_apple("production",track, options)
   end
 
-  def deploy_to_apple(env,track, options)
-    environment = env.capitalize
+  def deploy_to_apple(env, track, options)    
     filePath = options[:filePath]
     success = nil
-  
-    if env == "dev" || env == "stage"
+
+    if env == "development" || env == "staging"
       if track == "alpha"
-      success = upload_to_testflight(
-        api_key_path: "./Firebase/#{environment}/app_store_connect.json",
-        ipa: filePath,
-        skip_waiting_for_build_processing: true
-      )
+        success = upload_to_testflight(
+          api_key_path: "./Firebase/#{env}/app_store_connect.json",
+          ipa: filePath,
+          skip_waiting_for_build_processing: true
+        )
+        set_app_encryption(env)
       end
       if track == "beta"
-      setup_ci
-      testers = ["External Testers"]
-      success = upload_to_testflight(
-        distribute_external: true,
-        app_platform: "ios",
-        beta_app_review_info: {
-          contact_email: "team@digitaloasis.ae",
-          contact_first_name: "Digital Oasis",
-          contact_last_name: "Dev",
-          contact_phone: "+971585337202",
-          demo_account_name: "demo",
-          demo_account_password: "demo"
-        },
-        localized_app_info: {
-          "en-US": {
-            feedback_email: "team@digitaloasis.ae",
-            marketing_url: "",
-            privacy_policy_url: "",
-            description: "App #{environment.capitalize} Version"
-          }
-        },
-        localized_build_info: {
-          "en-US": {
-            whats_new: "App #{environment.capitalize} Version changes"
-          }
-        },
-        distribute_only: true,
-        groups: testers
-      )
+        setup_ci
+        testers = ["External Testers"]
+        success = upload_to_testflight(
+          distribute_external: true,
+          app_platform: "ios",
+          beta_app_review_info: {
+            contact_email: "team@digitaloasis.ae",
+            contact_first_name: "Digital Oasis",
+            contact_last_name: "Dev",
+            contact_phone: "+971585337202",
+            demo_account_name: "demo",
+            demo_account_password: "demo"
+          },
+          localized_app_info: {
+            "en-US": {
+              feedback_email: "team@digitaloasis.ae",
+              marketing_url: "",
+              privacy_policy_url: "",
+              description: "App #{env.capitalize} Version"
+            }
+          },
+          localized_build_info: {
+            "en-US": {
+              whats_new: "App #{env.capitalize} Version changes"
+            }
+          },
+          distribute_only: true,
+          groups: testers
+        )
+        set_app_encryption(env)
       end
     end
-    if env == "prod" && track == "production"
+    if env == "production" && track == "production"
       upload_to_testflight(
-        api_key_path: "./Firebase/#{environment}/app_store_connect.json",
+        api_key_path: "./Firebase/#{env}/app_store_connect.json",
         ipa: filePath,
         skip_waiting_for_build_processing: true
       )
@@ -85,14 +86,44 @@ platform :ios do
         automatic_release: false,
         force: true
       )
+      set_app_encryption(env)
     end
-  
+
     send_email(
-      subject: "App Deployment to #{track.capitalize} - #{environment}",
-      message: "The app was successfully deployed to #{environment.capitalize} environment.",
+      subject: "App Deployment to #{track.capitalize} - #{env}",
+      message: "The app was successfully deployed to #{env.capitalize} environment.",
       success: success
     )
-  end 
+  end
+
+  desc "Set App Encryption Status"
+  private_lane :set_app_encryption do |env|
+    require 'spaceship'
+    
+    # Load API key from JSON file
+    json_key_path = "./Firebase/#{env}/app_store_connect.json"
+    api_key_data = JSON.parse(File.read(json_key_path))
+
+    # Create an API token
+    token = Spaceship::ConnectAPI::Token.create(
+      key_id: api_key_data['key_id'],
+      issuer_id: api_key_data['issuer_id'],
+      key: api_key_data['key']
+    )
+
+    # Set the token for Spaceship
+    Spaceship::ConnectAPI.token = token
+
+    # Find the app by bundle identifier
+    app = Spaceship::ConnectAPI::App.find(app_identifier) 
+
+    # Update the app's encryption status
+    app.update_attributes({
+      usesEncryption: false # or true, depending on your app's encryption status
+    })
+
+    UI.message("App encryption status updated successfully.")
+  end
 
   private_lane :send_email do |options|
     subject = options[:subject]

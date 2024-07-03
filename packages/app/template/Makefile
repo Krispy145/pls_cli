@@ -11,8 +11,9 @@ APP_NAME ?= $(if $(filter dev,$(ENV)),[DEV] App Template,$(if $(filter stage,$(E
 #*Makefile Commands*
 #? Run `make test` to run tests from the test folder
 test:
-	@echo "Running test..."
-	@$(MAKE) clean
+	@echo "Running test..."	
+	@flutter clean
+	@flutter pub get
 	@flutter test
 
 #? Run `make gen` to run the build runner to generate the necessary files
@@ -30,27 +31,27 @@ clean:
 #? Run `make build-android` to build the Android app
 build-android:
 	@echo "Building Android ${ENVIRONMENT} Release..."
-	@flutter build appbundle -t lib/environments/${ENV}/main.dart --flavor ${ENVIRONMENT}
+	@flutter build appbundle -t lib/environments/${ENV}/main.dart --flavor ${ENVIRONMENT} --obfuscate
 
 
 #? Run `make build-ios` to build the iOS app
 build-ios:
 	@echo "Building iOS ${ENVIRONMENT} Release..."
-	@flutter build ipa -t lib/environments/${ENV}/main.dart --flavor ${ENVIRONMENT} --build-name ${ENVIRONMENT}
+	@flutter build ipa -t lib/environments/${ENV}/main.dart --flavor ${ENVIRONMENT} --build-name ${ENVIRONMENT} --obfuscate
 
 #? Run `make build-web` to build the Web app
 build-web:
 	@echo "Building Web ${ENVIRONMENT} Release..."
-	@flutter build web -t lib/environments/${ENV}/main.dart --web-renderer=html
+	@flutter build web -t lib/environments/${ENV}/main.dart
 
 
 #? Run `make deploy-android` to deploy the Android app
 deploy-android:	
-	@cd android/fastlane && bundle exec fastlane deploy_${ENV} filePath:"../build/app/outputs/bundle/${ENVIRONMENT}Release/app-${ENVIRONMENT}-release.aab" channel="${CHANNEL}"
+	@cd android/fastlane && bundle exec fastlane deploy_${ENV} filePath:"../build/app/outputs/bundle/${ENVIRONMENT}Release/app-${ENVIRONMENT}-release.aab" channel:"${CHANNEL}"
 
 #? Run `make deploy-ios` to deploy the iOS app
 deploy-ios:	
-	@cd ios/fastlane && bundle exec fastlane deploy_${ENV} filePath:"../build/ios/ipa/${APP_NAME}.ipa" channel="${CHANNEL}"
+	@cd ios/fastlane && bundle exec fastlane deploy_${ENV} filePath:"../build/ios/ipa/${APP_NAME}.ipa" channel:"${CHANNEL}"
 
 
 #? Run `make deploy-web` to deploy the Web app
@@ -75,11 +76,14 @@ deploy:
 	$(MAKE) test ; \
 	if [ "$(PLATFORM)" = "mobile" ] || [ "$(PLATFORM)" = "both" ]; then \
 		echo "Deploying mobile platform..." ; \
+		$(MAKE) build-android; \
 		$(MAKE) deploy-android ; \
+		$(MAKE) build-ios; \
 		$(MAKE) deploy-ios ; \
 	fi ; \
 	if [ "$(PLATFORM)" = "web" ] || [ "$(PLATFORM)" = "both" ]; then \
 		echo "Deploying web platform..." ; \
+		$(MAKE) build-web; \
 		$(MAKE) deploy-web ; \
 	fi
 

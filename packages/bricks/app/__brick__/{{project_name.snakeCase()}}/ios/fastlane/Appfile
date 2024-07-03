@@ -1,4 +1,4 @@
-app_identifier("ae.{{project_name.snakeCase()}}.dev") # The bundle identifier of your app
+app_identifier("com.digital.oasis.{{project_name.snakeCase()}}.dev") # The bundle identifier of your app
 apple_id("zx12489@ou.ac.uk") # Your Apple Developer Portal username
 
 itc_team_id("122364830") # App Store Connect Team ID
@@ -10,12 +10,12 @@ team_id("P9AU5M6864") # Developer Portal Team ID
 
 for_platform :ios do
     for_lane :deploy_dev do
-        app_identifier("ae.{{project_name.snakeCase()}}.dev")        
+        app_identifier("com.digital.oasis.{{project_name.snakeCase()}}.dev")        
     end
     for_lane :deploy_stage do
-        app_identifier("ae.{{project_name.snakeCase()}}.stage")
+        app_identifier("com.digital.oasis.{{project_name.snakeCase()}}.stage")
     end
     for_lane :deploy_prod do
-        app_identifier("ae.{{project_name.snakeCase()}}")
+        app_identifier("com.digital.oasis.{{project_name.snakeCase()}}")
     end
 end
