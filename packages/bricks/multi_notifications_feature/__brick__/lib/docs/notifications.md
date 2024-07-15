@@ -20,21 +20,7 @@ To enable push notifications with Firebase Cloud Messaging (FCM), you need to up
 - Under **iOS app configuration**, click on **Upload your APNs Auth Key**.
 - Follow the instructions to generate and upload your APNs key.
 
-## 3. Xcode Push Notifications
-
-Configure your Xcode project to receive push notifications:
-
-- Set up your app delegate to handle push notifications.
-- Implement the necessary methods to handle registration for remote notifications, receiving push notifications, and handling user interactions with notifications.
-
-## 4. Register Apple Developer Account for APNS
-
-You need to enroll in the Apple Developer Program to obtain the necessary certificates and permissions for sending push notifications:
-
-- Visit the Apple Developer website and enroll in the Apple Developer Program if you haven't already done so.
-- Generate the necessary APNs authentication key or certificates.
-
-## 5. Add APNS Key in Developer Console
+## 3. Add APNS Key in Developer Console
 
 Add the APNs key to the Apple Developer Console:
 
@@ -43,11 +29,13 @@ Add the APNs key to the Apple Developer Console:
 - Create a new key and provide a name.
 - Download the key and upload it to Firebase as mentioned in step 2.
 - Here is a good guide to generating and uploading your APNS Key:
-- https://medium.com/@m1nori/ios-setup-of-push-notifications-flutter-firebase-775b0430140e
+  - [APNS Setup](https://medium.com/@m1nori/ios-setup-of-push-notifications-flutter-firebase-775b0430140e)
+- NOTE: if the bundle identifier is not configured with Push Notifiactions selected, this will need to be selected and saved
+  - Use [This Link](https://developer.apple.com/account/resources/identifiers/list) to find the bundle id anc check the selected services for the app
 
 That's it! You've now completed setting up push notifications for your Firebase project. You can now send push notifications to your iOS app using Firebase Cloud Messaging.
 
-## 6. Add Firebase Functions to Project
+## 4. Add Firebase Functions to Project
 
 - Run `firebase init functons` from the project root directory
   - If a Firebase project has been created already:
