@@ -1,10 +1,10 @@
 import "package:dart_mappable/dart_mappable.dart";
-
+import "package:utilities/data/typedefs.dart";
 part "{{name.snakeCase()}}_model.mapper.dart";
 
 @MappableClass(caseStyle: CaseStyle.snakeCase)
 class {{name.pascalCase()}}Model with {{name.pascalCase()}}ModelMappable {
-  final String id;
+  final UUID id;
   final String? name;
 
   const {{name.pascalCase()}}Model({

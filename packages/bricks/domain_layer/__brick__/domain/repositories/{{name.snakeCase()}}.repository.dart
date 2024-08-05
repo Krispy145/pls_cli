@@ -1,7 +1,7 @@
 import "package:utilities/data/sources/paginated.dart";
 import "package:utilities/data/sources/source.dart";
 import "package:utilities/helpers/tuples.dart";
-
+import "package:utilities/data/typedefs.dart";
 import "/data/models/{{name.snakeCase()}}_model.dart";
 import "/data/repositories/_repositories.dart";
 import "/data/repositories/{{name.snakeCase()}}.repository.dart";
@@ -39,7 +39,7 @@ class {{name.pascalCase()}}Repository {
   }
 
   /// [get{{name.pascalCase()}}Model] fetches a single [{{name.pascalCase()}}Model] from the data source.
-  Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}Model(String id) {
+  Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}Model(UUID id) {
     return _{{name.camelCase()}}DataRepository.get{{name.pascalCase()}}Model(
       source: _source,
       id: id,
@@ -71,7 +71,7 @@ class {{name.pascalCase()}}Repository {
   }
 
   /// [delete{{name.pascalCase()}}Model] deletes a single [{{name.pascalCase()}}Model] from the data source.
-  Future<RequestResponse> delete{{name.pascalCase()}}Model(String id) {
+  Future<RequestResponse> delete{{name.pascalCase()}}Model(UUID id) {
     return _{{name.camelCase()}}DataRepository.delete{{name.pascalCase()}}Model(
       source: _source,
       id: id,

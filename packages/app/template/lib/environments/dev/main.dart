@@ -15,7 +15,6 @@ import "package:theme/utils/loggers.dart";
 // import "../../firebase/firebase_options_dev.dart";
 /// FIREBASE END
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final loggerFeatures = <Enum, bool>{
@@ -27,7 +26,6 @@ void main() async {
     loggerFeatures: loggerFeatures,
     apiPrefix: "dev_base_url",
   );
-  
 
   /// FIREBASE START
   // TODO: Uncomment this after adding the firebase_options_dev.dart file

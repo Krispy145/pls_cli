@@ -22,16 +22,16 @@ abstract class _{{name.pascalCase()}}sStore extends PaginatedListStore<{{name.pa
     try {
       setLoading();
       final loaded{{name.pascalCase()}}s = await repository.getAll{{name.pascalCase()}}Models();
-      if (loaded{{name.pascalCase()}}s.isNotEmpty) {
+      if (loaded{{name.pascalCase()}}s.second.isNotEmpty) {
         results
           ..clear()
-          ..addAll(loaded{{name.pascalCase()}}s);
+          ..addAll(loaded{{name.pascalCase()}}s.second.whereType<{{name.pascalCase()}}Model>());
         setLoaded();
       } else {
-        setEmpty();
+        setEmpty("No {{name.camelCase()}}s found.");
       }
     } catch (e) {
-      setError();
+      setError("Failed to load {{name.camelCase()}}s: $e");
     }
   }
 }

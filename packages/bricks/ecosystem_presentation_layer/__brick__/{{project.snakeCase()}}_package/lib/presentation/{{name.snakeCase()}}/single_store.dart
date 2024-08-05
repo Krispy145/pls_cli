@@ -30,7 +30,7 @@ abstract class _{{name.pascalCase()}}Store extends {{name.pascalCase()}}sStore w
     if (initial{{name.pascalCase()}}Model == null && id != null) {
       setLoading();
       repository.get{{name.pascalCase()}}Model(id!).then((value) {
-        current{{name.pascalCase()}} = value;
+        current{{name.pascalCase()}} = value.second;
       });
     } else {
       current{{name.pascalCase()}} = initial{{name.pascalCase()}}Model;
@@ -38,7 +38,7 @@ abstract class _{{name.pascalCase()}}Store extends {{name.pascalCase()}}sStore w
     if (current{{name.pascalCase()}} != null) {
       setLoaded();
     } else {
-      setEmpty();
+      setEmpty("No {{name.camelCase()}} found.");
     }
   }
 }

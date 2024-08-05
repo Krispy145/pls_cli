@@ -8,12 +8,12 @@ import "/data/sources/{{name.snakeCase()}}/_source.dart";
 /// [{{name.pascalCase()}}DataRepository] is a class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
 class {{name.pascalCase()}}DataRepository {
   /// [getAll{{name.pascalCase()}}Models] returns a list of [{{name.pascalCase()}}Model]s.
-  Future<List<{{name.pascalCase()}}Model?>> getAll{{name.pascalCase()}}Models({required {{name.pascalCase()}}DataSource source}) async {
+  Future<Pair<RequestResponse, List<{{name.pascalCase()}}Model?>>> getAll{{name.pascalCase()}}Models({required {{name.pascalCase()}}DataSource source}) async {
     return source.getAll();
   }
 
   /// [getPaged{{name.pascalCase()}}Models] returns a page of [{{name.pascalCase()}}Model]s.
-  Future<Pair<ResponseModel, List<{{name.pascalCase()}}Model?>>> getPaged{{name.pascalCase()}}Models({
+  Future<Pair<RequestResponse, Pair<ResponseModel?, List<{{name.pascalCase()}}Model?>>>> getPaged{{name.pascalCase()}}Models({
     required {{name.pascalCase()}}DataSource source,
     int? limit,
     ResponseModel? lastResponse,
@@ -22,7 +22,7 @@ class {{name.pascalCase()}}DataRepository {
   }
 
   /// [get{{name.pascalCase()}}Model] returns a single [{{name.pascalCase()}}Model].
-  Future<{{name.pascalCase()}}Model?> get{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required String id}) async {
+  Future<Pair<RequestResponse, {{name.pascalCase()}}Model?>> get{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required String id}) async {
     return source.get(id);
   }
 

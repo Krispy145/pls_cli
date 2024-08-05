@@ -6,7 +6,7 @@ class Dummy{{name.pascalCase()}}DataSource extends PaginatedDummyDataSource<{{na
   List<{{name.pascalCase()}}Model> get fakeData => {{name.pascalCase()}}Model.fakeData;
 
   @override
-  bool matchesID(String id, {{name.pascalCase()}}Model item) => item.id == id;
+  bool matchesID(UUID id, {{name.pascalCase()}}Model item) => item.id == id;
 
   @override
   bool matchesQuery(BasicSearchQueryModel query, {{name.pascalCase()}}Model item) {
