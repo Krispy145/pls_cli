@@ -9,6 +9,7 @@ import "package:app_template/environments/dev/components/app_bar.dart";
 import "package:app_template/environments/dev/env.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
+import "package:flutter_mobx/flutter_mobx.dart";
 import "package:theme/utils/loggers.dart";
 
 /// FIREBASE START
@@ -49,31 +50,25 @@ void main() async {
   Managers.init(config: config);
 
   runApp(
-    config.showDevTools ? const DevApp() : const MainApp(),
+    DevApp(config: config),
   );
 }
 
 class DevApp extends StatelessWidget {
-  const DevApp({super.key});
+  final Config config;
+  const DevApp({super.key, required this.config});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: DevBody(),
-    );
-  }
-}
-
-class DevBody extends StatelessWidget {
-  const DevBody({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: DevAppBar(),
-      body: MainApp(),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: config.showDevTools ? const DevAppBar() : null,
+        body: Observer(
+          builder: (context) {
+            return const MainApp();
+          },
+        ),
+      ),
     );
   }
 }
