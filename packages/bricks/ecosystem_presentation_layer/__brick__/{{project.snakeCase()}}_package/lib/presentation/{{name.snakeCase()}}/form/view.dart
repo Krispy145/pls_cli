@@ -1,16 +1,19 @@
-import "package:flutter/material.dart" hide ProgressIndicator;
 import "package:flutter/material.dart";
+import "package:forms/presentation/components/buttons/submit_button.dart";
 import "package:forms/presentation/models/reactive_view.dart";
-import "package:reactive_dropdown_search/reactive_dropdown_search.dart";
-import "package:reactive_forms/reactive_forms.dart";
-import "package:thrift_findr_package/data/models/{{name.snakeCase()}}_category_model.dart";
-import "package:thrift_findr_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
 import "package:utilities/sizes/spacers.dart";
 
 import "store.dart";
 
 class {{name.pascalCase()}}FormView extends ReactiveFormsModelView<{{name.pascalCase()}}Model, {{name.pascalCase()}}FormStore> {
-  const {{name.pascalCase()}}FormView({super.key, required super.store, required super.onBack});
+  const {{name.pascalCase()}}FormView({
+    super.key,
+    required super.store,
+    required super.onBack,
+  }) : super(
+          createButtonTitle: "Update",
+        );
 
   @override
   Widget formBuilder(BuildContext context) {
@@ -19,15 +22,9 @@ class {{name.pascalCase()}}FormView extends ReactiveFormsModelView<{{name.pascal
         SingleChildScrollView(
           child: Column(
             children: [
-              /// FORM FIELDS
-              /// 
-              
-              /// NAME
-              ReactiveTextField<String>(
-                formControlName: store.nameKey,
-                decoration: const InputDecoration(labelText: "Name", border: OutlineInputBorder()),
-              ),
-              Sizes.m.spacer(),              
+              // TEXT
+
+              Sizes.m.spacer(),
             ],
           ),
         ),
@@ -36,21 +33,12 @@ class {{name.pascalCase()}}FormView extends ReactiveFormsModelView<{{name.pascal
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ReactiveFormConsumer(
-                builder: (context, form, w) {
-                  return Visibility(
-                    visible: form.valid,
-                    child: FilledButton(
-                      onPressed: () => store.submitPressed().then((value) => Navigator.of(context).pop(value)),
-                      child: Text(store.isAdding ? "Create {{name.pascalCase()}}" : "Update {{name.pascalCase()}}"),
-                    ),
-                  );
-                },
-              ),
+              ReactiveFormSubmitButton(store: store, buttonText: store.isAdding ? "Create {{name.pascalCase()}}" : "Update {{name.pascalCase()}}", onBack: onBack),
               Sizes.l.spacer(),
             ],
           ),
         ),
+        Sizes.l.spacer(),
       ],
     );
   }

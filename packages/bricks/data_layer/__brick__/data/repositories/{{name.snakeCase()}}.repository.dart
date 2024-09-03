@@ -1,3 +1,4 @@
+import "package:utilities/data/models/basic_search_query_model.dart";
 import "package:utilities/data/sources/paginated.dart";
 import "package:utilities/data/sources/source.dart";
 import "package:utilities/helpers/tuples.dart";
@@ -44,5 +45,28 @@ class {{name.pascalCase()}}DataRepository {
   /// [delete{{name.pascalCase()}}Model] deletes a single [{{name.pascalCase()}}Model] from the data source.
   Future<RequestResponse> delete{{name.pascalCase()}}Model({required {{name.pascalCase()}}DataSource source, required String id}) async {
     return source.delete(id);
+  }
+
+  /// [search{{name.pascalCase()}}Models] searches the [{{name.pascalCase()}}Model] data source.
+  Future<Pair<RequestResponse, List<{{name.pascalCase()}}Model?>>> search{{name.pascalCase()}}Models({
+    required {{name.pascalCase()}}DataSource source,
+    required BasicSearchQueryModel searchQuery,
+  }) async {
+    return source.searchAll(searchQuery);
+  }
+
+  /// [getPaged{{name.pascalCase()}}Models] returns a page of [{{name.pascalCase()}}Model]s.
+  Future<Pair<RequestResponse, Pair<ResponseModel?, List<{{name.pascalCase()}}Model?>>>> searchPaged{{name.pascalCase()}}Models({
+    required {{name.pascalCase()}}DataSource source,
+    required BasicSearchQueryModel query,
+    int? limit,
+    String? orderBy,
+    ResponseModel? lastResponse,
+  }) async {
+    return source.searchPage(
+      size: limit,
+      lastResponse: lastResponse,
+      query: query,
+    );
   }
 }

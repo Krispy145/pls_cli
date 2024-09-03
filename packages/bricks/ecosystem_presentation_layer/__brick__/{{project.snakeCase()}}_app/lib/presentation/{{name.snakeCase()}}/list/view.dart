@@ -20,8 +20,7 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
     return Scaffold(
       body: PaginatedListBuilder<{{name.pascalCase()}}Model>.listView(
         store: store,
-        itemBuilder: (context, index) {
-          final {{name.camelCase()}}Model = store.{{name.camelCase()}}s[index]!;
+        itemBuilder: (context, index, {{name.camelCase()}}Model) {
           return ListTile(
             title: Text({{name.camelCase()}}Model.id),
             onTap: () => context.navigateTo(

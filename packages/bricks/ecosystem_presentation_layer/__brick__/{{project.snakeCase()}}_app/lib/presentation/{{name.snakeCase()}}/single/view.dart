@@ -13,7 +13,8 @@ class {{name.pascalCase()}}View extends StatelessWidget {
 
   /// [{{name.pascalCase()}}View] constructor.
   {{name.pascalCase()}}View({super.key, this.id, this.{{name.camelCase()}}Model})
-      : assert(id != null || {{name.camelCase()}}Model != null, "id or {{name.camelCase()}}Model must be provided."),
+      : assert(id != null || {{name.camelCase()}}Model != null,
+            "id or {{name.camelCase()}}Model must be provided."),
         store = {{name.pascalCase()}}Store(id: id, initial{{name.pascalCase()}}Model: {{name.camelCase()}}Model);
 
   /// [store] is an instance of [{{name.pascalCase()}}sStore], used in the [LoadStateBuilder].
@@ -24,15 +25,8 @@ class {{name.pascalCase()}}View extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: LoadStateBuilder(
-        viewStore: store,
-        errorBuilder: (context) => Center(
-          child: Text("Error loading {{name.camelCase()}}: $id / ${{name.camelCase()}}Model."),
-        ),
-        loadedBuilder: (context) => Column(
-          children: [
-            Text(store.current{{name.pascalCase()}}!.id),
-          ],
-        ),
+        store: store,
+        loadedBuilder: (context) => Text(store.current{{name.pascalCase()}}!.id),
       ),
     );
   }

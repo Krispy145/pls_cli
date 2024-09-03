@@ -32,11 +32,7 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
       ),
       body: PaginatedListBuilder<{{name.pascalCase()}}Model>.listView(
         store: store,
-        itemBuilder: (context, index) {
-          final {{name.camelCase()}}sModel = store.results[index];
-          if ({{name.camelCase()}}sModel == null) {
-            return const SizedBox.shrink();
-          }
+        itemBuilder: (context, index, {{name.camelCase()}}sModel) {          
           return Dismissible(
             key: Key({{name.camelCase()}}sModel.id),
             onDismissed: (direction) => store.delete{{name.pascalCase()}}Model({{name.camelCase()}}sModel.id),
@@ -52,7 +48,8 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
               ),
             ),
             child: ListTile(
-              title: Text({{name.camelCase()}}.id),subtitle: {{name.camelCase()}}.name!=null?Text({{name.camelCase()}}.name!):null,
+              title: Text({{name.camelCase()}}sModel.id),
+              subtitle: Text({{name.camelCase()}}sModel.name),
               onTap: () => context.navigateTo(
                 {{name.pascalCase()}}Route(
                   id: {{name.camelCase()}}sModel.id,
