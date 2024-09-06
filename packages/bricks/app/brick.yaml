@@ -3,7 +3,7 @@ description: A flutter app template for Digital Oasis.
 version: 0.0.1
 
 environment:
-  mason: ">=0.1.0-dev.40 <0.1.0"
+  mason: ">=0.1.0-dev.56 <0.1.0"
 
 vars:
   project_name:
