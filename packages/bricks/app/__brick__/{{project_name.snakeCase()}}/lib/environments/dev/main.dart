@@ -9,12 +9,12 @@ import "package:{{project_name.snakeCase()}}/environments/dev/components/app_bar
 import "package:{{project_name.snakeCase()}}/environments/dev/env.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
+import "package:flutter_mobx/flutter_mobx.dart";
 import "package:theme/utils/loggers.dart";
 
 {{#has_firebase}}
 // import "../../firebase/firebase_options_dev.dart";
 {{/has_firebase}}
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,6 @@ void main() async {
     loggerFeatures: loggerFeatures,
     apiPrefix: "dev_base_url",
   );
-  
 
   {{#has_firebase}}
   // TODO: Uncomment this after adding the firebase_options_dev.dart file
@@ -51,31 +50,25 @@ void main() async {
   Managers.init(config: config);
 
   runApp(
-    config.showDevTools ? const DevApp() : const MainApp(),
+    DevApp(config: config),
   );
 }
 
 class DevApp extends StatelessWidget {
-  const DevApp({super.key});
+  final Config config;
+  const DevApp({super.key, required this.config});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: DevBody(),
-    );
-  }
-}
-
-class DevBody extends StatelessWidget {
-  const DevBody({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: DevAppBar(),
-      body: MainApp(),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: config.showDevTools ? const DevAppBar() : null,
+        body: Observer(
+          builder: (context) {
+            return const MainApp();
+          },
+        ),
+      ),
     );
   }
 }

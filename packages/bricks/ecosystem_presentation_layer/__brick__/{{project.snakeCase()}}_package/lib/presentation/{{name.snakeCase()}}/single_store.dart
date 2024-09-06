@@ -42,3 +42,4 @@ abstract class _{{name.pascalCase()}}Store extends {{name.pascalCase()}}sStore w
     }
   }
 }
+

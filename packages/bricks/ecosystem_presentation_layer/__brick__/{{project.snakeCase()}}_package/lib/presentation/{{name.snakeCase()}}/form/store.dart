@@ -40,3 +40,4 @@ abstract class _{{name.pascalCase()}}FormStore extends ReactiveFormsModelStore<{
     return savedValue;
   }
 }
+

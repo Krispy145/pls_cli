@@ -17,9 +17,10 @@ scripts:
   minor:vscode: "cd extensions/vscode/scripts && bash update.sh -m"
   build:vscode: "cd extensions/vscode/scripts && bash update.sh -p"
   build:cli:
-    - command: flutter pub global activate -spath . --overwrite
     - command: oasis run gen:app_brick
     - command: oasis run bundle:all
+    - command: flutter pub global activate -spath . --overwrite
+
   # Useful for bundling all the add bricks eg `BRICK=bloc oasis run bundle`
   bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
   bundle:app: BRICK=app oasis run bundle
@@ -46,7 +47,7 @@ scripts:
     - command: dart packages/app_brick_generator/main.dart
 
 dependencies:
-  mason: ^0.1.0-dev.47
+  mason: ^0.1.0-dev.56
   analyzer: ^6.2.0
   args: ^2.3.1
   recase: ^4.0.0

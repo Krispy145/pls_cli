@@ -29,3 +29,4 @@ abstract class _Addit{{name.pascalCase()}}Store extends {{name.pascalCase()}}Sto
     }
   }
 }
+

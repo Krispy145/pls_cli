@@ -51,5 +51,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Please allow us to access your location to enhance your user experience</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Please allow us to access your location to enhance your user experience</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow us to access your photo library to enhance your user experience</string>
 </dict>
 </plist>

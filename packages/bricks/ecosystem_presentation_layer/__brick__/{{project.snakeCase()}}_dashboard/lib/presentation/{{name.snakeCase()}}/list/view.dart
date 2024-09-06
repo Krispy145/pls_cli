@@ -63,3 +63,4 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
     );
   }
 }
+

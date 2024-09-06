@@ -43,3 +43,4 @@ class {{name.pascalCase()}}FormView extends ReactiveFormsModelView<{{name.pascal
     );
   }
 }
+

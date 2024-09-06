@@ -35,3 +35,4 @@ abstract class _{{name.pascalCase()}}sStore extends PaginatedListStore<{{name.pa
     }
   }
 }
+

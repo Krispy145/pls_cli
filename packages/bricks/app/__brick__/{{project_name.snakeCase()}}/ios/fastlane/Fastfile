@@ -40,7 +40,7 @@ platform :ios do
           ipa: filePath,
           skip_waiting_for_build_processing: true
         )
-        set_app_encryption(env)
+        set_app_encryption(env: env)
       end
       if track == "beta"
         setup_ci
@@ -72,7 +72,7 @@ platform :ios do
           distribute_only: true,
           groups: testers
         )
-        set_app_encryption(env)
+        set_app_encryption(env: env)
       end
     end
     if env == "production" && track == "production"
@@ -86,7 +86,7 @@ platform :ios do
         automatic_release: false,
         force: true
       )
-      set_app_encryption(env)
+      set_app_encryption(env: env)
     end
 
     send_email(
@@ -97,7 +97,8 @@ platform :ios do
   end
 
   desc "Set App Encryption Status"
-  private_lane :set_app_encryption do |env|
+  private_lane :set_app_encryption do |options|
+    env = options[:env]
     require 'spaceship'
     
     # Load API key from JSON file

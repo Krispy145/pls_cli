@@ -20,3 +20,4 @@ abstract class _Addit{{name.pascalCase()}}sStore extends {{name.pascalCase()}}sS
     }
   }
 }
+

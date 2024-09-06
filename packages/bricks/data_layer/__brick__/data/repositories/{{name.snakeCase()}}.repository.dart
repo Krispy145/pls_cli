@@ -6,6 +6,7 @@ import "package:utilities/helpers/tuples.dart";
 import "/data/models/{{name.snakeCase()}}_model.dart";
 import "/data/sources/{{name.snakeCase()}}/_source.dart";
 
+
 /// [{{name.pascalCase()}}DataRepository] is a class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
 class {{name.pascalCase()}}DataRepository {
   /// [getAll{{name.pascalCase()}}Models] returns a list of [{{name.pascalCase()}}Model]s.
