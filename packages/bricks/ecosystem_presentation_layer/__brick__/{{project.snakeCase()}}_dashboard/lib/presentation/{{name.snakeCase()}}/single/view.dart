@@ -1,37 +1,37 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_mobx/flutter_mobx.dart";
-import "package:{{project.snakeCase()}}_dashboard/presentation/group/single/store.dart";
-import "package:{{project.snakeCase()}}_package/data/models/group_model.dart";
-import "package:{{project.snakeCase()}}_package/presentation/group/form/store.dart";
-import "package:{{project.snakeCase()}}_package/presentation/group/form/view.dart";
+import "package:{{project.snakeCase()}}_dashboard/presentation/{{name.snakeCase()}}/single/store.dart";
+import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/form/store.dart";
+import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/form/view.dart";
 import "package:theme/extensions/build_context.dart";
 import "package:utilities/widgets/load_state/builder.dart";
 
-/// [GroupView] of the app.
+/// [{{name.pascalCase()}}View] of the app.
 @RoutePage()
-class GroupView extends StatelessWidget {
+class {{name.pascalCase()}}View extends StatelessWidget {
   final String? id;
-  final GroupModel? groupModel;
+  final {{name.pascalCase()}}Model? {{name.camelCase()}}Model;
 
-  /// [GroupView] constructor.
-  GroupView({super.key, this.id, this.groupModel}) {
-    store = AdditGroupStore(id: id, initialGroupModel: groupModel);
+  /// [{{name.pascalCase()}}View] constructor.
+  {{name.pascalCase()}}View({super.key, this.id, this.{{name.camelCase()}}Model}) {
+    store = Addit{{name.pascalCase()}}Store(id: id, initial{{name.pascalCase()}}Model: {{name.camelCase()}}Model);
   }
 
-  /// [store] is an instance of [AdditGroupStore], used in the [LoadStateBuilder].
+  /// [store] is an instance of [Addit{{name.pascalCase()}}Store], used in the [LoadStateBuilder].
   /// initialized in the constructor.
-  late final AdditGroupStore store;
-  late final groupFormStore = GroupFormStore(
-    groupModel: store.currentGroup,
-    saveValue: store.additGroupModel,
+  late final Addit{{name.pascalCase()}}Store store;
+  late final {{name.camelCase()}}FormStore = {{name.pascalCase()}}FormStore(
+    {{name.camelCase()}}Model: store.current{{name.pascalCase()}},
+    saveValue: store.addit{{name.pascalCase()}}Model,
   );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          groupFormStore.isAdding ? "Group Creation" : "Update ${store.currentGroup?.name}",
+          {{name.camelCase()}}FormStore.isAdding ? "{{name.pascalCase()}} Creation" : "Update ${store.current{{name.pascalCase()}}?.name}",
           style: context.textTheme.headlineMedium,
         ),
       ),
@@ -39,8 +39,8 @@ class GroupView extends StatelessWidget {
         builder: (context) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: GroupFormView(
-              store: groupFormStore,
+            child: {{name.pascalCase()}}FormView(
+              store: {{name.camelCase()}}FormStore,
               onBack: (response) => context.router.maybePop(response),
             ),
           );

@@ -34,10 +34,12 @@ abstract class _{{name.pascalCase()}}FormStore extends ReactiveFormsModelStore<{
     disabled: !isCurrent{{name.pascalCase()}},
   );
 
+  
   @override
-  FutureOr<{{name.pascalCase()}}Model?> prepareValueFromForm() {
-    final savedValue = editingValue!.copyWith();
-    return savedValue;
+  FutureOr<{{name.pascalCase()}}?> prepareValueFromForm() {
+    final value = form.value;
+    final map = {{name.pascalCase()}}.fromMap(value);
+    return map;
   }
 }
 
