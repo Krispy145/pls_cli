@@ -12,11 +12,9 @@ class {{name.pascalCase()}}FormStore = _{{name.pascalCase()}}FormStore with _${{
 
 /// [_{{name.pascalCase()}}FormStore] is a class that manages the state of the  feature.
 abstract class _{{name.pascalCase()}}FormStore extends ReactiveFormsModelStore<{{name.pascalCase()}}Model> with Store {
-  final bool isCurrent{{name.pascalCase()}};
 
   _{{name.pascalCase()}}FormStore({
     required {{name.pascalCase()}}Model? {{name.camelCase()}}Model,
-    required this.isCurrent{{name.pascalCase()}},
     required super.saveValue,
   }) : super(editingValue: {{name.camelCase()}}Model) {
     setLoaded();
@@ -30,8 +28,7 @@ abstract class _{{name.pascalCase()}}FormStore extends ReactiveFormsModelStore<{
       idKey: FormControl<String>(
         value: editingValue?.id ?? "",
       ),
-    },
-    disabled: !isCurrent{{name.pascalCase()}},
+    },    
   );
 
   

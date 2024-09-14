@@ -3,7 +3,7 @@
   "displayName": "Digital Oasis",
   "publisher": "digital-oasis-dev",
   "description": "vscode extension to streamline dev",
-  "version": "0.8.24",
+  "version": "0.8.25",
   "private": true,
   "icon": "assets/128.png",
   "engines": {
