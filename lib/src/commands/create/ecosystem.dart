@@ -2,16 +2,16 @@
 import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
+import 'package:lets_yak_cli/src/commands/brick_command_base.dart';
+import 'package:lets_yak_cli/src/commands/create/app.dart';
+import 'package:lets_yak_cli/src/utils/helpers.dart';
 import 'package:mason/mason.dart';
-import 'package:oasis_cli/src/commands/brick_command_base.dart';
-import 'package:oasis_cli/src/commands/create/app.dart';
-import 'package:oasis_cli/src/utils/helpers.dart';
 
 import '../../../bundles/_bundles.dart';
 import 'package.dart';
 
 /// {@template ecosystemCommand}
-/// Create a new Digital Oasis Ecosystem.
+/// Create a new Lets Yak Ecosystem.
 /// Creates a Dashboard app, user app, and a package to communicate between the two.
 /// {@endtemplate}
 class EcosystemCommand extends BrickCommandBase {
@@ -27,7 +27,7 @@ class EcosystemCommand extends BrickCommandBase {
   final MasonBundle bundle = packageBundle;
 
   @override
-  String get description => "Creates a new Digital Oasis Ecosystem";
+  String get description => "Creates a new Lets Yak Ecosystem";
 
   @override
   String get name => "ecosystem";
@@ -96,13 +96,13 @@ class EcosystemCommand extends BrickCommandBase {
     logger.info("Package created ✅\n\n".green);
     Directory.current = ecosystemDirectory;
     await runScripts([
-      'oasis add ecosystem_presentation_layer --name=$featureName --project=$packageName',
+      'yak add ecosystem_presentation_layer --name=$featureName --project=$packageName',
     ]);
     Directory.current = ecosystemDirectory;
     Directory.current = appDirectory;
     logger.info('Changed working directory to: ${appDirectory.path}'.blue);
     await runScripts([
-      'oasis add logger --name=$featureName',
+      'yak add logger --name=$featureName',
       'flutter pub add ${packageName}_package --path=../${packageName}_package',
       'flutter clean',
       'flutter pub get',
@@ -113,7 +113,7 @@ class EcosystemCommand extends BrickCommandBase {
     Directory.current = dashboardDirectory;
     logger.info('Changed working directory to: ${dashboardDirectory.path}'.blue);
     await runScripts([
-      'oasis add logger --name=$featureName',
+      'yak add logger --name=$featureName',
       'flutter pub add ${packageName}_package --path=../${packageName}_package',
       'flutter clean',
       'flutter pub get',
@@ -124,7 +124,7 @@ class EcosystemCommand extends BrickCommandBase {
     Directory.current = packageDirectory;
     logger.info('Changed working directory to: ${packageDirectory.path}'.blue);
     await runScripts([
-      'oasis add logger --name=$featureName',
+      'yak add logger --name=$featureName',
       'flutter clean',
       'flutter pub get',
       'dart format .',

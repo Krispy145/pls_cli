@@ -1,11 +1,11 @@
 import 'package:ansi_styles/extension.dart';
-import 'package:oasis_cli/src/commands/base.dart';
-import 'package:oasis_cli/src/utils/feature.dart';
+import 'package:lets_yak_cli/src/commands/base.dart';
+import 'package:lets_yak_cli/src/utils/feature.dart';
 
 /// {@template listFeaturesCommand}
 /// List all features in the project
 /// {@endtemplate}
-class ListFeaturesCommand extends DOCommand {
+class ListFeaturesCommand extends LYCommand {
   /// {@macro listFeaturesCommand}
   ListFeaturesCommand();
   @override

@@ -1,11 +1,11 @@
-import { Uri, window } from "vscode";
+import {Uri, window} from "vscode";
 import {
   buildScripts,
   runCommandInWorkspaceFolder,
   runCommandsFromPath,
 } from "../../utils/build_runner";
-import { findProjectName } from "../../utils/get-target-directory";
-import { exec } from "child_process";
+import {findProjectName} from "../../utils/get-target-directory";
+import {exec} from "child_process";
 
 export const addEcosystemDomainLayer = async (args: Uri) => {
   try {
@@ -34,8 +34,8 @@ export async function newEcoSystemDomainLayer(
   projectPath: string,
   runScripts: boolean = true
 ) {
-  const commandNewLogger = `oasis add logger --name=${name} --path=${projectPath}`;
-  const commandNewDomainLayer = `oasis add domain_layer --name=${name} --project=${projectName}`;
+  const commandNewLogger = `yak add logger --name=${name} --path=${projectPath}`;
+  const commandNewDomainLayer = `yak add domain_layer --name=${name} --project=${projectName}`;
 
   await runCommandsFromPath(projectPath, [
     commandNewLogger,

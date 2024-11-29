@@ -72,13 +72,13 @@ fi
 # Package the VS Code extension
 vsce package
 
-# Remove previous digital-oasis.vsix file if it exists
-rm -f digital-oasis.vsix
+# Remove previous lets-yak.vsix file if it exists
+rm -f lets-yak.vsix
 
-# Rename the newly created .vsix file to digital-oasis.vsix
-mv *.vsix digital-oasis.vsix
+# Rename the newly created .vsix file to lets-yak.vsix
+mv *.vsix lets-yak.vsix
 
 # Install the VS Code extension
-code --install-extension digital-oasis.vsix
+code --install-extension lets-yak.vsix
 
 echo "VS Code extension updated to version $new_version, built, and installed successfully."

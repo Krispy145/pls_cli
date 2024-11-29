@@ -1,4 +1,4 @@
-import { Uri, window, workspace } from "vscode";
+import {Uri, window, workspace} from "vscode";
 
 export const createApp = async (args: Uri) => {
   const folderUri = await window.showOpenDialog({
@@ -17,7 +17,7 @@ export const createApp = async (args: Uri) => {
 
   const appName = await window.showInputBox({
     prompt: "Enter the name for your new app",
-    placeHolder: "digital_oasis_app",
+    placeHolder: "lets_yak_app",
     ignoreFocusOut: true,
   });
 
@@ -27,7 +27,7 @@ export const createApp = async (args: Uri) => {
   }
 
   const terminal = window.createTerminal("Create New App");
-  const cmd = `oasis create app ${appName}`;
+  const cmd = `yak create app ${appName}`;
 
   // Change to the appDirectory and run the command
   terminal.sendText(`cd "${appDirectory}"`);

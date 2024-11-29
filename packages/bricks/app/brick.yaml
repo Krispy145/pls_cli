@@ -1,5 +1,5 @@
 name: app_template
-description: A flutter app template for Digital Oasis.
+description: A flutter app template for Lets Yak.
 version: 0.0.1
 
 environment:
@@ -28,5 +28,5 @@ vars:
   description:
     type: string
     description: A short project description
-    default: A Digital Oasis App
+    default: A Lets Yak App
     prompt: What is the project description?

@@ -1,6 +1,6 @@
-import { Uri, window } from "vscode";
-import { runCommandInWorkspaceFolder } from "../../utils/build_runner";
-import { findProjectName } from "../../utils/get-target-directory";
+import {Uri, window} from "vscode";
+import {runCommandInWorkspaceFolder} from "../../utils/build_runner";
+import {findProjectName} from "../../utils/get-target-directory";
 
 export const addFeature = async (args: Uri) => {
   try {
@@ -13,7 +13,7 @@ export const addFeature = async (args: Uri) => {
     if (name) {
       var projectNames = findProjectName(args);
       var projectName = projectNames[0];
-      const commandNewFeature = `oasis add feature --name=${name} --project=${projectName} --runner`;
+      const commandNewFeature = `yak add feature --name=${name} --project=${projectName} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewFeature, {
         folderPath: "lib",
       });

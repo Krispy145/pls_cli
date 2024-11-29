@@ -1,16 +1,16 @@
 import 'dart:io';
 
+import 'package:lets_yak_cli/src/commands/base.dart';
+import 'package:lets_yak_cli/src/commands/brick_command_base.dart';
+import 'package:lets_yak_cli/src/utils/structures.dart';
 import 'package:mason/mason.dart';
-import 'package:oasis_cli/src/commands/base.dart';
-import 'package:oasis_cli/src/commands/brick_command_base.dart';
-import 'package:oasis_cli/src/utils/structures.dart';
 
 import '../../../bundles/_bundles.dart';
 
 /// {@template structureCommand}
 /// Add a structure to the app.
 /// {@endtemplate}
-class StructuresCommand extends DOCommand {
+class StructuresCommand extends LYCommand {
   /// {@macro structureCommand}
   StructuresCommand() {
     argParser

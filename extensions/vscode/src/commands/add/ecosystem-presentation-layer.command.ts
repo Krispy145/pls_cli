@@ -1,10 +1,10 @@
-import { Uri, window } from "vscode";
+import {Uri, window} from "vscode";
 import {
   runCommandInWorkspaceFolder,
   runCommandsFromPath,
 } from "../../utils/build_runner";
-import { findProjectName } from "../../utils/get-target-directory";
-import { exec } from "child_process";
+import {findProjectName} from "../../utils/get-target-directory";
+import {exec} from "child_process";
 
 export const addEcosystemPresentationLayer = async (args: Uri) => {
   try {
@@ -33,10 +33,10 @@ export async function newEcoSystemPresentationLayer(
   projectPath: string,
   runScripts: boolean = true
 ) {
-  const commandNewPresentationLayer = `oasis add ecosystem_presentation_layer --name=${name} --project=${projectName}`;
+  const commandNewPresentationLayer = `yak add ecosystem_presentation_layer --name=${name} --project=${projectName}`;
   const appDirectory = projectPath + `/${projectName}_app`;
   const dashboardDirectory = projectPath + `/${projectName}_dashboard`;
-  const commandNewLogger = `oasis add logger --name=${name}`;
+  const commandNewLogger = `yak add logger --name=${name}`;
   await runCommandsFromPath(projectPath, [commandNewPresentationLayer]);
   if (runScripts)
     await runCommandsFromPath(`${appDirectory}/lib`, [

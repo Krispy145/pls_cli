@@ -1,4 +1,4 @@
-# Digital Oasis Cli
+# Lets Yak Cli
 
 A cli for quickly generating boilerplate files with a vscode extension.
 
@@ -17,12 +17,12 @@ The command line tool can be used with `oasis` or `oasis` both will be added to 
 Each command follows the format:
 
 ```
-oasis <command> <subcommand> [options]
+yak <command> <subcommand> [options]
 ```
 
 > ⚡️
 >
-> All commands and options are documented automatically by the cli. Run `oasis --help` or `oasis add bloc --help` to view the options and subcommands of the current command.
+> All commands and options are documented automatically by the cli. Run `yak--help` or `yak add bloc --help` to view the options and subcommands of the current command.
 
 The following is the structure of the commands.
 
@@ -55,13 +55,13 @@ The add command generates various boilerplates for a flutter app. Most commands 
 For example below would add a bloc to the user feature.
 
 ```
-oasis add bloc -f user
+yak add bloc -f user
 ```
 
 It can also be used for nested features eg.
 
 ```
-oasis add component -f user/profile
+yak add component -f user/profile
 ```
 
 This would add a component to the **profile** feature which is inside the **user** feature.
@@ -69,7 +69,7 @@ This would add a component to the **profile** feature which is inside the **user
 Most commands also allow you to specify the path to a feature with the `--path (-p)`. The path can be relative or absolute. eg.
 
 ```
-oasis add bloc -p lib/user
+yak add bloc -p lib/user
 ```
 
 #### Bloc
@@ -131,7 +131,7 @@ Adds a new file along with a barrel file of the same name as the parent director
 For example the following command will add the file `user.repo.dart` to the repositories directory and also add an `_repositories.dart` file which will export `user.repo.dart`
 
 ```
-oasis add file -p lib/user/repositories/user.repo.dart
+yak add file -p lib/user/repositories/user.repo.dart
 ```
 
 Options:
@@ -231,7 +231,7 @@ Scripts are can either be a string or an array. If the script is an array in nee
 Usage:
 
 ```
-oasis run <script-name>
+yak run <script-name>
 ```
 
 Run commands can also take environment variables. For an example look at the pubspec file in this project:
@@ -240,7 +240,7 @@ Run commands can also take environment variables. For an example look at the pub
 bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
 ```
 
-The script above can be run with `BRICK=cubit oasis run bundle` which will replace the "$BRICK" with the matching env variable.
+The script above can be run with `BRICK=cubit yak run bundle` which will replace the "$BRICK" with the matching env variable.
 
 ### Update
 
@@ -259,7 +259,7 @@ The vscode extension is a wrapper around the command line tool. All of the **Add
 To install the extension, first install the command line tool, then run
 
 ```
-oasis update --vscode
+yak update --vscode
 ```
 
 This will clone the repo, build the extension and install it. Sometimes you may have to run it twice if you haven't already got it installed. TODO: fix this.
@@ -302,7 +302,7 @@ Once the template is ready to be used in the create command it needs to be trans
 To transpile the template run the following in the cli root directory (you can see the underlying command in the pubspec):
 
 ```sh
-oasis run bundle:app
+yak run bundle:app
 ```
 
 Then like all other bricks it must be bundled into the cli using:
@@ -316,7 +316,7 @@ BRICK=app run bundle
 All bricks apart from the app brick can be modified directly. When you make changes to the brick it must be bundled into the cli with the following command (run from the cli root dir):
 
 ```sh
-BRICK=bloc oasis run bundle
+BRICK=bloc yak run bundle
 ```
 
 Note the environment variable BRICK must be the name of the brick you edited.

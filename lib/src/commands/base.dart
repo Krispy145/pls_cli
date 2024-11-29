@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
 import 'package:args/command_runner.dart';
-import 'package:oasis_cli/src/logger.dart';
-import 'package:oasis_cli/src/process_runner.dart';
+import 'package:lets_yak_cli/src/logger.dart';
+import 'package:lets_yak_cli/src/process_runner.dart';
 
 ///Path for the Github CLI
-const githubPath = "git@github.com:digital-oasis-llc-fz/digital-oasis-cli.git";
+const githubPath = "git@github.com:lets-yak/lets-yak-cli.git";
 
 /// Consistent base for all commands
-abstract class DOCommand extends Command<void> {
+abstract class LYCommand extends Command<void> {
   /// Logger for all commands
   Logger get logger => Logger();
 

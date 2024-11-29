@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import { Uri, window } from "vscode";
+import {Uri, window} from "vscode";
 import {
   findProjectName,
   getWorkspaceFilePath,
@@ -10,15 +10,15 @@ import {
   appendAfterMarkerInContent,
   appendBeforeMarkerInContent,
 } from "../../utils/add_to_files";
-import { addFlutterPackageFromPath } from "../../utils/add_flutter_package";
-import { compareGradleVersions } from "../../utils/compare_gradle_versions";
+import {addFlutterPackageFromPath} from "../../utils/add_flutter_package";
+import {compareGradleVersions} from "../../utils/compare_gradle_versions";
 import {
   buildRunner,
   formatFiles,
   runCommandInWorkspaceFolder,
 } from "../../utils/build_runner";
 
-import { toSnake, toPascal, toCamel } from "ts-case-convert";
+import {toSnake, toPascal, toCamel} from "ts-case-convert";
 
 export const addNotifications = async (args: Uri) => {
   await updateAppDelegate(args);
@@ -37,7 +37,7 @@ export const addNotifications = async (args: Uri) => {
   // Prompt user to select local, push, or both notification packages
   const notificationType = await vscode.window.showQuickPick(
     ["Local", "Push", "Both"],
-    { placeHolder: "Select notification package type" }
+    {placeHolder: "Select notification package type"}
   );
 
   // Add the selected notification package(s) to the injection container
@@ -64,17 +64,17 @@ export const addNotifications = async (args: Uri) => {
   if (notificationType === "Local") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      `oasis add notifications_feature -s=local_notifications_store -r=local_store --project=${projectName}`
+      `yak add notifications_feature -s=local_notifications_store -r=local_store --project=${projectName}`
     );
   } else if (notificationType === "Push")
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      `oasis add notifications_feature -s=push_notifications_store -r=push_store --is_push --project=${projectName}`
+      `yak add notifications_feature -s=push_notifications_store -r=push_store --is_push --project=${projectName}`
     );
   else if (notificationType === "Both") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      `oasis add multi_notifications_feature --project=${projectName}`
+      `yak add multi_notifications_feature --project=${projectName}`
     );
   }
   if (runCommandResult?.error !== undefined) {

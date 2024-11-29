@@ -8,7 +8,7 @@ check_and_configure() {
             ENV="development"
             ;;
         "Stage")
-            SUFFIX="stg"
+            SUFFIX="stage"
             ENV="staging"
             ;;
         "Prod")

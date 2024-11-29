@@ -2,15 +2,15 @@
 import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
+import 'package:lets_yak_cli/src/commands/brick_command_base.dart';
+import 'package:lets_yak_cli/src/utils/data_sources.dart';
+import 'package:lets_yak_cli/src/utils/helpers.dart';
 import 'package:mason/mason.dart';
-import 'package:oasis_cli/src/commands/brick_command_base.dart';
-import 'package:oasis_cli/src/utils/data_sources.dart';
-import 'package:oasis_cli/src/utils/helpers.dart';
 
 import '../../../bundles/_bundles.dart';
 
 /// {@template packageCommand}
-/// Create a new Digital Oasis package.
+/// Create a new Lets Yak package.
 /// {@endtemplate}
 class PackageCommand extends BrickCommandBase {
   /// {@macro packageCommand}
@@ -38,7 +38,7 @@ class PackageCommand extends BrickCommandBase {
   final MasonBundle bundle = packageBundle;
 
   @override
-  String get description => "Creates a new Digital Oasis package";
+  String get description => "Creates a new Lets Yak package";
 
   @override
   String get name => "package";
@@ -138,16 +138,16 @@ class PackageCommand extends BrickCommandBase {
     }
 
     final dataLayerScript = isEcoSystem
-        ? 'oasis add data_layer --name=$featureName --project=$packageName $dataSourcesFlags'
+        ? 'yak add data_layer --name=$featureName --project=$packageName $dataSourcesFlags'
         : data
-            ? 'oasis add data_layer --name=$packageName --project=$packageName'
+            ? 'yak add data_layer --name=$packageName --project=$packageName'
             : null;
     final domainLayerScript = isEcoSystem
-        ? 'oasis add domain_layer --name=$featureName --project=$packageName'
+        ? 'yak add domain_layer --name=$featureName --project=$packageName'
         : domain
-            ? 'oasis add domain_layer --name=$packageName --project=$packageName'
+            ? 'yak add domain_layer --name=$packageName --project=$packageName'
             : null;
-    final presentationLayerScript = presentation ? 'oasis add presentation_layer --name=$packageName --project=$packageName' : null;
+    final presentationLayerScript = presentation ? 'yak add presentation_layer --name=$packageName --project=$packageName' : null;
 
     Directory.current = libDirectory;
     logger.info("Changed directory to lib".blue);

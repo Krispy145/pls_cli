@@ -1,6 +1,6 @@
-import { Uri, window } from "vscode";
-import { runCommandInWorkspaceFolder } from "../../utils/build_runner";
-import { findProjectName } from "../../utils/get-target-directory";
+import {Uri, window} from "vscode";
+import {runCommandInWorkspaceFolder} from "../../utils/build_runner";
+import {findProjectName} from "../../utils/get-target-directory";
 
 export const addDomainLayer = async (args: Uri) => {
   try {
@@ -13,7 +13,7 @@ export const addDomainLayer = async (args: Uri) => {
     if (name) {
       var projectNames = findProjectName(args);
       var projectName = projectNames[0] + projectNames[1];
-      const commandNewDomainLayer = `oasis add domain_layer --name=${name} --project=${projectName} --runner`;
+      const commandNewDomainLayer = `yak add domain_layer --name=${name} --project=${projectName} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewDomainLayer, {
         folderPath: "lib",
       });

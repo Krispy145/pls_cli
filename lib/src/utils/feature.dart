@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:oasis_cli/src/utils/helpers.dart';
+import 'package:lets_yak_cli/src/utils/helpers.dart';
 import "package:path/path.dart" as path;
 
 /// A representation of a feature

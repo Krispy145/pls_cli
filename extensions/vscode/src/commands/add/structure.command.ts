@@ -1,5 +1,5 @@
-import { Uri, window } from "vscode";
-import { runCommandInWorkspaceFolder } from "../../utils/build_runner";
+import {Uri, window} from "vscode";
+import {runCommandInWorkspaceFolder} from "../../utils/build_runner";
 
 export const addStructure = async (args: Uri) => {
   const structures = [
@@ -15,7 +15,7 @@ export const addStructure = async (args: Uri) => {
     });
 
     if (type) {
-      const commandNewStructure = `oasis add structure --type=${type} --runner`;
+      const commandNewStructure = `yak add structure --type=${type} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewStructure, {
         folderPath: "lib/navigation",
       });

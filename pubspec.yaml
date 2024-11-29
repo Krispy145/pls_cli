@@ -1,4 +1,4 @@
-name: oasis_cli
+name: lets_yak_cli
 version: 2.2.0
 
 environment:
@@ -17,30 +17,30 @@ scripts:
   minor:vscode: "cd extensions/vscode/scripts && bash update.sh -m"
   build:vscode: "cd extensions/vscode/scripts && bash update.sh -p"
   build:cli:
-    - command: oasis run gen:app_brick
-    - command: oasis run bundle:all
+    - command: yak run gen:app_brick
+    - command: yak run bundle:all
     - command: flutter pub global activate -spath . --overwrite
 
-  # Useful for bundling all the add bricks eg `BRICK=bloc oasis run bundle`
+  # Useful for bundling all the add bricks eg `BRICK=bloc yak run bundle`
   bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
-  bundle:app: BRICK=app oasis run bundle
-  bundle:component: BRICK=component oasis run bundle
-  bundle:auth: BRICK=auth oasis run bundle
-  bundle:package: BRICK=package oasis run bundle
-  bundle:data_layer: BRICK=data_layer oasis run bundle
-  bundle:domain_layer: BRICK=domain_layer oasis run bundle
-  bundle:presentation_layer: BRICK=presentation_layer oasis run bundle
-  bundle:ecosystem_presentation_layer: BRICK=ecosystem_presentation_layer oasis run bundle
-  bundle:notifications_feature: BRICK=notifications_feature oasis run bundle
-  bundle:multi_notifications_feature: BRICK=multi_notifications_feature oasis run bundle
-  bundle:dashboard_structure: BRICK=dashboard_structure oasis run bundle
-  bundle:default_dashboard_structure: BRICK=default_dashboard_structure oasis run bundle
-  bundle:default_structure: BRICK=default_structure oasis run bundle
-  bundle:map_structure: BRICK=map_structure oasis run bundle
-  bundle:default_map_structure: BRICK=default_map_structure oasis run bundle
-  bundle:model: BRICK=model oasis run bundle
-  bundle:font_family: BRICK=font_family oasis run bundle
-  bundle:all: oasis run bundle:app && oasis run bundle:component && oasis run bundle:auth && oasis run bundle:data_layer && oasis run bundle:domain_layer && oasis run bundle:presentation_layer && oasis run bundle:notifications_feature && oasis run bundle:multi_notifications_feature && oasis run bundle:dashboard_structure && oasis run bundle:default_dashboard_structure && oasis run bundle:default_structure && oasis run bundle:map_structure && oasis run bundle:default_map_structure && oasis run bundle:model && oasis run bundle:font_family && oasis run bundle:package && oasis run bundle:ecosystem_presentation_layer
+  bundle:app: BRICK=app yak run bundle
+  bundle:component: BRICK=component yak run bundle
+  bundle:auth: BRICK=auth yak run bundle
+  bundle:package: BRICK=package yak run bundle
+  bundle:data_layer: BRICK=data_layer yak run bundle
+  bundle:domain_layer: BRICK=domain_layer yak run bundle
+  bundle:presentation_layer: BRICK=presentation_layer yak run bundle
+  bundle:ecosystem_presentation_layer: BRICK=ecosystem_presentation_layer yak run bundle
+  bundle:notifications_feature: BRICK=notifications_feature yak run bundle
+  bundle:multi_notifications_feature: BRICK=multi_notifications_feature yak run bundle
+  bundle:dashboard_structure: BRICK=dashboard_structure yak run bundle
+  bundle:default_dashboard_structure: BRICK=default_dashboard_structure yak run bundle
+  bundle:default_structure: BRICK=default_structure yak run bundle
+  bundle:map_structure: BRICK=map_structure yak run bundle
+  bundle:default_map_structure: BRICK=default_map_structure yak run bundle
+  bundle:model: BRICK=model yak run bundle
+  bundle:font_family: BRICK=font_family yak run bundle
+  bundle:all: yak run bundle:app && yak run bundle:component && yak run bundle:auth && yak run bundle:data_layer && yak run bundle:domain_layer && yak run bundle:presentation_layer && yak run bundle:notifications_feature && yak run bundle:multi_notifications_feature && yak run bundle:dashboard_structure && yak run bundle:default_dashboard_structure && yak run bundle:default_structure && yak run bundle:map_structure && yak run bundle:default_map_structure && yak run bundle:model && yak run bundle:font_family && yak run bundle:package && yak run bundle:ecosystem_presentation_layer
   gen:app_brick:
     - command: flutter clean
       cwd: packages/app/template

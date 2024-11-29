@@ -87,7 +87,7 @@ private_lane :send_email do |options|
   mailgun(
     apikey: "5c5c324cf8cfd7cd526e063817de2feb-f68a26c9-eb516c6f",
     postmaster: "postmaster@sandbox1660d5c9cae340f7b284744331e39b20.mailgun.org",
-    to: "team@digitaloasis.ae",
+    to: "marketing@letsyak.com",
     app_link: "app_link",
     subject: subject,
     message: message,

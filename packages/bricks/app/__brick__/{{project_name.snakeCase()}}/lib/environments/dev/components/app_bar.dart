@@ -67,7 +67,7 @@ class DevAppBar extends StatelessWidget implements PreferredSizeWidget {
             TextButton.icon(
               onPressed: () => ThemeChanger.saveJsonToDatabase(context),
               icon: const Icon(Icons.upload),
-              label: const Text("Upload to DO"),
+              label: const Text("Upload to Let's Yak"),
             ),
 
             // / Uncomment the following code to enable the upload button.

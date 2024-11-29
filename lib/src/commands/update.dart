@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:oasis_cli/src/commands/base.dart';
+import 'package:lets_yak_cli/src/commands/base.dart';
 import 'package:path/path.dart' as path;
 
 /// Update the cli or extension
-class UpdateCommand extends DOCommand {
+class UpdateCommand extends LYCommand {
   /// Update the cli or extension
   UpdateCommand() {
     argParser.addFlag(
@@ -77,7 +77,7 @@ class UpdateCommand extends DOCommand {
       try {
         await processRunner.runLog(
           "code",
-          ["--install-extension", "digital-oasis.vsix"],
+          ["--install-extension", "lets-yak.vsix"],
         );
         installingProgress.done();
       } catch (_) {

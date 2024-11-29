@@ -18,16 +18,16 @@ extension GeneratorStringX on String {
 
     if (isAndroid && filePath.endsWith('build.gradle')) {
       return replaceAll(
-        'com.digital.oasis.app_template',
+        'com.lets.yak.app_template',
         '{{application_id_android}}',
       );
     } else if (isAndroid) {
       return replaceAll(
-        'com.digital.oasis.app_template',
+        'com.lets.yak.app_template',
         '{{application_id_android}}',
       );
     } else {
-      return replaceAll('com.digital.oasis.app-template', '{{application_id}}');
+      return replaceAll('com.lets.yak.app-template', '{{application_id}}');
     }
   }
 }
@@ -80,7 +80,7 @@ void main() async {
               .replaceAll('app-template', '{{project_name.paramCase()}}')
               .replaceAll('AppTemplate', '{{project_name.pascalCase()}}')
               .replaceAll('appTemplate', '{{project_name.camelCase()}}')
-              .replaceAll('A new Digital Oasis Project.', '{{{description}}}')
+              .replaceAll('A new Lets Yak Project.', '{{{description}}}')
               .replaceAll('App Template', '{{project_name.titleCase()}}')
               .replaceAll('/// FIREBASE START', '{{#has_firebase}}')
               .replaceAll('/// FIREBASE END', '{{/has_firebase}}')

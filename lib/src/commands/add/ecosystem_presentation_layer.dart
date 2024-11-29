@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:lets_yak_cli/src/utils/helpers.dart';
 import 'package:mason/mason.dart';
-import 'package:oasis_cli/src/utils/helpers.dart';
 
 import '../../../bundles/_bundles.dart';
 import '../brick_command_base.dart';

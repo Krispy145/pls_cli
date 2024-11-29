@@ -49,16 +49,15 @@ platform :ios do
           distribute_external: true,
           app_platform: "ios",
           beta_app_review_info: {
-            contact_email: "team@digitaloasis.ae",
-            contact_first_name: "Digital Oasis",
-            contact_last_name: "Dev",
-            contact_phone: "+971585337202",
+            contact_email: "marketing@letsyak.com",
+            contact_first_name: "Lets Yak",
+            contact_last_name: "Dev",            
             demo_account_name: "demo",
             demo_account_password: "demo"
           },
           localized_app_info: {
             "en-US": {
-              feedback_email: "team@digitaloasis.ae",
+              feedback_email: "marketing@letsyak.com",
               marketing_url: "",
               privacy_policy_url: "",
               description: "App #{env.capitalize} Version"
@@ -134,7 +133,7 @@ platform :ios do
     mailgun(
       apikey: "5c5c324cf8cfd7cd526e063817de2feb-f68a26c9-eb516c6f",
       postmaster: "postmaster@sandbox1660d5c9cae340f7b284744331e39b20.mailgun.org",
-      to: "team@digitaloasis.ae",
+      to: "marketing@letsyak.com",
       app_link: "app_link",
       subject: subject,
       message: message,

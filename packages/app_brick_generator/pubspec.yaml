@@ -1,5 +1,5 @@
 name: generator
-description: A template generator for Digital Oasis CLI.
+description: A template generator for Lets Yak CLI.
 publish_to: none
 
 environment:

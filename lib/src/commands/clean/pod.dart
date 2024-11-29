@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
-import 'package:oasis_cli/src/commands/base.dart';
-import 'package:oasis_cli/src/utils/helpers.dart';
+import 'package:lets_yak_cli/src/commands/base.dart';
+import 'package:lets_yak_cli/src/utils/helpers.dart';
 import 'package:path/path.dart' as path;
 
 /// {@template podclean}
 /// Clean the pod files. Deletes pods, podfile.lock and reinstalls
 /// {@endtemplate}
-class PodCleanCommand extends DOCommand {
+class PodCleanCommand extends LYCommand {
   /// {@macro podclean}
   PodCleanCommand() {
     argParser.addFlag("repo-update", abbr: "u");

@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:oasis_cli/src/commands/base.dart';
+import 'package:lets_yak_cli/src/commands/base.dart';
 
 import '../../utils/helpers.dart';
 
 /// {@template projectRootCommand}
 /// Find and print the path to the route generator.
 /// {@endtemplate}
-class ProjectRootCommand extends DOCommand {
+class ProjectRootCommand extends LYCommand {
   /// {@macro projectRootCommand}
   ProjectRootCommand() {
     argParser.addOption(

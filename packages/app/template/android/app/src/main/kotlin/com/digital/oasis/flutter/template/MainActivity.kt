@@ -1,4 +1,4 @@
-package com.digital.oasis.app_template
+package com.lets.yak.app_template
 
 import io.flutter.embedding.android.FlutterActivity
 

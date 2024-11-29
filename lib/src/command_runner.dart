@@ -9,12 +9,16 @@ import 'commands/list/list.dart';
 import 'commands/run/run_command.dart';
 import 'commands/update.dart';
 
-/// {@template digitalOasisCommandRunner}
+/// Command runner for the flutter cli
+/// used to streamline working with Lets Yak projects & packages
+const runnerCommand = "yak";
+
+/// {@template letsYakCommandRunner}
 /// Command runner for the flutter cli
 /// {@endtemplate}
 class CommandRunner extends CompletionCommandRunner<void> {
-  /// {@macro digitalOasisCommandRunner}
-  CommandRunner() : super("oasis", "Streamline working with Digital Oasis projects & packages") {
+  /// {@macro letsYakCommandRunner}
+  CommandRunner() : super(runnerCommand, "Streamline working with Lets Yak projects & packages") {
     addCommand(AddCommand());
     addCommand(CreateCommand());
     addCommand(FindCommand());

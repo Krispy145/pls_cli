@@ -2,19 +2,19 @@
 import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
+import 'package:lets_yak_cli/bundles/_bundles.dart';
+import 'package:lets_yak_cli/src/commands/base.dart';
+import 'package:lets_yak_cli/src/utils/helpers.dart';
+import 'package:lets_yak_cli/src/utils/structures.dart';
 import 'package:mason/mason.dart';
-import 'package:oasis_cli/bundles/_bundles.dart';
-import 'package:oasis_cli/src/commands/base.dart';
-import 'package:oasis_cli/src/utils/helpers.dart';
-import 'package:oasis_cli/src/utils/structures.dart';
 
 // A valid Dart identifier that can be used for a package, i.e. no
 // capital letters.
 // https://dart.dev/guides/language/language-tour#important-concepts
 final RegExp _orgNameRegExp = RegExp(r'^[a-zA-Z][\w-]*(\.[a-zA-Z][\w-]*)+$');
 
-const _defaultOrgName = 'com.digital.oasis';
-const _defaultDescription = 'A Flutter project created by Digital Oasis.';
+const _defaultOrgName = 'com.lets.yak';
+const _defaultDescription = 'A Flutter project created by Lets Yak.';
 
 /// A method which returns a [Future<MasonGenerator>] given a [MasonBundle].
 typedef MasonGeneratorFromBundle = Future<MasonGenerator> Function(MasonBundle);
@@ -25,7 +25,7 @@ typedef MasonGeneratorFromBrick = Future<MasonGenerator> Function(Brick);
 /// {@template modelCommand}
 /// Add a new model the app.
 /// {@endtemplate}
-class CreateAppCommand extends DOCommand {
+class CreateAppCommand extends LYCommand {
   /// The [MasonBundle] used to generate the project.
   final bundle = appTemplateBundle;
   final String? appName;
@@ -198,9 +198,9 @@ class CreateAppCommand extends DOCommand {
 
     await runScripts([
       if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
-      "oasis add structure --type ${selectedStructure.name}",
+      "yak add structure --type ${selectedStructure.name}",
       if (!isEcoSystem) ...[
-        "oasis add feature --name home --project=$_projectName",
+        "yak add feature --name home --project=$_projectName",
         'flutter clean',
         'flutter pub get',
         'flutter pub run build_runner build --delete-conflicting-outputs',

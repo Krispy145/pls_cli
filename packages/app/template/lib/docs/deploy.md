@@ -53,7 +53,7 @@ To get an App Store Connect API key follow these steps
 - Take the contents of the .p8 file and paste it in the json under the "key" field. ensure that the contents are a single line, but have the \n separator for each line.
 - Pupulate the "issuer_id" and "key_id" appropriately as well
 
-And thats it, you should be able to use the `oasis deploy` cli command now to deploy to ios.
+And thats it, you should be able to use the `yak deploy` cli command now to deploy to ios.
 
 If you have ay issues, this link provides helpful images and details to walk you through the process
 
@@ -124,7 +124,7 @@ To attain a Google Play Console service account JSON key for your application, f
    - This file needs to be added to the android/app/src/{environment} folder for use with the CI/CD command
    - Use this JSON key file in your automation tools or CI/CD pipelines to interact with the Google Play Console API.
 
-And thats it, you should be able to use the `oasis deploy` cli command now to deploy to android.
+And thats it, you should be able to use the `yak deploy` cli command now to deploy to android.
 
 If you have ay issues, this link provides helpful images and details to walk you through the process
 
@@ -142,11 +142,11 @@ By following these steps, you will have successfully created and obtained a Goog
   - run `firebase init`
   - follow prompts to setup hosting for the {envirnment} project
 
-And thats it, you should be able to use the `oasis deploy` cli command now to deploy to web.
+And thats it, you should be able to use the `yak deploy` cli command now to deploy to web.
 
 ### CLI Command Usage
 
-- `oasis deploy` from **root** of Project folder
+- `yak deploy` from **root** of Project folder
 
 * Select environment (from options)
 
@@ -238,7 +238,7 @@ To get an App Store Connect API key follow these steps:
 - Take the contents of the .p8 file and paste it in the json under the "key" field. ensure that the contents are a single line, but have the \n separator for each line.
 - Pupulate the "issuer_id" and "key_id" appropriately as well
 
-And thats it, you should be able to use the `oasis deploy` cli command now to deploy to ios.
+And thats it, you should be able to use the `yak deploy` cli command now to deploy to ios.
 
 If you have ay issues, this link provides helpful images and details to walk you through the process:
 
@@ -296,7 +296,7 @@ To attain a Google Play Console service account JSON key for your application, f
    - This file needs to be added to the android/app/src/{environment} folder for use with the CI/CD command
    - Use this JSON key file in your automation tools or CI/CD pipelines to interact with the Google Play Console API.
 
-And thats it, you should be able to use the `oasis deploy` cli command now to deploy to android.
+And thats it, you should be able to use the `yak deploy` cli command now to deploy to android.
 
 If you have ay issues, this link provides helpful images and details to walk you through the process:
 
@@ -306,8 +306,8 @@ By following these steps, you will have successfully created and obtained a Goog
 
 #### CLI Command Usage:
 
-- `oasis run build:{env}` to build the platform releases
-- `oasis deploy` from **root** of Project folder
+- `yak run build:{env}` to build the platform releases
+- `yak deploy` from **root** of Project folder
 - Select environment (from options)
   - **dev**
   - **stage**

@@ -1,5 +1,5 @@
 name: parent_name_template
-description: "A new Digital Oasis package project."
+description: "A new Lets Yak package project."
 version: 0.0.1
 homepage:
 publish_to: "none" # Remove this line if you wish to publish to pub.dev

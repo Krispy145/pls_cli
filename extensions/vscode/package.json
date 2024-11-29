@@ -1,9 +1,9 @@
 {
-  "name": "digital-oasis",
-  "displayName": "Digital Oasis",
-  "publisher": "digital-oasis-dev",
+  "name": "lets-yak",
+  "displayName": "Lets Yak",
+  "publisher": "lets-yak-dev",
   "description": "vscode extension to streamline dev",
-  "version": "0.8.25",
+  "version": "0.8.26",
   "private": true,
   "icon": "assets/128.png",
   "engines": {
@@ -14,134 +14,134 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:digital-oasis.create-app",
-    "onCommand:digital-oasis.create-package",
-    "onCommand:digital-oasis.create-ecosystem",
-    "onCommand:digital-oasis.add-feature",
-    "onCommand:digital-oasis.add-auth",
-    "onCommand:digital-oasis.add-data-layer",
-    "onCommand:digital-oasis.add-domain-layer",
-    "onCommand:digital-oasis.add-presentation-layer",
-    "onCommand:digital-oasis.add-structure",
-    "onCommand:digital-oasis.add-component",
-    "onCommand:digital-oasis.add-model",
-    "onCommand:digital-oasis.add-admob",
-    "onCommand:digital-oasis.add-notifications",
-    "onCommand:digital-oasis.add-deeplinks",
-    "onCommand:digital-oasis.add-assets",
-    "onCommand:digital-oasis.add-user-location",
-    "onCommand:digital-oasis.add-ecosystem-feature",
-    "onCommand:digital-oasis.add-ecosystem-presentation-layer",
-    "onCommand:digital-oasis.add-ecosystem-data-layer",
-    "onCommand:digital-oasis.add-ecosystem-domain-layer"
+    "onCommand:lets-yak.create-app",
+    "onCommand:lets-yak.create-package",
+    "onCommand:lets-yak.create-ecosystem",
+    "onCommand:lets-yak.add-feature",
+    "onCommand:lets-yak.add-auth",
+    "onCommand:lets-yak.add-data-layer",
+    "onCommand:lets-yak.add-domain-layer",
+    "onCommand:lets-yak.add-presentation-layer",
+    "onCommand:lets-yak.add-structure",
+    "onCommand:lets-yak.add-component",
+    "onCommand:lets-yak.add-model",
+    "onCommand:lets-yak.add-admob",
+    "onCommand:lets-yak.add-notifications",
+    "onCommand:lets-yak.add-deeplinks",
+    "onCommand:lets-yak.add-assets",
+    "onCommand:lets-yak.add-user-location",
+    "onCommand:lets-yak.add-ecosystem-feature",
+    "onCommand:lets-yak.add-ecosystem-presentation-layer",
+    "onCommand:lets-yak.add-ecosystem-data-layer",
+    "onCommand:lets-yak.add-ecosystem-domain-layer"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "submenus": [
       {
-        "label": "Digital Oasis",
-        "id": "digital-oasis.submenu"
+        "label": "Lets Yak",
+        "id": "lets-yak.submenu"
       },
       {
         "label": "Ecosystem",
-        "id": "digital-oasis.ecosystem.submenu"
+        "id": "lets-yak.ecosystem.submenu"
       }
     ],
     "commands": [
       {
-        "command": "digital-oasis.create-app",
-        "title": "Digital Oasis: Create a New App"
+        "command": "lets-yak.create-app",
+        "title": "Lets Yak: Create a New App"
       },
       {
-        "command": "digital-oasis.create-package",
-        "title": "Digital Oasis: Create a New Package"
+        "command": "lets-yak.create-package",
+        "title": "Lets Yak: Create a New Package"
       },
       {
-        "command": "digital-oasis.create-ecosystem",
-        "title": "Digital Oasis: Create a New Ecosystem"
+        "command": "lets-yak.create-ecosystem",
+        "title": "Lets Yak: Create a New Ecosystem"
       },
       {
-        "command": "digital-oasis.add-feature",
+        "command": "lets-yak.add-feature",
         "title": "Add Feature",
         "shortTitle": "Add Feature"
       },
       {
-        "command": "digital-oasis.add-auth",
+        "command": "lets-yak.add-auth",
         "title": "Add Authentication",
         "shortTitle": "Add Authentication"
       },
       {
-        "command": "digital-oasis.add-data-layer",
+        "command": "lets-yak.add-data-layer",
         "title": "Add Data Layer",
         "shortTitle": "Add Data Layer"
       },
       {
-        "command": "digital-oasis.add-domain-layer",
+        "command": "lets-yak.add-domain-layer",
         "title": "Add Domain Layer",
         "shortTitle": "Add Domain Layer"
       },
       {
-        "command": "digital-oasis.add-presentation-layer",
+        "command": "lets-yak.add-presentation-layer",
         "title": "Add Presentation Layer",
         "shortTitle": "Add Presentation Layer"
       },
       {
-        "command": "digital-oasis.add-structure",
+        "command": "lets-yak.add-structure",
         "title": "Add Structure",
         "shortTitle": "Add Structure"
       },
       {
-        "command": "digital-oasis.add-component",
+        "command": "lets-yak.add-component",
         "title": "Add Component",
         "shortTitle": "Add Component"
       },
       {
-        "command": "digital-oasis.add-model",
+        "command": "lets-yak.add-model",
         "shortTitle": "Add Model",
         "title": "Add Model"
       },
       {
-        "command": "digital-oasis.add-admob",
+        "command": "lets-yak.add-admob",
         "title": "Add Admob",
         "shortTitle": "Add AdMob"
       },
       {
-        "command": "digital-oasis.add-notifications",
+        "command": "lets-yak.add-notifications",
         "title": "Add Notifications",
         "shortTitle": "Add Notifications"
       },
       {
-        "command": "digital-oasis.add-deeplinks",
+        "command": "lets-yak.add-deeplinks",
         "title": "Add Deeplinks",
         "shortTitle": "Add Deeplinks"
       },
       {
-        "command": "digital-oasis.add-assets",
+        "command": "lets-yak.add-assets",
         "title": "Add Assets",
         "shortTitle": "Add Assets"
       },
       {
-        "command": "digital-oasis.add-user-location",
+        "command": "lets-yak.add-user-location",
         "title": "Add User Location",
         "shortTitle": "Add User Location"
       },
       {
-        "command": "digital-oasis.add-ecosystem-feature",
+        "command": "lets-yak.add-ecosystem-feature",
         "title": "Add Feature",
         "shortTitle": "Add Feature"
       },
       {
-        "command": "digital-oasis.add-ecosystem-presentation-layer",
+        "command": "lets-yak.add-ecosystem-presentation-layer",
         "title": "Add Presentation Layer",
         "shortTitle": "Add Presentation Layer"
       },
       {
-        "command": "digital-oasis.add-ecosystem-data-layer",
+        "command": "lets-yak.add-ecosystem-data-layer",
         "title": "Add Data Layer",
         "shortTitle": "Add Data Layer"
       },
       {
-        "command": "digital-oasis.add-ecosystem-domain-layer",
+        "command": "lets-yak.add-ecosystem-domain-layer",
         "title": "Add Domain Layer",
         "shortTitle": "Add Domain Layer"
       }
@@ -150,84 +150,84 @@
       "explorer/context": [
         {
           "group": "01_flutter",
-          "submenu": "digital-oasis.submenu",
+          "submenu": "lets-yak.submenu",
           "when": "explorerResourceIsFolder"
         }
       ],
       "commandPalette": [],
-      "digital-oasis.submenu": [
+      "lets-yak.submenu": [
         {
-          "submenu": "digital-oasis.ecosystem.submenu",
+          "submenu": "lets-yak.ecosystem.submenu",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "digital-oasis.add-feature",
+          "command": "lets-yak.add-feature",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
         },
         {
-          "command": "digital-oasis.add-auth",
+          "command": "lets-yak.add-auth",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|presentation))$/"
         },
         {
-          "command": "digital-oasis.add-data-layer",
+          "command": "lets-yak.add-data-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|data))$/"
         },
         {
-          "command": "digital-oasis.add-domain-layer",
+          "command": "lets-yak.add-domain-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|domain))$/"
         },
         {
-          "command": "digital-oasis.add-presentation-layer",
+          "command": "lets-yak.add-presentation-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|presentation))$/"
         },
         {
-          "command": "digital-oasis.add-structure",
+          "command": "lets-yak.add-structure",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|navigation))$/"
         },
         {
-          "command": "digital-oasis.add-component",
+          "command": "lets-yak.add-component",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(components|lib|presentation|navigation|utils|core|config|app))$/"
         },
         {
-          "command": "digital-oasis.add-model",
+          "command": "lets-yak.add-model",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(models|domain|))$/"
         },
         {
-          "command": "digital-oasis.add-admob",
+          "command": "lets-yak.add-admob",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
         },
         {
-          "command": "digital-oasis.add-notifications",
+          "command": "lets-yak.add-notifications",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "digital-oasis.add-deeplinks",
+          "command": "lets-yak.add-deeplinks",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
         },
         {
-          "command": "digital-oasis.add-assets",
+          "command": "lets-yak.add-assets",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(assets|lib|))$/"
         },
         {
-          "command": "digital-oasis.add-user-location",
+          "command": "lets-yak.add-user-location",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
         }
       ],
-      "digital-oasis.ecosystem.submenu": [
+      "lets-yak.ecosystem.submenu": [
         {
-          "command": "digital-oasis.add-ecosystem-feature",
+          "command": "lets-yak.add-ecosystem-feature",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "digital-oasis.add-ecosystem-presentation-layer",
+          "command": "lets-yak.add-ecosystem-presentation-layer",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "digital-oasis.add-ecosystem-data-layer",
+          "command": "lets-yak.add-ecosystem-data-layer",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "digital-oasis.add-ecosystem-domain-layer",
+          "command": "lets-yak.add-ecosystem-domain-layer",
           "when": "explorerResourceIsFolder"
         }
       ]
@@ -257,7 +257,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "build": "vsce package -o digital-oasis.vsix",
+    "build": "vsce package -o lets-yak.vsix",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {

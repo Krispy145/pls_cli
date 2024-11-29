@@ -1,11 +1,11 @@
-import 'package:oasis_cli/src/commands/base.dart';
-import 'package:oasis_cli/src/commands/brick_command_base.dart';
-import 'package:oasis_cli/src/utils/helpers.dart';
+import 'package:lets_yak_cli/src/commands/base.dart';
+import 'package:lets_yak_cli/src/commands/brick_command_base.dart';
+import 'package:lets_yak_cli/src/utils/helpers.dart';
 
 /// {@template featureCommand}
 /// Add a feature to the app.
 /// {@endtemplate}
-class FeatureCommand extends DOCommand {
+class FeatureCommand extends LYCommand {
   /// FeatureCommand constructor
   FeatureCommand() {
     argParser
@@ -36,10 +36,10 @@ class FeatureCommand extends DOCommand {
           prompt: "What is the name of the feature?",
           validator: isValidDirectoryName,
         );
-    final dataLayerScript = isEcoSystem ? 'oasis add data_layer --name=$featureName --project=$projectName' : 'oasis add data_layer --name=$featureName --project=$projectName';
-    final domainLayerScript = isEcoSystem ? 'oasis add domain_layer --name=$featureName --project=$projectName' : 'oasis add domain_layer --name=$featureName --project=$projectName';
+    final dataLayerScript = isEcoSystem ? 'yak add data_layer --name=$featureName --project=$projectName' : 'yak add data_layer --name=$featureName --project=$projectName';
+    final domainLayerScript = isEcoSystem ? 'yak add domain_layer --name=$featureName --project=$projectName' : 'yak add domain_layer --name=$featureName --project=$projectName';
     final presentationLayerScript =
-        isEcoSystem ? 'oasis add ecosystem_presentation_layer --name=$featureName --project=$projectName' : 'oasis add presentation_layer --name=$featureName --project=$projectName';
+        isEcoSystem ? 'yak add ecosystem_presentation_layer --name=$featureName --project=$projectName' : 'yak add presentation_layer --name=$featureName --project=$projectName';
 
     return runScripts([
       dataLayerScript,
