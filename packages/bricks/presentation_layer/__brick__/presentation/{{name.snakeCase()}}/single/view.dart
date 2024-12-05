@@ -1,8 +1,11 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
+import "package:flutter_mobx/flutter_mobx.dart";
+import "package:{{project.snakeCase()}}_dashboard/presentation/{{name.snakeCase()}}/single/store.dart";
 import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
-import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/list_store.dart";
-import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/single_store.dart";
+import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/form/store.dart";
+import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/form/view.dart";
+import "package:theme/extensions/build_context.dart";
 import "package:utilities/widgets/load_state/builder.dart";
 
 /// [{{name.pascalCase()}}View] of the app.
@@ -12,27 +15,36 @@ class {{name.pascalCase()}}View extends StatelessWidget {
   final {{name.pascalCase()}}Model? {{name.camelCase()}}Model;
 
   /// [{{name.pascalCase()}}View] constructor.
-  {{name.pascalCase()}}View({super.key, this.id, this.{{name.camelCase()}}Model})
-      : assert(id != null || {{name.camelCase()}}Model != null, "id or {{name.camelCase()}}Model must be provided."),
-        store = {{name.pascalCase()}}Store(id: id, initial{{name.pascalCase()}}Model: {{name.camelCase()}}Model);
+  {{name.pascalCase()}}View({super.key, this.id, this.{{name.camelCase()}}Model}) {
+    store = Addit{{name.pascalCase()}}Store(id: id, initial{{name.pascalCase()}}Model: {{name.camelCase()}}Model);
+  }
 
-  /// [store] is an instance of [{{name.pascalCase()}}sStore], used in the [LoadStateBuilder].
+  /// [store] is an instance of [Addit{{name.pascalCase()}}Store], used in the [LoadStateBuilder].
   /// initialized in the constructor.
-  final {{name.pascalCase()}}Store store;
-
+  late final Addit{{name.pascalCase()}}Store store;
+  late final {{name.camelCase()}}FormStore = {{name.pascalCase()}}FormStore(
+    {{name.camelCase()}}Model: store.current{{name.pascalCase()}},
+    saveValue: store.addit{{name.pascalCase()}}Model,
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoadStateBuilder(
-        viewStore: store,
-        errorBuilder: (context) => Center(
-          child: Text("Error loading {{name.camelCase()}}: $id / ${{name.camelCase()}}Model."),
+      appBar: AppBar(
+        title: Text(
+          {{name.camelCase()}}FormStore.isAdding ? "{{name.pascalCase()}} Creation" : "Update ${store.current{{name.pascalCase()}}?.name}",
+          style: context.textTheme.headlineMedium,
         ),
-        loadedBuilder: (context) => Column(
-          children: [
-            Text(store.current{{name.pascalCase()}}!.id),
-          ],
-        ),
+      ),
+      body: Observer(
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: {{name.pascalCase()}}FormView(
+              store: {{name.camelCase()}}FormStore,
+              onBack: (response) => context.router.maybePop(response),
+            ),
+          );
+        },
       ),
     );
   }

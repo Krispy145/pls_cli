@@ -1,37 +1,23 @@
+import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/list_store.dart";
 import "package:mobx/mobx.dart";
-import "package:{{project.snakeCase()}}/data/models/{{name.snakeCase()}}_model.dart";
-import "package:{{project.snakeCase()}}/domain/repositories/{{name.snakeCase()}}.repository.dart";
-import "package:utilities/layouts/paginated_list/store.dart";
 
-part "list_store.g.dart";
+part "store.g.dart";
 
-/// [{{name.pascalCase()}}sStore] is a class that uses [_{{name.pascalCase()}}sStore] to manage state of the {{name.camelCase()}}s feature.
-class {{name.pascalCase()}}sStore = _{{name.pascalCase()}}sStore with _${{name.pascalCase()}}sStore;
+/// [Addit{{name.pascalCase()}}sStore] is a class that uses [_Addit{{name.pascalCase()}}sStore] to manage state of the {{name.camelCase()}}s feature.
+class Addit{{name.pascalCase()}}sStore = _Addit{{name.pascalCase()}}sStore with _$Addit{{name.pascalCase()}}sStore;
 
-/// [_{{name.pascalCase()}}sStore] is a class that manages the state of the {{name.camelCase()}}s feature.
-abstract class _{{name.pascalCase()}}sStore extends PaginatedListStore<{{name.pascalCase()}}Model> with Store {
-  @override
-  late final loadMoreFromRepository = repository.getPaged{{name.pascalCase()}}Models;
-
-  /// [repository] is an instance of [{{name.pascalCase()}}Repository].
-  final {{name.pascalCase()}}Repository repository = {{name.pascalCase()}}Repository();
-
-  /// [load{{name.pascalCase()}}Models] loads all [{{name.pascalCase()}}Model]s from the data source.
+/// [_Addit{{name.pascalCase()}}sStore] is a class that manages the state of the {{name.camelCase()}}s feature.
+abstract class _Addit{{name.pascalCase()}}sStore extends {{name.pascalCase()}}sStore with Store {
   @action
-  Future<void> load{{name.pascalCase()}}Models() async {
+  Future<void> delete{{name.pascalCase()}}Model(String id) async {
     try {
       setLoading();
-      final loaded{{name.pascalCase()}}s = await repository.getAll{{name.pascalCase()}}Models();
-      if (loaded{{name.pascalCase()}}s.isNotEmpty) {
-        results
-          ..clear()
-          ..addAll(loaded{{name.pascalCase()}}s);
-        setLoaded();
-      } else {
-        setEmpty();
-      }
+      await repository.delete{{name.pascalCase()}}Model(id);
+      results.removeWhere((element) => element.id == id);
+      setLoaded();
     } catch (e) {
-      setError();
+      setError("Failed to delete {{name.camelCase()}}: $e");
     }
   }
 }
+

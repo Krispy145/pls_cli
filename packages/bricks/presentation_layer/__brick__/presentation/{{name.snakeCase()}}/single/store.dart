@@ -1,44 +1,32 @@
 
 
 import "package:mobx/mobx.dart";
-import "package:{{project.snakeCase()}}/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}_package/presentation/{{name.snakeCase()}}/single_store.dart";
+import "package:utilities/data/sources/source.dart";
 
-import "list_store.dart";
+part "store.g.dart";
 
-part "single_store.g.dart";
+/// [Addit{{name.pascalCase()}}Store] is a class that uses [_Addit{{name.pascalCase()}}Store] to manage state of the {{name.camelCase()}}s feature.
+class Addit{{name.pascalCase()}}Store = _Addit{{name.pascalCase()}}Store with _$Addit{{name.pascalCase()}}Store;
 
-/// [{{name.pascalCase()}}Store] is a class that uses [_{{name.pascalCase()}}Store] to manage state of the {{name.camelCase()}}s feature.
-class {{name.pascalCase()}}Store = _{{name.pascalCase()}}Store with _${{name.pascalCase()}}Store;
+/// [_Addit{{name.pascalCase()}}Store] is a class that manages the state of the {{name.camelCase()}}s feature.
+abstract class _Addit{{name.pascalCase()}}Store extends {{name.pascalCase()}}Store with Store {
+  /// [_Addit{{name.pascalCase()}}Store] constructor.
+  _Addit{{name.pascalCase()}}Store({
+    super.id,
+    super.initial{{name.pascalCase()}}Model,
+  });
 
-/// [_{{name.pascalCase()}}Store] is a class that manages the state of the {{name.camelCase()}}s feature.
-abstract class _{{name.pascalCase()}}Store extends {{name.pascalCase()}}sStore with Store {
-  final String? id;
-
-  /// [_{{name.pascalCase()}}Store] constructor.
-  _{{name.pascalCase()}}Store({
-    this.id,
-    {{name.pascalCase()}}Model? initial{{name.pascalCase()}}Model,
-  }) {
-    _load{{name.pascalCase()}}(initial{{name.pascalCase()}}Model);
-  }
-
-  /// [current{{name.pascalCase()}}] is an observable list of [{{name.pascalCase()}}Model]s.
-  @observable
-  {{name.pascalCase()}}Model? current{{name.pascalCase()}};
-
-  void _load{{name.pascalCase()}}({{name.pascalCase()}}Model? initial{{name.pascalCase()}}Model) {
-    if (initial{{name.pascalCase()}}Model == null && id != null) {
-      setLoading();
-      repository.get{{name.pascalCase()}}Model(id!).then((value) {
-        current{{name.pascalCase()}} = value;
-      });
+  /// [addit{{name.pascalCase()}}Model] addits a [{{name.pascalCase()}}Model] to the data source.
+  @action
+  Future<RequestResponse> addit{{name.pascalCase()}}Model(bool isAdding, {{name.pascalCase()}}Model {{name.camelCase()}}Model) async {
+    if (isAdding) {
+      final result = await repository.add{{name.pascalCase()}}Model({{name.camelCase()}}Model);
+      return result.first;
     } else {
-      current{{name.pascalCase()}} = initial{{name.pascalCase()}}Model;
-    }
-    if (current{{name.pascalCase()}} != null) {
-      setLoaded();
-    } else {
-      setEmpty();
+      return repository.update{{name.pascalCase()}}Model({{name.camelCase()}}Model);
     }
   }
 }
+
