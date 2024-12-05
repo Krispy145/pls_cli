@@ -13,6 +13,7 @@ import 'package:utilities/data/sources/paginated.dart';
 import 'package:utilities/data/sources/secure/paginated.dart';
 import 'package:utilities/data/sources/source.dart';
 import 'package:utilities/data/sources/supabase/paginated.dart';
+import "package:utilities/data/typedefs.dart";
 import 'package:utilities/helpers/tuples.dart';
 import "package:utilities/logger/logger.dart";
 

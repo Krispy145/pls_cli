@@ -18,7 +18,7 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PaginatedListBuilder<{{name.pascalCase()}}Model>.listView(
+      body: PaginatedListBuilder<{{name.pascalCase()}}Model,String>.listView(
         store: store,
         itemBuilder: (context, index, {{name.camelCase()}}Model) {
           return ListTile(

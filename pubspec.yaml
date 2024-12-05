@@ -5,7 +5,7 @@ environment:
   sdk: ">=2.17.0 <4.0.0"
 
 executables:
-  oasis: main
+  yak: main
 
 scripts:
   get:
@@ -39,8 +39,7 @@ scripts:
   bundle:map_structure: BRICK=map_structure yak run bundle
   bundle:default_map_structure: BRICK=default_map_structure yak run bundle
   bundle:model: BRICK=model yak run bundle
-  bundle:font_family: BRICK=font_family yak run bundle
-  bundle:all: yak run bundle:app && yak run bundle:component && yak run bundle:auth && yak run bundle:data_layer && yak run bundle:domain_layer && yak run bundle:presentation_layer && yak run bundle:notifications_feature && yak run bundle:multi_notifications_feature && yak run bundle:dashboard_structure && yak run bundle:default_dashboard_structure && yak run bundle:default_structure && yak run bundle:map_structure && yak run bundle:default_map_structure && yak run bundle:model && yak run bundle:font_family && yak run bundle:package && yak run bundle:ecosystem_presentation_layer
+  bundle:all: yak run bundle:app && yak run bundle:component && yak run bundle:auth && yak run bundle:data_layer && yak run bundle:domain_layer && yak run bundle:presentation_layer && yak run bundle:notifications_feature && yak run bundle:multi_notifications_feature && yak run bundle:dashboard_structure && yak run bundle:default_dashboard_structure && yak run bundle:default_structure && yak run bundle:map_structure && yak run bundle:default_map_structure && yak run bundle:model && yak run bundle:package && yak run bundle:ecosystem_presentation_layer
   gen:app_brick:
     - command: flutter clean
       cwd: packages/app/template

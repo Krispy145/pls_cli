@@ -2,6 +2,7 @@ import 'package:cli_completion/cli_completion.dart';
 
 import 'commands/add/add.dart';
 import 'commands/clean/clean.dart';
+import 'commands/clean/paths.dart';
 import 'commands/create/create.dart';
 import 'commands/deploy/deploy.dart';
 import 'commands/find/find.dart';
@@ -25,6 +26,7 @@ class CommandRunner extends CompletionCommandRunner<void> {
     addCommand(ListCommand());
     addCommand(UpdateCommand());
     addCommand(DeployCommand());
+    addCommand(TogglePathsCommand());
     addCommand(RunCommand());
     addCommand(CleanCommand());
   }

@@ -30,7 +30,7 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
         onPressed: () => context.navigateTo({{name.pascalCase()}}Route()),
         child: const Icon(Icons.add),
       ),
-      body: PaginatedListBuilder<{{name.pascalCase()}}Model>.listView(
+      body: PaginatedListBuilder<{{name.pascalCase()}}Model,String>.listView(
         store: store,
         itemBuilder: (context, index, {{name.camelCase()}}sModel) {          
           return Dismissible(
@@ -43,7 +43,7 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Icon(Icons.delete, color: context.colorScheme.onError),
-                  Sizes.l.spacer(vertical: false),
+                  Sizes.l.spacer(axis: Axis.horizontal),
                 ],
               ),
             ),

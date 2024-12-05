@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+
 
 import "package:mobx/mobx.dart";
 import "package:{{project.snakeCase()}}/data/models/{{name.snakeCase()}}_model.dart";

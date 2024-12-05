@@ -14,7 +14,7 @@ class {{name.pascalCase()}}View extends StatelessWidget {
   /// [{{name.pascalCase()}}View] constructor.
   {{name.pascalCase()}}View({super.key, this.id, this.{{name.camelCase()}}Model})
       : assert(id != null || {{name.camelCase()}}Model != null,
-            "id or {{name.camelCase()}}Model must be provided."),
+            "id or {{name.camelCase()}}Model must be provided.",),
         store = {{name.pascalCase()}}Store(id: id, initial{{name.pascalCase()}}Model: {{name.camelCase()}}Model);
 
   /// [store] is an instance of [{{name.pascalCase()}}sStore], used in the [LoadStateBuilder].

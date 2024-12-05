@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+
 
 import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
 import "package:mobx/mobx.dart";
@@ -18,7 +18,7 @@ abstract class _{{name.pascalCase()}}Store extends {{name.pascalCase()}}sStore w
   _{{name.pascalCase()}}Store({
     this.id,
     {{name.pascalCase()}}Model? initial{{name.pascalCase()}}Model,
-  }) {
+  }): super(shouldLoadMoreInitially: false) {
     _load{{name.pascalCase()}}(initial{{name.pascalCase()}}Model);
   }
 

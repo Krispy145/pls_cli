@@ -40,12 +40,17 @@ class Logger extends util.StandardLogger {
 
   /// Prints to the stderr with styling
   void err(String message) {
-    return stderr("😭 ${message.bold.redBright}");
+    return stderr("❌ ${message.bold.redBright}");
   }
 
   /// Prints warning to stdout with styling
   void warn(String message) {
-    return stderr("⚠️   ${message.bold.yellow}");
+    return stderr("⚠️ ${message.bold.yellow}");
+  }
+
+  /// Prints success message to stdout with styling
+  void success(String message) {
+    return stdout("🎉 ${message.bold.green}");
   }
 
   /// Logger implementation of Interact's spinner, for loading

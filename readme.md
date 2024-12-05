@@ -12,7 +12,7 @@ flutter pub global activate -sgit {{githubPath}}
 
 ## Commands
 
-The command line tool can be used with `oasis` or `oasis` both will be added to path
+The command line tool can be used with `yak` or `yak` both will be added to path
 
 Each command follows the format:
 
@@ -253,7 +253,7 @@ The vscode extension is a wrapper around the command line tool. All of the **Add
 ### Requirements
 
 - Have node and npm installed
-- Have the [oasis](#installing-the-cli) cli installed.
+- Have the [yak](#installing-the-cli) cli installed.
 - Have the VScode command line tool enabled. To install this open the Command Palette (Cmd+Shift+P) and type 'shell command' to find the `Shell Command: Install 'code' command in PATH command`.
 
 To install the extension, first install the command line tool, then run

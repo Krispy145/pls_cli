@@ -23,7 +23,7 @@ abstract class _{{name.pascalCase()}}FormStore extends ReactiveFormsModelStore<{
   final idKey = "id";
 
   @override
-  late FormGroup form = FormGroup(
+   FormGroup get form => FormGroup(
     {
       idKey: FormControl<String>(
         value: editingValue?.id ?? "",
@@ -33,7 +33,7 @@ abstract class _{{name.pascalCase()}}FormStore extends ReactiveFormsModelStore<{
 
   
   @override
-  FutureOr<{{name.pascalCase()}}?> prepareValueFromForm() {
+  FutureOr<{{name.pascalCase()}}Model?> prepareValueFromForm() {
     final value = form.value;
     final map = {{name.pascalCase()}}.fromMap(value);
     return map;
