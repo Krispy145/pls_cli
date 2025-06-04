@@ -33,10 +33,10 @@ export async function newEcoSystemPresentationLayer(
   projectPath: string,
   runScripts: boolean = true
 ) {
-  const commandNewPresentationLayer = `yak add ecosystem_presentation_layer --name=${name} --project=${projectName}`;
+  const commandNewPresentationLayer = `pls add ecosystem_presentation_layer --name=${name} --project=${projectName}`;
   const appDirectory = projectPath + `/${projectName}_app`;
   const dashboardDirectory = projectPath + `/${projectName}_dashboard`;
-  const commandNewLogger = `yak add logger --name=${name}`;
+  const commandNewLogger = `pls add logger --name=${name}`;
   await runCommandsFromPath(projectPath, [commandNewPresentationLayer]);
   if (runScripts)
     await runCommandsFromPath(`${appDirectory}/lib`, [

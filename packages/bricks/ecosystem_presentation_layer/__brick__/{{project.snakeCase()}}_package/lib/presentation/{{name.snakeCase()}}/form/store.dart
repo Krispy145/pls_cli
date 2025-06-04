@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 import "dart:async";
 
 import "package:forms/presentation/models/reactive_store.dart";
@@ -16,26 +18,28 @@ abstract class _{{name.pascalCase()}}FormStore extends ReactiveFormsModelStore<{
   _{{name.pascalCase()}}FormStore({
     required {{name.pascalCase()}}Model? {{name.camelCase()}}Model,
     required super.saveValue,
-  }) : super(editingValue: {{name.camelCase()}}Model) {
-    setLoaded();
-  }
+  }) : super(editingValue: {{name.camelCase()}}Model);
 
   final idKey = "id";
 
-  @override
-   FormGroup get form => FormGroup(
-    {
-      idKey: FormControl<String>(
-        value: editingValue?.id ?? "",
-      ),
-    },    
-  );
+@override
+Future<void> initialize() async {
+    setLoading();
+    form = FormGroup(
+      {
+        idKey: FormControl<String>(
+          value: editingValue?.id ?? "",
+        ),       
+      },
+    );
+    await super.initialize();
+  }
 
   
   @override
   FutureOr<{{name.pascalCase()}}Model?> prepareValueFromForm() {
     final value = form.value;
-    final map = {{name.pascalCase()}}.fromMap(value);
+    final map = {{name.pascalCase()}}Model.fromMap(value);
     return map;
   }
 }

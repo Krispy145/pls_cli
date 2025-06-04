@@ -4,17 +4,17 @@ import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
 import 'package:args/args.dart';
-import 'package:lets_yak_cli/src/commands/base.dart';
-import 'package:lets_yak_cli/src/logger.dart';
 import 'package:mason/mason.dart' as mason;
 import 'package:path/path.dart' as p;
+import 'package:pls_cli/src/commands/base.dart';
+import 'package:pls_cli/src/logger.dart';
 
 /// {@template brickCommandBase}
 ///
 /// The base of any command which generates files from bricks
 ///
 /// {@endtemplate}
-abstract class BrickCommandBase extends LYCommand {
+abstract class BrickCommandBase extends PLSCommand {
   /// BrickCommandBase constructor
   BrickCommandBase() {
     argParser.addDefaultOptions();

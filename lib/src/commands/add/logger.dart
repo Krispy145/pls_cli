@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:lets_yak_cli/src/commands/base.dart';
-import 'package:lets_yak_cli/src/commands/brick_command_base.dart';
-import 'package:lets_yak_cli/src/utils/helpers.dart';
 import 'package:mason/mason.dart';
+import 'package:pls_cli/src/commands/base.dart';
+import 'package:pls_cli/src/commands/brick_command_base.dart';
+import 'package:pls_cli/src/utils/helpers.dart';
 
 /// {@template loggerCommand}
 /// LoggerFeatureCommand for adding a logger feature to the app
 /// {@endtemplate}
-class LoggerFeatureCommand extends LYCommand {
+class LoggerFeatureCommand extends PLSCommand {
   /// LoggerFeatureCommand constructor
   LoggerFeatureCommand() {
     argParser.addDefaultOptions();

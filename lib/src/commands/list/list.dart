@@ -1,12 +1,12 @@
-import 'package:lets_yak_cli/src/commands/base.dart';
-import 'package:lets_yak_cli/src/commands/list/features.dart';
+import 'package:pls_cli/src/commands/base.dart';
+import 'package:pls_cli/src/commands/list/features.dart';
 
 /// {@template listCommand}
 /// List various aspects of a flutter project.
 ///
 /// May not need to call this manually. Used in extensions.
 /// {@endtemplate}
-class ListCommand extends LYCommand {
+class ListCommand extends PLSCommand {
   /// {@macro listCommand}
   ListCommand() {
     addSubcommand(ListFeaturesCommand());

@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
 import 'package:args/args.dart';
-import 'package:lets_yak_cli/src/commands/base.dart';
 import 'package:path/path.dart' as p;
+import 'package:pls_cli/src/commands/base.dart';
 
 /// {@template deployCommand}
 /// Add various parts the app.
 /// {@endtemplate}
-class DeployCommand extends LYCommand {
+class DeployCommand extends PLSCommand {
   /// All the available deploy environments
   static const environments = ["dev", "stage", "prod"];
 

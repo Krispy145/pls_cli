@@ -4,7 +4,7 @@ import "/data/repositories/{{name.snakeCase()}}.repository.dart";
 import "/data/sources/{{name.snakeCase()}}/_source.dart";
 import "package:utilities/data/models/basic_search_query_model.dart";
 import "package:utilities/data/sources/paginated.dart";
-import "package:utilities/data/sources/source.dart";
+import "package:{{project_name.snakeCase()}}/data/sources/home/_source.dart";
 import "package:utilities/helpers/tuples.dart";
 
 /// [{{name.pascalCase()}}Repository] is an abstract class that defines the basic CRUD operations for the [{{name.pascalCase()}}Model] entity.
@@ -15,7 +15,7 @@ class {{name.pascalCase()}}Repository {
   {{name.pascalCase()}}Repository();
 
   //* {{name.pascalCase()}}Model Data Source Type
-  final _source = Firestore{{name.pascalCase()}}DataSource();
+  final _source = Dummy{{name.pascalCase()}}DataSource();
 
   ResponseModel? _lastResponse;
 

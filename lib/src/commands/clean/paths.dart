@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
 import 'package:args/args.dart';
-import 'package:lets_yak_cli/src/commands/base.dart';
 import 'package:path/path.dart' as p;
+import 'package:pls_cli/src/commands/base.dart';
 import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
 /// {@template togglePathsCommand}
 /// Toggle dependency paths between local and remote.
 /// {@endtemplate}
-class TogglePathsCommand extends LYCommand {
+class TogglePathsCommand extends PLSCommand {
   /// [pathTypes] available for toggling.
   static const pathTypes = ["local", "remote"];
 
@@ -61,7 +61,7 @@ class TogglePathsCommand extends LYCommand {
     }
 
     // Hardcoded GitHub base path for remote packages
-    const githubBaseUrl = "https://github.com/lets-yak/packages.git";
+    const githubBaseUrl = "https://github.com/pls/packages.git";
 
     // Search for pubspec.yaml files
     final pubspecFiles = Directory.current.listSync(recursive: true).where((file) => file is File && file.path.endsWith("pubspec.yaml")).toList();
@@ -111,7 +111,7 @@ class TogglePathsCommand extends LYCommand {
         if (value is Map && value["path"] != null) {
           final currentPath = value["path"] as String;
 
-          // Match paths with ../../../packages/ or ../packages/
+          // Match paths with ../packages/ or ../packages/
           if (pathPattern.hasMatch(currentPath)) {
             if (pathType == "local") {
               // If already using a local path, prompt the user to update it

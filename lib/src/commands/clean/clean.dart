@@ -1,10 +1,10 @@
-import 'package:lets_yak_cli/src/commands/base.dart';
-import 'package:lets_yak_cli/src/commands/clean/pod.dart';
+import 'package:pls_cli/src/commands/base.dart';
+import 'package:pls_cli/src/commands/clean/pod.dart';
 
 /// {@template clean}
 /// Clean the project of various things.
 /// {@endtemplate}
-class CleanCommand extends LYCommand {
+class CleanCommand extends PLSCommand {
   /// {@macro clean}
   CleanCommand() {
     addSubcommand(PodCleanCommand());

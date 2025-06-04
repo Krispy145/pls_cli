@@ -11,15 +11,15 @@ import 'commands/run/run_command.dart';
 import 'commands/update.dart';
 
 /// Command runner for the flutter cli
-/// used to streamline working with Lets Yak projects & packages
-const runnerCommand = "yak";
+/// used to streamline working with Pls projects & packages
+const runnerCommand = "pls";
 
-/// {@template letsYakCommandRunner}
+/// {@template PLSCommandRunner}
 /// Command runner for the flutter cli
 /// {@endtemplate}
 class CommandRunner extends CompletionCommandRunner<void> {
-  /// {@macro letsYakCommandRunner}
-  CommandRunner() : super(runnerCommand, "Streamline working with Lets Yak projects & packages") {
+  /// {@macro PLSCommandRunner}
+  CommandRunner() : super(runnerCommand, "Streamline working with Pls projects & packages") {
     addCommand(AddCommand());
     addCommand(CreateCommand());
     addCommand(FindCommand());

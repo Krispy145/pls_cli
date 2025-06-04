@@ -2,19 +2,14 @@
 import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
-import 'package:lets_yak_cli/bundles/_bundles.dart';
-import 'package:lets_yak_cli/src/commands/base.dart';
-import 'package:lets_yak_cli/src/utils/helpers.dart';
-import 'package:lets_yak_cli/src/utils/structures.dart';
 import 'package:mason/mason.dart';
+import 'package:pls_cli/bundles/_bundles.dart';
+import 'package:pls_cli/src/commands/base.dart';
+import 'package:pls_cli/src/utils/helpers.dart';
+import 'package:pls_cli/src/utils/structures.dart';
 
-// A valid Dart identifier that can be used for a package, i.e. no
-// capital letters.
-// https://dart.dev/guides/language/language-tour#important-concepts
-final RegExp _orgNameRegExp = RegExp(r'^[a-zA-Z][\w-]*(\.[a-zA-Z][\w-]*)+$');
-
-const _defaultOrgName = 'com.lets.yak';
-const _defaultDescription = 'A Flutter project created by Lets Yak.';
+const _defaultOrgName = 'com.lets.pls';
+const _defaultDescription = 'A Flutter project created by Pls.';
 
 /// A method which returns a [Future<MasonGenerator>] given a [MasonBundle].
 typedef MasonGeneratorFromBundle = Future<MasonGenerator> Function(MasonBundle);
@@ -25,7 +20,7 @@ typedef MasonGeneratorFromBrick = Future<MasonGenerator> Function(Brick);
 /// {@template modelCommand}
 /// Add a new model the app.
 /// {@endtemplate}
-class CreateAppCommand extends LYCommand {
+class CreateAppCommand extends PLSCommand {
   /// The [MasonBundle] used to generate the project.
   final bundle = appTemplateBundle;
   final String? appName;
@@ -68,15 +63,11 @@ class CreateAppCommand extends LYCommand {
   /// Gets the output [Directory].
   Directory get outputDirectory {
     final directory = argResults?['output-directory'] as String? ?? '.';
-    return Directory(directory);
+    return Directory('$directory/$_projectName');
   }
 
   /// Gets the organization name.
-  String get orgName {
-    final orgName = argResults?['org-name'] as String? ?? _defaultOrgName;
-    _validateOrgName(orgName);
-    return orgName;
-  }
+  String get orgName => argResults?['org-name'] as String? ?? _defaultOrgName;
 
   /// Gets the description for the project.
   String get projectDescription => argResults?['description'] as String? ?? '';
@@ -121,9 +112,110 @@ class CreateAppCommand extends LYCommand {
     final isDashboard = selectedStructure == Structure.Dashboard;
     final isDefaultDashboard = selectedStructure == Structure.DefaultDashboard;
 
-    final generateProgress = logger.progress('Creating');
+    final generateProgress = logger.progress('Creating $_projectName with flavors');
 
     try {
+      // First, run flutter create
+      final createResult = await Process.run('flutter', [
+        'create',
+        '--org',
+        orgName,
+        '--project-name',
+        _projectName!,
+        outputDirectory.path,
+      ]);
+
+      if (createResult.exitCode != 0) {
+        throw Exception('Failed to create Flutter project: ${createResult.stderr}');
+      }
+
+      // Get the absolute path to the project directory
+      final projectDir = Directory(outputDirectory.absolute.path);
+
+      // Wait for the directory to be created
+      var attempts = 0;
+      while (!projectDir.existsSync() && attempts < 10) {
+        await Future<void>.delayed(const Duration(milliseconds: 500));
+        attempts++;
+      }
+
+      if (!projectDir.existsSync()) {
+        throw Exception('Project directory not created after waiting: ${projectDir.path}');
+      }
+
+      // Add flutter_flavorizr as a dev dependency
+      final addResult = await Process.run(
+        'flutter',
+        ['pub', 'add', 'flutter_flavorizr', '--dev'],
+        workingDirectory: projectDir.path,
+      );
+      if (addResult.exitCode != 0) {
+        throw Exception('Failed to add flutter_flavorizr: ${addResult.stderr}');
+      }
+
+      // Create flavorizr.yaml
+      final flavorizrYaml = File('${projectDir.path}/flavorizr.yaml');
+
+      // Get the template content from the package's assets
+      final templateContent = '''
+flavors:
+  development:
+    app:
+      name: "$_projectName Dev"
+    android:
+      applicationId: "$androidBundleId.dev"
+    ios:
+      bundleId: "$iosBundleId.dev"
+    macos:
+      bundleId: "$iosBundleId.dev"
+      buildSettings:
+        LD_RUNPATH_SEARCH_PATHS:
+          - "\$(inherited)"
+          - "@executable_path/../Frameworks"
+  staging:
+    app:
+      name: "$_projectName Staging"
+    android:
+      applicationId: "$androidBundleId.staging"
+    ios:
+      bundleId: "$iosBundleId.staging"
+    macos:
+      bundleId: "$iosBundleId.staging"
+      buildSettings:
+        LD_RUNPATH_SEARCH_PATHS:
+          - "\$(inherited)"
+          - "@executable_path/../Frameworks"
+  production:
+    app:
+      name: "$_projectName"
+    android:
+      applicationId: "$androidBundleId"
+    ios:
+      bundleId: "$iosBundleId"
+    macos:
+      bundleId: "$iosBundleId"
+      buildSettings:
+        LD_RUNPATH_SEARCH_PATHS:
+          - "\$(inherited)"
+          - "@executable_path/../Frameworks"
+''';
+
+      await flavorizrYaml.writeAsString(templateContent);
+
+      // Run flutter_flavorizr
+      final flavorizrProcess = await Process.start(
+        'flutter',
+        ['pub', 'run', 'flutter_flavorizr', '-f'],
+        workingDirectory: projectDir.path,
+        mode: ProcessStartMode.inheritStdio,
+      );
+
+      final exitCode = await flavorizrProcess.exitCode;
+      if (exitCode != 0) {
+        throw Exception('Failed to run flutter_flavorizr: Exit code $exitCode');
+      }
+
+      // Now generate the additional structure from your Mason brick
       final generator = await MasonGenerator.fromBundle(bundle);
 
       final vars = getTemplateVars(<String, dynamic>{
@@ -135,81 +227,139 @@ class CreateAppCommand extends LYCommand {
         "is_dashboard": isDashboard || isDefaultDashboard,
       });
 
-      final target = DirectoryGeneratorTarget(outputDirectory);
-      final files = await generator.generate(
+      // Create a temporary directory for the Mason template
+      final tempDir = Directory.systemTemp.createTempSync();
+      final target = DirectoryGeneratorTarget(tempDir);
+
+      // Generate the template to temp directory first
+      await generator.generate(
         target,
         vars: vars,
         fileConflictResolution: FileConflictResolution.overwrite,
         logger: Logger(),
       );
 
+      // Print the contents of the Mason tempDir for debugging
+      print('TempDir contents:');
+      tempDir.listSync(recursive: true).forEach((e) => print('  ${e.path}'));
+
+      // Copy the lib directory from the Mason output
+      await _copyDirectory(
+        '${tempDir.path}/lib',
+        '${projectDir.path}/lib',
+      );
+
+      // Copy additional common folders/files from the Mason output
+      final commonFolders = [
+        '.vscode',
+        '.github',
+        if (_hasFirebase) 'tools',
+        'assets',
+        'test',
+        'Makefile',
+        'build.yaml',
+        'analysis_options.yaml',
+        '.gitignore',
+        'README.md',
+        'pubspec.yaml',
+      ];
+
+      for (final item in commonFolders) {
+        final sourcePath = '${tempDir.path}/$item';
+        final destPath = '${projectDir.path}/$item';
+        if (Directory(sourcePath).existsSync()) {
+          await _copyDirectory(sourcePath, destPath);
+        } else if (File(sourcePath).existsSync()) {
+          await File(sourcePath).copy(destPath);
+        } else {
+          logger.warn('Did not find $item in Mason output: sourcePath: $sourcePath - destPath: $destPath');
+        }
+      }
+
       generateProgress.finish(
-        message: 'Generated ${files.length} file(s)',
+        message: 'Generated project with flavors and custom structure',
         showTiming: true,
       );
 
-      await _runScripts(_hasFirebase, selectedStructure);
+      // Run the scripts
+      await _runScriptsWithFlavors(_hasFirebase, selectedStructure, projectDir.path);
     } catch (e) {
       generateProgress.finish(
-        message: 'Failed to generate files',
+        message: 'Failed to generate files: $e',
         showTiming: true,
       );
+      rethrow;
     }
   }
 
-  Future<Structure> _handleProjectStructureSelection() async {
-    final selectedStructure = logger.chooseOne(
-      prompt: 'Select the app structure:',
-      options: Structure.values.map((e) => e.name).toList(),
-    );
+  Future<void> _copyDirectory(String source, String destination) async {
+    final sourceDir = Directory(source);
+    if (!sourceDir.existsSync()) return;
 
-    return Structure.values.firstWhere((element) => element.name == selectedStructure);
+    final destDir = Directory(destination);
+    if (!destDir.existsSync()) {
+      await destDir.create(recursive: true);
+    }
+
+    await for (final entity in sourceDir.list(recursive: true)) {
+      final relativePath = entity.path.substring(source.length + 1);
+      final destPath = '$destination/$relativePath';
+
+      if (entity is File) {
+        await entity.copy(destPath);
+      } else if (entity is Directory) {
+        await Directory(destPath).create(recursive: true);
+      }
+    }
   }
 
-  Future<void> _runScripts(bool _hasFirebase, Structure selectedStructure) async {
+  Future<void> _runScriptsWithFlavors(bool hasFirebase, Structure selectedStructure, String projectDirectory) async {
     logger.info('Running scripts'.blue);
     final shouldOpen = argResults?["open"] as bool? ?? openVSCode;
-    final projectDirectory = Directory("${Directory.current.path}/$_projectName");
-    if (!projectDirectory.existsSync()) {
-      logger.err('Project directory not found: $_projectName');
+
+    if (!Directory(projectDirectory).existsSync()) {
+      logger.err('Project directory not found: $projectDirectory');
       return;
     }
 
-    // Change the current working directory to the project directory
-    Directory.current = projectDirectory;
-    logger.info("Changed directory to $_projectName".blue);
-
     if (isEcoSystem) {
       await replaceAllInDirectory(
-        Directory.current,
-        {'../../packages': '../../../packages'},
+        Directory(projectDirectory),
+        {'../packages': '../../packages'},
       );
     }
 
-    // Now, change into the lib directory
-    final libDirectory = Directory('./lib');
+    final libDirectory = Directory('$projectDirectory/lib');
     if (!libDirectory.existsSync()) {
       logger.err('lib directory not found in the project.');
       return;
     }
 
-    Directory.current = libDirectory;
-    logger.info("Changed directory to lib".blue);
-
-    await runScripts([
-      if (_hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
-      "yak add structure --type ${selectedStructure.name}",
+    // Run each command individually with the working directory
+    final commands = [
+      if (hasFirebase) 'flutter pub add firebase_core firebase_analytics firebase_crashlytics firebase_dynamic_links',
+      "pls add structure --type ${selectedStructure.name}",
       if (!isEcoSystem) ...[
-        "yak add feature --name home --project=$_projectName",
+        "pls add feature --name home --project=$_projectName",
         'flutter clean',
-        'flutter pub get',
-        'flutter pub run build_runner build --delete-conflicting-outputs',
+        'flutter pub upgrade --major-versions',
         'dart format .',
+        'dart run flutter_native_splash:create',
+        'flutter pub run build_runner build --delete-conflicting-outputs',
       ],
-    ]);
+    ];
 
-    Directory.current = projectDirectory;
-    logger.info("Changed directory back to original project directory".blue);
+    for (final command in commands) {
+      final result = await Process.run(
+        'sh',
+        ['-c', command],
+        workingDirectory: libDirectory.path,
+      );
+      if (result.exitCode != 0) {
+        logger.err('Failed to run command: $command\nError: ${result.stderr}');
+      }
+    }
+
     if (_projectName != null) {
       final replaceStringsMap = {
         'parentNameTemplate': _projectName!.camelCase,
@@ -221,13 +371,21 @@ class CreateAppCommand extends LYCommand {
         'AppTemplate': _projectName!.pascalCase,
       };
       await replaceAllInDirectory(
-        Directory.current,
+        Directory(projectDirectory),
         replaceStringsMap,
       );
     }
 
-    // Open VS Code with the project directory
-    if (shouldOpen) await Process.start('code', ['.', './README.md']);
+    if (shouldOpen) await Process.start('code', [projectDirectory, '$projectDirectory/README.md', '--wait']);
+  }
+
+  Future<Structure> _handleProjectStructureSelection() async {
+    final selectedStructure = logger.chooseOne(
+      prompt: 'Select the app structure:',
+      options: Structure.values.map((e) => e.name).toList(),
+    );
+
+    return Structure.values.firstWhere((element) => element.name == selectedStructure);
   }
 
   String _validateProjectName(String? appName) {
@@ -272,23 +430,5 @@ class CreateAppCommand extends LYCommand {
       "has_firebase": _hasFirebase,
       ...vars ?? <String, dynamic>{},
     };
-  }
-
-  void _validateOrgName(String name) {
-    logger.info('Validating org name; $name');
-    final isValidOrgName = _isValidOrgName(name);
-    if (!isValidOrgName) {
-      usageException(
-        '"$name" is not a valid org name.\n\n'
-        'A valid org name has at least 2 parts separated by "."\n'
-        'Each part must start with a letter and only include '
-        'alphanumeric characters (A-Z, a-z, 0-9), underscores (_), '
-        'and hyphens (-)\n',
-      );
-    }
-  }
-
-  bool _isValidOrgName(String name) {
-    return _orgNameRegExp.hasMatch(name);
   }
 }

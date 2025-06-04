@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:lets_yak_cli/src/commands/base.dart';
 import 'package:path/path.dart' as path;
+import 'package:pls_cli/src/commands/base.dart';
 
 /// Update the cli or extension
-class UpdateCommand extends LYCommand {
+class UpdateCommand extends PLSCommand {
   /// Update the cli or extension
   UpdateCommand() {
     argParser.addFlag(
@@ -77,7 +77,7 @@ class UpdateCommand extends LYCommand {
       try {
         await processRunner.runLog(
           "code",
-          ["--install-extension", "lets-yak.vsix"],
+          ["--install-extension", "pls.vsix"],
         );
         installingProgress.done();
       } catch (_) {

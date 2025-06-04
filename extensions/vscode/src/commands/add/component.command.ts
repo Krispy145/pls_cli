@@ -18,7 +18,7 @@ export const addComponent = async (args: Uri) => {
     }
 
     let child = exec(
-      `yak add component --name=${name} --path=${targetDir} --runner`
+      `pls add component --name=${name} --path=${targetDir} --runner`
     );
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
 

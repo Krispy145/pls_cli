@@ -1,9 +1,9 @@
 {
-  "name": "lets-yak",
-  "displayName": "Lets Yak",
-  "publisher": "lets-yak-dev",
+  "name": "pls",
+  "displayName": "Pls",
+  "publisher": "pls-dev",
   "description": "vscode extension to streamline dev",
-  "version": "0.8.26",
+  "version": "0.8.28",
   "private": true,
   "icon": "assets/128.png",
   "engines": {
@@ -14,134 +14,134 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:lets-yak.create-app",
-    "onCommand:lets-yak.create-package",
-    "onCommand:lets-yak.create-ecosystem",
-    "onCommand:lets-yak.add-feature",
-    "onCommand:lets-yak.add-auth",
-    "onCommand:lets-yak.add-data-layer",
-    "onCommand:lets-yak.add-domain-layer",
-    "onCommand:lets-yak.add-presentation-layer",
-    "onCommand:lets-yak.add-structure",
-    "onCommand:lets-yak.add-component",
-    "onCommand:lets-yak.add-model",
-    "onCommand:lets-yak.add-admob",
-    "onCommand:lets-yak.add-notifications",
-    "onCommand:lets-yak.add-deeplinks",
-    "onCommand:lets-yak.add-assets",
-    "onCommand:lets-yak.add-user-location",
-    "onCommand:lets-yak.add-ecosystem-feature",
-    "onCommand:lets-yak.add-ecosystem-presentation-layer",
-    "onCommand:lets-yak.add-ecosystem-data-layer",
-    "onCommand:lets-yak.add-ecosystem-domain-layer"
+    "onCommand:pls.create-app",
+    "onCommand:pls.create-package",
+    "onCommand:pls.create-ecosystem",
+    "onCommand:pls.add-feature",
+    "onCommand:pls.add-auth",
+    "onCommand:pls.add-data-layer",
+    "onCommand:pls.add-domain-layer",
+    "onCommand:pls.add-presentation-layer",
+    "onCommand:pls.add-structure",
+    "onCommand:pls.add-component",
+    "onCommand:pls.add-model",
+    "onCommand:pls.add-admob",
+    "onCommand:pls.add-notifications",
+    "onCommand:pls.add-deeplinks",
+    "onCommand:pls.add-assets",
+    "onCommand:pls.add-user-location",
+    "onCommand:pls.add-ecosystem-feature",
+    "onCommand:pls.add-ecosystem-presentation-layer",
+    "onCommand:pls.add-ecosystem-data-layer",
+    "onCommand:pls.add-ecosystem-domain-layer"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "submenus": [
       {
-        "label": "Lets Yak",
-        "id": "lets-yak.submenu"
+        "label": "Pls",
+        "id": "pls.submenu"
       },
       {
         "label": "Ecosystem",
-        "id": "lets-yak.ecosystem.submenu"
+        "id": "pls.ecosystem.submenu"
       }
     ],
     "commands": [
       {
-        "command": "lets-yak.create-app",
-        "title": "Lets Yak: Create a New App"
+        "command": "pls.create-app",
+        "title": "Pls: Create a New App"
       },
       {
-        "command": "lets-yak.create-package",
-        "title": "Lets Yak: Create a New Package"
+        "command": "pls.create-package",
+        "title": "Pls: Create a New Package"
       },
       {
-        "command": "lets-yak.create-ecosystem",
-        "title": "Lets Yak: Create a New Ecosystem"
+        "command": "pls.create-ecosystem",
+        "title": "Pls: Create a New Ecosystem"
       },
       {
-        "command": "lets-yak.add-feature",
+        "command": "pls.add-feature",
         "title": "Add Feature",
         "shortTitle": "Add Feature"
       },
       {
-        "command": "lets-yak.add-auth",
+        "command": "pls.add-auth",
         "title": "Add Authentication",
         "shortTitle": "Add Authentication"
       },
       {
-        "command": "lets-yak.add-data-layer",
+        "command": "pls.add-data-layer",
         "title": "Add Data Layer",
         "shortTitle": "Add Data Layer"
       },
       {
-        "command": "lets-yak.add-domain-layer",
+        "command": "pls.add-domain-layer",
         "title": "Add Domain Layer",
         "shortTitle": "Add Domain Layer"
       },
       {
-        "command": "lets-yak.add-presentation-layer",
+        "command": "pls.add-presentation-layer",
         "title": "Add Presentation Layer",
         "shortTitle": "Add Presentation Layer"
       },
       {
-        "command": "lets-yak.add-structure",
+        "command": "pls.add-structure",
         "title": "Add Structure",
         "shortTitle": "Add Structure"
       },
       {
-        "command": "lets-yak.add-component",
+        "command": "pls.add-component",
         "title": "Add Component",
         "shortTitle": "Add Component"
       },
       {
-        "command": "lets-yak.add-model",
+        "command": "pls.add-model",
         "shortTitle": "Add Model",
         "title": "Add Model"
       },
       {
-        "command": "lets-yak.add-admob",
+        "command": "pls.add-admob",
         "title": "Add Admob",
         "shortTitle": "Add AdMob"
       },
       {
-        "command": "lets-yak.add-notifications",
+        "command": "pls.add-notifications",
         "title": "Add Notifications",
         "shortTitle": "Add Notifications"
       },
       {
-        "command": "lets-yak.add-deeplinks",
+        "command": "pls.add-deeplinks",
         "title": "Add Deeplinks",
         "shortTitle": "Add Deeplinks"
       },
       {
-        "command": "lets-yak.add-assets",
+        "command": "pls.add-assets",
         "title": "Add Assets",
         "shortTitle": "Add Assets"
       },
       {
-        "command": "lets-yak.add-user-location",
+        "command": "pls.add-user-location",
         "title": "Add User Location",
         "shortTitle": "Add User Location"
       },
       {
-        "command": "lets-yak.add-ecosystem-feature",
+        "command": "pls.add-ecosystem-feature",
         "title": "Add Feature",
         "shortTitle": "Add Feature"
       },
       {
-        "command": "lets-yak.add-ecosystem-presentation-layer",
+        "command": "pls.add-ecosystem-presentation-layer",
         "title": "Add Presentation Layer",
         "shortTitle": "Add Presentation Layer"
       },
       {
-        "command": "lets-yak.add-ecosystem-data-layer",
+        "command": "pls.add-ecosystem-data-layer",
         "title": "Add Data Layer",
         "shortTitle": "Add Data Layer"
       },
       {
-        "command": "lets-yak.add-ecosystem-domain-layer",
+        "command": "pls.add-ecosystem-domain-layer",
         "title": "Add Domain Layer",
         "shortTitle": "Add Domain Layer"
       }
@@ -150,84 +150,84 @@
       "explorer/context": [
         {
           "group": "01_flutter",
-          "submenu": "lets-yak.submenu",
+          "submenu": "pls.submenu",
           "when": "explorerResourceIsFolder"
         }
       ],
       "commandPalette": [],
-      "lets-yak.submenu": [
+      "pls.submenu": [
         {
-          "submenu": "lets-yak.ecosystem.submenu",
+          "submenu": "pls.ecosystem.submenu",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "lets-yak.add-feature",
+          "command": "pls.add-feature",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib))$/"
         },
         {
-          "command": "lets-yak.add-auth",
+          "command": "pls.add-auth",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|presentation))$/"
         },
         {
-          "command": "lets-yak.add-data-layer",
+          "command": "pls.add-data-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|data))$/"
         },
         {
-          "command": "lets-yak.add-domain-layer",
+          "command": "pls.add-domain-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|domain))$/"
         },
         {
-          "command": "lets-yak.add-presentation-layer",
+          "command": "pls.add-presentation-layer",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|presentation))$/"
         },
         {
-          "command": "lets-yak.add-structure",
+          "command": "pls.add-structure",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(lib|navigation))$/"
         },
         {
-          "command": "lets-yak.add-component",
+          "command": "pls.add-component",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(components|lib|presentation|navigation|utils|core|config|app))$/"
         },
         {
-          "command": "lets-yak.add-model",
+          "command": "pls.add-model",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(models|domain|))$/"
         },
         {
-          "command": "lets-yak.add-admob",
+          "command": "pls.add-admob",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
         },
         {
-          "command": "lets-yak.add-notifications",
+          "command": "pls.add-notifications",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "lets-yak.add-deeplinks",
+          "command": "pls.add-deeplinks",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
         },
         {
-          "command": "lets-yak.add-assets",
+          "command": "pls.add-assets",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(assets|lib|))$/"
         },
         {
-          "command": "lets-yak.add-user-location",
+          "command": "pls.add-user-location",
           "when": "explorerResourceIsFolder && resource =~ /.*?(?<=(\\\\|\\/)(dependencies|lib|))$/"
         }
       ],
-      "lets-yak.ecosystem.submenu": [
+      "pls.ecosystem.submenu": [
         {
-          "command": "lets-yak.add-ecosystem-feature",
+          "command": "pls.add-ecosystem-feature",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "lets-yak.add-ecosystem-presentation-layer",
+          "command": "pls.add-ecosystem-presentation-layer",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "lets-yak.add-ecosystem-data-layer",
+          "command": "pls.add-ecosystem-data-layer",
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "lets-yak.add-ecosystem-domain-layer",
+          "command": "pls.add-ecosystem-domain-layer",
           "when": "explorerResourceIsFolder"
         }
       ]
@@ -257,7 +257,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "build": "vsce package -o lets-yak.vsix",
+    "build": "vsce package -o pls.vsix",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {

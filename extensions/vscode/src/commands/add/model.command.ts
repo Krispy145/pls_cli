@@ -18,7 +18,7 @@ export const addModel = async (args: Uri) => {
     }
 
     let child = exec(
-      `yak add model --name=${name} --path=${targetDir} --runner`
+      `pls add model --name=${name} --path=${targetDir} --runner`
     );
     child.stderr?.on("data", (data) => window.showErrorMessage(data));
 

@@ -1,8 +1,7 @@
-import { mkdirp } from "mkdirp";
-import { window, workspace, ProgressLocation, Uri } from "vscode";
-import { exec } from "child_process";
-import { resolve } from "path";
-import { getWorkspaceFilePath } from "./get-target-directory";
+import {mkdirp} from "mkdirp";
+import {window, ProgressLocation, Uri} from "vscode";
+import {exec} from "child_process";
+import {getWorkspaceFilePath} from "./get-target-directory";
 
 export const buildScripts = [
   "flutter clean",
@@ -45,7 +44,7 @@ export const buildRunner = async (args: Uri, commandName: string) => {
         );
       } else {
         window.showInformationMessage(
-          `${commandName} created successfully and build runner completed.`
+          `${commandName} created and build runner completed.`
         );
       }
     }
@@ -55,8 +54,8 @@ export const buildRunner = async (args: Uri, commandName: string) => {
 export const runCommandInWorkspaceFolder = async (
   args: Uri,
   command: string,
-  { folderPath }: { folderPath?: string } = {}
-): Promise<{ error?: string }> => {
+  {folderPath}: {folderPath?: string} = {}
+): Promise<{error?: string}> => {
   const fullPath = getWorkspaceFilePath(args, folderPath ?? "");
 
   // Create directories if folderPath is specified
@@ -67,26 +66,24 @@ export const runCommandInWorkspaceFolder = async (
       window.showErrorMessage(
         `Error creating directories: ${mkdirpError.message}`
       );
-      return { error: mkdirpError.message };
+      return {error: mkdirpError.message};
     }
   }
 
   return new Promise((resolve) => {
-    window.showInformationMessage(`Running command in ${fullPath}: ${command}`);
+    window.showInformationMessage(`Running command: ${command}`);
 
     const childProcess = exec(
       command,
-      { cwd: fullPath },
+      {cwd: fullPath},
       (error, stdout, stderr) => {
         if (error) {
           window.showErrorMessage(`Error executing command: ${error.message}`);
           window.showErrorMessage(`Command output: ${stderr}`);
-          resolve({ error: error.message });
+          resolve({error: error.message});
         } else {
           window.showInformationMessage(`Command output: ${stdout}`);
-          window.showInformationMessage(
-            `Command executed successfully in ${fullPath}`
-          );
+          window.showInformationMessage(`Command executed successfully`);
           resolve({});
         }
       }
@@ -102,10 +99,14 @@ export const runCommandInWorkspaceFolder = async (
 export const runCommandsFromPath = async (
   fullPath: string,
   commands: string[]
-): Promise<{ error?: string }> => {
+): Promise<{error?: string}> => {
   // Iterate over the commands and execute them sequentially
   for (const command of commands) {
-    const result = await runCommand(fullPath, command);
+    try {
+      await runCommand(fullPath, command);
+    } catch (error) {
+      window.showErrorMessage(`Error: ${error}`);
+    }
   }
 
   return {};
@@ -114,23 +115,21 @@ export const runCommandsFromPath = async (
 const runCommand = async (
   fullPath: string,
   command: string
-): Promise<{ error?: string }> => {
+): Promise<{error?: string}> => {
   return new Promise((resolve) => {
-    window.showInformationMessage(`Running command in ${fullPath}: ${command}`);
+    window.showInformationMessage(`Running command: ${command}`);
 
     const childProcess = exec(
       command,
-      { cwd: fullPath },
+      {cwd: fullPath},
       (error, stdout, stderr) => {
         if (error) {
           window.showErrorMessage(`Error executing command: ${error.message}`);
           window.showErrorMessage(`Command output: ${stderr}`);
-          resolve({ error: error.message });
+          resolve({error: error.message});
         } else {
           window.showInformationMessage(`Command output: ${stdout}`);
-          window.showInformationMessage(
-            `Command executed successfully in ${fullPath}`
-          );
+          window.showInformationMessage(`Command executed successfully`);
           resolve({});
         }
       }

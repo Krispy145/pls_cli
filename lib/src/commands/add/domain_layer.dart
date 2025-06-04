@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:lets_yak_cli/src/utils/helpers.dart';
+import 'package:pls_cli/src/utils/helpers.dart';
 import 'package:mason/mason.dart';
 
 import '../../../bundles/_bundles.dart';
@@ -49,7 +49,7 @@ class DomainLayerCommand extends BrickCommandBase {
       );
     }
     return runScripts([
-      'yak add logger --name=$_featureName',
+      'pls add logger --name=$_featureName',
       if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
     ]);
   }

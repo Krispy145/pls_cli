@@ -34,12 +34,12 @@ export const addAuth = async (args: Uri) => {
       authTypeValue = "both";
     }
 
-    const commandNewAuth = `yak add auth  --${authTypeValue} --runner`;
+    const commandNewAuth = `pls add auth  --${authTypeValue} --runner`;
     await runCommandInWorkspaceFolder(args, commandNewAuth, {
       folderPath: "lib",
     });
     // Add authentication package to pubspec.yaml
-    const authenticationPath = "../../../packages/authentication";
+    const authenticationPath = "../packages/authentication";
     addFlutterPackageFromPath("authentication", authenticationPath);
 
     const injectionContainerPath = getWorkspaceFilePath(

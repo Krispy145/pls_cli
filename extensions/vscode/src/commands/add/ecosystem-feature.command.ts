@@ -1,9 +1,9 @@
-import { Uri, window } from "vscode";
-import { findProjectName } from "../../utils/get-target-directory";
-import { newEcoSystemDataLayer } from "./ecosystem-data-layer.command";
-import { newEcoSystemDomainLayer } from "./ecosystem-domain-layer.command";
-import { newEcoSystemPresentationLayer } from "./ecosystem-presentation-layer.command";
-import { buildScripts, runCommandsFromPath } from "../../utils/build_runner";
+import {Uri, window} from "vscode";
+import {findProjectName} from "../../utils/get-target-directory";
+import {newEcoSystemDataLayer} from "./ecosystem-data-layer.command";
+import {newEcoSystemDomainLayer} from "./ecosystem-domain-layer.command";
+import {newEcoSystemPresentationLayer} from "./ecosystem-presentation-layer.command";
+import {buildScripts, runCommandsFromPath} from "../../utils/build_runner";
 
 export const addEcosystemFeature = async (args: Uri) => {
   try {

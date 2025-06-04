@@ -34,8 +34,8 @@ export async function newEcoSystemDomainLayer(
   projectPath: string,
   runScripts: boolean = true
 ) {
-  const commandNewLogger = `yak add logger --name=${name} --path=${projectPath}`;
-  const commandNewDomainLayer = `yak add domain_layer --name=${name} --project=${projectName}`;
+  const commandNewLogger = `pls add logger --name=${name} --path=${projectPath}`;
+  const commandNewDomainLayer = `pls add domain_layer --name=${name} --project=${projectName}`;
 
   await runCommandsFromPath(projectPath, [
     commandNewLogger,

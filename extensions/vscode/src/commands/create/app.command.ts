@@ -17,7 +17,7 @@ export const createApp = async (args: Uri) => {
 
   const appName = await window.showInputBox({
     prompt: "Enter the name for your new app",
-    placeHolder: "lets_yak_app",
+    placeHolder: "pls_app",
     ignoreFocusOut: true,
   });
 
@@ -27,7 +27,7 @@ export const createApp = async (args: Uri) => {
   }
 
   const terminal = window.createTerminal("Create New App");
-  const cmd = `yak create app ${appName}`;
+  const cmd = `pls create app ${appName}`;
 
   // Change to the appDirectory and run the command
   terminal.sendText(`cd "${appDirectory}"`);

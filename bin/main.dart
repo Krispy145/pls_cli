@@ -1,4 +1,4 @@
-import 'package:lets_yak_cli/cli.dart';
+import 'package:pls_cli/cli.dart';
 
 void main(List<String> args) async {
   final runner = CommandRunner();

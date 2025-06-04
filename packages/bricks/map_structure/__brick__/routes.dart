@@ -4,9 +4,7 @@ import 'routes.gr.dart';
 
 /// [AppRouter] is the router of the app.
 @AutoRouterConfig(replaceInRouteName: 'View,Route')
-class AppRouter extends $AppRouter {
+class AppRouter extends RootStackRouter {
   @override
-  List<AutoRoute> get routes => [
-        AutoRoute(initial: true, page: MapWrapperRoute.page, children: const []),
-      ];
+  List<AutoRoute> get routes => [AutoRoute(initial: true, page: MapWrapperRoute.page, children: const [])];
 }

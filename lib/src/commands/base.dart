@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
 import 'package:args/command_runner.dart';
-import 'package:lets_yak_cli/src/logger.dart';
-import 'package:lets_yak_cli/src/process_runner.dart';
+import 'package:pls_cli/src/logger.dart';
+import 'package:pls_cli/src/process_runner.dart';
 
 ///Path for the Github CLI
-const githubPath = "git@github.com:lets-yak/lets-yak-cli.git";
+const githubPath = "git@github.com:pls/pls-cli.git";
 
 /// Consistent base for all commands
-abstract class LYCommand extends Command<void> {
+abstract class PLSCommand extends Command<void> {
   /// Logger for all commands
   Logger get logger => Logger();
 

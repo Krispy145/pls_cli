@@ -16,7 +16,7 @@ export const createEcosystem = async (args: Uri) => {
   const ecosystemDirectory = folderUri[0].fsPath;
 
   const terminal = window.createTerminal("Create New Ecosystem");
-  const cmd = `yak create ecosystem`;
+  const cmd = `pls create ecosystem`;
 
   // Change to the ecosystemDirectory and run the command
   terminal.sendText(`cd "${ecosystemDirectory}"`);

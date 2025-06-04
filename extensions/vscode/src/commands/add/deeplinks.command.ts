@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import { Uri, window, workspace } from "vscode";
+import {Uri, window, workspace} from "vscode";
 import {
   getWorkspaceFilePath,
   getTargetDirectory,
@@ -11,8 +11,8 @@ import {
   appendBeforeMarkerInContent,
   upsertFileToPathAndGetContents,
 } from "../../utils/add_to_files";
-import { addFlutterPackageFromPath } from "../../utils/add_flutter_package";
-import { compareGradleVersions } from "../../utils/compare_gradle_versions";
+import {addFlutterPackageFromPath} from "../../utils/add_flutter_package";
+import {compareGradleVersions} from "../../utils/compare_gradle_versions";
 import {
   formatFiles,
   runCommandInWorkspaceFolder,
@@ -56,7 +56,7 @@ export const addDeepLinks = async (args: Uri) => {
   // Prompt user to select local, push, or both notification packages
   const deepLinkConfigurationType = await vscode.window.showQuickPick(
     ["All", "Android", "iOS", "Web"],
-    { placeHolder: "Select Deeplinks configuration type", ignoreFocusOut: true }
+    {placeHolder: "Select Deeplinks configuration type", ignoreFocusOut: true}
   );
 
   if (!liveKey || !linkDomainPrefix) {
@@ -109,7 +109,7 @@ DeepLinksStore get deepLinksStore => _serviceLocator.get<DeepLinksStore>();
 
   fs.writeFileSync(injectionContainerPath, fileContent);
 
-  const deeplinksPath = "../../../packages/deeplinks";
+  const deeplinksPath = "../packages/deeplinks";
 
   addFlutterPackageFromPath("deeplinks", deeplinksPath);
   await formatFiles(args);

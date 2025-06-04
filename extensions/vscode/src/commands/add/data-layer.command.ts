@@ -17,7 +17,7 @@ export const addDataLayer = async (args: Uri) => {
     if (name) {
       var projectNames = findProjectName(args);
       var projectName = projectNames[0] + projectNames[1];
-      const commandNewDataLayer = `yak add data_layer --name=${name} --project=${projectName} --runner ${pickedDataSourceType}`;
+      const commandNewDataLayer = `pls add data_layer --name=${name} --project=${projectName} --runner ${pickedDataSourceType}`;
       await runCommandInWorkspaceFolder(args, commandNewDataLayer, {
         folderPath: "lib",
       });

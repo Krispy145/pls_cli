@@ -1,6 +1,6 @@
-import 'package:lets_yak_cli/src/commands/add/auth.dart';
-import 'package:lets_yak_cli/src/commands/add/ecosystem_presentation_layer.dart';
-import 'package:lets_yak_cli/src/commands/base.dart';
+import 'package:pls_cli/src/commands/add/auth.dart';
+import 'package:pls_cli/src/commands/add/ecosystem_presentation_layer.dart';
+import 'package:pls_cli/src/commands/base.dart';
 
 import 'component.dart';
 import 'data_layer.dart';
@@ -16,7 +16,7 @@ import 'structures.dart';
 /// {@template addCommand}
 /// Add various parts of the app.
 /// {@endtemplate}
-class AddCommand extends LYCommand {
+class AddCommand extends PLSCommand {
   /// {@macro addCommand}
   AddCommand() {
     addSubcommand(ComponentCommand());

@@ -2,15 +2,15 @@
 import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
-import 'package:lets_yak_cli/src/commands/brick_command_base.dart';
-import 'package:lets_yak_cli/src/utils/data_sources.dart';
-import 'package:lets_yak_cli/src/utils/helpers.dart';
 import 'package:mason/mason.dart';
+import 'package:pls_cli/src/commands/brick_command_base.dart';
+import 'package:pls_cli/src/utils/data_sources.dart';
+import 'package:pls_cli/src/utils/helpers.dart';
 
 import '../../../bundles/_bundles.dart';
 
 /// {@template packageCommand}
-/// Create a new Lets Yak package.
+/// Create a new Pls package.
 /// {@endtemplate}
 class PackageCommand extends BrickCommandBase {
   /// {@macro packageCommand}
@@ -38,7 +38,7 @@ class PackageCommand extends BrickCommandBase {
   final MasonBundle bundle = packageBundle;
 
   @override
-  String get description => "Creates a new Lets Yak package";
+  String get description => "Creates a new Pls package";
 
   @override
   String get name => "package";
@@ -138,16 +138,16 @@ class PackageCommand extends BrickCommandBase {
     }
 
     final dataLayerScript = isEcoSystem
-        ? 'yak add data_layer --name=$featureName --project=$packageName $dataSourcesFlags'
+        ? 'pls add data_layer --name=$featureName --project=$packageName $dataSourcesFlags'
         : data
-            ? 'yak add data_layer --name=$packageName --project=$packageName'
+            ? 'pls add data_layer --name=$packageName --project=$packageName'
             : null;
     final domainLayerScript = isEcoSystem
-        ? 'yak add domain_layer --name=$featureName --project=$packageName'
+        ? 'pls add domain_layer --name=$featureName --project=$packageName'
         : domain
-            ? 'yak add domain_layer --name=$packageName --project=$packageName'
+            ? 'pls add domain_layer --name=$packageName --project=$packageName'
             : null;
-    final presentationLayerScript = presentation ? 'yak add presentation_layer --name=$packageName --project=$packageName' : null;
+    final presentationLayerScript = presentation ? 'pls add presentation_layer --name=$packageName --project=$packageName' : null;
 
     Directory.current = libDirectory;
     logger.info("Changed directory to lib".blue);
@@ -158,9 +158,9 @@ class PackageCommand extends BrickCommandBase {
         if (presentationLayerScript != null) presentationLayerScript,
         if (!isEcoSystem) ...[
           'flutter clean',
-          'flutter pub get',
-          'flutter pub run build_runner build --delete-conflicting-outputs',
+          'flutter pub upgrade --major-versions',
           'dart format .',
+          'flutter pub run build_runner build --delete-conflicting-outputs',
         ],
       ],
     );
@@ -173,7 +173,7 @@ class PackageCommand extends BrickCommandBase {
       'ParentNameTemplate': packageName.pascalCase,
       'parent_name_template': packageName.snakeCase,
     };
-    if (isEcoSystem) replaceStringsMap['../../packages'] = '../../../packages';
+    if (isEcoSystem) replaceStringsMap['../packages'] = '../../packages';
 
     await replaceAllInDirectory(
       Directory.current,

@@ -58,23 +58,23 @@ export const addNotifications = async (args: Uri) => {
   //
 
   // Add notification package(s) to pubspec.yaml
-  const notificationsPath = "../../../packages/notifications";
+  const notificationsPath = "../packages/notifications";
   addFlutterPackageFromPath("notifications", notificationsPath);
   var runCommandResult;
   if (notificationType === "Local") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      `yak add notifications_feature -s=local_notifications_store -r=local_store --project=${projectName}`
+      `pls add notifications_feature -s=local_notifications_store -r=local_store --project=${projectName}`
     );
   } else if (notificationType === "Push")
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      `yak add notifications_feature -s=push_notifications_store -r=push_store --is_push --project=${projectName}`
+      `pls add notifications_feature -s=push_notifications_store -r=push_store --is_push --project=${projectName}`
     );
   else if (notificationType === "Both") {
     runCommandResult = await runCommandInWorkspaceFolder(
       args,
-      `yak add multi_notifications_feature --project=${projectName}`
+      `pls add multi_notifications_feature --project=${projectName}`
     );
   }
   if (runCommandResult?.error !== undefined) {

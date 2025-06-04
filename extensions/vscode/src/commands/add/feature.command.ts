@@ -13,7 +13,7 @@ export const addFeature = async (args: Uri) => {
     if (name) {
       var projectNames = findProjectName(args);
       var projectName = projectNames[0];
-      const commandNewFeature = `yak add feature --name=${name} --project=${projectName} --runner`;
+      const commandNewFeature = `pls add feature --name=${name} --project=${projectName} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewFeature, {
         folderPath: "lib",
       });

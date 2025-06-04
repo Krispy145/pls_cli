@@ -1,7 +1,7 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
-import "package:{{project.snakeCase()}}_dashboard/navigation/routes.gr.dart";
-import "package:{{project.snakeCase()}}_package/data/models/{{name.snakeCase()}}_model.dart";
+import "package:{{project.snakeCase()}}/navigation/routes.gr.dart";
+import "package:{{project.snakeCase()}}/data/models/{{name.snakeCase()}}_model.dart";
 import "package:theme/extensions/build_context.dart";
 import "package:utilities/layouts/paginated_list/builder.dart";
 import "package:utilities/sizes/spacers.dart";
@@ -15,9 +15,9 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
   /// [{{name.pascalCase()}}sView] constructor.
   {{name.pascalCase()}}sView({super.key});
 
-  /// [store] is an instance of [Addit{{name.pascalCase()}}sStore], used in the [LoadStateBuilder].
+  /// [store] is an instance of [{{name.pascalCase()}}sStore], used in the [PackageLoadStateBuilder].
   /// TODO: Move to Managers if requiring global state of store.
-  final Addit{{name.pascalCase()}}sStore store = Addit{{name.pascalCase()}}sStore();
+  final {{name.pascalCase()}}sStore store = {{name.pascalCase()}}sStore();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
             ),
             child: ListTile(
               title: Text({{name.camelCase()}}sModel.id),
-              subtitle: Text({{name.camelCase()}}sModel.name),
+              subtitle: Text({{name.camelCase()}}sModel.name ?? ""),
               onTap: () => context.navigateTo(
                 {{name.pascalCase()}}Route(
                   id: {{name.camelCase()}}sModel.id,

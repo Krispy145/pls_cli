@@ -1,5 +1,5 @@
 name: parent_name_template
-description: "A new Lets Yak package project."
+description: "A new Pls package project."
 version: 0.0.1
 homepage:
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   utilities:
-    path: ../../packages/utilities
+    path: ../packages/utilities
 
 dev_dependencies:
   flutter_test:

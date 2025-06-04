@@ -1,16 +1,16 @@
 import 'dart:io';
 
-import 'package:lets_yak_cli/src/commands/base.dart';
-import 'package:lets_yak_cli/src/commands/brick_command_base.dart';
-import 'package:lets_yak_cli/src/utils/structures.dart';
 import 'package:mason/mason.dart';
+import 'package:pls_cli/src/commands/base.dart';
+import 'package:pls_cli/src/commands/brick_command_base.dart';
+import 'package:pls_cli/src/utils/structures.dart';
 
 import '../../../bundles/_bundles.dart';
 
 /// {@template structureCommand}
 /// Add a structure to the app.
 /// {@endtemplate}
-class StructuresCommand extends LYCommand {
+class StructuresCommand extends PLSCommand {
   /// {@macro structureCommand}
   StructuresCommand() {
     argParser
@@ -42,7 +42,6 @@ class StructuresCommand extends LYCommand {
 
     return runScripts([
       if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
-      'dart format .',
       'dart fix --apply',
     ]);
   }

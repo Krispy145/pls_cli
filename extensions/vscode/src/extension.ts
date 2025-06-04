@@ -27,82 +27,70 @@ import {addEcosystemFeature} from "./commands/add/ecosystem-feature.command";
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
   /// CREATE
-  let app = commands.registerCommand("lets-yak.create-app", createApp);
+  let app = commands.registerCommand("pls.create-app", createApp);
   let newPackage = commands.registerCommand(
-    "lets-yak.create-package",
+    "pls.create-package",
     createPackage
   );
   let ecosystem = commands.registerCommand(
-    "lets-yak.create-ecosystem",
+    "pls.create-ecosystem",
     createEcosystem
   );
 
   /// ADD
-  let feature = commands.registerCommand("lets-yak.add-feature", addFeature);
+  let feature = commands.registerCommand("pls.add-feature", addFeature);
 
-  let auth = commands.registerCommand("lets-yak.add-auth", addAuth);
+  let auth = commands.registerCommand("pls.add-auth", addAuth);
 
-  let data_layer = commands.registerCommand(
-    "lets-yak.add-data-layer",
-    addDataLayer
-  );
+  let data_layer = commands.registerCommand("pls.add-data-layer", addDataLayer);
 
   let domain_layer = commands.registerCommand(
-    "lets-yak.add-domain-layer",
+    "pls.add-domain-layer",
     addDomainLayer
   );
 
   let presentation_layer = commands.registerCommand(
-    "lets-yak.add-presentation-layer",
+    "pls.add-presentation-layer",
     addPresentationLayer
   );
 
-  let structure = commands.registerCommand(
-    "lets-yak.add-structure",
-    addStructure
-  );
-  let component = commands.registerCommand(
-    "lets-yak.add-component",
-    addComponent
-  );
-  let admob = commands.registerCommand("lets-yak.add-admob", addAdmob);
+  let structure = commands.registerCommand("pls.add-structure", addStructure);
+  let component = commands.registerCommand("pls.add-component", addComponent);
+  let admob = commands.registerCommand("pls.add-admob", addAdmob);
 
   let notifications = commands.registerCommand(
-    "lets-yak.add-notifications",
+    "pls.add-notifications",
     addNotifications
   );
 
-  let model = commands.registerCommand("lets-yak.add-model", addModel);
+  let model = commands.registerCommand("pls.add-model", addModel);
 
-  let deepLinks = commands.registerCommand(
-    "lets-yak.add-deeplinks",
-    addDeepLinks
-  );
+  let deepLinks = commands.registerCommand("pls.add-deeplinks", addDeepLinks);
 
-  let assets = commands.registerCommand("lets-yak.add-assets", addAssets);
+  let assets = commands.registerCommand("pls.add-assets", addAssets);
 
   let userLocation = commands.registerCommand(
-    "lets-yak.add-user-location",
+    "pls.add-user-location",
     addUserLocation
   );
 
   let ecosystemFeature = commands.registerCommand(
-    "lets-yak.add-ecosystem-feature",
+    "pls.add-ecosystem-feature",
     addEcosystemFeature
   );
 
   let ecosystemPresentation = commands.registerCommand(
-    "lets-yak.add-ecosystem-presentation-layer",
+    "pls.add-ecosystem-presentation-layer",
     addEcosystemPresentationLayer
   );
 
   let ecosystemData = commands.registerCommand(
-    "lets-yak.add-ecosystem-data-layer",
+    "pls.add-ecosystem-data-layer",
     addEcosystemDataLayer
   );
 
   let ecosystemDomain = commands.registerCommand(
-    "lets-yak.add-ecosystem-domain-layer",
+    "pls.add-ecosystem-domain-layer",
     addEcosystemDomainLayer
   );
 

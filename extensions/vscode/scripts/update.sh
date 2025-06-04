@@ -72,13 +72,13 @@ fi
 # Package the VS Code extension
 vsce package
 
-# Remove previous lets-yak.vsix file if it exists
-rm -f lets-yak.vsix
+# Remove previous pls.vsix file if it exists
+rm -f pls.vsix
 
-# Rename the newly created .vsix file to lets-yak.vsix
-mv *.vsix lets-yak.vsix
+# Rename the newly created .vsix file to pls.vsix
+mv *.vsix pls.vsix
 
 # Install the VS Code extension
-code --install-extension lets-yak.vsix
+code --install-extension pls.vsix
 
 echo "VS Code extension updated to version $new_version, built, and installed successfully."

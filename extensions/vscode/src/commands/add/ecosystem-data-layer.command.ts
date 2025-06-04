@@ -38,8 +38,8 @@ export async function newEcoSystemDataLayer(
   var types = await promptForDataSourceTypes();
 
   const pickedDataSourceType = types?.map((item) => `--${item}`).join(" ");
-  const commandNewLogger = `yak add logger --name=${name} --path=${projectPath}`;
-  const commandNewDataLayer = `yak add data_layer --name=${name} --project=${projectName} ${pickedDataSourceType}`;
+  const commandNewLogger = `pls add logger --name=${name} --path=${projectPath}`;
+  const commandNewDataLayer = `pls add data_layer --name=${name} --project=${projectName} ${pickedDataSourceType}`;
   await runCommandsFromPath(projectPath, [
     commandNewLogger,
     commandNewDataLayer,

@@ -1,11 +1,11 @@
-name: lets_yak_cli
-version: 2.2.0
+name: pls_cli
+version: 2.2.1
 
 environment:
   sdk: ">=2.17.0 <4.0.0"
 
 executables:
-  yak: main
+  pls: main
 
 scripts:
   get:
@@ -17,51 +17,51 @@ scripts:
   minor:vscode: "cd extensions/vscode/scripts && bash update.sh -m"
   build:vscode: "cd extensions/vscode/scripts && bash update.sh -p"
   build:cli:
-    - command: yak run gen:app_brick
-    - command: yak run bundle:all
+    - command: pls run bundle:all
+    - command: flutter pub global deactivate pls_cli && flutter clean && flutter pub get
     - command: flutter pub global activate -spath . --overwrite
+  reset:cli:
+    - command: flutter pub global deactivate pls_cli && flutter clean && flutter pub get && flutter pub global activate -spath . --overwrite
 
-  # Useful for bundling all the add bricks eg `BRICK=bloc yak run bundle`
+  # Useful for bundling all the add bricks eg `BRICK=bloc pls run bundle`
   bundle: mason bundle ./packages/bricks/$BRICK -o ./lib/bundles/ -t dart
-  bundle:app: BRICK=app yak run bundle
-  bundle:component: BRICK=component yak run bundle
-  bundle:auth: BRICK=auth yak run bundle
-  bundle:package: BRICK=package yak run bundle
-  bundle:data_layer: BRICK=data_layer yak run bundle
-  bundle:domain_layer: BRICK=domain_layer yak run bundle
-  bundle:presentation_layer: BRICK=presentation_layer yak run bundle
-  bundle:ecosystem_presentation_layer: BRICK=ecosystem_presentation_layer yak run bundle
-  bundle:notifications_feature: BRICK=notifications_feature yak run bundle
-  bundle:multi_notifications_feature: BRICK=multi_notifications_feature yak run bundle
-  bundle:dashboard_structure: BRICK=dashboard_structure yak run bundle
-  bundle:default_dashboard_structure: BRICK=default_dashboard_structure yak run bundle
-  bundle:default_structure: BRICK=default_structure yak run bundle
-  bundle:map_structure: BRICK=map_structure yak run bundle
-  bundle:default_map_structure: BRICK=default_map_structure yak run bundle
-  bundle:model: BRICK=model yak run bundle
-  bundle:all: yak run bundle:app && yak run bundle:component && yak run bundle:auth && yak run bundle:data_layer && yak run bundle:domain_layer && yak run bundle:presentation_layer && yak run bundle:notifications_feature && yak run bundle:multi_notifications_feature && yak run bundle:dashboard_structure && yak run bundle:default_dashboard_structure && yak run bundle:default_structure && yak run bundle:map_structure && yak run bundle:default_map_structure && yak run bundle:model && yak run bundle:package && yak run bundle:ecosystem_presentation_layer
-  gen:app_brick:
-    - command: flutter clean
-      cwd: packages/app/template
-    - command: dart packages/app_brick_generator/main.dart
+  bundle:app: BRICK=app pls run bundle
+  bundle:component: BRICK=component pls run bundle
+  bundle:auth: BRICK=auth pls run bundle
+  bundle:package: BRICK=package pls run bundle
+  bundle:data_layer: BRICK=data_layer pls run bundle
+  bundle:domain_layer: BRICK=domain_layer pls run bundle
+  bundle:presentation_layer: BRICK=presentation_layer pls run bundle
+  bundle:ecosystem_presentation_layer: BRICK=ecosystem_presentation_layer pls run bundle
+  bundle:notifications_feature: BRICK=notifications_feature pls run bundle
+  bundle:multi_notifications_feature: BRICK=multi_notifications_feature pls run bundle
+  bundle:dashboard_structure: BRICK=dashboard_structure pls run bundle
+  bundle:default_dashboard_structure: BRICK=default_dashboard_structure pls run bundle
+  bundle:default_structure: BRICK=default_structure pls run bundle
+  bundle:map_structure: BRICK=map_structure pls run bundle
+  bundle:default_map_structure: BRICK=default_map_structure pls run bundle
+  bundle:model: BRICK=model pls run bundle
+  bundle:all: pls run bundle:app && pls run bundle:component && pls run bundle:auth && pls run bundle:data_layer && pls run bundle:domain_layer && pls run bundle:presentation_layer && pls run bundle:notifications_feature && pls run bundle:multi_notifications_feature && pls run bundle:dashboard_structure && pls run bundle:default_dashboard_structure && pls run bundle:default_structure && pls run bundle:map_structure && pls run bundle:default_map_structure && pls run bundle:model && pls run bundle:package && pls run bundle:ecosystem_presentation_layer
 
 dependencies:
   mason: ^0.1.0-dev.56
-  analyzer: ^6.2.0
+  analyzer: ^7.1.0
   args: ^2.3.1
   recase: ^4.0.0
   yaml: ^3.1.1
   yaml_edit: ^2.0.3
   io: ^1.0.3
-  process_run: ^0.13.1
+  process_run: ^1.2.2+1
   path: ^1.8.2
   collection: ^1.16.0
   interact: ^2.1.1
   cli_util: ^0.4.0
   ansi_styles: ^0.3.2+1
-  cli_completion: ^0.3.0
+  cli_completion: ^0.5.1
   meta: ^1.9.0
+  package_config: ^2.1.0
+  path_provider: ^2.0.15
 
 dev_dependencies:
-  flutter_lints: ^2.0.1
+  flutter_lints: ^5.0.0
   test: ^1.21.4

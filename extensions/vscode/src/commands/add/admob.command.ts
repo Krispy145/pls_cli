@@ -1,12 +1,12 @@
-import { Uri, window } from "vscode";
+import {Uri, window} from "vscode";
 import {
   getWorkspaceFilePath,
   getTargetDirectory,
 } from "../../utils/get-target-directory";
 import * as fs from "fs";
-import { appendBeforeMarkerInContent } from "../../utils/add_to_files";
-import { addFlutterPackageFromPath } from "../../utils/add_flutter_package";
-import { formatFiles } from "../../utils/build_runner";
+import {appendBeforeMarkerInContent} from "../../utils/add_to_files";
+import {addFlutterPackageFromPath} from "../../utils/add_flutter_package";
+import {formatFiles} from "../../utils/build_runner";
 
 export const addAdmob = async (args: Uri) => {
   try {
@@ -150,6 +150,6 @@ const updateInjectionContainer = async (
 
   fs.writeFileSync(injectionContainerPath, updatedContent3);
 
-  const admobPath = "../../../packages/admob/";
+  const admobPath = "../packages/admob/";
   addFlutterPackageFromPath("admob", admobPath);
 };

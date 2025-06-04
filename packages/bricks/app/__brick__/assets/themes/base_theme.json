@@ -1,0 +1,249 @@
+{
+  "id": "b0c90d0a-d0bc-4930-9718-6984d4918723",
+  "name": "{{project_name.titleCase()}} Theme",
+  "colors": {
+    "primary": {
+      "light": {
+        "primary": "[42, 97, 57, 1]",
+        "onPrimary": "[241, 239, 231, 1]",
+        "primaryContainer": "[254, 249, 238, 1]",
+        "onPrimaryContainer": "[29, 55, 36, 1]",
+        "secondary": "[241, 107, 64, 1]",
+        "onSecondary": "[241, 239, 231, 1]",
+        "secondaryContainer": "[108, 45, 25, 1]",
+        "onSecondaryContainer": "[254, 249, 238, 1]",
+        "tertiary": "[51, 51, 51, 1]",
+        "onTertiary": "[196, 207, 196, 1]",
+        "tertiaryContainer": "[215, 156, 156, 1]",
+        "onTertiaryContainer": "[51, 51, 51, 1]",
+        "error": "[186, 26, 26, 1]",
+        "onError": "[255, 255, 255, 1]",
+        "errorContainer": "[255, 218, 214, 1]",
+        "onErrorContainer": "[186, 26, 26, 1]",
+        "confirmation": "[59, 199, 115, 1]",
+        "onConfirmation": "[238, 231, 213, 1]",
+        "confirmationContainer": "[254, 249, 238, 1]",
+        "onConfirmationContainer": "[29, 55, 36, 1]",
+        "information": "[33, 158, 243, 1]",
+        "onInformation": "[255, 255, 255, 1]",
+        "informationContainer": "[188, 225, 255, 1]",
+        "onInformationContainer": "[0, 0, 0, 0]",
+        "warning": "[255, 152, 255, 1]",
+        "onWarning": "[255, 255, 255, 1]",
+        "warningContainer": "[255, 224, 179, 1]",
+        "onWarningContainer": "[76, 46, 31, 1]",
+        "background": "[254, 249, 238, 1]",
+        "onBackground": "[51, 51, 51, 1]",
+        "outline": "[69, 70, 79, 1]",
+        "outlineVariant": "[198, 198, 208, 1]",
+        "surface": "[254, 249, 238, 1]",
+        "onSurface": "[51, 51, 51, 1]",
+        "surfaceVariant": "[198, 198, 208, 1]",
+        "onSurfaceVariant": "[69, 70, 79, 1]",
+        "inverseSurface": "[48, 48, 52, 1]",
+        "onInverseSurface": "[242, 240, 244, 1]",
+        "inversePrimary": "[69, 70, 79, 1]",
+        "disabled": "[158, 158, 158, 1]",
+        "shadow": "[0, 0, 0, 1]",
+        "surfaceTint": "[53, 87, 188, 1]",
+        "scrim": "[0, 0, 0, 1]",
+        "palette": null
+      },
+      "dark": {
+        "primary": "[241, 107, 64, 1]",
+        "onPrimary": "[254, 249, 238, 1]",
+        "primaryContainer": "[51, 51, 51, 1]",
+        "onPrimaryContainer": "[241, 107, 64, 1]",
+        "secondary": "[29, 55, 36, 1]",
+        "onSecondary": "[248, 247, 247, 1]",
+        "secondaryContainer": "[254, 249, 238, 1]",
+        "onSecondaryContainer": "[29, 55, 36, 1]",
+        "tertiary": "[254, 249, 238, 1]",
+        "onTertiary": "[51, 51, 51, 1]",
+        "tertiaryContainer": "[209, 231, 124, 1]",
+        "onTertiaryContainer": "[51, 51, 51, 1]",
+        "error": "[186, 26, 26, 1]",
+        "onError": "[255, 255, 255, 1]",
+        "errorContainer": "[255, 218, 214, 1]",
+        "onErrorContainer": "[186, 26, 26, 1]",
+        "confirmation": "[59, 199, 115, 1]",
+        "onConfirmation": "[238, 231, 213, 1]",
+        "confirmationContainer": "[254, 249, 238, 1]",
+        "onConfirmationContainer": "[29, 55, 36, 1]",
+        "information": "[33, 150, 243, 1]",
+        "onInformation": "[255, 255, 255, 1]",
+        "informationContainer": "[188, 225, 255, 1]",
+        "onInformationContainer": "[0, 0, 0, 0]",
+        "warning": "[255, 152, 255, 1]",
+        "onWarning": "[255, 255, 255, 1]",
+        "warningContainer": "[255, 224, 179, 1]",
+        "onWarningContainer": "[76, 46, 31, 1]",
+        "background": "[51, 51, 51, 1]",
+        "onBackground": "[254, 249, 238, 1]",
+        "outline": "[118, 118, 128, 1]",
+        "outlineVariant": "[198, 198, 208, 1]",
+        "surface": "[51, 51, 51, 1]",
+        "onSurface": "[254, 249, 238, 1]",
+        "surfaceVariant": "[48, 48, 52, 1]",
+        "onSurfaceVariant": "[247, 255, 255, 0.5843137254901961]",
+        "inverseSurface": "[48, 48, 52, 1]",
+        "onInverseSurface": "[242, 240, 244, 1]",
+        "inversePrimary": "[181, 196, 255, 1]",
+        "disabled": "[158, 158, 158, 1]",
+        "shadow": "[0, 0, 0, 1]",
+        "surfaceTint": "[53, 87, 188, 1]",
+        "scrim": "[0, 0, 0, 1]",
+        "palette": null
+      }
+    }
+  },
+  "textStyles": {
+    "primary": {
+      "display": {
+        "large": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 57,
+          "lineHeight_double": 64,
+          "letterSpacing_double": 0
+        },
+        "medium": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 45,
+          "lineHeight_double": 52,
+          "letterSpacing_double": 0
+        },
+        "small": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 36,
+          "lineHeight_double": 44,
+          "letterSpacing_double": 0
+        }
+      },
+      "headline": {
+        "large": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 32,
+          "lineHeight_double": 40,
+          "letterSpacing_double": 0
+        },
+        "medium": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 28,
+          "lineHeight_double": 36,
+          "letterSpacing_double": 0
+        },
+        "small": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 24,
+          "lineHeight_double": 32,
+          "letterSpacing_double": 0
+        }
+      },
+      "title": {
+        "large": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 22,
+          "lineHeight_double": 28,
+          "letterSpacing_double": 0
+        },
+        "medium": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 500,
+          "fontSize_double": 16,
+          "lineHeight_double": 24,
+          "letterSpacing_double": 0
+        },
+        "small": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 500,
+          "fontSize_double": 14,
+          "lineHeight_double": 20,
+          "letterSpacing_double": 0
+        }
+      },
+      "body": {
+        "large": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 16,
+          "lineHeight_double": 24,
+          "letterSpacing_double": 0
+        },
+        "medium": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 14,
+          "lineHeight_double": 20,
+          "letterSpacing_double": 0
+        },
+        "small": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 400,
+          "fontSize_double": 12,
+          "lineHeight_double": 16,
+          "letterSpacing_double": 0
+        }
+      },
+      "label": {
+        "large": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 500,
+          "fontSize_double": 14,
+          "lineHeight_double": 20,
+          "letterSpacing_double": 0
+        },
+        "medium": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 500,
+          "fontSize_double": 12,
+          "lineHeight_double": 16,
+          "letterSpacing_double": 0
+        },
+        "small": {
+          "fontFamilyName_font": "Lato",
+          "color_themeColorString": null,
+          "fontFamilyStyle_enum_fontStyle": "normal",
+          "fontWeight_double": 500,
+          "fontSize_double": 11,
+          "lineHeight_double": 16,
+          "letterSpacing_double": 0
+        }
+      }
+    }
+  }
+}

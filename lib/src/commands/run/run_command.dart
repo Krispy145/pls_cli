@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:ansi_styles/extension.dart';
-import 'package:lets_yak_cli/src/commands/base.dart';
-import 'package:lets_yak_cli/src/utils/helpers.dart';
+import 'package:pls_cli/src/commands/base.dart';
+import 'package:pls_cli/src/utils/helpers.dart';
 import 'package:yaml/yaml.dart';
 
 /// {@template run_command}
 /// Run scripts specified in the pubspec.yaml, similar to npm scripts
 /// {@endtemplate}
-class RunCommand extends LYCommand {
+class RunCommand extends PLSCommand {
   /// {@macro run_command}
   RunCommand() {
     argParser.addFlag(
@@ -43,7 +43,7 @@ class RunCommand extends LYCommand {
 
     final scriptName = argResults?.rest.isNotEmpty ?? false ? argResults?.rest[0] : null;
     if (scriptName == null) {
-      logger.err("No script specified, please run 'yak run <script name>'");
+      logger.err("No script specified, please run 'pls run <script name>'");
       _displayHelp(scripts);
       return;
     }
@@ -70,7 +70,7 @@ class RunCommand extends LYCommand {
       ..info(
         "${"Available scripts".blue.bold}: \n${scripts.keys.map((key) => "🔹 $key").join("\n")}",
       )
-      ..info("To run a script run 'yak run <script name>'");
+      ..info("To run a script run 'pls run <script name>'");
   }
 }
 

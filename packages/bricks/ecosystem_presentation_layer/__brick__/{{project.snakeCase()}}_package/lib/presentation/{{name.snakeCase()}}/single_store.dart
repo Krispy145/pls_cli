@@ -18,7 +18,7 @@ abstract class _{{name.pascalCase()}}Store extends {{name.pascalCase()}}sStore w
   _{{name.pascalCase()}}Store({
     this.id,
     {{name.pascalCase()}}Model? initial{{name.pascalCase()}}Model,
-  }): super(shouldLoadMoreInitially: false) {
+  }) {
     _load{{name.pascalCase()}}(initial{{name.pascalCase()}}Model);
   }
 

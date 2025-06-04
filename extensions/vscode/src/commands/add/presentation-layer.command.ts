@@ -13,7 +13,7 @@ export const addPresentationLayer = async (args: Uri) => {
     if (name) {
       var projectNames = findProjectName(args);
       var projectName = projectNames[0] + projectNames[1];
-      const commandNewPresentationLayer = `yak add presentation_layer --name=${name} --project=${projectName} --runner`;
+      const commandNewPresentationLayer = `pls add presentation_layer --name=${name} --project=${projectName} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewPresentationLayer, {
         folderPath: "lib",
       });

@@ -13,7 +13,7 @@ export const addDomainLayer = async (args: Uri) => {
     if (name) {
       var projectNames = findProjectName(args);
       var projectName = projectNames[0] + projectNames[1];
-      const commandNewDomainLayer = `yak add domain_layer --name=${name} --project=${projectName} --runner`;
+      const commandNewDomainLayer = `pls add domain_layer --name=${name} --project=${projectName} --runner`;
       await runCommandInWorkspaceFolder(args, commandNewDomainLayer, {
         folderPath: "lib",
       });

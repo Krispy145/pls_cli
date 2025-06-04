@@ -11,9 +11,7 @@ class {{name.pascalCase()}}FormView extends ReactiveFormsModelView<{{name.pascal
     super.key,
     required super.store,
     required super.onBack,
-  }) : super(
-          createButtonTitle: "Update",
-        );
+  }) ;
 
   @override
   Widget formBuilder(BuildContext context) {

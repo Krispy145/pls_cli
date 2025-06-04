@@ -16,7 +16,7 @@ export const createPackage = async (args: Uri) => {
   const appDirectory = folderUri[0].fsPath;
 
   const terminal = window.createTerminal("Create New Package");
-  const cmd = `yak create package`;
+  const cmd = `pls create package`;
 
   // Change to the packageDirectory and run the command
   terminal.sendText(`cd "${appDirectory}"`);

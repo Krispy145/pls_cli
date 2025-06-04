@@ -2,9 +2,9 @@
 
 # Install / Update
 
-- Clone `lets-yak-cli` repo
+- Clone `pls-cli` repo
 - In root, `flutter pub global activate -spath . --overwrite`
-- Run `yak -h` to test and see available commands
+- Run `pls -h` to test and see available commands
 
 # VSCode Extension
 
@@ -12,12 +12,12 @@
   - Uninstall the extension from the extensions panel
   - Reinstall the extension (sometimes need to do twice)
     - Main branch:
-      - Run `yak update --vscode` to update the VSCode package
+      - Run `pls update --vscode` to update the VSCode package
     - Local Changes:
       - cd into `extensions/vscode` run `npm run build`
       - `cmd+shift+p`
       - Select `Install from VSIX`
-      - Select `lets-yak-cli/extensions/vscode/lets-yak.vsix`
+      - Select `pls-cli/extensions/vscode/pls.vsix`
         - Note: This file is generated during `npm run build`
 
 ## Debug

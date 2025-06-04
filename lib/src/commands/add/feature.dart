@@ -1,11 +1,11 @@
-import 'package:lets_yak_cli/src/commands/base.dart';
-import 'package:lets_yak_cli/src/commands/brick_command_base.dart';
-import 'package:lets_yak_cli/src/utils/helpers.dart';
+import 'package:pls_cli/src/commands/base.dart';
+import 'package:pls_cli/src/commands/brick_command_base.dart';
+import 'package:pls_cli/src/utils/helpers.dart';
 
 /// {@template featureCommand}
 /// Add a feature to the app.
 /// {@endtemplate}
-class FeatureCommand extends LYCommand {
+class FeatureCommand extends PLSCommand {
   /// FeatureCommand constructor
   FeatureCommand() {
     argParser
@@ -36,17 +36,16 @@ class FeatureCommand extends LYCommand {
           prompt: "What is the name of the feature?",
           validator: isValidDirectoryName,
         );
-    final dataLayerScript = isEcoSystem ? 'yak add data_layer --name=$featureName --project=$projectName' : 'yak add data_layer --name=$featureName --project=$projectName';
-    final domainLayerScript = isEcoSystem ? 'yak add domain_layer --name=$featureName --project=$projectName' : 'yak add domain_layer --name=$featureName --project=$projectName';
+    final dataLayerScript = isEcoSystem ? 'pls add data_layer --name=$featureName --project=$projectName' : 'pls add data_layer --name=$featureName --project=$projectName';
+    final domainLayerScript = isEcoSystem ? 'pls add domain_layer --name=$featureName --project=$projectName' : 'pls add domain_layer --name=$featureName --project=$projectName';
     final presentationLayerScript =
-        isEcoSystem ? 'yak add ecosystem_presentation_layer --name=$featureName --project=$projectName' : 'yak add presentation_layer --name=$featureName --project=$projectName';
+        isEcoSystem ? 'pls add ecosystem_presentation_layer --name=$featureName --project=$projectName' : 'pls add presentation_layer --name=$featureName --project=$projectName';
 
     return runScripts([
       dataLayerScript,
       domainLayerScript,
       presentationLayerScript,
       if (buildRunner) 'flutter pub run build_runner build --delete-conflicting-outputs',
-      'dart format .',
       'dart fix --apply',
     ]);
   }
