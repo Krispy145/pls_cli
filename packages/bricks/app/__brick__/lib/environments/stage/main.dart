@@ -11,6 +11,7 @@ import "package:theme/utils/loggers.dart";
 import "package:{{project_name.snakeCase()}}/config/store.dart";
 import "package:flutter_native_splash/flutter_native_splash.dart";
 import "package:flutter/services.dart";
+import "package:ai_me/flavors.dart";
 import 'package:{{project_name.snakeCase()}}/flavors.dart';
 
 {{#has_firebase}}
@@ -61,7 +62,7 @@ void main() async {
 
   Managers.init(config: config);
   F.appFlavor = Flavor.values.firstWhere(
-    (element) => element.name == appFlavor,
+    (element) => element.name == config.environment?.name,
   );
   FlutterNativeSplash.remove();
   runApp(const MainApp());

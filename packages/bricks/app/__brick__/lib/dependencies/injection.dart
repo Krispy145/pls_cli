@@ -1,6 +1,7 @@
 import 'package:{{project_name.snakeCase()}}/core/assets/assets.gen.dart';
 import 'package:{{project_name.snakeCase()}}/config/store.dart';
 import 'package:{{project_name.snakeCase()}}/navigation/routes.dart';
+import "package:{{project_name.snakeCase()}}/core/assets/assets.gen.dart";
 import 'package:get_it/get_it.dart';
 import "package:theme/data/repositories/theme_configuration.dart";
 {{#is_dashboard}}
@@ -89,8 +90,12 @@ class ManagerInjector {
     _serviceLocator
           ..registerLazySingleton<ThemeStateStore>(
         () => ThemeStateStore(
-          initialBaseThemeConfiguration: const ThemeConfiguration.local(),
-          initialComponentThemesConfiguration: const ThemeConfiguration.local(),
+          initialBaseThemeConfiguration: ThemeConfiguration.assets(
+            rootBundleKey: Assets.themes.baseTheme,
+          ),
+          initialComponentThemesConfiguration: ThemeConfiguration.assets(
+            rootBundleKey: Assets.themes.componentThemes,
+          ),
         ),
       )
 

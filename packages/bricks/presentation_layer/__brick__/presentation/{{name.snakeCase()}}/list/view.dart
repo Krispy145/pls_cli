@@ -1,4 +1,5 @@
 import "package:auto_route/auto_route.dart";
+import "package:ai_me/flavors.dart";
 import "package:flutter/material.dart";
 import "package:{{project.snakeCase()}}/navigation/routes.gr.dart";
 import "package:{{project.snakeCase()}}/data/models/{{name.snakeCase()}}_model.dart";
@@ -24,7 +25,9 @@ class {{name.pascalCase()}}sView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("{{project.titleCase()}}s"),
+        title: Text(
+          F.title.toTitleCase(),          
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.navigateTo({{name.pascalCase()}}Route()),

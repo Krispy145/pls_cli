@@ -31,8 +31,7 @@ class {{name.pascalCase()}}View extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          {{name.camelCase()}}FormStore.isAdding ? "{{name.pascalCase()}} Creation" : "Update ${store.current{{name.pascalCase()}}?.name}",
-          style: context.textTheme.headlineMedium,
+          {{name.camelCase()}}FormStore.isAdding ? "{{name.pascalCase()}} Creation" : "Update ${store.current{{name.pascalCase()}}?.name}",          
         ),
       ),
       body: Observer(

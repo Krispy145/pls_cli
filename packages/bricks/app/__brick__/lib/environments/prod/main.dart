@@ -8,7 +8,7 @@ import "package:{{project_name.snakeCase()}}/environments/prod/env.dart";
 import "package:{{project_name.snakeCase()}}/config/store.dart";
 import "package:flutter_native_splash/flutter_native_splash.dart";
 import "package:flutter/services.dart";
-
+import "package:ai_me/flavors.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:theme/utils/loggers.dart";
@@ -62,7 +62,7 @@ if (!kIsWeb) {
   {{/has_firebase}}
   Managers.init(config: config);
   F.appFlavor = Flavor.values.firstWhere(
-    (element) => element.name == appFlavor,
+    (element) => element.name == config.environment?.name,
   );
   FlutterNativeSplash.remove();
 

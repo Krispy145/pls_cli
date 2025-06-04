@@ -1,6 +1,6 @@
 {
   "id": "03c74465-7e66-48dc-bd39-b776cfa774f1",
-  "name": "{{project_name.titleCase()}} Component Theme",
+  "name": "{{project_name.titleCase()}} Component Themes",
   "elevatedButtons": {
     "primary": {
       "textStyle_textStyleString": null,
@@ -24,7 +24,7 @@
   },
   "filledButtons": {
     "primary": {
-      "textStyle_textStyleString": "title-medium",
+      "textStyle_textStyleString": null,
       "backgroundColor_themeColorString": null,
       "foregroundColor_themeColorString": null,
       "overlayColor_themeColorString": null,

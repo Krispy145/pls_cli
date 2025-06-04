@@ -11,6 +11,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_mobx/flutter_mobx.dart";
 import "package:flutter_web_plugins/url_strategy.dart";
+import "package:ai_me/flavors.dart";
 import "package:theme/utils/loggers.dart";
 import "package:{{project_name.snakeCase()}}/config/store.dart";
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -42,6 +43,7 @@ void main() async {
   final config = ConfigStore(
     environmentName: Flavor.development.name,
     loggerFeatures: loggerFeatures,
+    showDevTools: kDebugMode && kIsWeb,
     domain: kDebugMode ? "http://localhost:8060" : DevEnv.domain,
   );  
 
@@ -67,7 +69,7 @@ void main() async {
 
   Managers.init(config: config);
   F.appFlavor = Flavor.values.firstWhere(
-    (element) => element.name == appFlavor,
+    (element) => element.name == config.environment?.name,
   );
   FlutterNativeSplash.remove();
 
